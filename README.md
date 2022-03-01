@@ -32,3 +32,4 @@ The suggested way to retrieve the MIBs applicable to the Cisco products that you
   - Empty folders have not been backed up.
 - Some Wireless LAN Controller model MIBs are located on the applicable [software.cisco.com](https://software.cisco.com/download/home) downloads page. 
   - e.g. [3504 Wireless Controller, Release 8.10.162.0 MIBs](https://software.cisco.com/download/home/286312601/type/280775088/release/8.10.162.0)
+- All instances of `ftp://ftp.cisco.com/pub/mibs/` have been replaced with `https://raw.githubusercontent.com/cisco/cisco-mibs/main/` within `.html`/`.htm` files.
