@@ -3,7 +3,10 @@ Various Public Simple Network Management Protocol (SNMP) management information 
 
 ### Usage Guidelines
 The suggested way to retrieve the MIBs applicable to the Cisco products that you wish to manage is as follows:
-1. For each product, retrieve the file `supportlists/[product]/supportlist.txt` or `supportlists/[product]/supportlist.html`,
+1. For each product, download and open the desired file:
+   - `supportlists/[product]/supportlist.txt`
+   - `supportlists/[product]/supportlist.html` (Download. Then open locally.)
+   - `https://cisco.github.io/cisco-mibs/supportlists/[product]/supportlist.html`
 2. Determine which MIBs each product supports from the retrieved file.
 3. Consult the `v2/readme` or `v1/readme` file for brief descriptions of the functionality provided by each MIB.
 4. Retrieve all MIBs which provide the functionality you are interested in, and are applicable to the Cisco products you wish to support.
