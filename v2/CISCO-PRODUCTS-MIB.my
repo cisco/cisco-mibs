@@ -2597,6 +2597,7 @@ ciscoESR6300NCPK9                   OBJECT IDENTIFIER ::= { ciscoProducts 2865 }
 ciscoNCS55A148Q6H                   OBJECT IDENTIFIER ::= { ciscoProducts 2866 } --  NCS 55A1 48x25G + 6 x 100G Fixed Chassis, Spare
 ciscoNCS55A148T6H                   OBJECT IDENTIFIER ::= { ciscoProducts 2867 } --  Network Convergence Services 55A1 24x25G 24x10G 6x100G Fixed
 ciscoCMICR4PS                       OBJECT IDENTIFIER ::= { ciscoProducts 2868 } --  Catalyst Micro Switch for Walljack Deployments, 2 x SFP Uplink
+ciscoCMICR4PC                       OBJECT IDENTIFIER ::= { ciscoProducts 2869 } --  Catalyst Micro Switch for Walljack Deployments, 1 x copper + 1 x SFP Uplink
 ciscoFpr1150td                      OBJECT IDENTIFIER ::= { ciscoProducts 2870 } --   Cisco Firepower 1150 Security Appliance
 ciscoC9606RVirtualStack             OBJECT IDENTIFIER ::= { ciscoProducts 2871 } --   Virtual Stack of Cisco Catalyst 9606R
 ciscoIE34008T2S                     OBJECT IDENTIFIER ::= { ciscoProducts 2872 } --   Cisco Industrial Ethernet 3400 Switch, Petra Expandable System 2 Port SFP + 8 Port GE Copper Adv
@@ -2735,20 +2736,33 @@ ciscoUCSC220M6                      OBJECT IDENTIFIER ::= { ciscoProducts 3100 }
 ciscoUCSC240M6                      OBJECT IDENTIFIER ::= { ciscoProducts 3101 } -- Cisco UCS C240 M6 Rack server
 ciscoUCSB200M5                      OBJECT IDENTIFIER ::= { ciscoProducts 3103 } -- Cisco UCS B200 M5 Blade Server      
 ciscoUCSB480M5                      OBJECT IDENTIFIER ::= { ciscoProducts 3104 } -- Cisco UCS B480 M5 Blade Server        
+ciscoIE931026S2C                    OBJECT IDENTIFIER ::= { ciscoProducts 3129 } -- Cisco Catalyst IE9300 Series Switch with 22 Ports GE SFP and 2 Ports GE Combo Downlinks and 4 Ports GE SFP Uplinks
+ciscoIE9320stack                    OBJECT IDENTIFIER ::= { ciscoProducts 3130 } -- A stack of any Cisco Catalyst IE9320 stackable Ethernet switches with unified identity (as a single unified switch), control and management
+ciscoIC30002C2FK9                   OBJECT IDENTIFIER ::= { ciscoProducts 3135 } -- Cisco IC3000 Industrial Compute Gateway with 2 GE, 2 SFP
 ciscoUCSIOM2208                     OBJECT IDENTIFIER ::= { ciscoProducts 3138 } -- Cisco UCS-IOM-2208 IOM
 ciscoUCSIOM2304                     OBJECT IDENTIFIER ::= { ciscoProducts 3139 } -- Cisco UCS-IOM-2304 IOM
 ciscoUCSIOM2408                     OBJECT IDENTIFIER ::= { ciscoProducts 3140 } -- Cisco UCS-IOM-2408 IOM
 ciscoUCSBXI910825G                  OBJECT IDENTIFIER ::= { ciscoProducts 3141 } -- Cisco UCSBX-I-9108-25G IOM
+ciscoNCS540L24Q8L2DDSys             OBJECT IDENTIFIER ::= { ciscoProducts 3143 } -- NCS540L Router - NCS540-24Q8L2DD-SYS
 cisco810132FH                       OBJECT IDENTIFIER ::= { ciscoProducts 3144 } -- Cisco 8100 32x400G QSFPDD 1RU Fixed System w/o HBM
 ciscoNCS55A124Q6HSS                 OBJECT IDENTIFIER ::= { ciscoProducts 3146 } -- Network Convergence Services NCS55A1 24Q6H_SS 1RU Chassis 
 ciscoNCS57C3MODSSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3147 } -- SE variant Network Convergence System-57A3 Hybrid Chassis with one LC and 2 fruable RP's
 ciscoNCS57C3MODSYS                  OBJECT IDENTIFIER ::= { ciscoProducts 3148 } -- NON-SE variant Network Convergence System-57A3 Hybrid Chassis with one LC and 2 fruable RP's
+cisco820232FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3150 } -- Cisco 8200 2 RU Chassis with 32x400G QSFP56-DD with IOS XR, HBM and MACsec
+cisco820232FHMO                     OBJECT IDENTIFIER ::= { ciscoProducts 3151 } -- Cisco 8200 2 RU Chassis with 32x400G QSFP56-DD with Open Software, HBM and MACsec
 ciscoNCS1010                        OBJECT IDENTIFIER ::= { ciscoProducts 3153 } -- Cisco Network Convergence System 1010, Optical Line System
 ciscoNCS57C148Q6Sys                 OBJECT IDENTIFIER ::= { ciscoProducts 3154 } -- NCS5700 Router - NCS-57C1-48Q6-SYS
 ciscoNCS55A124Q6HS                  OBJECT IDENTIFIER ::= { ciscoProducts 3158 } -- Network Convergence Services NCS55A1 24Q6H_S 1RU Chassis
 ciscoNCS540L6Z14GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3163 } -- NCS540L Router - N540-6Z14G-SYS-D 
+ciscoIE932026S2C                    OBJECT IDENTIFIER ::= { ciscoProducts 3165 } -- Cisco Catalyst IE9300 Series Switch with 22 Ports GE SFP and 2 Ports GE Combo Downlinks and 4 Port GE SFP Uplinks with Stacking & FPGA
 ciscoUCSC225M6                     OBJECT IDENTIFIER ::= { ciscoProducts 3168 } -- Cisco UCS C225 M6 Rack server
 
 
+cisco810132H                         OBJECT IDENTIFIER ::= { ciscoProducts 3192 } -- Cisco 8100 32x100G QSFP28 1RU Fixed System w/o HBM
+cisco810264H                         OBJECT IDENTIFIER ::= { ciscoProducts 3193 } -- Cisco 8100 64x100G QSFP28 2RU Fixed System w/o HBM
+ciscoESR6300LICK9                   OBJECT IDENTIFIER ::= { ciscoProducts 3197 } -- Cisco ESR6300 Embedded Services Router Software operating on authorized 3rd party hardware
+
+
+ 
 END
 
