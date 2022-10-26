@@ -3,15 +3,18 @@ Various Public Simple Network Management Protocol (SNMP) management information 
 
 ### Usage Guidelines
 The suggested way to retrieve the MIBs applicable to the Cisco products that you wish to manage is as follows:
-1. For each product, download and open the desired file:
+1. For each product, download and open the desired [Support List](https://github.com/cisco/cisco-mibs/tree/main/supportlists) file:
    - `supportlists/[product]/supportlist.txt`
    - `supportlists/[product]/supportlist.html` (Download. Then open locally.)
    - `https://cisco.github.io/cisco-mibs/supportlists/[product]/supportlist.html`
+     - e.g: https://cisco.github.io/cisco-mibs/supportlists/nexus9000/Nexus9000MIBSupportList.html
+	 - Tip: Replace `ftp://ftp.cisco.com/pub/mibs/` in any saved URL with `https://cisco.github.io/cisco-mibs/` to view in the Browser.
 2. Determine which MIBs each product supports from the retrieved file.
-3. Consult the `v2/readme` or `v1/readme` file for brief descriptions of the functionality provided by each MIB.
-4. Retrieve all MIBs which provide the functionality you are interested in, and are applicable to the Cisco products you wish to support.
-5. If you need the SunNet Manager OID files, retrieve those for each MIB from the `oid` directory.
-6. If you need the SunNet Manager schema files, retrieve those for each MIB from the `schema` directory
+   - Consult the `v2/readme` or `v1/readme` file for brief descriptions of the functionality provided by each MIB.
+3. Retrieve all MIBs which provide the functionality you are interested in, and are applicable to the Cisco products you wish to support.
+   - Example: Download [SNMPv2-MIB.my](https://raw.githubusercontent.com/cisco/cisco-mibs/main/v2/SNMPv2-MIB.my) as per [ASR1000 Support List](https://cisco.github.io/cisco-mibs/supportlists/asr1000/asr1000-supportlist.html)
+   - If you are looking for a specific file click “Go to File” and [search for the filename](https://docs.github.com/en/search-github/searching-on-github/finding-files-on-github).
+     - Tip: You may also use Cisco Feature Navigator to find the desired MIB hosted in this Repo: https://cfnng.cisco.com/mibs
 
 ### Directory Structure
 - `app_notes` directory with application notes for using the MIBs.
@@ -31,8 +34,10 @@ The suggested way to retrieve the MIBs applicable to the Cisco products that you
 - `viptela-mibs` directory with Viptela MIBs.
 
 ### Other Notes
-- This GitHub repository is a 2/28/2022 backup of the public `ftp://ftp.cisco.com/pub/mibs/`
+- This GitHub repository started as a 2/28/2022 backup of the public `ftp://ftp.cisco.com/pub/mibs/`
   - Empty folders have not been backed up.
+- On 10/15/2022 `ftp.cisco.com` has been officially decomissioned making this the new source for Cisco MIB files.
+  - Cisco Developers will continue maintain MIB files in this location as they did on `ftp.cisco.com`
 - Other product MIBs are located on the applicable [software.cisco.com](https://software.cisco.com/download/home) downloads page. 
   - e.g. [3504 Wireless Controller, Release 8.10.162.0 MIBs](https://software.cisco.com/download/home/286312601/type/280775088/release/8.10.162.0)
   - e.g. [Firepower 4100, Release 2.12.0.432 MIBs](https://software.cisco.com/download/home/286305187/type/286287263/release/2.12.0.432)
