@@ -2751,11 +2751,13 @@ ciscoUCSIOM2208                     OBJECT IDENTIFIER ::= { ciscoProducts 3138 }
 ciscoUCSIOM2304                     OBJECT IDENTIFIER ::= { ciscoProducts 3139 } -- Cisco UCS-IOM-2304 IOM
 ciscoUCSIOM2408                     OBJECT IDENTIFIER ::= { ciscoProducts 3140 } -- Cisco UCS-IOM-2408 IOM
 ciscoUCSBXI910825G                  OBJECT IDENTIFIER ::= { ciscoProducts 3141 } -- Cisco UCSBX-I-9108-25G IOM
+ciscoUCSBXI9108100G                 OBJECT IDENTIFIER ::= { ciscoProducts 3142 } -- Cisco UCSBX-I-9108-100G IOM
 ciscoNCS540L24Q8L2DDSys             OBJECT IDENTIFIER ::= { ciscoProducts 3143 } -- NCS540L Router - NCS540-24Q8L2DD-SYS
 cisco810132FH                       OBJECT IDENTIFIER ::= { ciscoProducts 3144 } -- Cisco 8100 32x400G QSFPDD 1RU Fixed System w/o HBM
 ciscoNCS55A124Q6HSS                 OBJECT IDENTIFIER ::= { ciscoProducts 3146 } -- Network Convergence Services NCS55A1 24Q6H_SS 1RU Chassis 
 ciscoNCS57C3MODSSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3147 } -- SE variant Network Convergence System-57A3 Hybrid Chassis with one LC and 2 fruable RP's
 ciscoNCS57C3MODSYS                  OBJECT IDENTIFIER ::= { ciscoProducts 3148 } -- NON-SE variant Network Convergence System-57A3 Hybrid Chassis with one LC and 2 fruable RP's
+cisco811132EH                       OBJECT IDENTIFIER ::= { ciscoProducts 3149 } -- Cisco 8100 32x800G QSFP-DD800 1RU Fixed System w/o HBM
 cisco820232FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3150 } -- Cisco 8200 2 RU Chassis with 32x400G QSFP56-DD with IOS XR, HBM and MACsec
 cisco820232FHMO                     OBJECT IDENTIFIER ::= { ciscoProducts 3151 } -- Cisco 8200 2 RU Chassis with 32x400G QSFP56-DD with Open Software, HBM and MACsec
 ciscoNCS1010                        OBJECT IDENTIFIER ::= { ciscoProducts 3153 } -- Cisco Network Convergence System 1010, Optical Line System
@@ -2818,5 +2820,7 @@ ciscoC130024XT                      OBJECT IDENTIFIER ::= { ciscoProducts 3250 }
 ciscoC130024XS                      OBJECT IDENTIFIER ::= { ciscoProducts 3251 } -- Catalyst 1300 Series Managed Switch, 24-port SFP+, 4x10GE Shared (C1300-24XS)
 ciscoC130016XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3252 } -- Catalyst 1300 Series Managed Switch, 8-port 10GE, 8-port SFP+ (C1300-16XTS)
 ciscoC130024XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3253 } -- Catalyst 1300 Series Managed Switch, 12-port 10GE, 12-port SFP+ (C1300-24XTS)
+ciscoNCS57D218DDSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3254 } -- NCS-57D2-18DD-SYS - Castleblack router 
+ciscoUCSX410CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3256 } -- Cisco UCS X410c M7 Compute Node
 END
 
