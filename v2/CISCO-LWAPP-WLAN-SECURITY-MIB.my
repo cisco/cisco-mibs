@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-WLAN-SECURITY-MIB.my
 -- December 2005, Bharat Biswal, Prasanna Viswakumar
 --   
--- Copyright (c) 2005-2006, 2015-2020 by Cisco Systems Inc.
+-- Copyright (c) 2005-2006, 2015-2022 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -30,7 +30,7 @@ IMPORTS
 
 
 ciscoLwappWlanSecurityMIB MODULE-IDENTITY
-    LAST-UPDATED    "202006090000Z"
+    LAST-UPDATED    "202009020000Z"
     ORGANIZATION    "Cisco Systems, Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -285,6 +285,18 @@ ciscoLwappWlanSecurityMIB MODULE-IDENTITY
 
         [2] draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol"
+    REVISION        "202201100000Z"
+    DESCRIPTION
+        "Added WPA3 FT-SAE Support"
+    REVISION        "202009020000Z"
+    DESCRIPTION
+        "Added following OBJECTS:
+         - cLWSecDot11EssPskType
+         - cLWSecDot11EssEasyPskEnable
+        Added following OBJECT-GROUP:
+         - ciscoLwappWlanSecurityEasyPskConfigGroup
+        Added new compliance 
+         - ciscoLwappWlanSecurityMIBComplianceRev4"
     REVISION        "202003240000Z"
     DESCRIPTION
         "Added OSEN object ID"
@@ -391,7 +403,11 @@ CLWSecDot11EssCckmEntry ::= SEQUENCE {
         cLWSecDot11EssSaeMaxRetry          Integer32,
         cLWSecDot11OsenEnable              TruthValue,
         cLWSecDot11TMWlanId                Unsigned32,
-        cLWSecDot11EssWpa3EncType          CLSecEncryptType
+        cLWSecDot11EssWpa3EncType          CLSecEncryptType,
+        cLWSecDot11EssPskType              INTEGER,
+        cLWSecDot11EssEasyPskEnable        TruthValue,
+        cLWSecDot11EssSaePweMode           INTEGER,
+        cLWSecDot11TransitionDisable       TruthValue
 }
 
 cLWSecDot11EssCckmWpaSupport OBJECT-TYPE
@@ -483,7 +499,8 @@ cLWSecDot11EssCckmKeyMgmtMode OBJECT-TYPE
                         pmfPsk(6),
                         osenDot1x(7),
                         sae(8),
-                        owe(9)
+                        owe(9),
+                        ftSae(10)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -503,6 +520,7 @@ cLWSecDot11EssCckmKeyMgmtMode OBJECT-TYPE
         FT fast transition dot1x only
         FT PSK only
         FT PSK + PSK
+        FT SAE + SAE
         FT dot1x + dot1x
         FT dot1x + dot1x + CCKM
         dot1x + CCKM +11w
@@ -745,6 +763,60 @@ cLWSecDot11EssWpa3EncType OBJECT-TYPE
     DEFVAL          { {  } } 
     ::= { cLWSecDot11EssCckmEntry 24 }
  
+cLWSecDot11EssPskType OBJECT-TYPE
+    SYNTAX          INTEGER  {
+                        clear(0),
+                        aes(1)
+                    }
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object indicates the type of storage used
+        to store PSK.
+        clear: indicate PSK is stored as clear text'.
+        aes  : indicate the PSK is stored encrypted using AES."
+    DEFVAL          { clear }
+    ::= { cLWSecDot11EssCckmEntry 25 }
+
+cLWSecDot11EssEasyPskEnable OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies whether Easy PSK security feature is
+        enabled or not.
+        True: indicates Easy PSK security feature is enabled.
+        False: indicates Easy PSK security feature is disabled."
+    DEFVAL          { false }
+    ::= { cLWSecDot11EssCckmEntry 26 }
+
+cLWSecDot11EssSaePweMode OBJECT-TYPE
+    SYNTAX          INTEGER  {
+                        hnp(0),
+                        h2e(1),
+                        h2e-hnp(2)
+                    }
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies SAE Password Element Mode
+        0: Hunting And Pecking Only, disables Hash To Element
+        1: Hash To Element Only, disables Hunting and Pecking
+        2: Both Hash to element, Hunting and pecking support."
+    DEFVAL          { 2 }
+    ::= { cLWSecDot11EssCckmEntry 27 }
+    
+cLWSecDot11TransitionDisable OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies whether Transition Disable feature is
+        enabled or not.
+        True: indicates Transition Disable feature is enabled.
+        False: indicates Transition Disable feature is disabled."
+        DEFVAL          { false }
+        ::= { cLWSecDot11EssCckmEntry 28 }
 
 -- ********************************************************************
 -- Table to represent CKIP parameters
@@ -1328,7 +1400,7 @@ ciscoLwappWlanSecurityMIBComplianceRev2 MODULE-COMPLIANCE
     ::= { ciscoLwappWlanSecurityMIBCompliances 3 }
 
 ciscoLwappWlanSecurityMIBComplianceRev3 MODULE-COMPLIANCE
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "The compliance statement for the SNMP entities that
         implement the ciscoLwappWlanSecurityMIB module."
@@ -1372,7 +1444,7 @@ ciscoLwappWlanSecurityMIBComplianceRev3 MODULE-COMPLIANCE
     MIN-ACCESS      read-only
     DESCRIPTION
         "Write access is not required."
-
+    
     OBJECT          cLWSecDot11EssCckmWpa1Security
     MIN-ACCESS      read-only
     DESCRIPTION
@@ -1537,7 +1609,236 @@ ciscoLwappWlanSecurityMIBComplianceRev3 MODULE-COMPLIANCE
     MIN-ACCESS      read-only
     DESCRIPTION
         "Write access is not required."
-    ::= { ciscoLwappWlanSecurityMIBCompliances 4 }
+        
+ ::= { ciscoLwappWlanSecurityMIBCompliances 4 }
+
+ciscoLwappWlanSecurityMIBComplianceRev4 MODULE-COMPLIANCE
+    STATUS          current
+    DESCRIPTION
+        "The compliance statement for the SNMP entities that
+        implement the ciscoLwappWlanSecurityMIB module."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        ciscoLwappWlanSecurityCckmConfigGroup,
+                        ciscoLwappWlanSecurityCkipConfigGroup,
+                        ciscoLwappWlanSecurityWebPolicyConfigGroup,
+                        ciscoLwappWlanSecurityEasyPskConfigGroup
+                    }
+
+    GROUP           ciscoLwappWlanSecurityAaaConfigGroup
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        AAA related security parameters on a WLAN."
+
+    GROUP           ciscoLwappWlanSecurityFtConfigGroup
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        fast transition on a WLAN."
+
+    GROUP           ciscoLwappWlanSecurityPfmConfigGroup
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        PFM related security parameters on a WLAN."
+
+    GROUP           ciscoLwappWlanSecurityCckmConfigGroup1
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        GTK randomization information."
+
+    GROUP           ciscoLwappWlanSecurityCckmConfigGroup2
+    DESCRIPTION
+        "This group is mandatory for enabling Multi-PSK feature."
+
+    GROUP           ciscoLwappWlanSecurityWPA3ConfigGroup
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        WPA3 on a WLAN."
+
+    GROUP           ciscoLwappWlanSecurityEasyPskConfigGroup
+    DESCRIPTION
+        "This group is mandatory for enabling Easy PSK feature."
+
+    OBJECT          cLWSecDot11EssCckmWpaSupport
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+    
+    OBJECT          cLWSecDot11EssCckmWpa1Security
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCckmWpa1EncType
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCckmWpa2Security
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCckmWpa2EncType
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCckmKeyMgmtMode
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssPskFmt
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssPsk
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCckmGtkRandomize
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssFtReassocTime
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssFtOverDs
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11Ess11wPfm
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssRetryTime
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssComebackTime
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipSecurity
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipKeyIndex
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipKeyLength
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipKeyFmt
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipKey
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipMMHMode
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssCkipKPEnable
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssWebPolicyCondRedirect
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssWebPolicySplashPageWebRedirect
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecAaaRadiusAuthCallStationIdType
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecAaaRadiusAccUsernameDelimiter
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssMPskEnable
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecMPskKey
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecMPskKeyFormat
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssWpa3Security
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssSaeAntiClogThreshold
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssSaeRetransTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssSaeMaxRetry
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11TMWlanId
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssWpa3EncType
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11EssSaePweMode
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          cLWSecDot11TransitionDisable
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+ ::= { ciscoLwappWlanSecurityMIBCompliances 5 }
 
 -- ********************************************************************
 -- *    Units of conformance
@@ -1655,7 +1956,9 @@ ciscoLwappWlanSecurityWPA3ConfigGroup OBJECT-GROUP
                         cLWSecDot11EssSaeMaxRetry,
                         cLWSecDot11TMWlanId,
                         cLWSecDot11EssWpa3EncType,
-                        cLWSecDot11OsenEnable
+                        cLWSecDot11OsenEnable,
+                        cLWSecDot11EssSaePweMode,
+                        cLWSecDot11TransitionDisable
                     }
     STATUS          current
     DESCRIPTION
@@ -1663,6 +1966,22 @@ ciscoLwappWlanSecurityWPA3ConfigGroup OBJECT-GROUP
         related security parameters on a WLAN."
     ::= { ciscoLwappWlanSecurityMIBGroups 9 }
 
+ciscoLwappWlanSecurityEasyPskConfigGroup OBJECT-GROUP
+    OBJECTS         {
+                        cLWSecDot11EssPskType,
+                        cLWSecDot11EssEasyPskEnable
+                    }
+    STATUS          current
+    DESCRIPTION
+        "This collection of objects represents Easy-PSK
+        information."
+    ::= { ciscoLwappWlanSecurityMIBGroups 10 }
+
 END
 
 
+--%DNP%  MLC -Compiled MLC
+
+--%DNP%  MTF -TRUE MTF
+
+--%DNP%  NO REPLACEMENT =cLWSecDot11EssFtEnable 

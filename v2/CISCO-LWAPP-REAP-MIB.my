@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-REAP-MIB.my
 -- April 2007, Devesh Pujari, Prasanna Viswakumar, Srinath Candadai
 --   
--- Copyright (c) 2006-2007, 2013-2017, 2020 by Cisco Systems Inc.
+-- Copyright (c) 2006-2007, 2013-2021 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -38,7 +38,7 @@ IMPORTS
 -- ********************************************************************
 
 ciscoLwappReapMIB MODULE-IDENTITY
-    LAST-UPDATED    "202009220000Z"
+    LAST-UPDATED    "202004050000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -181,13 +181,23 @@ ciscoLwappReapMIB MODULE-IDENTITY
 
         [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol"
-    REVISION        "202009220000Z"
+    REVISION        "202004050000Z"
     DESCRIPTION
-        "Added following objects to the cLReapGroupConfigTable
-        - cLReapGroupDhcpBroadcastEnable"
-    REVISION        "202006110000Z"
+        "Added two objects for directional Flex ACLs
+        - cLReapGroupAclIn
+        - cLReapGroupAclOut"
+    REVISION        "202001020000Z"
     DESCRIPTION
-        "Addition of following new tables
+        "Added following object to the cLReapGroupConfigTable
+        - cLReapGroupMdnsFlexProfileName"
+    REVISION        "201905080000Z"
+    DESCRIPTION
+        "Added following object to the cLReapGroupConfigTable
+        - cLReapGroupAccountingRadiusServerGroupName
+        - cLReapLocalRoaming"
+    REVISION        "201809150000Z"
+    DESCRIPTION
+        "Addition of folowing new table
         - cLReapGroupVlanNameAclTable
         - cLReapGroupCtsSxpTable
         - cLReapCtsSxpPeerTable
@@ -195,37 +205,31 @@ ciscoLwappReapMIB MODULE-IDENTITY
         - cLReapUrlDomainRulesTable
         - cLReapVlanIdNameMapTable
         - cLReapVlanTemplateTable
-        - cLReapEnhancedUrlDomainListTable
-        - cLReapEnhancedUrlDomainRulesTable        
-        Added following objects to the cLReapGroupConfigTable
+        Added following object to the cLReapGroupConfigTable
         - cLReapGroupRadiusServerGroupName
         - cLReapGroupEapFastProfileName
         - cLReapGroupArpCacheEnabled
-        - cLReapGroupHomeApEnable
+        - cLReapGroupHomeApEnable   
         - cLReapGroupLeastLatencyJoinEnable
         - cLReapGroupHomeApLocalSsidReset
         - cLReapGroupInstallMappingRadioBackhaul
-        - cLReapGroupResilientMode
+        - cLReapGroupResilientMode 
         - cLReapGroupDescription
         - cLReapGroupFallbackRadioShutEnabled
         - cLReapCtsInlineTagging
         - cLReapIsHomeApEnable
         - cLReapCtsRolebasedEnforcement
         - cLReapCtsSxpAttachedProfileName
-        - cLReapGroupAccountingRadiusServerGroupName
-        - cLReapLocalRoaming
-        - cLReapGroupMdnsFlexProfileName
-        - cLReapIpOverlap
         Added following object to the cLReapGroupWebPolicyAclTable
         - cLReapGroupWebPolicyAclCentWebAuth
-        Deprecated ciscoLwappReapMIBComplianceRev7
-        Added ciscoLwappReapMIBComplianceRev8
-        Deprecated ciscoLwappReapGroupConfigGroup
-        Added following conformance groups
+        deprecated the following compliance group
+        - ciscoLwappReapMIBComplianceRev7
+        Added following compliance group
+        - ciscoLwappReapMIBComplianceRev8
+        Added following conformance group
         - ciscoLwappReapVlanConfigGroup
         - ciscoLwappReapUrlDomainConfigGroup
-        - ciscoLwappReapCtsSxpConfigGroup
-        - ciscoLwappReapGroupConfigGroupRev2"
+        - ciscoLwappReapCtsSxpConfigGroup."
     REVISION        "201804240000Z"
     DESCRIPTION
         "Added cLReapAclUrlDomainRuleTable, cLReapIpv6AclTable,
@@ -1310,65 +1314,66 @@ cLReapGroupConfigEntry OBJECT-TYPE
     ::= { cLReapGroupConfigTable 1 }
 
 CLReapGroupConfigEntry ::= SEQUENCE {
-        cLReapGroupName                            SnmpAdminString,
-        cLReapGroupPrimaryRadiusIndex              Unsigned32,
-        cLReapGroupSecondaryRadiusIndex            Unsigned32,
-        cLReapGroupStorageType                     StorageType,
-        cLReapGroupRowStatus                       RowStatus,
-        cLReapGroupRadiusPacTimeout                Unsigned32,
-        cLReapGroupRadiusAuthorityId               OCTET STRING,
-        cLReapGroupRadiusAuthorityInfo             OCTET STRING,
-        cLReapGroupRadiusServerKey                 OCTET STRING,
-        cLReapGroupRadiusIgnoreKey                 TruthValue,
-        cLReapGroupRadiusEnable                    TruthValue,
-        cLReapGroupRadiusLeapEnable                TruthValue,
-        cLReapGroupRadiusEapFastEnable             TruthValue,
-        cLReapGroupRadiusPacTimeoutCtrl            Unsigned32,
-        cLReapGroupEfficientApUpgradeEnable        TruthValue,
-        cLReapGroupApUpgradeStart                  INTEGER,
-        cLReapGroupSlaveMaxRetryCount              Unsigned32,
-        cLReapGroupPrimaryRadiusServerType         InetAddressType,
-        cLReapGroupPrimaryRadiusServerAddress      InetAddress,
-        cLReapGroupPrimaryRadiusServerPort         Unsigned32,
-        cLReapGroupPrimaryServerSecret             SnmpAdminString,
-        cLReapGroupSecRadiusServerType             InetAddressType,
-        cLReapGroupSecRadiusServerAddress          InetAddress,
-        cLReapGroupSecRadiusServerPort             Unsigned32,
-        cLReapGroupSecServerSecret                 SnmpAdminString,
-        cLReapGroupRadiusPeapEnable                TruthValue,
-        cLReapGroupRadiusEapTlsEnable              TruthValue,
-        cLReapGroupCertificateEapTlsEnable         TruthValue,
-        cLReapGroupNativeVlanId                    Unsigned32,
-        cLReapGroupVlanEnable                      TruthValue,
-        cLReapGroupOverrideVlanEnable              TruthValue,
-        cLReapGroupHttpProxyIpType                 InetAddressType,
-        cLReapGroupHttpProxyIp                     InetAddress,
-        cLReapGroupHttpProxyPort                   Unsigned32,
-        cLReapGroupVlanTemplateName                SnmpAdminString,
-        cLReapGroupEfficientApJoinEnable           TruthValue,
-        cLReapGroupRadiusServerGroupName           SnmpAdminString,
-        cLReapGroupEapFastProfileName              SnmpAdminString,
-        cLReapGroupArpCacheEnabled                 TruthValue,
-        cLReapGroupHomeApEnable                    TruthValue,
-        cLReapGroupLeastLatencyJoinEnable          TruthValue,
-        cLReapGroupHomeApLocalSsidReset            TruthValue,
-        cLReapGroupInstallMappingRadioBackhaul     TruthValue,
-        cLReapGroupResilientMode                   TruthValue,
-        cLReapGroupDescription                     OCTET STRING,
-        cLReapGroupFallbackRadioShutEnabled        TruthValue,
-        cLReapCtsInlineTagging                     TruthValue,
-        cLReapIsHomeApEnable                       TruthValue,
-        cLReapCtsRolebasedEnforcement              TruthValue,
-        cLReapCtsSxpAttachedProfileName            SnmpAdminString,
-        cLReapGroupAccountingRadiusServerGroupName SnmpAdminString,
-        cLReapLocalRoaming                         TruthValue,
-        cLReapGroupMdnsFlexProfileName             SnmpAdminString,
-        cLReapIpOverlap                            TruthValue,
-        cLReapGroupDhcpBroadcastEnable             TruthValue
+        cLReapGroupName                       SnmpAdminString,
+        cLReapGroupPrimaryRadiusIndex         Unsigned32,
+        cLReapGroupSecondaryRadiusIndex       Unsigned32,
+        cLReapGroupStorageType                StorageType,
+        cLReapGroupRowStatus                  RowStatus,
+        cLReapGroupRadiusPacTimeout           Unsigned32,
+        cLReapGroupRadiusAuthorityId          OCTET STRING,
+        cLReapGroupRadiusAuthorityInfo        OCTET STRING,
+        cLReapGroupRadiusServerKey            OCTET STRING,
+        cLReapGroupRadiusIgnoreKey            TruthValue,
+        cLReapGroupRadiusEnable               TruthValue,
+        cLReapGroupRadiusLeapEnable           TruthValue,
+        cLReapGroupRadiusEapFastEnable        TruthValue,
+        cLReapGroupRadiusPacTimeoutCtrl       Unsigned32,
+        cLReapGroupEfficientApUpgradeEnable   TruthValue,
+        cLReapGroupApUpgradeStart             INTEGER,
+        cLReapGroupSlaveMaxRetryCount         Unsigned32,
+        cLReapGroupPrimaryRadiusServerType    InetAddressType,
+        cLReapGroupPrimaryRadiusServerAddress InetAddress,
+        cLReapGroupPrimaryRadiusServerPort    Unsigned32,
+        cLReapGroupPrimaryServerSecret        SnmpAdminString,
+        cLReapGroupSecRadiusServerType        InetAddressType,
+        cLReapGroupSecRadiusServerAddress     InetAddress,
+        cLReapGroupSecRadiusServerPort        Unsigned32,
+        cLReapGroupSecServerSecret            SnmpAdminString,
+        cLReapGroupRadiusPeapEnable           TruthValue,
+        cLReapGroupRadiusEapTlsEnable         TruthValue,
+        cLReapGroupCertificateEapTlsEnable    TruthValue,
+        cLReapGroupNativeVlanId               Unsigned32,
+        cLReapGroupVlanEnable                 TruthValue,
+        cLReapGroupOverrideVlanEnable         TruthValue,
+        cLReapGroupHttpProxyIpType            InetAddressType,
+        cLReapGroupHttpProxyIp                InetAddress,
+        cLReapGroupHttpProxyPort              Unsigned32,
+        cLReapGroupVlanTemplateName           SnmpAdminString,
+        cLReapGroupEfficientApJoinEnable      TruthValue,
+        cLReapGroupRadiusServerGroupName        SnmpAdminString,
+        cLReapGroupEapFastProfileName           SnmpAdminString,
+        cLReapGroupArpCacheEnabled              TruthValue,
+        cLReapGroupHomeApEnable                 TruthValue,
+        cLReapGroupLeastLatencyJoinEnable       TruthValue,
+        cLReapGroupHomeApLocalSsidReset         TruthValue,
+        cLReapGroupInstallMappingRadioBackhaul  TruthValue,
+        cLReapGroupResilientMode                TruthValue,
+        cLReapGroupDescription                  OCTET STRING,
+        cLReapGroupFallbackRadioShutEnabled     TruthValue,
+        cLReapCtsInlineTagging                  TruthValue,
+        cLReapIsHomeApEnable                    TruthValue,
+        cLReapCtsRolebasedEnforcement           TruthValue,
+        cLReapCtsSxpAttachedProfileName         SnmpAdminString,
+        cLReapGroupAccountingRadiusServerGroupName  SnmpAdminString,
+        cLReapLocalRoaming                   TruthValue,
+        cLReapGroupMdnsFlexProfileName          SnmpAdminString,
+        cLReapIpOverlap                         TruthValue,    
+        cLReapGroupDhcpBroadcastEnable          TruthValue,
+        cLReapGroupPMKAPPropagation             INTEGER
 }
 
 cLReapGroupName OBJECT-TYPE
-    SYNTAX          SnmpAdminString
+    SYNTAX          SnmpAdminString (SIZE  (1..64))
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -1808,7 +1813,7 @@ cLReapGroupHomeApEnable OBJECT-TYPE
         "This object specifies if the APs connected to this
         profile/group are used as Home APs.
         A value of 'true' specifies that REAP AP is a Home AP.
-        A value of 'false' specifies that this REAP AP is not a
+        A value of 'false' specifies that this REAP AP is not a 
         Home AP."
     DEFVAL          { false } 
     ::= { cLReapGroupConfigEntry 40 }
@@ -1823,7 +1828,7 @@ cLReapGroupLeastLatencyJoinEnable OBJECT-TYPE
         A value of 'true' specifies that this REAP AP will
         join controller which has least latency.
         A value of 'false' specifies that this REAP AP will
-        not consider latency in selecting controller to
+        not consider latency in selecting controller to 
         join."
     DEFVAL          { false } 
     ::= { cLReapGroupConfigEntry 41 }
@@ -1957,7 +1962,7 @@ cLReapGroupAccountingRadiusServerGroupName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the Radius server group for accounting attached
-        to the flex profile" 
+         to the flex profile"
     ::= { cLReapGroupConfigEntry 52 }
 
 cLReapLocalRoaming OBJECT-TYPE
@@ -1971,7 +1976,7 @@ cLReapLocalRoaming OBJECT-TYPE
         A Value of 'false' specifies that local roaming is disabled.
         The value of 'true' will be effective only if the WLAN is configured
         as locally associated and locally switched."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLReapGroupConfigEntry 53 }
 
 cLReapGroupMdnsFlexProfileName OBJECT-TYPE
@@ -1992,7 +1997,7 @@ cLReapIpOverlap OBJECT-TYPE
         the FlexConnect Access Points connected to the Wireless LAN Controller.
         A Value of 'true' specifies that IP overlap is enabled.
         A Value of 'false' specifies that IP overlap is disabled."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLReapGroupConfigEntry 55 }
 
 cLReapGroupDhcpBroadcastEnable OBJECT-TYPE
@@ -2000,14 +2005,34 @@ cLReapGroupDhcpBroadcastEnable OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies whether DHCP broadcast for locally
+        "This object specifies whether DHCP broadcast for locally 
         switched clients is enabled or disabled.
-        A Value of 'true' specifies that DHCP broadcast is enabled.
-        A Value of 'false' specifies that DHCP broadcast is disabled."
+        A value of 'true' specifies that DHCP broadcast is enabled.
+        A value of 'false' specifies that DHCP broadcast is disabled."
     DEFVAL          { false } 
     ::= { cLReapGroupConfigEntry 56 }
-    
 
+cLReapGroupPMKAPPropagation OBJECT-TYPE
+    SYNTAX          INTEGER  {
+                        pmkDistCntrToAp(0),
+                        pmkDistApToAp(1),
+                        pmkDistDCDS(2),
+                    }
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies distribution of PMK between contoller
+         and AP.
+         A value of 'pmkDistCntrToAp' specifies PMK distribution from 
+         controller to all the APs in site tag.
+         A value of 'pmkDistApToAp' specifies PMK distribution from 
+         controller to only few APs and from those AP to other APs in
+         site tag.
+         A value of 'pmkDistDCDS' specifies PMK distribution between 
+         APs in site tag.
+    
+    DEFVAL          { pmkDistCntrToAp } 
+    ::= { cLReapGroupConfigEntry 57 }
 -- ********************************************************************
 -- Hybrid REAP Group AP configuration
 -- ********************************************************************
@@ -2328,9 +2353,9 @@ cLReapGroupWebPolicyAclEntry OBJECT-TYPE
     ::= { cLReapGroupWebPolicyAclTable 1 }
 
 CLReapGroupWebPolicyAclEntry ::= SEQUENCE {
-        cLReapGroupWebPolicyAcl            SnmpAdminString,
-        cLReapGroupWebPolicyAclRowStatus   RowStatus,
-        cLReapGroupWebPolicyAclType        INTEGER,
+        cLReapGroupWebPolicyAcl          SnmpAdminString,
+        cLReapGroupWebPolicyAclRowStatus RowStatus,
+        cLReapGroupWebPolicyAclType      INTEGER,
         cLReapGroupWebPolicyAclCentWebAuth TruthValue
 }
 
@@ -2694,7 +2719,7 @@ cLReapGroupVlanNameAclEntry OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "Each entry represents a conceptual row that corresponds to
-        one VLAN Name - ACL mapping to be applied to the REAP
+        one VLAN Name - ACL mapping to be applied to the REAP 
         identified by cLReapGroupVlanName."
     INDEX           {
                         cLReapGroupName,
@@ -2768,7 +2793,7 @@ cLReapGroupAclIn OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the name of the Ingress Access
-        Control List for the vlan-acl mapping." 
+        Control List for the vlan-acl mapping."
     ::= { cLReapGroupVlanNameAclEntry 6 }
 
 cLReapGroupAclOut OBJECT-TYPE
@@ -2777,9 +2802,9 @@ cLReapGroupAclOut OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the name of the Egress Access
-        Control List for the vlan-acl mapping." 
+        Control List for the vlan-acl mapping."
     ::= { cLReapGroupVlanNameAclEntry 7 }
- 
+
 
 -- ********************************************************************
 -- *    Cisco REAP Cisco Trustsec SXP Configuration
@@ -2823,7 +2848,7 @@ cLReapCtsSxpConfigProfileName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the cts sxp configuration profile name
-        for the flex connect Access Points connected to the
+        for the flex connect Access Points connected to the 
         Wireless LAN controller." 
     ::= { cLReapGroupCtsSxpEntry 1 }
 
@@ -2833,7 +2858,7 @@ cLReapCtsSxpDefaultPassword OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the cts sxp configuration Default
-        password for the flex connect Access Points connected to the
+        password for the flex connect Access Points connected to the 
         wireless LAN controller." 
     ::= { cLReapGroupCtsSxpEntry 2 }
 
@@ -2969,7 +2994,7 @@ cLReapCtsSxpPeerIpType OBJECT-TYPE
     ::= { cLReapCtsSxpPeerEntry 1 }
 
 cLReapCtsSxpPeerIp OBJECT-TYPE
-    SYNTAX          InetAddress (SIZE  (1..64))
+    SYNTAX          InetAddress (SIZE (1..64))
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -2996,7 +3021,7 @@ cLReapCtsSxpMode OBJECT-TYPE
         the listener in this SXP connection.
 
         A value of 'both' indicates that device will acts as both
-        speaker and listener making it a Bi-directional SXP
+        speaker and listener making it a Bi-directional SXP 
         connection." 
     ::= { cLReapCtsSxpPeerEntry 3 }
 
@@ -3466,16 +3491,15 @@ cLReapUrlDomainRuleRowStatus OBJECT-TYPE
         "This is the status column for this row and is used to
         create and delete specific instances of rows in this table." 
     ::= { cLReapUrlDomainListEntry 7 }
-
-cLReapUrlFilterID OBJECT-TYPE
-    SYNTAX          Unsigned32 (1..16)
-    MAX-ACCESS      read-only
-    STATUS          current
-    DESCRIPTION
-        "This object specifies the filter ID (an unique reference
-        number) for urlfilter lists created." 
-    ::= { cLReapUrlDomainListEntry 8 }
  
+cLReapUrlFilterID OBJECT-TYPE
+     SYNTAX          Unsigned32(1..16)
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+         "This object specifies the filter ID (an unique reference 
+         number) for urlfilter lists created."
+     ::= { cLReapUrlDomainListEntry 8 }
 
 -- *******************************************************************
 -- cLReapUrlDomainRulesTable
@@ -3527,7 +3551,6 @@ cLReapUrlRowStatus OBJECT-TYPE
         table." 
     ::= { cLReapUrlDomainRulesEntry 2 }
  
-
 -- *******************************************************************
 -- cLReapEnhancedUrlDomainListTable
 -- *******************************************************************
@@ -3552,8 +3575,8 @@ cLReapEnhancedUrlDomainListEntry OBJECT-TYPE
     ::= { cLReapEnhancedUrlDomainListTable 1 }
 
 CLReapEnhancedUrlDomainListEntry ::= SEQUENCE {
-        cLReapEnhancedUrlDomainListName      SnmpAdminString,
-        cLReapEnhancedUrlDomainListRowStatus RowStatus
+        cLReapEnhancedUrlDomainListName         SnmpAdminString,
+        cLReapEnhancedUrlDomainListRowStatus    RowStatus
 }
 
 cLReapEnhancedUrlDomainListName OBJECT-TYPE
@@ -3570,10 +3593,9 @@ cLReapEnhancedUrlDomainListRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This is the status column for this row and is
-        used to create and delete specific instances of
+        used to create and delete specific instances of 
         rows in this table." 
     ::= { cLReapEnhancedUrlDomainListEntry 2 }
- 
 
 -- *******************************************************************
 -- cLReapEnhancedUrlDomainRulesTable
@@ -3584,7 +3606,7 @@ cLReapEnhancedUrlDomainRulesTable OBJECT-TYPE
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
-        "This table represents URL domain rules on the ACL with
+        "This table represents URL domain rules on the ACL with 
         name cLReapEnhancedUrlDomainListName."
     ::= { ciscoLwappReapAclConfig 9 }
 
@@ -3602,10 +3624,10 @@ cLReapEnhancedUrlDomainRulesEntry OBJECT-TYPE
     ::= { cLReapEnhancedUrlDomainRulesTable 1 }
 
 CLReapEnhancedUrlDomainRulesEntry ::= SEQUENCE {
-        cLReapEnhancedUrlDomainRuleUrl        SnmpAdminString,
-        cLReapEnhancedUrlDomainRuleAction     INTEGER,
+        cLReapEnhancedUrlDomainRuleUrl SnmpAdminString,
+        cLReapEnhancedUrlDomainRuleAction    INTEGER,
         cLReapEnhancedUrlDomainRulePreference Unsigned32,
-        cLReapEnhancedUrlDomainRuleRowStatus  RowStatus
+        cLReapEnhancedUrlDomainRuleRowStatus RowStatus
 }
 
 cLReapEnhancedUrlDomainRuleUrl OBJECT-TYPE
@@ -3629,7 +3651,7 @@ cLReapEnhancedUrlDomainRuleAction OBJECT-TYPE
             A value of 'deny' specifies client traffic matches
             this rule will be blocked.
             A value of 'permit' specifies client traffic matches
-            this rule will be allowed to pass through." 
+            this rule will be allowed to pass through."
     ::= { cLReapEnhancedUrlDomainRulesEntry 2 }
 
 cLReapEnhancedUrlDomainRulePreference OBJECT-TYPE
@@ -3647,10 +3669,9 @@ cLReapEnhancedUrlDomainRuleRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This is the status column for this row and is
-        used to create and delete specific instances of
+        used to create and delete specific instances of 
         rows in this table." 
     ::= { cLReapEnhancedUrlDomainRulesEntry 4 }
- 
 
 -- *******************************************************************
 -- cLReapAclTable
@@ -4353,6 +4374,8 @@ cLReapArpCaheEnabled OBJECT-TYPE
         for the flexconnect Access Points connected to the 
         Wireless LAN Controller." 
     ::= { ciscoLwappReapGlobalConfig 1 }
+
+
 -- *******************************************************************
 -- ciscoLwappReapVlanIdNameMap
 -- *******************************************************************
@@ -4601,8 +4624,30 @@ ciscoLwappReapMIBComplianceRev8 MODULE-COMPLIANCE
     STATUS          current
     DESCRIPTION
         "The compliance statement for the SNMP entities that
+        implement the ciscoLwappReapMIB module."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        ciscoLwappReapWlanConfigGroup,
+                        ciscoLwappReapApConfigGroup,
+                        ciscoLwappReapGroupConfigGroup,
+                        ciscoLwappReapGroupConfigUserAuthGroup,
+                        ciscoLwappReapApConfigGroupHomeAp,
+                        ciscoLwappReapGroupConfigRadiusGroup1,
+                        ciscoLwappReapWlanConfigGroupSup1,
+                        ciscoLwappReapAclConfigGroupRev1,
+                        ciscoLwappReapIpv6AclConfigGroup,
+                        ciscoLwappReapVlanConfigGroup,
+                        ciscoLwappReapUrlDomainConfigGroup,
+                        ciscoLwappReapCtsSxpConfigGroup
+                    }
+    ::= { ciscoLwappReapMIBCompliances 9 }
+
+ciscoLwappReapMIBComplianceRev9 MODULE-COMPLIANCE
+    STATUS          current
+    DESCRIPTION
+        "The compliance statement for the SNMP entities that
         implement the ciscoLwappReapMIB module. This deprecates
-        ciscoLwappReapMIBComplianceRev7."
+        ciscoLwappReapMIBComplianceRev8."
     MODULE          -- this module
     MANDATORY-GROUPS {
                         ciscoLwappReapWlanConfigGroup,
@@ -4618,7 +4663,7 @@ ciscoLwappReapMIBComplianceRev8 MODULE-COMPLIANCE
                         ciscoLwappReapUrlDomainConfigGroup,
                         ciscoLwappReapCtsSxpConfigGroup
                     }
-    ::= { ciscoLwappReapMIBCompliances 9 }
+    ::= { ciscoLwappReapMIBCompliances 10 }
 
 -- ********************************************************************
 -- *    Units of conformance
@@ -4716,6 +4761,7 @@ ciscoLwappReapGroupConfigGroup OBJECT-GROUP
                         cLReapGroupWebAuthIpv6Acl,
                         cLReapGroupWebPolicyAclRowStatus,
                         cLReapGroupWebPolicyAclType,
+                        cLReapGroupWebPolicyAclCentWebAuth,
                         cLReapGroupLocalSplitAcl,
                         cLReapGroupLocalSplitAclRowStatus,
                         cLReapGroupDhcpCentral,
@@ -5038,11 +5084,6 @@ ciscoLwappReapGroupConfigGroupRev2 OBJECT-GROUP
                         cLReapL2AclRuleDirection,
                         cLReapL2AclNewRuleIndex,
                         cLReapL2AclRuleRowStatus,
-                        cLReapGroupPrimaryRadiusIndex,
-                        cLReapGroupSecondaryRadiusIndex,
-                        cLReapGroupStorageType,
-                        cLReapGroupEfficientApUpgradeEnable,
-                        cLReapGroupApUpgradeStart,
                         cLReapGroupEfficientApJoinEnable,
                         cLReapGroupRadiusServerGroupName,
                         cLReapGroupEapFastProfileName,
@@ -5055,8 +5096,6 @@ ciscoLwappReapGroupConfigGroupRev2 OBJECT-GROUP
                         cLReapGroupDescription,
                         cLReapGroupFallbackRadioShutEnabled,
                         cLReapIsHomeApEnable,
-                        cLReapGroupWebPolicyAclCentWebAuth,
-                        cLReapGroupEfficientApJoinEnable,
                         cLReapCtsInlineTagging,
                         cLReapCtsRolebasedEnforcement,
                         cLReapCtsSxpAttachedProfileName,
@@ -5069,9 +5108,13 @@ ciscoLwappReapGroupConfigGroupRev2 OBJECT-GROUP
     STATUS          current
     DESCRIPTION
         "This collection of objects represent the information
-        needed by the REAP APs to configure REAP groups."
+        needed by the REAP APs to configure REAP groups. This
+        deprecates ciscoLwappReapGroupConfigGroup"
     ::= { ciscoLwappReapMIBGroups 15 }
 
 END
 
 
+--%DNP%  MLC -Compiled MLC
+
+--%DNP%  MTF -TRUE MTF

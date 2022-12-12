@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-ROGUE-MIB.my 
 -- February 2007, Devesh Pujari, Srinath Candadai 
 --
--- Copyright (c) 2007, 2010-2012, 2017 by Cisco Systems, Inc.
+-- Copyright (c) 2007-2021 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 --
@@ -34,7 +34,8 @@ IMPORTS
         cLApDot11RadioChannelNumber,
         cLApIfSmtDot11Bssid,
         cLApDot11RadioMACAddress,
-        cLApRogueMode
+        cLApRogueMode,
+        cLApRogueDot11RadioBand
                 FROM CISCO-LWAPP-AP-MIB
         cldcClientMacAddress
                 FROM CISCO-LWAPP-DOT11-CLIENT-MIB
@@ -183,6 +184,13 @@ ciscoLwappRogueMIB   MODULE-IDENTITY
 
                 [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
                     Weight Access Point Protocol."
+            REVISION        "202012020000Z"
+            DESCRIPTION
+                "Added enumerated values 10 to 12 to 
+                cLRogueAPRadioType object.
+                
+                Added:-
+                cLRogueAPPhysicalAPSlot."
             REVISION        "201703210000Z"
             DESCRIPTION
                 "Added new object group
@@ -534,7 +542,8 @@ cLRogueClientExceededThreshold NOTIFICATION-TYPE
                      cLApDot11IfType,
                      cLApIfSmtDot11Bssid,
                      cLRuleStateType,
-                     cLApRogueDetectedChannel
+                     cLApRogueDetectedChannel,
+                     cLApRogueDot11RadioBand
                     }
     STATUS          current
     DESCRIPTION
@@ -553,7 +562,8 @@ cLRogueExceededClientRemovedThreshold NOTIFICATION-TYPE
                      cLApDot11IfType,
                      cLApIfSmtDot11Bssid,
                      cLRuleStateType,
-                     cLApRogueDetectedChannel
+                     cLApRogueDetectedChannel,
+                     cLApRogueDot11RadioBand
                     }
     STATUS          current
     DESCRIPTION
@@ -1254,7 +1264,8 @@ CLRogueAPDetectingAPEntry ::= SEQUENCE {
     cLRogueAPDetectingAPWpa2Mode            INTEGER,
     cLRogueAPDetectingAPFTMode              INTEGER,
     cLRogueAPDetectingAPSNR                 Integer32,
-    cLRogueAPChannelWidth                   INTEGER
+    cLRogueAPChannelWidth                   INTEGER,
+    cLRogueAPPhysicalAPSlot                 Integer32
 }
 
 cLRogueAPDetectingAPMacAddress OBJECT-TYPE
@@ -1272,9 +1283,10 @@ cLRogueAPDetectingAPSlotId OBJECT-TYPE
     MAX-ACCESS read-only
     STATUS current
     DESCRIPTION
-        "This object represent the slot ID 
+        "This object represent the slot and band index 
         of the Detecting AP Interface that detected the 
-        Rogue."
+        Rogue. Use cLRogueAPPhysicalAPSlot for Slot ID
+        of the Detecting AP Interface."
     ::= { cLRogueAPDetectingAPEntry 2 }
 
 cLRogueAPRadioType OBJECT-TYPE
@@ -1287,7 +1299,10 @@ cLRogueAPRadioType OBJECT-TYPE
             dot11n24(6),
             dot11n5(7),
             unknown(8),
-            dot11ac(9)
+            dot11ac(9),
+            dot11ax24(10),
+            dot11ax5(11),
+            dot11ax6(12)
     }
     MAX-ACCESS read-only
     STATUS current
@@ -1314,7 +1329,9 @@ cLRogueAPChannelNumber OBJECT-TYPE
     DESCRIPTION
         " This object represents the advertised 
         Channel Number of the Detecting AP 
-        Interface picked up from the Rogue."
+        Interface picked up from the Rogue.
+        Use in conjuction with cLRogueAPRadioType to resolve ambiguity between 
+        channels numbers of 2.4GHz and 5GHz bands versus 6GHz band."
     ::= { cLRogueAPDetectingAPEntry 5 }
 
 cLRogueAPSsid OBJECT-TYPE
@@ -1496,6 +1513,14 @@ cLRogueAPChannelWidth OBJECT-TYPE
         the detecting AP is configured."
 
     ::= { cLRogueAPDetectingAPEntry 19 }
+
+cLRogueAPPhysicalAPSlot OBJECT-TYPE
+    SYNTAX Integer32
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION
+        "Reporting AP Physical Slot ID"
+    ::= { cLRogueAPDetectingAPEntry 20 }
 
 
 -- ********************************************************************
@@ -2338,6 +2363,7 @@ ciscoLwappRogueConfigSup5Group OBJECT-GROUP
                         cLRogueAPDetectingAPFTMode,
                         cLRogueAPDetectingAPSNR,
                         cLRogueAPChannelWidth,
+                        cLRogueAPPhysicalAPSlot,
                         cLRogueClientGatewayMacAddress,
                         cLRogueApRuleName,
                         cLRogueApClassName

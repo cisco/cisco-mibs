@@ -36,7 +36,7 @@ IMPORTS
         FROM Q-BRIDGE-MIB
     cLWlanIndex,
     cLWlanProfileName
-  	    FROM CISCO-LWAPP-WLAN-MIB
+        FROM CISCO-LWAPP-WLAN-MIB
     Dscp
         FROM CISCO-QOS-PIB-MIB
     cLWlanWlanPolicyName
@@ -50,7 +50,7 @@ IMPORTS
 -- ********************************************************************
 
 ciscoLwappMobilityExtMIB MODULE-IDENTITY
-    LAST-UPDATED    "202011040000Z"
+    LAST-UPDATED    "202008130000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -322,10 +322,9 @@ ciscoLwappMobilityExtMIB MODULE-IDENTITY
 
            [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
            Weight Access Point Protocol."
-    REVISION        "202011040000Z"
+    REVISION        "202008130000Z"
     DESCRIPTION
-        " Added cLMobilityExtWlanPolicyName
-		        cLGuestWlanAllAnchorsDown
+        " Added cLGuestWlanAllAnchorsDown
                 cLGuestWlanOneAnchorOnGuestLanUp notification"
     REVISION        "201906200000Z"
     DESCRIPTION
@@ -741,8 +740,8 @@ cLMobilityExtSecureCipher OBJECT-TYPE
                      to use default ciphers for mobility  tunnel.
         aes256sha1(2) - Implies that controllers will use
                         AES256_SHA cipher for mobility tunnel.
-        aes256sha2(3) - Implies that controllers will use 
-                        AES256_SHA256 cipher for mobility tunnel." 
+        aes256sha2(3) - Implies that controllers will use
+                        AES256_SHA256 cipher for mobility tunnel."
     ::= { ciscoLwappMobilityExtMCMAGlobalObjects 11 }
 
 cLMobilityExtEncryptionStatus OBJECT-TYPE
@@ -755,6 +754,24 @@ cLMobilityExtEncryptionStatus OBJECT-TYPE
         A value of 'true' indicates encryption is enabled.
         A value of 'false' indicates encryption is disabled." 
     ::= { ciscoLwappMobilityExtMCMAGlobalObjects 12 }
+
+cLMobilityExtSecureCipherv2 OBJECT-TYPE
+    SYNTAX          INTEGER  {
+                        disable(1),
+                        aes128sha2(2)
+                    }
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies to configure secure ciphers, AES128+SHA
+        or AES128+SHA2 for mobility tunnel.
+        disable(1)    - Implies that controllers will continue 
+                        to use default cipher AES128_SHA for mobility 
+                        tunnel.
+        aes128sha2(2) - Implies that controllers will use
+                        AES128_SHA256 cipher for mobility tunnel."
+    ::= { ciscoLwappMobilityExtMCMAGlobalObjects 13 }
+
 -- *******************************************************************
 -- Switch Peer Group Table (applicable to MC only)
 -- *******************************************************************
@@ -2923,7 +2940,7 @@ cLMobilityExtWlanPolicyName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies one instance of a WLAN policy on the
-        controller"
+         controller"
     ::= { ciscoLwappMobilityExtNotifObjects 5 }
 
 -- *******************************************************************
@@ -3166,7 +3183,7 @@ cLGuestWlanAllAnchorsDown NOTIFICATION-TYPE
     STATUS          current
     DESCRIPTION
         "This  notification will be emitted by the SNMP agent
-        when 3 successive CAPWAP/Mobility ping attempts to all the anchors on
+        when successive CAPWAP/Mobility ping attempts to all the anchors on
         Guest Wlan, denoted by cLWlanProfileName, fail and
         all the anchors are conclusively down."
    ::= { ciscoLwappMobilityExtMIBNotifs 5 }
@@ -3179,9 +3196,9 @@ cLGuestWlanOneAnchorOnGuestLanUp NOTIFICATION-TYPE
     STATUS          current
     DESCRIPTION
         "This  notification will be emitted by the SNMP agent
-        when CAPWAP/Mobility and UDP pings successfully to at 
-        least one anchor on the Guest Wlan, denoted by 
-        cLWlanProfileName, is restored and anchor is conclusively up."
+        when successive CAPWAP/Mobility and UDP ping to at least one anchor
+        on the Guest Wlan, denoted by cLWlanProfileName, is
+        restored and anchor is conclusively up."
    ::= { ciscoLwappMobilityExtMIBNotifs 6 }
 
 -- *******************************************************************
@@ -3263,8 +3280,7 @@ ciscoLwappMobilityExtMIBComplianceRev4 MODULE-COMPLIANCE
                         ciscoLwappMobilityExtNotifyObjectsGroup,
                         ciscoLwappMobilityExtNotifsGroupRev1,
                         ciscoLwappMobilityExtMCMAStatsGroup,
-                        cLMobilityExtAnchorConfigGroup,
-                        cLMobilityExtWlanPolicyNameGroup
+                        cLMobilityExtAnchorConfigGroup
                     }
     ::= { ciscoLwappMobilityExtMIBCompliances 5 }
 
@@ -3478,6 +3494,7 @@ cLMobilityExtConfigGroupRev1 OBJECT-GROUP
                         cLMobilityExtMgrVlanId,
                         cLMobilityExtMgrName,
                         cLMobilityExtMgrInterfaceType,
+                        cLMobilityExtSecureCipherv2,
                         cLMobilityExtNewArchitectureEnableStatus,
                         cLMobilityExtNewArchitectureAdminEnableStatus,
                         cLMobilityExtMCClientAnchorMCPrivateAddressType,
@@ -3639,14 +3656,6 @@ cLMobilityExtAnchorConfigGroup OBJECT-GROUP
         an Anchor WLC mapped on a WLAN."
     ::= { ciscoLwappMobilityExtMIBGroups 7 }
 
-cLMobilityExtWlanPolicyNameGroup OBJECT-GROUP
-    OBJECTS         { cLMobilityExtWlanPolicyName }
-    STATUS          current
-    DESCRIPTION
-        "This object specifies one instance of a WLAN policy on the
-        controller"
-    ::= { ciscoLwappMobilityExtMIBGroups 8 }
-
 ciscoLwappMobilityExtNotifsGroupRev1 NOTIFICATION-GROUP
    NOTIFICATIONS    {
                         ciscoLwappMobilityControlPathDown,
@@ -3661,8 +3670,12 @@ ciscoLwappMobilityExtNotifsGroupRev1 NOTIFICATION-GROUP
         "This collection of objects provides the information
         about the notifications sent by the agent related
         to mobility and guest anchor."
-    ::= { ciscoLwappMobilityExtMIBGroups 9 }
+    ::= { ciscoLwappMobilityExtMIBGroups 8 }
 
 END
 
+--%DNP%  MLC -Compiled MLC
 
+--%DNP%  MTF -TRUE MTF
+
+--%DNP%  NO REPLACEMENT =cLMobilityExtMOClientAssociationTime 
