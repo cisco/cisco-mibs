@@ -3,7 +3,7 @@
 -- This MIB helps to manage the WLANs on the controller
 -- April 2016, Ambika Prasad Mohanty
 --   
--- Copyright (c) 2017-2019 by Cisco Systems Inc.
+-- Copyright (c) 2017-2019, 2021 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -289,6 +289,9 @@ ciscoCapwapWlanPolicyMIB MODULE-IDENTITY
 
         [3] IEEE 802.11 - The original 1 Mbit/s and 2 Mbit/s, 
         2.4 GHz RF and IR standard."
+    REVISION        "202101200000Z"
+    DESCRIPTION
+        "Updated cLWlanPolicyIPv4AclName range"
     REVISION        "201911200000Z"
     DESCRIPTION
         "Added the following objects to cLWlanPolicyConfigTable.
@@ -596,7 +599,7 @@ cLWlanPolicyAssocCentral OBJECT-TYPE
     ::= { cLWlanPolicyConfigEntry 10 }
 
 cLWlanPolicyIPv4AclName OBJECT-TYPE
-    SYNTAX          SnmpAdminString (SIZE  (0..64))
+    SYNTAX          SnmpAdminString (SIZE  (0..32))
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
@@ -1261,7 +1264,7 @@ cLWlanPolicyHotspotAnqpServer OBJECT-TYPE
     ::= { cLWlanPolicyConfigEntry 69 }
 
 cLWlanPolicyNacType OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         radius(0),
                         xwf(1)
                     }
@@ -1271,7 +1274,7 @@ cLWlanPolicyNacType OBJECT-TYPE
         "This object specifies the type of NAC configured
         radius   - Identity Service Engine NAC configured
         xwf      - Express Wi-Fi NAC configured."
-    DEFVAL          { radius } 
+    DEFVAL          { radius }
     ::= { cLWlanPolicyConfigEntry 70 }
 
 cLWlanPolicyARPProxy OBJECT-TYPE
@@ -1287,7 +1290,7 @@ cLWlanPolicyARPProxy OBJECT-TYPE
     ::= { cLWlanPolicyConfigEntry 71 }
 
 cLWlanPolicyIPv6proxy OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         noproxy(1),
                         dadproxy(2),
                         fullproxy(3)
@@ -1298,8 +1301,8 @@ cLWlanPolicyIPv6proxy OBJECT-TYPE
         "This object specifies the type of IPV6 proxy mode configured
         noproxy    - no ipv6 proxy configured
         dadproxy   - DAD proxy is configured.
-        fullproxy  - DAD and ND proxy is configured."
-    DEFVAL          { noproxy } 
+        fullproxy  - DAD and ND proxy is configured. "
+    DEFVAL          { noproxy }
     ::= { cLWlanPolicyConfigEntry 72 }
 
 cLWlanPolicyMulticastFilter OBJECT-TYPE
@@ -1325,7 +1328,6 @@ cLWlanPolicyQBSSLoad OBJECT-TYPE
         A value of 'false' indicates QBSSload is disabled."
     DEFVAL          { true } 
     ::= { cLWlanPolicyConfigEntry 74 }
- 
 
 -- ********************************************************************
 -- * Air Time Fairness Profile Configuration
@@ -1419,7 +1421,10 @@ CLWlanAaaPolicyConfigEntry ::= SEQUENCE {
         cLWlanAaaPolicyNasId1    INTEGER,
         cLWlanAaaPolicyNasId2    INTEGER,
         cLWlanAaaPolicyNasId3    INTEGER,
-        cLWlanAaaPolicyRealm     TruthValue
+        cLWlanAaaPolicyRealm     TruthValue,
+        cLWlanAAAPolicyCustomString1 SnmpAdminString,
+        cLWlanAAAPolicyCustomString2 SnmpAdminString,
+        cLWlanAAAPolicyCustomString3 SnmpAdminString,
 }
 
 cLWlanAaaPolicyName OBJECT-TYPE
@@ -1458,7 +1463,8 @@ cLWlanAaaPolicyNasId1 OBJECT-TYPE
                         appolicytag(8),
                         apsitetag(9),
                         ssid(10),
-                        aplocation(11)
+                        aplocation(11),
+                        customstring(12)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -1475,7 +1481,8 @@ cLWlanAaaPolicyNasId1 OBJECT-TYPE
         appolicytag   - AP's Policy Tag
         apsitetag     - AP's Site Tag
         ssid          - SSID Name
-        aplocation    - AP's Location ."
+        aplocation    - AP's Location
+        customstring  - Custom String ."
     DEFVAL          { sysname } 
     ::= { cLWlanAaaPolicyConfigEntry 3 }
 
@@ -1492,7 +1499,8 @@ cLWlanAaaPolicyNasId2 OBJECT-TYPE
                         appolicytag(8),
                         apsitetag(9),
                         ssid(10),
-                        aplocation(11)
+                        aplocation(11),
+                        customstring(12)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -1509,7 +1517,8 @@ cLWlanAaaPolicyNasId2 OBJECT-TYPE
         appolicytag   - AP's Policy Tag
         apsitetag     - AP's Site Tag
         ssid          - SSID Name
-        aplocation    - AP's Location ."
+        aplocation    - AP's Location
+        customstring  - Custom String ."
     DEFVAL          { notconfigured } 
     ::= { cLWlanAaaPolicyConfigEntry 4 }
 
@@ -1526,7 +1535,8 @@ cLWlanAaaPolicyNasId3 OBJECT-TYPE
                         appolicytag(8),
                         apsitetag(9),
                         ssid(10),
-                        aplocation(11)
+                        aplocation(11),
+                        customstring(12)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -1543,7 +1553,8 @@ cLWlanAaaPolicyNasId3 OBJECT-TYPE
         appolicytag   - AP's Policy Tag
         apsitetag     - AP's Site Tag
         ssid          - SSID Name
-        aplocation    - AP's Location ."
+        aplocation    - AP's Location
+        customstring  - Custom String ."
     DEFVAL          { notconfigured } 
     ::= { cLWlanAaaPolicyConfigEntry 5 }
 
@@ -1558,6 +1569,32 @@ cLWlanAaaPolicyRealm OBJECT-TYPE
     DEFVAL          { true } 
     ::= { cLWlanAaaPolicyConfigEntry 6 }
  
+cLWlanAAAPolicyCustomString1 OBJECT-TYPE
+    SYNTAX          SnmpAdminString (SIZE  (0..224))
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies the custom string for nasid option1"
+    DEFVAL          { notconfigured }
+    ::= { cLWlanAaaPolicyConfigEntry 7 }
+
+cLWlanAAAPolicyCustomString2 OBJECT-TYPE
+    SYNTAX          SnmpAdminString (SIZE  (0..224))
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies the custom string for nasid option2"
+    DEFVAL          { notconfigured }
+    ::= { cLWlanAaaPolicyConfigEntry 8 }
+
+cLWlanAAAPolicyCustomString3 OBJECT-TYPE
+    SYNTAX          SnmpAdminString (SIZE  (0..224))
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies the custom string for nasid option3"
+    DEFVAL          { notconfigured }
+    ::= { cLWlanAaaPolicyConfigEntry 9 }
 
 -- ********************************************************************
 -- * AVC Netflow Flow Monitor Profile Configuration
@@ -2374,4 +2411,20 @@ ciscoLwappWlanPolicyConfigGroupRev4 OBJECT-GROUP
 
 END
 
+
+-- %DNP%  MLC -Submitted MLC
+
+-- %DNP%  NO REPLACEMENT =cLWlanPolicyNetflowIPv4InputMonitorName 
+
+-- %DNP%  NO REPLACEMENT =cLWlanPolicyNetflowIPv4OutputMonitorName 
+
+-- %DNP%  NO REPLACEMENT =cLWlanPolicyNetflowIPv6InputMonitorName 
+
+-- %DNP%  NO REPLACEMENT =cLWlanPolicyNetflowIPv6OutputMonitorName 
+
+-- %DNP%  NO REPLACEMENT =ciscoLwappWlanPolicyConfigGroup 
+
+-- %DNP%  NO REPLACEMENT =ciscoLwappWlanPolicyConfigGroupRev1 
+
+-- %DNP%  NO REPLACEMENT =ciscoLwappWlanPolicyConfigGroupRev2 
 

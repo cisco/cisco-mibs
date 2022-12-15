@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-AP-MIB.my
 -- January 2006, Devesh Pujari, Prasanna Viswakumar, Srinath Candadai
 -- August 2010, Suja Thangaveluchamy
--- Copyright (c) 2006-2007, 2010-2012, 2016-2021 by Cisco Systems Inc.
+-- Copyright (c) 2006-2007, 2010-2012, 2016-2022 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -65,7 +65,7 @@ IMPORTS
 -- ********************************************************************
 
 ciscoLwappApMIB MODULE-IDENTITY
-    LAST-UPDATED    "202106060000Z"
+    LAST-UPDATED    "202110010000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -301,7 +301,7 @@ ciscoLwappApMIB MODULE-IDENTITY
         security threats and RF Interference that may affect
         performance. Flexible Radio Assignment improves mobile user
         experience for high-density networks.
-
+        
         XOR Radio
 
         XOR radio is a radio that can operate on both 2.4Ghz and 5Ghz
@@ -314,8 +314,21 @@ ciscoLwappApMIB MODULE-IDENTITY
 
         [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol."
-        
-    REVISION        "202106060000Z"
+
+    REVISION        "202206060000Z"
+    DESCRIPTION
+        "Added new table cLApWlanSlotStatsTable."
+    REVISION        "202201010000Z"
+    DESCRIPTION
+        "Added following scalar object
+        - cLApIndoorMode."
+    REVISION        "202110010000Z"
+    DESCRIPTION
+        "Added following scalar object
+        - clApImageUpgradeHttpsEnable.
+        Added cLAp11axObssPdSrgCapable to cLAp11axRadioConfigTable
+	Added ciscoLwappApRadioStuck to notification objects list"
+   REVISION        "202106060000Z"
     DESCRIPTION
         "Added following scalar object
         - cLApAuthorizeApMacMethodList
@@ -389,16 +402,16 @@ ciscoLwappApMIB MODULE-IDENTITY
         - cLApProfileBssidStatsFrequency"
     REVISION        "201911080000Z"
     DESCRIPTION
-        "Addition of new table cLAPNtpInfoTable.
-        Added new group ciscoLwappApNtpInfo.
-        Added objects to compliance ciscoLwappApGroupSup9
-        -cLAPNtpInfoState
-        -cLAPNtpInfoStatus
-        -cLAPNtpInfoStratum
-        -cLAPNtpInfoLastSync
-        -cLAPNtpInfoOffset
-        -cLAPNtpInfoIPAddressType
-        -cLAPNtpInfoIPAddress"
+         "Addition of new table cLAPNtpInfoTable.
+          Added new group ciscoLwappApNtpInfo.
+          Added objects to compliance ciscoLwappApGroupSup9
+             -cLAPNtpInfoState
+             -cLAPNtpInfoStatus
+             -cLAPNtpInfoStratum
+             -cLAPNtpInfoLastSync
+             -cLAPNtpInfoOffset
+             -cLAPNtpInfoIPAddressType
+             -cLAPNtpInfoIPAddress"
     REVISION        "201910160000Z"
     DESCRIPTION
         "Addition of following new table
@@ -406,8 +419,8 @@ ciscoLwappApMIB MODULE-IDENTITY
         Addition of following object to cLApDot11IfTable
          - cLApDot11IfPhyS80EightyChannelNumber
         Addition of cLApProfileHaloBleBeaconRowStatus to
-        cLApProfileHaloBleBeaconTable to allow creation
-        of entries."
+          cLApProfileHaloBleBeaconTable to allow creation
+          of entries."
     REVISION        "201906250000Z"
     DESCRIPTION
         "Added following object to the cLApProfileTable
@@ -439,41 +452,41 @@ ciscoLwappApMIB MODULE-IDENTITY
          Updated cLApDot11IfAntennaId range"
     REVISION        "201809170000Z"
     DESCRIPTION
-        "Addition of following new table
-        - cLApProfileTable
-        - cLApProfileHaloBleBeaconTable
-        - cLApPacketCaptureProfileTable
-        - cLApPacketCaptureClientTable
-        - cLApPacketCaptureApTable
-        Added following object to the cLApTable
-        - cLApModeClear
-        - cLApSiteTagName
-        - cLApRfTagName
-        - cLApPolicyTagName
-        - cLApTagSource
-        - cLApUsbModuleName
-        - cLApUsbModuleState
-        - cLApUsbModuleProductId
-        - cLApUsbDescription
-        - cLApUsbStateInfo
-        - cLApUsbOverride
-        - cLApUsbSerialNumber
-        - cLApUsbMaxPower
-        Added following object to the cLApBleBeaconTable
-        - cLApBleBeaconAdvTxPower
-        Added following scalar object
-        - cLApAuthorizeApMacAuth
-        - cLApAuthorizeApSerialNumAuth
-        - cLApAuthorizeApMethodList
-        deprecated the following compliance group
-        - ciscoLwappApMIBComplianceRev7
-        Added following compliance group
-        - ciscoLwappApMIBComplianceRev8
-        Added following conformance group
-        - ciscoLwappApProfileHaloBleGroup
-        - ciscoLwappApProfileGroup
-        - ciscoLwappApPacketCaptureProfileGroup
-        - ciscoLwappApPacketCaptureClientProfileGroup."
+         "Addition of following new table
+            - cLApProfileTable
+            - cLApProfileHaloBleBeaconTable
+            - cLApPacketCaptureProfileTable
+            - cLApPacketCaptureClientTable
+            - cLApPacketCaptureApTable
+         Added following object to the cLApTable
+            - cLApModeClear
+            - cLApSiteTagName
+            - cLApRfTagName
+            - cLApPolicyTagName
+            - cLApTagSource
+            - cLApUsbModuleName
+            - cLApUsbModuleState
+            - cLApUsbModuleProductId
+            - cLApUsbDescription
+            - cLApUsbStateInfo
+            - cLApUsbOverride
+            - cLApUsbSerialNumber
+            - cLApUsbMaxPower
+         Added following object to the cLApBleBeaconTable
+            - cLApBleBeaconAdvTxPower
+         Added following scalar object
+            - cLApAuthorizeApMacAuth
+            - cLApAuthorizeApSerialNumAuth
+            - cLApAuthorizeApMethodList
+         deprecated the following compliance group
+            - ciscoLwappApMIBComplianceRev7
+         Added following compliance group
+            - ciscoLwappApMIBComplianceRev8
+         Added following conformance group
+            - ciscoLwappApProfileHaloBleGroup
+            - ciscoLwappApProfileGroup
+            - ciscoLwappApPacketCaptureProfileGroup
+            - ciscoLwappApPacketCaptureClientProfileGroup."
     REVISION        "201807260000Z"
     DESCRIPTION
         "Added following objects to cLApDot11IfTable :
@@ -648,9 +661,11 @@ ciscoLwappApPacketCapture  OBJECT IDENTIFIER
 
 ciscoLwappApNtpInfo  OBJECT IDENTIFIER
     ::= { ciscoLwappApMIBObjects 18 }
-
 ciscoLwappAp11axRadioConfig  OBJECT IDENTIFIER
     ::= { ciscoLwappApMIBObjects 21 }
+
+ciscoLwappApSlotWlanStats  OBJECT IDENTIFIER
+    ::= { ciscoLwappApMIBObjects 22 }
 
 -- ********************************************************************
 -- APs that have joined the controller
@@ -1176,7 +1191,7 @@ cLApLastRebootReason OBJECT-TYPE
                  indoorDeployment - Indoor Deployment
                  apTypeWgbToCapwap - AP type changed from WGB to CAPWAP
                  apTypeCloudToCapwap - AP type changed from cloud to CAPWAP
-                 apTypeWgb - AP type changed from CAPWAP to WGB" 
+                 apTypeWgb - AP type changed from CAPWAP to WGB"
     ::= { cLApEntry 16 }
 
 cLApEncryptionEnable OBJECT-TYPE
@@ -2317,7 +2332,7 @@ cLApModeClear OBJECT-TYPE
         controller. Once cleared, AP may reboot and move to the AP mode
         based on current tag configuration.
         A value of 'true' indicates AP mode is cleared
-        A value of 'false' indicates AP mode is set" 
+        A value of 'false' indicates AP mode is set"
     ::= { cLApEntry 103 }
 
 cLApSiteTagName OBJECT-TYPE
@@ -2325,7 +2340,7 @@ cLApSiteTagName OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies the site tag name of the AP" 
+        "This object specifies the site tag name of the AP"
     ::= { cLApEntry 104 }
 
 cLApRfTagName OBJECT-TYPE
@@ -2333,7 +2348,7 @@ cLApRfTagName OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies the RF tag name of the AP" 
+        "This object specifies the RF tag name of the AP"
     ::= { cLApEntry 105 }
 
 cLApPolicyTagName OBJECT-TYPE
@@ -2341,7 +2356,7 @@ cLApPolicyTagName OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies the policy tag name of the AP." 
+        "This object specifies the policy tag name of the AP."
     ::= { cLApEntry 106 }
 
 cLApTagSource OBJECT-TYPE
@@ -2356,7 +2371,7 @@ cLApTagSource OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies the source of the tag." 
+        "This object specifies the source of the tag."
     ::= { cLApEntry 107 }
 
 cLApUsbModuleName OBJECT-TYPE
@@ -2365,7 +2380,7 @@ cLApUsbModuleName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies module name of USB module
-        On the AP." 
+        On the AP."
     ::= { cLApEntry 108 }
 
 cLApUsbModuleState OBJECT-TYPE
@@ -2374,7 +2389,7 @@ cLApUsbModuleState OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies whether USB module detected or not
-        detected on the AP." 
+        detected on the AP."
     ::= { cLApEntry 109 }
 
 cLApUsbModuleProductId OBJECT-TYPE
@@ -2382,7 +2397,7 @@ cLApUsbModuleProductId OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies product Id of USB module on the AP." 
+        "This object specifies product Id of USB module on the AP."
     ::= { cLApEntry 110 }
 
 cLApUsbDescription OBJECT-TYPE
@@ -2390,7 +2405,7 @@ cLApUsbDescription OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies description of USB module on the AP." 
+        "This object specifies description of USB module on the AP."
     ::= { cLApEntry 111 }
 
 cLApUsbStateInfo OBJECT-TYPE
@@ -2399,7 +2414,7 @@ cLApUsbStateInfo OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies State(enable/disable) of USB module
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 112 }
 
 cLApUsbOverride OBJECT-TYPE
@@ -2408,7 +2423,7 @@ cLApUsbOverride OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies Override(enable/disable) of USB module
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 113 }
 
 cLApUsbSerialNumber OBJECT-TYPE
@@ -2417,7 +2432,7 @@ cLApUsbSerialNumber OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies serial number of USB module
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 114 }
 
 cLApUsbMaxPower OBJECT-TYPE
@@ -2426,25 +2441,25 @@ cLApUsbMaxPower OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies max power given to USB module
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 115 }
-
-cLApLagConfigStatus OBJECT-TYPE
-    SYNTAX          TruthValue
-    MAX-ACCESS      read-only
-    STATUS          current
+ 
+cLApLagConfigStatus  OBJECT-TYPE
+    SYNTAX           TruthValue
+    MAX-ACCESS       read-only
+    STATUS           current
     DESCRIPTION
         "This object specifies the configured LAG status(enable/disable)
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 116 }
 
-cLApMonitorModeOptStatus OBJECT-TYPE
-    SYNTAX          TruthValue
-    MAX-ACCESS      read-only
-    STATUS          current
+cLApMonitorModeOptStatus  OBJECT-TYPE
+    SYNTAX           TruthValue
+    MAX-ACCESS       read-only
+    STATUS           current
     DESCRIPTION
         "This object specifies the Monitor Mode optimization support(enable/disable)
-        on the AP." 
+        on the AP."
     ::= { cLApEntry 117 }
 
 cLApFilterName OBJECT-TYPE
@@ -2452,9 +2467,9 @@ cLApFilterName OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "This object specifies the Filter name applied on this AP" 
+        "This object specifies the Filter name applied on this AP"
     ::= { cLApEntry 118 }
- 
+
 
 -- ********************************************************************
 -- *  AP Dot11 Interface Information
@@ -2490,48 +2505,48 @@ cLApDot11IfEntry OBJECT-TYPE
     ::= { cLApDot11IfTable 1 }
 
 CLApDot11IfEntry ::= SEQUENCE {
-        cLApDot11IfSlotId                    Unsigned32,
-        cLApDot11IfType                      CLApIfType,
-        cLApDot11IfRegDomain                 SnmpAdminString,
-        cLApDot11nSupport                    TruthValue,
-        cLAp11nChannelBandwidth              INTEGER,
-        cLApLomEnabled                       TruthValue,
-        cLApLomFirstChannel                  CLDot11Channel,
-        cLApLomSecondChannel                 CLDot11Channel,
-        cLApLomThirdChannel                  CLDot11Channel,
-        cLApLomFourthChannel                 CLDot11Channel,
-        cLApExtensionChannel                 CLDot11Channel,
-        cLApLegacyBeamForming                INTEGER,
-        cLApCdpOverAirEnabled                TruthValue,
-        cLApDot11IfAdminStatus               TruthValue,
-        cLApDot11IfLinkChangeCount           Unsigned32,
-        cLApDot11MaxClients                  Unsigned32,
-        cLApPromiscuousModeDwelling          Unsigned32,
-        cLApDot11IfStaKeepingTime            TimeTicks,
-        cLApDot11IfLinkSpeed                 Gauge32,
-        cLApDot11IfMtu                       Unsigned32,
-        cLApDot11IfDesc                      SnmpAdminString,
-        cLApDot11acSupport                   TruthValue,
-        cLAp11ChannelBandwidth               INTEGER,
-        cLApExtensionChannels                SnmpAdminString,
-        cLAPDot11IfMinTxPowerStep            Unsigned32,
-        cLApDot11XorRadioMode                INTEGER,
-        cLApDot11XorRadioBand                INTEGER,
-        cLApDot11XorRadioRoleAssignment      INTEGER,
-        cLApDot11IfMaxDataRate               Unsigned32,
-        cLApDot11IfSensorReachability        Unsigned32,
-        cLApDot11axSupport                   TruthValue,
-        cLApFraCoverageOverlapFactor         Integer32,
-        cLApFraSuggestedMode                 INTEGER,
-        cLApDot11IfDualRadioMode             INTEGER,
-        cLApDot11IfDualRadioCapable          INTEGER,
-        cLApDot11IfRadioFRACapable           INTEGER,
-        cLApDot11IfPhyS80EightyChannelNumber Integer32,
-        cLApDot11IfDualRadioOperation        INTEGER,
-        cLApDot11IfRadioRoleOperation        INTEGER,
-        cLApDot11IfRadioRole                 INTEGER,
-        cLApDot11IfRptncPresent              TruthValue,
-        cLApDot11IfDartPresent               TruthValue
+        cLApDot11IfSlotId               Unsigned32,
+        cLApDot11IfType                 CLApIfType,
+        cLApDot11IfRegDomain            SnmpAdminString,
+        cLApDot11nSupport               TruthValue,
+        cLAp11nChannelBandwidth         INTEGER,
+        cLApLomEnabled                  TruthValue,
+        cLApLomFirstChannel             CLDot11Channel,
+        cLApLomSecondChannel            CLDot11Channel,
+        cLApLomThirdChannel             CLDot11Channel,
+        cLApLomFourthChannel            CLDot11Channel,
+        cLApExtensionChannel            CLDot11Channel,
+        cLApLegacyBeamForming           INTEGER,
+        cLApCdpOverAirEnabled           TruthValue,
+        cLApDot11IfAdminStatus          TruthValue,
+        cLApDot11IfLinkChangeCount      Unsigned32,
+        cLApDot11MaxClients             Unsigned32,
+        cLApPromiscuousModeDwelling     Unsigned32,
+        cLApDot11IfStaKeepingTime       TimeTicks,
+        cLApDot11IfLinkSpeed            Gauge32,
+        cLApDot11IfMtu                  Unsigned32,
+        cLApDot11IfDesc                 SnmpAdminString,
+        cLApDot11acSupport              TruthValue,
+        cLAp11ChannelBandwidth          INTEGER,
+        cLApExtensionChannels           SnmpAdminString,
+        cLAPDot11IfMinTxPowerStep       Unsigned32,
+        cLApDot11XorRadioMode           INTEGER,
+        cLApDot11XorRadioBand           INTEGER,
+        cLApDot11XorRadioRoleAssignment INTEGER,
+        cLApDot11IfMaxDataRate          Unsigned32,
+        cLApDot11IfSensorReachability   Unsigned32,
+        cLApDot11axSupport              TruthValue,
+        cLApFraCoverageOverlapFactor    Integer32,
+        cLApFraSuggestedMode            INTEGER,
+        cLApDot11IfDualRadioMode        INTEGER,
+        cLApDot11IfDualRadioCapable     INTEGER,
+        cLApDot11IfRadioFRACapable      INTEGER,
+        cLApDot11IfPhyS80EightyChannelNumber INTEGER,
+        cLApDot11IfDualRadioOperation   INTEGER,
+        cLApDot11IfRadioRoleOperation   INTEGER,
+        cLApDot11IfRadioRole            INTEGER,
+        cLApDot11IfRptncPresent         TruthValue,
+        cLApDot11IfDartPresent          TruthValue
 }
 
 cLApDot11IfSlotId OBJECT-TYPE
@@ -2836,7 +2851,8 @@ cLApDot11XorRadioMode OBJECT-TYPE
 cLApDot11XorRadioBand OBJECT-TYPE
     SYNTAX          INTEGER  {
                         radioband24G(1),
-                        radioband5G(2)
+                        radioband5G(2),
+                        radioband6G(3)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -2844,7 +2860,8 @@ cLApDot11XorRadioBand OBJECT-TYPE
         "This object specifies the operating band of
         the dot11 interface of an AP.
         radioband24G - operating band for xor radio is 2.4GHz.
-        radioband5G  - operating band for xor radio is 5GHz." 
+        radioband5G  - operating band for xor radio is 5GHz.
+        radioband6G  - operating band for xor radio is 6GHz"
     ::= { cLApDot11IfEntry 27 }
 
 cLApDot11XorRadioRoleAssignment OBJECT-TYPE
@@ -2925,9 +2942,9 @@ cLApFraSuggestedMode OBJECT-TYPE
         radioBand24G - XOR radio is not redundant.
         notApplicable - Radio is not XOR." 
     ::= { cLApDot11IfEntry 33 }
-
+ 
 cLApDot11IfDualRadioMode OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         none(1),
                         enabled(2),
                         disabled(3)
@@ -2935,60 +2952,60 @@ cLApDot11IfDualRadioMode OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          deprecated
     DESCRIPTION
-        "This object represents dual radio mode status of radio
+        "This object represents dual radio mode status of radio 
         enabled - Dual radio mode is enabled.
         disabled- Dual radio mode is disabled.
-        None - Radio is not dual radio mode capable." 
+        None - Radio is not dual radio mode capable."
     ::= { cLApDot11IfEntry 34 }
 
 cLApDot11IfDualRadioCapable OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         notcapable(0),
                         dualmodecapable(1)
                     }
     MAX-ACCESS      read-only
     STATUS          deprecated
     DESCRIPTION
-        "This object represents whether radio is dual radio capable or
-        not" 
+        "This object represents whether radio is dual radio capable or 
+         not"
     ::= { cLApDot11IfEntry 35 }
 
 cLApDot11IfRadioFRACapable OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         notcapable(0),
                         capable(1)
                     }
     MAX-ACCESS      read-only
     STATUS          deprecated
     DESCRIPTION
-        "This object represents whether radio is FRA capable or not." 
+        "This object represents whether radio is FRA capable or not."
     ::= { cLApDot11IfEntry 36 }
 
 cLApDot11IfPhyS80EightyChannelNumber OBJECT-TYPE
-    SYNTAX          Integer32
+    SYNTAX          INTEGER
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
         "Secondary 80MHz channel number of the AP Interface.
         Allowed channel numbers also depends on the current
-        Country Code set in the Switch." 
+        Country Code set in the Switch."
     ::= { cLApDot11IfEntry 37 }
 
--- cLApDot11IfChannelWidthCapability OBJECT-TYPE
--- SYNTAX          INTEGER {
--- notsupported(0),
--- eightycontiguous(1),
--- eightynoncontiguous(2),
--- onesixty(4)
--- }
--- MAX-ACCESS      read-only
--- STATUS          current
--- DESCRIPTION
--- "This Object represents channel width capability."
--- ::= { cLApDot11IfEntry 38 }
+--cLApDot11IfChannelWidthCapability OBJECT-TYPE
+--    SYNTAX          INTEGER {
+--                        notsupported(0),
+--                        eightycontiguous(1),
+--                        eightynoncontiguous(2),
+--                        onesixty(4)
+--                    }
+--    MAX-ACCESS      read-only
+--    STATUS          current
+--    DESCRIPTION
+--        "This Object represents channel width capability."
+--    ::= { cLApDot11IfEntry 38 }
 
 cLApDot11IfDualRadioOperation OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         none(1),
                         auto(2),
                         manual(3)
@@ -3000,11 +3017,11 @@ cLApDot11IfDualRadioOperation OBJECT-TYPE
         the slot.
         auto - Dual radio mode is automatic.
         manual - Dual radio mode is configurable manually.
-        none - Radio is not dual radio mode capable." 
+        none - Radio is not dual radio mode capable."
     ::= { cLApDot11IfEntry 39 }
 
 cLApDot11IfRadioRoleOperation OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         none(1),
                         auto(2),
                         manual(3)
@@ -3015,11 +3032,12 @@ cLApDot11IfRadioRoleOperation OBJECT-TYPE
         "This object represents the radio role operation
         of the slot.
         auto - Radio role assignment is automatic.
-        manual - Radio role assignment is manual." 
+        manual - Radio role assignment is manual."
     ::= { cLApDot11IfEntry 40 }
 
+    
 cLApDot11IfRadioRole OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         none(1),
                         local(2),
                         monitor(3)
@@ -3029,7 +3047,7 @@ cLApDot11IfRadioRole OBJECT-TYPE
     DESCRIPTION
         "This object represents the role for the slot.
         local - The means the slot is capable of serving clients.
-        monitor - The slot does not serves client, only monitors." 
+        monitor - The slot does not serves client, only monitors."
     ::= { cLApDot11IfEntry 41 }
 
 cLApDot11IfRptncPresent OBJECT-TYPE
@@ -3053,7 +3071,7 @@ cLApDot11IfDartPresent OBJECT-TYPE
         A value of 'true' indicates SIA DART is present.
         A value of 'false' indicates SIA DART is not present." 
     ::= { cLApDot11IfEntry 43 }
- 
+
 
 -- ********************************************************************
 -- *  AP Ethernet Interface Information
@@ -3646,7 +3664,7 @@ cLApDot11RadioMode OBJECT-TYPE
                            connected.
         hybridRemote(9)  : A mode for branch office and 
                            remote office deployment.
-        sensor(10)       : A sensor mode AP." 
+        sensor(10)       : A sensor mode AP."
     ::= { cLApDot11RadioEntry 6 }
 
 cLApDot11RadioSubType OBJECT-TYPE
@@ -3672,7 +3690,7 @@ cLApDot11RadioSubType OBJECT-TYPE
         xorTxRx(5)   :Xor radio capable of both TX and RX.
         bleTxRx(6)   :radio operating normally and BLE is enabled for the AP.
         bleRxOnly(7) :radio is explicitly used for monitor mode operation and BLE is enabled for the AP. 
-        slave(8)     :radio operating as slave." 
+        slave(8)     :radio operating as slave."
     ::= { cLApDot11RadioEntry 7 }
  
 
@@ -4067,17 +4085,17 @@ cLApLanPoeState OBJECT-TYPE
         ethernet interface."
     DEFVAL          { false } 
     ::= { cLAplanStatsEntry 5 }
-
+ 
 cLApLanPowerLevelId OBJECT-TYPE
     SYNTAX          Unsigned32 (1..4)
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
         "This object specifies the power level
-        of the port"
+         of the port"
     DEFVAL          { 4 } 
     ::= { cLAplanStatsEntry 6 }
- 
+
 
 
 cLAplanOverrideTable OBJECT-TYPE
@@ -4221,6 +4239,114 @@ cLApWlanStatsOnlineUserNum OBJECT-TYPE
         the specific radio and wlan on this access point." 
     ::= { cLApWlanStatsEntry 7 }
  
+
+-- ********************************************************************
+-- *  AP slot WLAN Stats.
+-- ********************************************************************
+
+cLApWlanSlotStatsTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CLApSlotWlanStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "This table represents Per-AP, Per-Slot, Per-SSID
+        Stats information of packets/bytes sent/received,
+        retransmission counter, associated clients counter,
+        etc."
+    ::= { ciscoLwappApSlotWlanStats 1 }
+
+cLApSlotWlanStatsEntry OBJECT-TYPE
+    SYNTAX          CLApSlotWlanStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "This entry contains stats information of
+        packets/bytes sent/received, retransmission counter,
+        associated clients counter, and etc."
+    INDEX           {
+                        cLApSysMacAddress,
+                        cLApDot11IfSlotId,
+                        cLWlanIndex
+                    }
+    ::= { cLApSlotWlanStatsTable 1 }
+
+CLApSlotWlanStatsEntry ::= SEQUENCE {
+        cLApSlotWlanStatsTxPktNum       Counter64,
+        cLApSlotWlanStatsTxOctetNum     Counter64,
+        cLApSlotWlanStatsRxPktNum       Counter64,
+        cLApSlotWlanStatsRxOctetNum     Counter64,
+        cLApSlotWlanStatsRetransmitNum  Counter64,
+        cLApSlotWlanStatsAssocClientNum Unsigned32,
+        cLApSlotWlanStatsOnlineUserNum  Unsigned32
+}
+
+cLApSlotWlanStatsTxPktNum OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the transmitted packets counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 1 }
+
+cLApSlotWlanStatsTxOctetNum OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the transmitted bytes counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 2 }
+
+cLApSlotWlanStatsRxPktNum OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the received packets counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 3 }
+
+cLApSlotWlanStatsRxOctetNum OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the received bytes counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 4 }
+
+cLApSlotWlanStatsRetransmitNum OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the packet retransmission counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 5 }
+
+cLApSlotWlanStatsAssocClientNum OBJECT-TYPE
+    SYNTAX          Unsigned32
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the associated client counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 6 }
+
+cLApSlotWlanStatsOnlineUserNum OBJECT-TYPE
+    SYNTAX          Unsigned32
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents the online user counter of
+        the specific radio and wlan on this access point."
+    ::= { cLApSlotWlanStatsEntry 7 }
 
 -- ********************************************************************
 -- *  AP Station Mgmt(SMT) Parameters
@@ -5230,7 +5356,7 @@ cLApAuthorizeApMacAuth OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This flag specifies the status of mac auth" 
+        "This flag specifies the status of mac auth"
     ::= { ciscoLwappApGlobal 30 }
 
 cLApAuthorizeApSerialNumAuth OBJECT-TYPE
@@ -5238,7 +5364,7 @@ cLApAuthorizeApSerialNumAuth OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This flag specifies the status of serial number auth" 
+        "This flag specifies the status of serial number auth"
     ::= { ciscoLwappApGlobal 31 }
 
 cLApAuthorizeApMethodList OBJECT-TYPE
@@ -5246,9 +5372,9 @@ cLApAuthorizeApMethodList OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the method list used for the AP
+        "This object specifies the method list used for the AP 
         authorization when enabled.
-        The default method list is default" 
+        The default method list is default"
     ::= { ciscoLwappApGlobal 32 }
 
 cLApGlobalAPAuditReport OBJECT-TYPE
@@ -5257,17 +5383,17 @@ cLApGlobalAPAuditReport OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object is used to enable/disable AP audit reporting.
-        It is disabled by default" 
+        It is disabled by default"
     ::= { ciscoLwappApGlobal 33 }
 
-cLApGlobalAPAuditReportInterval OBJECT-TYPE
+cLApGlobalAPAuditReportInterval  OBJECT-TYPE
     SYNTAX          Unsigned32 (10..43200)
     UNITS           "Minutes"
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
         "This object specifies the audit report interval in minutes.
-        The default interval is 1440 minutes" 
+        The default interval is 1440 minutes"
     ::= { ciscoLwappApGlobal 34 }
 
 cLApGlobalAPConnectCount OBJECT-TYPE
@@ -5296,7 +5422,24 @@ cLApAuthorizeApSerialNumMethodList OBJECT-TYPE
         "This object specifies the method list used for the AP
         serial number authorization when enabled."
     ::= { ciscoLwappApGlobal 37 }
-    
+
+clApImageUpgradeConfig OBJECT IDENTIFIER
+    ::= { ciscoLwappApGlobal 38 } 
+
+clApImageUpgradeHttpsEnable OBJECT-TYPE
+    SYNTAX         TruthValue
+    MAX-ACCESS     read-write
+    STATUS         current
+    DESCRIPTION
+        "This object specifies the state of AP Image Upgrade method HTTPS 
+         on the controller. 
+         A value of 'true'  indicates that the AP Image Upgrade method 
+         HTTPS is enabled. 
+         A value of 'false' indicates that the AP Image Upgrade method 
+         HTTPS is disabled."
+    DEFVAL          { FALSE }
+    ::= { clApImageUpgradeConfig 1 }
+
 -- ********************************************************************
 -- *  AP Dot11 Interface Antenna Information
 -- ********************************************************************
@@ -6212,7 +6355,8 @@ CLApExtEntry ::= SEQUENCE {
         cLApStaticIpNetmaskType              InetAddressType,
         cLApStaticIpNetmask                  InetAddress,
         cLApPreferMode                       INTEGER,
-        cLApPreferModeApplied                INTEGER
+        cLApPreferModeApplied                INTEGER,
+        cLApIndoorMode                       INTEGER
 }
 
 cLApLEDFlashStatus OBJECT-TYPE
@@ -6357,7 +6501,16 @@ cLApPreferModeApplied OBJECT-TYPE
         apgroup - capwap prefer mode applied at ap group level.
         global - capwap prefer mode applied globally." 
     ::= { cLApExtEntry 14 }
- 
+
+cLApIndoorMode OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies the indoor/outdoor mode of the AP.
+        A value of 'true' indicates AP is in Indoor Mode.
+        A value of 'false' indicates AP is in Outdoor Mode." 
+    ::= { cLApExtEntry 17 }
 
 -- ********************************************************************
 -- *  AP Sys Info
@@ -7137,7 +7290,7 @@ CLApProfileEntry ::= SEQUENCE {
         cLApProfileGasRateLimitIntervalMsec             INTEGER,
         cLApProfileQoSMapApTrustsUpstreamDSCP           TruthValue,
         cLApProfileUdpliteState                         INTEGER,
-        cLApProfileMethodListName                       TruthValue,
+        cLApProfileMethodListName                       SnmpAdminString,
         cLApProfileWindowSize                           INTEGER,
         cLApProfileCredentialGlobalSecretType           INTEGER,
         cLApProfileCredentialGlobalPasswordType         INTEGER,
@@ -7158,8 +7311,8 @@ cLApProfileName OBJECT-TYPE
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
-        "This object specifies one instance of an AP Profile on the
-        controller." 
+        "This object specifies one instance of an AP Profile on the 
+        controller."
     ::= { cLApProfileEntry 1 }
 
 cLApProfileRowStatus OBJECT-TYPE
@@ -7168,7 +7321,7 @@ cLApProfileRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the row to be added or
-        deleted in this table." 
+        deleted in this table."
     ::= { cLApProfileEntry 2 }
 
 cLApProfileCredentialGlobalUserName OBJECT-TYPE
@@ -7176,7 +7329,7 @@ cLApProfileCredentialGlobalUserName OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the global username for the APs
+        "This object specifies the global username for the APs 
         associated to a particular AP Profile.
         This user name is used to access the console on the AP." 
     ::= { cLApProfileEntry 3 }
@@ -7188,7 +7341,7 @@ cLApProfileCredentialGlobalPassword OBJECT-TYPE
     DESCRIPTION
         "This object specifies the password corresponding to
         the user name represented by cLApProfileCredentialGlobalUserName
-        object." 
+        object."
     ::= { cLApProfileEntry 4 }
 
 cLApProfileCredentialGlobalSecret OBJECT-TYPE
@@ -7217,7 +7370,7 @@ cLApProfileCredentialEnableGlobalCredentials OBJECT-TYPE
     ::= { cLApProfileEntry 6 }
 
 cLApProfileLinkLatencyEnable OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         disable(1),
                         enable(2),
                         data(3),
@@ -7235,7 +7388,7 @@ cLApProfileLinkLatencyEnable OBJECT-TYPE
         data - enables data link latency on the APs associated to
                a particular AP profile.
         reset - reset the link latency on the APs associated to
-                a particular AP profile." 
+                a particular AP profile."
     ::= { cLApProfileEntry 7 }
 
 cLApProfileHaloBleBeaconInterval OBJECT-TYPE
@@ -7248,7 +7401,7 @@ cLApProfileHaloBleBeaconInterval OBJECT-TYPE
         beacon transmissions.
         This value is common to HALO enabled APs that have joined the
         controller under the same AP profile."
-    DEFVAL          { 1 } 
+    DEFVAL          { 1 }
     ::= { cLApProfileEntry 8 }
 
 cLApProfileFastHbTimerTimeout OBJECT-TYPE
@@ -7266,10 +7419,10 @@ cLApProfileFastHbTimerEnabled OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          deprecated
     DESCRIPTION
-        "This object specifies if Fast Heart Beat Timer is enabled or
+        "This object specifies if Fast Heart Beat Timer is enabled or 
         not.
         A value of 'true' indicates that this timer is enabled.
-        A value of 'false' indicates that this timer is disabled." 
+        A value of 'false' indicates that this timer is disabled."
     ::= { cLApProfileEntry 13 }
 
 cLApProfilePrimaryDiscoveryTimeout OBJECT-TYPE
@@ -7280,7 +7433,7 @@ cLApProfilePrimaryDiscoveryTimeout OBJECT-TYPE
     DESCRIPTION
         "This object specifies the timeout value for the primary AP
         discovery for a given Ap profile."
-    DEFVAL          { 120 } 
+    DEFVAL          { 120 }
     ::= { cLApProfileEntry 14 }
 
 cLApProfileBackupPrimaryControllerAddressType OBJECT-TYPE
@@ -7290,7 +7443,7 @@ cLApProfileBackupPrimaryControllerAddressType OBJECT-TYPE
     DESCRIPTION
         "This object specifies the type of the primary controller's
         address made available through 
-        cLApProfileBackupPrimaryControllerAddress." 
+        cLApProfileBackupPrimaryControllerAddress."
     ::= { cLApProfileEntry 15 }
 
 cLApProfileBackupPrimaryControllerAddress OBJECT-TYPE
@@ -7301,7 +7454,7 @@ cLApProfileBackupPrimaryControllerAddress OBJECT-TYPE
         "This object specifies the address of the primary controller
         that the APs in the profile should associate with. The name and
         address should be provided in the same set request. An address
-        of all zeros will unset the primary controller." 
+        of all zeros will unset the primary controller."
     ::= { cLApProfileEntry 16 }
 
 cLApProfileBackupPrimaryControllerName OBJECT-TYPE
@@ -7310,7 +7463,7 @@ cLApProfileBackupPrimaryControllerName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the name of the primary controller
-        that the APs in the profile should associate with." 
+        that the APs in the profile should associate with."
     ::= { cLApProfileEntry 17 }
 
 cLApProfileBackupSecondaryControllerAddressType OBJECT-TYPE
@@ -7341,7 +7494,7 @@ cLApProfileBackupSecondaryControllerName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the name of the secondary controller
-        that the APs in the profile should associate." 
+        that the APs in the profile should associate."
     ::= { cLApProfileEntry 20 }
 
 cLApProfileBackupTertiaryControllerAddressType OBJECT-TYPE
@@ -7363,7 +7516,7 @@ cLApProfileBackupTertiaryControllerAddress OBJECT-TYPE
         controller that the APs in the profile should associate with.
         The name and address should be provided in the same
         set request. An address of all zeros will unset the tertiary
-        controller." 
+        controller."
     ::= { cLApProfileEntry 22 }
 
 cLApProfileBackupTertiaryControllerName OBJECT-TYPE
@@ -7372,7 +7525,7 @@ cLApProfileBackupTertiaryControllerName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the name of the tertiary controller
-        that the APs in the profile should associate with" 
+        that the APs in the profile should associate with"
     ::= { cLApProfileEntry 23 }
 
 cLApProfileTcpMss OBJECT-TYPE
@@ -7384,7 +7537,7 @@ cLApProfileTcpMss OBJECT-TYPE
         The permissible value are between 536 and 1363. This will
         also enable the global TCP MSS flag.
         Any change of value for this object will be reflected
-        to cLApTcpMss" 
+        to cLApTcpMss"
     ::= { cLApProfileEntry 25 }
 
 cLApProfileRetransmitCount OBJECT-TYPE
@@ -7397,7 +7550,7 @@ cLApProfileRetransmitCount OBJECT-TYPE
         control packet for all APs associated to this particular AP
         profile. This value represents the number of packets 
         retransmitted after which the Access Point falls back to 
-        another controller in case of failover." 
+        another controller in case of failover."
     ::= { cLApProfileEntry 26 }
 
 cLApProfileRetransmitTimeout OBJECT-TYPE
@@ -7411,7 +7564,7 @@ cLApProfileRetransmitTimeout OBJECT-TYPE
         profile. This value represents the timeout for each 
         control Packet of all the Access Points, joined to this 
         retransmission, during the fallback of Access Point to 
-        another controller in case of failover." 
+        another controller in case of failover."
     ::= { cLApProfileEntry 27 }
 
 cLApProfileOeapDisableLocalAccess OBJECT-TYPE
@@ -7432,7 +7585,7 @@ cLApProfileLedState OBJECT-TYPE
     DESCRIPTION
         "This object specifies whether the LED state of all the
         access points associated to a profile should be enabled or
-        disabled." 
+        disabled."
     ::= { cLApProfileEntry 29 }
 
 cLApProfileRadioInterfaceShutdownEnabled OBJECT-TYPE
@@ -7467,7 +7620,7 @@ cLApProfileMulticastGroupAddressType OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the AP multicast group address type." 
+        "This object specifies the AP multicast group address type."
     ::= { cLApProfileEntry 32 }
 
 cLApProfileMulticastGroupAddress OBJECT-TYPE
@@ -7476,22 +7629,22 @@ cLApProfileMulticastGroupAddress OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the IPv6 multicast group address of all
-        the APs associated to current AP Profile." 
+        the APs associated to current AP Profile."
     ::= { cLApProfileEntry 33 }
 
 cLApProfileMulticastMode OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         unicast(1),
                         multicast(2)
                     }
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the ethernet multicast support of all
+        "This object specifies the ethernet multicast support of all 
         the APs associated to current AP Profile.
         unicast - Controller will convert multicast to
                    unicast packet.
-        multicast - Multicast mode is enabled." 
+        multicast - Multicast mode is enabled."
     ::= { cLApProfileEntry 34 }
 
 cLApProfilePrimedJoinTimeout OBJECT-TYPE
@@ -7501,11 +7654,11 @@ cLApProfilePrimedJoinTimeout OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the primed timeout for the AP
-        discovery for a given profile." 
+        discovery for a given profile."
     ::= { cLApProfileEntry 35 }
 
 cLApProfilePreferMode OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         unconfig(1),
                         ipv4(2),
                         ipv6(3)
@@ -7525,12 +7678,12 @@ cLApProfileApLagEnabled OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the ap-lag capability state of all the
+        "This object specifies the ap-lag capability state of all the 
         APs associated to current AP profile.
         A value of 'true' indicates the ap-lag capability state is
         enabled.
         A value of 'false' indicates the ap-lag capability state is
-        disabled." 
+        disabled."
     ::= { cLApProfileEntry 37 }
 
 cLApProfile802dot1xAuthenticationEnabled OBJECT-TYPE
@@ -7590,7 +7743,7 @@ cLApProfileEncryptionEnable OBJECT-TYPE
 
         A value of 'false' disables encryption between 
         controller and AP."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 41 }
 
 cLApProfileTelnetEnable OBJECT-TYPE
@@ -7606,7 +7759,7 @@ cLApProfileTelnetEnable OBJECT-TYPE
 
         A value of 'false' indicates an Telnet session
         cannot be established to the APs in a given AP profile."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 42 }
 
 cLApProfileSshEnable OBJECT-TYPE
@@ -7622,7 +7775,7 @@ cLApProfileSshEnable OBJECT-TYPE
 
         A value of 'false' indicates an SSH session
         cannot be established to the APs asscoaited to an AP Profile."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 43 }
 
 cLApProfileHyperlocationEnable OBJECT-TYPE
@@ -7633,7 +7786,7 @@ cLApProfileHyperlocationEnable OBJECT-TYPE
         "This object represents the admin status of Hyperlocation.
         A value of 'true' indicates that Hyperlocation is enabled.
         A value of 'false' indicates that Hyperlocation is disabled."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 44 }
 
 cLApProfileHyperlocationDetectionThreshold OBJECT-TYPE
@@ -7645,7 +7798,7 @@ cLApProfileHyperlocationDetectionThreshold OBJECT-TYPE
         "This object represents the value of the Hyperlocation
         detection threshold expressed in dBm. Valid range is
         -100 dbm to -50 dbm."
-    DEFVAL          { -100 } 
+    DEFVAL          { -100 }
     ::= { cLApProfileEntry 45 }
 
 cLApProfileHyperlocationResetThreshold OBJECT-TYPE
@@ -7657,7 +7810,7 @@ cLApProfileHyperlocationResetThreshold OBJECT-TYPE
         reset threshold expressed in scan cycles. Valid range is
         0 to 99 scan cycles. Its value must always be smaller
         than the trigger threshold."
-    DEFVAL          { 8 } 
+    DEFVAL          { 8 }
     ::= { cLApProfileEntry 46 }
 
 cLApProfileHyperlocationTriggerThreshold OBJECT-TYPE
@@ -7668,7 +7821,7 @@ cLApProfileHyperlocationTriggerThreshold OBJECT-TYPE
         "This object represents the value of the Hyperlocation
         trigger threshold expressed in scan cycles. Valid range
         is 1 to 100 scan cycles."
-    DEFVAL          { 10 } 
+    DEFVAL          { 10 }
     ::= { cLApProfileEntry 47 }
 
 cLApProfileHyperlocationNtpIpAddressType OBJECT-TYPE
@@ -7677,7 +7830,7 @@ cLApProfileHyperlocationNtpIpAddressType OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the NTP server IP address type
-        configured for Hyperlocation feature." 
+        configured for Hyperlocation feature."
     ::= { cLApProfileEntry 48 }
 
 cLApProfileHyperlocationNtpIpAddress OBJECT-TYPE
@@ -7686,7 +7839,7 @@ cLApProfileHyperlocationNtpIpAddress OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the NTP server IP address
-        configured for Hyperlocation feature." 
+        configured for Hyperlocation feature."
     ::= { cLApProfileEntry 49 }
 
 cLApProfileAdjustMss OBJECT-TYPE
@@ -7695,7 +7848,7 @@ cLApProfileAdjustMss OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "To enable the TCP MSS flag"
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 50 }
 
 cLApProfileDiscoveryTimeout OBJECT-TYPE
@@ -7706,7 +7859,7 @@ cLApProfileDiscoveryTimeout OBJECT-TYPE
     DESCRIPTION
         "This object represents the timeout for the AP
         discovery for a particular AP profile."
-    DEFVAL          { 10 } 
+    DEFVAL          { 10 }
     ::= { cLApProfileEntry 51 }
 
 cLApProfileHeartBeatTimeout OBJECT-TYPE
@@ -7715,9 +7868,9 @@ cLApProfileHeartBeatTimeout OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object represents the Heart beat timeout for the APs in
+        "This object represents the Heart beat timeout for the APs in 
         a particular AP profile."
-    DEFVAL          { 30 } 
+    DEFVAL          { 30 }
     ::= { cLApProfileEntry 52 }
 
 cLApProfileCdpEnable OBJECT-TYPE
@@ -7725,9 +7878,9 @@ cLApProfileCdpEnable OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies to  enable the CDP for all APs
+        "This object specifies to  enable the CDP for all APs 
         associated to particular AP Profile"
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 53 }
 
 cLApProfileApPacketCaptureProfile OBJECT-TYPE
@@ -7738,7 +7891,7 @@ cLApProfileApPacketCaptureProfile OBJECT-TYPE
         "This object represents the AP packet capture profile
         name mapped to this AP join profile. Access Points in this
         AP join profile will use the parameters of packet capture 
-        profile" 
+        profile"
     ::= { cLApProfileEntry 54 }
 
 cLApProfileRogueReportInterval OBJECT-TYPE
@@ -7750,7 +7903,7 @@ cLApProfileRogueReportInterval OBJECT-TYPE
         "This object specifies the rogue report interval,
         which is the interval that monitor mode APs send
         rogue detection details to the controller.
-        This value is valid only for the current AP Profile." 
+        This value is valid only for the current AP Profile."
     ::= { cLApProfileEntry 55 }
 
 cLApProfileRogueMinimumRssi OBJECT-TYPE
@@ -7761,7 +7914,7 @@ cLApProfileRogueMinimumRssi OBJECT-TYPE
     DESCRIPTION
         "This object specifies the minimum value of RSSI
         considered for detection of rogues.
-        This value is valid only for the current AP Profile." 
+        This value is valid only for the current AP Profile."
     ::= { cLApProfileEntry 56 }
 
 cLApProfileRogueTransientInterval OBJECT-TYPE
@@ -7780,7 +7933,7 @@ cLApProfileRogueTransientInterval OBJECT-TYPE
         rogue detection details to the controller if
         it hears the rogue more than once in the specified
         interval."
-    DEFVAL          { 0 } 
+    DEFVAL          { 0 }
     ::= { cLApProfileEntry 57 }
 
 cLApProfileRogueContainFlexconnect OBJECT-TYPE
@@ -7792,7 +7945,7 @@ cLApProfileRogueContainFlexconnect OBJECT-TYPE
         standalone flexconnect APs is enabled in this AP Profile.
         A value of 'true' enables rogue containment.
         A value of 'false' disables rogue containment."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 58 }
 
 cLApProfileRogueContainAutoRateEnable OBJECT-TYPE
@@ -7804,7 +7957,7 @@ cLApProfileRogueContainAutoRateEnable OBJECT-TYPE
         is enabled in this AP Profile.
         A value of 'true' enables auto-rate.
         A value of 'false' disables auto-rate."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApProfileEntry 59 }
 
 cLApProfileRogueDetectionEnable OBJECT-TYPE
@@ -7818,7 +7971,7 @@ cLApProfileRogueDetectionEnable OBJECT-TYPE
         A value of 'false' disables Rogue Detection.
         Rogue detection is not supported on sniffer
         and rogue detector mode APs."
-    DEFVAL          { true } 
+    DEFVAL          { true }
     ::= { cLApProfileEntry 60 }
 
 cLApProfileReportInterval24ghz OBJECT-TYPE
@@ -7830,7 +7983,7 @@ cLApProfileReportInterval24ghz OBJECT-TYPE
         "This object specifies the interval at which APs
         connected will send client statitics for 802.11b radio for a
         particular AP profile."
-    DEFVAL          { 90 } 
+    DEFVAL          { 90 }
     ::= { cLApProfileEntry 61 }
 
 cLApProfileReportInterval5ghz OBJECT-TYPE
@@ -7842,11 +7995,11 @@ cLApProfileReportInterval5ghz OBJECT-TYPE
         "This object specifies the interval at which APs
         connected will send client statitics for 802.11a radio for a
         particular AP profile"
-    DEFVAL          { 90 } 
+    DEFVAL          { 90 }
     ::= { cLApProfileEntry 62 }
 
 cLApProfileDot1xApSwitchEapAuth OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         eapNone(1),
                         eapFast(2),
                         eapTls(3),
@@ -7856,11 +8009,11 @@ cLApProfileDot1xApSwitchEapAuth OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies Dot1x EAP type
-        in this AP Profile." 
+        in this AP Profile."
     ::= { cLApProfileEntry 63 }
 
 cLApProfileDot1xApSwtichLscAuth OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         authNone(1),
                         authCapwapDtls(2),
                         authDot1xPort(3),
@@ -7870,7 +8023,7 @@ cLApProfileDot1xApSwtichLscAuth OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies Dot1x LSC AP Auth
-        type in this AP Profile." 
+        type in this AP Profile."
     ::= { cLApProfileEntry 64 }
 
 cLApProfileMeshProfileName OBJECT-TYPE
@@ -7879,7 +8032,7 @@ cLApProfileMeshProfileName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object uniquely identifies a mesh profile in a
-        particular AP profile." 
+        particular AP profile."
     ::= { cLApProfileEntry 65 }
 
 cLApProfileUsbStatus OBJECT-TYPE
@@ -7889,7 +8042,7 @@ cLApProfileUsbStatus OBJECT-TYPE
     DESCRIPTION
         "This object specifies USB status(enable/disable) to be applied
         to all APs belonging to this AP join profile."
-    DEFVAL          { true } 
+    DEFVAL          { true }
     ::= { cLApProfileEntry 66 }
 
 cLApProfileVlanTagging OBJECT-TYPE
@@ -7911,6 +8064,7 @@ cLApProfileApCountryCode OBJECT-TYPE
         AP join profile." 
     ::= { cLApProfileEntry 68 }
 
+
 cLApProfileExtModuleEnable OBJECT-TYPE
     SYNTAX          TruthValue
     MAX-ACCESS      read-write
@@ -7919,7 +8073,7 @@ cLApProfileExtModuleEnable OBJECT-TYPE
         "This object specifies whether extended module
         is enabled in this AP Profile.
         A value of 'true' enables extended module.
-        A value of 'false' disables extended module." 
+        A value of 'false' disables extended module."
     ::= { cLApProfileEntry 69 }
 
 cLApProfileStatsTimer OBJECT-TYPE
@@ -7930,7 +8084,7 @@ cLApProfileStatsTimer OBJECT-TYPE
     DESCRIPTION
         "This object specifies the duration of the
         stats timer value in seconds."
-    DEFVAL          { 180 } 
+    DEFVAL          { 180 }
     ::= { cLApProfileEntry 70 }
 
 cLApProfilePoePreStandardSwitchFlag OBJECT-TYPE
@@ -7941,11 +8095,11 @@ cLApProfilePoePreStandardSwitchFlag OBJECT-TYPE
         "This object specifies whether the Pre-standard
         switch state as PoE option.
         A value of 'true' enables Pre-standard switch.
-        A value of 'false' disables Pre-standard switch." 
+        A value of 'false' disables Pre-standard switch."
     ::= { cLApProfileEntry 71 }
 
 cLApProfilePoePowerInjectorSelection OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         unknown(1),
                         installed(2),
                         override(3)
@@ -7959,7 +8113,7 @@ cLApProfilePoePowerInjectorSelection OBJECT-TYPE
         A value of '2' represents the state of PoE injector is 
         installed.
         A value of '3' represents the state of PoE injector is 
-        override." 
+        override."
     ::= { cLApProfileEntry 72 }
 
 cLApProfilePoeInjectorSwitchMac OBJECT-TYPE
@@ -7968,7 +8122,7 @@ cLApProfilePoeInjectorSwitchMac OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the MAC address of the
-        switch port that has a Power injector." 
+        switch port that has a Power injector."
     ::= { cLApProfileEntry 73 }
 
 cLApProfileHaloBleBeaconAdvertisedPwr OBJECT-TYPE
@@ -7979,7 +8133,7 @@ cLApProfileHaloBleBeaconAdvertisedPwr OBJECT-TYPE
     DESCRIPTION
         "This object specifies the Power for HALO BLE beacon
         advertisement."
-    DEFVAL          { 59 } 
+    DEFVAL          { 59 }
     ::= { cLApProfileEntry 74 }
 
 cLApProfileTftpDownGradeAddressType OBJECT-TYPE
@@ -7988,7 +8142,7 @@ cLApProfileTftpDownGradeAddressType OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the TFTP servers
-        address type in use." 
+        address type in use."
     ::= { cLApProfileEntry 75 }
 
 cLApProfileTftpDownGradeAddress OBJECT-TYPE
@@ -7997,7 +8151,7 @@ cLApProfileTftpDownGradeAddress OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the TFTP servers
-        IP address." 
+        IP address."
     ::= { cLApProfileEntry 76 }
 
 cLApProfileTftpDownGradeFileName OBJECT-TYPE
@@ -8006,11 +8160,11 @@ cLApProfileTftpDownGradeFileName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the AP image downgrade
-        file name on the TFTP server." 
+        file name on the TFTP server."
     ::= { cLApProfileEntry 77 }
 
 cLApProfileCoreDumpType OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         uncompress(1),
                         compress(2),
                         disable(3)
@@ -8022,7 +8176,7 @@ cLApProfileCoreDumpType OBJECT-TYPE
         whether it is in compress or uncompress.
         A value of '1' represents uncompressed form of core dump file.
         A value of '2' represents compressed form of core dump file.
-        A value of '3' disables the coredump." 
+        A value of '3' disables the coredump."
     ::= { cLApProfileEntry 78 }
 
 cLApProfileCoreDumpTftpAddressType OBJECT-TYPE
@@ -8031,7 +8185,7 @@ cLApProfileCoreDumpTftpAddressType OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the TFTP server address type used
-        for AP core dump transfer." 
+        for AP core dump transfer."
     ::= { cLApProfileEntry 79 }
 
 cLApProfileCoreDumpTftpAddress OBJECT-TYPE
@@ -8040,7 +8194,7 @@ cLApProfileCoreDumpTftpAddress OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents the TFTP server address used for AP
-        core dump transfer." 
+        core dump transfer."
     ::= { cLApProfileEntry 80 }
 
 cLApProfileCoreDumpCoreFileName OBJECT-TYPE
@@ -8049,7 +8203,7 @@ cLApProfileCoreDumpCoreFileName OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents core dump file name
-        on the TFTP server." 
+        on the TFTP server."
     ::= { cLApProfileEntry 81 }
 
 cLApProfileBackupFallbackEnabled OBJECT-TYPE
@@ -8057,10 +8211,10 @@ cLApProfileBackupFallbackEnabled OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object represents fallback status of APs asscoaited
+        "This object represents fallback status of APs asscoaited 
         to an AP Profile.
         A value of 'true' represents AP fallback enabled.
-        A value of 'false' represents AP fallback disabled." 
+        A value of 'false' represents AP fallback disabled."
     ::= { cLApProfileEntry 82 }
 
 cLApProfileClientRssiStatsEnabled OBJECT-TYPE
@@ -8068,13 +8222,13 @@ cLApProfileClientRssiStatsEnabled OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object represents the status of Client RSSI
+        "This object represents the status of Client RSSI 
         statistics from Access Point.
         A value of 'true' represents Client RSSI statistics reporting from 
         AP is enabled.
         A value of 'false' represents Client RSSI statistics reporting from 
         AP is disabled."
-    DEFVAL          { true } 
+    DEFVAL          { true }
     ::= { cLApProfileEntry 83 }
 
 cLApProfileClientRssiStatsReportInterval OBJECT-TYPE
@@ -8084,8 +8238,8 @@ cLApProfileClientRssiStatsReportInterval OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents Client RSSI statistics reporting interval
-        value in seconds."
-    DEFVAL          { 30 } 
+         value in seconds."
+    DEFVAL          { 30 }
     ::= { cLApProfileEntry 84 }
 
 cLApProfileGasRateLimitEnable OBJECT-TYPE
@@ -8096,7 +8250,7 @@ cLApProfileGasRateLimitEnable OBJECT-TYPE
         "This object represents the GAS limit status of APs associated
         to an AP Profile.
         A value of 'true' represents AP GAS limit enabled.
-        A value of 'false' represents AP GAS disabled." 
+        A value of 'false' represents AP GAS disabled."
     ::= { cLApProfileEntry 85 }
 
 cLApProfileGasRateLimitNumReqPerInterval OBJECT-TYPE
@@ -8106,7 +8260,7 @@ cLApProfileGasRateLimitNumReqPerInterval OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the maximum number of GAS messages
-        per interval." 
+        per interval."
     ::= { cLApProfileEntry 86 }
 
 cLApProfileGasRateLimitIntervalMsec OBJECT-TYPE
@@ -8115,7 +8269,7 @@ cLApProfileGasRateLimitIntervalMsec OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the interval for GAS message limit." 
+        "This object specifies the interval for GAS message limit."
     ::= { cLApProfileEntry 87 }
 
 cLApProfileQoSMapApTrustsUpstreamDSCP OBJECT-TYPE
@@ -8128,11 +8282,11 @@ cLApProfileQoSMapApTrustsUpstreamDSCP OBJECT-TYPE
         for outer CAPWAP tunnel QoS marking instead of
         802.11 User Priority.
         A value of 'true' represents using the upstream DSCP.
-        A value of 'false' represents not using the upstream DSCP." 
+        A value of 'false' represents not using the upstream DSCP."
     ::= { cLApProfileEntry 88 }
 
 cLApProfileUdpliteState OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         unconfig(1),
                         udpliteenabled(2),
                         udplitedisabled(3)
@@ -8149,12 +8303,12 @@ cLApProfileUdpliteState OBJECT-TYPE
     ::= { cLApProfileEntry 89 }
 
 cLApProfileMethodListName OBJECT-TYPE
-    SYNTAX          TruthValue
+    SYNTAX          SnmpAdminString
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the method list used for the AP
-        accounting" 
+        "This object specifies the method list used for the AP 
+        accounting"
     ::= { cLApProfileEntry 90 }
 
 cLApProfileWindowSize OBJECT-TYPE
@@ -8162,12 +8316,12 @@ cLApProfileWindowSize OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the capwap window size for
-        capwap multiwindow" 
+        "This object specifies the capwap window size for 
+        capwap multiwindow"
     ::= { cLApProfileEntry 91 }
 
 cLApProfileCredentialGlobalSecretType OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         clear(0),
                         aes(8)
                     }
@@ -8176,24 +8330,27 @@ cLApProfileCredentialGlobalSecretType OBJECT-TYPE
     DESCRIPTION
         "This object specifies the secret password type corresponding to
         the secret password type represented by cLApProfileCredentialGlobalSecret
-        object." 
+        object."
+
     ::= { cLApProfileEntry 92 }
 
+
 cLApProfileCredentialGlobalPasswordType OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         clear(0),
                         aes(8)
                     }
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the secret password type corresponding to
-        the secret password type represented by cLApProfileCredentialGlobalSecret
-        object." 
+         "This object specifies the secret password type corresponding to
+         the secret password type represented by cLApProfileCredentialGlobalSecret
+         object."
+
     ::= { cLApProfileEntry 93 }
 
 cLApProfile802dot1xSupplicantPasswordType OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         clear(0),
                         aes(8)
                     }
@@ -8201,8 +8358,9 @@ cLApProfile802dot1xSupplicantPasswordType OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the dot1xSupplicant password type corresponding to
-        the dot1xSupplicantPassword represented by
-        cLApProfile802dot1xSupplicantPassword object." 
+         the dot1xSupplicantPassword represented by 
+         cLApProfile802dot1xSupplicantPassword object."
+
     ::= { cLApProfileEntry 94 }
 
 cLApProfileBssidEnableStats OBJECT-TYPE
@@ -8211,18 +8369,20 @@ cLApProfileBssidEnableStats OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies whether the BSSID stats feature
-        is enabled or disabled per ap config profile
-        - A value of 'true' represents the BSSID stats as enabled.
-        - A Value of 'false' represents the BSSID stats as disabled." 
+         is enabled or disabled per ap config profile
+         - A value of 'true' represents the BSSID stats as enabled.
+         - A Value of 'false' represents the BSSID stats as disabled."
+
     ::= { cLApProfileEntry 95 }
 
 cLApProfileBssidStatsFrequency OBJECT-TYPE
-    SYNTAX          INTEGER
+    SYNTAX         INTEGER
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies the BSSID stats frequency set on the AP for
-        sending the stats in the current AP profile" 
+        "This object specifies the BSSID stats frequency set on the AP for 
+         sending the stats in the current AP profile"
+
     ::= { cLApProfileEntry 96 }
 
 cLApProfilePersistentSsidBroadcastEnable OBJECT-TYPE
@@ -8230,23 +8390,26 @@ cLApProfilePersistentSsidBroadcastEnable OBJECT-TYPE
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies whether persistent SSID broadcast
-        is enabled or disabled per ap config profile
-        - A value of 'true' represents persistent SSID broadcast is enabled.
-        - A Value of 'false' represents persistent SSID broadcast is disabled." 
+        "This object specifies whether persistent SSID broadcast 
+         is enabled or disabled per ap config profile
+         - A value of 'true' represents persistent SSID broadcast is enabled.
+         - A Value of 'false' represents persistent SSID broadcast is disabled." 
+
     ::= { cLApProfileEntry 97 }
+
 
 cLApProfileDhcpFallback OBJECT-TYPE
     SYNTAX          TruthValue
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
-        "This object specifies whether the AP fallback to DHCP
-        is enabled or disabled per ap config profile
-        - A value of 'true' represents that AP moves to DHCP if it fails to join controller via static IP.
-        - A Value of 'false' represents that AP will not to DHCP if it fails to join controller via static IP." 
+        "This object specifies whether the AP fallback to DHCP 
+         is enabled or disabled per ap config profile
+         - A value of 'true' represents that AP moves to DHCP if it fails to join controller via static IP.
+         - A Value of 'false' represents that AP will not to DHCP if it fails to join controller via static IP." 
+
     ::= { cLApProfileEntry 98 }
- 
+
 cLApProfileOeapRogueDetectionEnable OBJECT-TYPE
     SYNTAX          TruthValue
     MAX-ACCESS      read-write
@@ -8257,7 +8420,7 @@ cLApProfileOeapRogueDetectionEnable OBJECT-TYPE
         is enabled for OEAP.
         A value of 'true' indicates rogue detection is enabled.
         A value of 'false' indicates rogue detection is disabled."
-    DEFVAL          { false }
+    DEFVAL          { false } 
 
     ::= { cLApProfileEntry 99 }
 
@@ -8318,8 +8481,8 @@ cLApProfileOeapProvSsidEnable OBJECT-TYPE
     DEFVAL          { false }
     ::= { cLApProfileEntry 102 }
 
-cLApProfileCountryCode OBJECT-TYPE
-    SYNTAX          INTEGER {
+cLApProfileCountryCode OBJECT-TYPE 
+    SYNTAX          INTEGER {                                          
       ae(1),
       al(2),
       ar(3),
@@ -8432,20 +8595,20 @@ cLApProfileCountryCode OBJECT-TYPE
       za(110),
       unconfigured(111)
     }
-
-    MAX-ACCESS      read-write
-    STATUS          current
-    DESCRIPTION
-        "This object specifies the country code for all APs
+                                                                         
+    MAX-ACCESS      read-write                                          
+    STATUS          current                                             
+    DESCRIPTION                                                         
+        "This object specifies the country code for all APs             
         associated to this particular AP Profile."
     ::= { cLApProfileEntry 103 }
-    
+
 -- *********************************************************************
 -- * Halo BLE Configuration
 -- *********************************************************************
 
 cLApProfileHaloBleBeaconTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLApProfileHaloBleBeaconEntry 
+    SYNTAX          SEQUENCE OF CLApProfileHaloBleBeaconEntry
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -8460,7 +8623,7 @@ cLApProfileHaloBleBeaconEntry OBJECT-TYPE
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
-        "This entry contains an instance of HALO BLE beacon
+        "This entry contains an instance of HALO BLE beacon 
         configuration for a specific AP profile. It lists the HALO BLE 
         beacon ID, UUID, transmission power, and status per beacon for
         HALO enabled APs of a particular AP profile that have joined the
@@ -8468,15 +8631,15 @@ cLApProfileHaloBleBeaconEntry OBJECT-TYPE
     INDEX           {
                         cLApProfileName,
                         cLApProfileHaloBleBeaconId
-                    } 
+                    }
     ::= { cLApProfileHaloBleBeaconTable 1 }
 
 CLApProfileHaloBleBeaconEntry ::= SEQUENCE {
-        cLApProfileHaloBleBeaconId        Unsigned32,
-        cLApProfileHaloBleBeaconUuid      SnmpAdminString,
-        cLApProfileHaloBleBeaconTxPower   Unsigned32,
-        cLApProfileHaloBleBeaconEnabled   TruthValue,
-        cLApProfileHaloBleBeaconRowStatus RowStatus
+        cLApProfileHaloBleBeaconId         Unsigned32,
+        cLApProfileHaloBleBeaconUuid       SnmpAdminString,
+        cLApProfileHaloBleBeaconTxPower    Unsigned32,
+        cLApProfileHaloBleBeaconEnabled    TruthValue,
+        cLApProfileHaloBleBeaconRowStatus  RowStatus
 }
 
 cLApProfileHaloBleBeaconId OBJECT-TYPE
@@ -8485,7 +8648,7 @@ cLApProfileHaloBleBeaconId OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents HALO BLE beacon ID for which BLE
-        configuration to be applied." 
+        configuration to be applied."
     ::= { cLApProfileHaloBleBeaconEntry 1 }
 
 cLApProfileHaloBleBeaconUuid OBJECT-TYPE
@@ -8494,7 +8657,7 @@ cLApProfileHaloBleBeaconUuid OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object represents HALO BLE beacon UUID (universally
-        unique identifier) which is a 128-bit value." 
+        unique identifier) which is a 128-bit value."
     ::= { cLApProfileHaloBleBeaconEntry 2 }
 
 cLApProfileHaloBleBeaconTxPower OBJECT-TYPE
@@ -8505,7 +8668,7 @@ cLApProfileHaloBleBeaconTxPower OBJECT-TYPE
     DESCRIPTION
         "This object represents HALO BLE beacon transmission power.
         The transmission power is based on the size of the required
-        proximity zone." 
+        proximity zone."
     ::= { cLApProfileHaloBleBeaconEntry 3 }
 
 cLApProfileHaloBleBeaconEnabled OBJECT-TYPE
@@ -8515,7 +8678,7 @@ cLApProfileHaloBleBeaconEnabled OBJECT-TYPE
     DESCRIPTION
         "This object specifies the status of HALO BLE beacon.
         true(1) - enable the HALO BLE beacon,
-        false(2) - disable the HALO BLE beacon." 
+        false(2) - disable the HALO BLE beacon."
     ::= { cLApProfileHaloBleBeaconEntry 4 }
 
 cLApProfileHaloBleBeaconRowStatus OBJECT-TYPE
@@ -8524,16 +8687,15 @@ cLApProfileHaloBleBeaconRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the row to be added or
-        deleted in this table." 
+        deleted in this table."
     ::= { cLApProfileHaloBleBeaconEntry 5 }
- 
 
 -- *********************************************************************
 -- * Hotspot 2.0 QoS Map Configuration
 -- *********************************************************************
 
 cLApProfileQosMapRangeTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLApProfileQosMapRangeEntry 
+    SYNTAX          SEQUENCE OF CLApProfileQosMapRangeEntry
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -8556,7 +8718,7 @@ cLApProfileQosMapRangeEntry OBJECT-TYPE
     INDEX           {
                         cLApProfileName,
                         cLApProfileQosMapRangeUP
-                    } 
+                    }
     ::= { cLApProfileQosMapRangeTable 1 }
 
 CLApProfileQosMapRangeEntry ::= SEQUENCE {
@@ -8574,7 +8736,7 @@ cLApProfileQosMapRangeUP OBJECT-TYPE
     DESCRIPTION
         "This object represents the 802.11 User Priority
         for which the DSCP-to-User Priority range
-        configuration is applied." 
+        configuration is applied."
     ::= { cLApProfileQosMapRangeEntry 1 }
 
 cLApProfileQosMapRangeDSCPLower OBJECT-TYPE
@@ -8584,7 +8746,7 @@ cLApProfileQosMapRangeDSCPLower OBJECT-TYPE
     DESCRIPTION
         "This object represents the DSCP lower range
         for which the DSCP-to-User Priority range configuration
-        is applied on the AP using an AP profile." 
+        is applied on the AP using an AP profile."
     ::= { cLApProfileQosMapRangeEntry 2 }
 
 cLApProfileQosMapRangeDSCPUpper OBJECT-TYPE
@@ -8594,7 +8756,7 @@ cLApProfileQosMapRangeDSCPUpper OBJECT-TYPE
     DESCRIPTION
         "This object represents the DSCP upper range
         for which the DSCP-to-User Priority range configuration
-        is applied on the AP using an AP profile." 
+        is applied on the AP using an AP profile."
     ::= { cLApProfileQosMapRangeEntry 3 }
 
 cLApProfileQosMapRangeUPToDSCP OBJECT-TYPE
@@ -8604,7 +8766,7 @@ cLApProfileQosMapRangeUPToDSCP OBJECT-TYPE
     DESCRIPTION
         "This object represents the DSCP value which should
         be used for the upstream 802.11 User Priority
-        on the AP using an AP profile." 
+        on the AP using an AP profile."
     ::= { cLApProfileQosMapRangeEntry 4 }
 
 cLApProfileQosMapRangeRowStatus OBJECT-TYPE
@@ -8613,13 +8775,12 @@ cLApProfileQosMapRangeRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the row to be added or
-        deleted in this table." 
+        deleted in this table."
     ::= { cLApProfileQosMapRangeEntry 5 }
- 
 
 
 cLApProfileQosMapExceptionTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLApProfileQosMapExceptionEntry 
+    SYNTAX          SEQUENCE OF CLApProfileQosMapExceptionEntry
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -8641,7 +8802,7 @@ cLApProfileQosMapExceptionEntry OBJECT-TYPE
     INDEX           {
                         cLApProfileName,
                         cLApProfileQosMapExceptionDSCP
-                    } 
+                    }
     ::= { cLApProfileQosMapExceptionTable 1 }
 
 CLApProfileQosMapExceptionEntry ::= SEQUENCE {
@@ -8657,7 +8818,7 @@ cLApProfileQosMapExceptionDSCP OBJECT-TYPE
     DESCRIPTION
         "This object represents the DSCP value for the DSCP to 802.11
         User Priority mapping exception for the APs that joined
-        the controller under the same AP profile." 
+        the controller under the same AP profile."
     ::= { cLApProfileQosMapExceptionEntry 1 }
 
 cLApProfileQosMapExceptionUP OBJECT-TYPE
@@ -8667,7 +8828,7 @@ cLApProfileQosMapExceptionUP OBJECT-TYPE
     DESCRIPTION
         "This object represents the 802.11 User Priority value for the
         DSCP to 802.11 User Priority mapping exception for the APs that
-        joined the controller under the same AP profile." 
+        joined the controller under the same AP profile."
     ::= { cLApProfileQosMapExceptionEntry 2 }
 
 cLApProfileQosMapExceptionRowStatus OBJECT-TYPE
@@ -8676,16 +8837,15 @@ cLApProfileQosMapExceptionRowStatus OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "This object specifies the row to be added or
-        deleted in this table." 
+        deleted in this table."
     ::= { cLApProfileQosMapExceptionEntry 3 }
- 
 
 -- *********************************************************************
 -- * AP Packet Capture Profile Configuration
 -- *********************************************************************
 
 cLApPacketCaptureProfileTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLApPacketCaptureProfileEntry 
+    SYNTAX          SEQUENCE OF CLApPacketCaptureProfileEntry
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -8703,7 +8863,7 @@ cLApPacketCaptureProfileEntry OBJECT-TYPE
     DESCRIPTION
         "Each entry in this table provides information about the packet
         capture profile configured on the controller."
-    INDEX           { cLApPacketCaptureProfileName } 
+    INDEX           { cLApPacketCaptureProfileName }
     ::= { cLApPacketCaptureProfileTable 1 }
 
 CLApPacketCaptureProfileEntry ::= SEQUENCE {
@@ -8740,7 +8900,7 @@ cLApPacketCaptureProfileName OBJECT-TYPE
         "This object represents the profile name for
         ap packet capture profile. The parameters of
         packet capture profile are used while capturing packets
-        on the Access Point for the specified wireless client." 
+        on the Access Point for the specified wireless client."
     ::= { cLApPacketCaptureProfileEntry 1 }
 
 cLApPacketCaptureProfileRowStatus OBJECT-TYPE
@@ -8748,7 +8908,7 @@ cLApPacketCaptureProfileRowStatus OBJECT-TYPE
     MAX-ACCESS      read-create
     STATUS          current
     DESCRIPTION
-        "Used to add or delete an entry in this table." 
+        "Used to add or delete an entry in this table."
     ::= { cLApPacketCaptureProfileEntry 2 }
 
 cLApPacketCaptureProfileBufferSize OBJECT-TYPE
@@ -8760,7 +8920,7 @@ cLApPacketCaptureProfileBufferSize OBJECT-TYPE
         "This object specifies the size of the buffer Access Point
         should use to copy the captured packets for client and dump
         it to the FTP server."
-    DEFVAL          { 2048 } 
+    DEFVAL          { 2048 }
     ::= { cLApPacketCaptureProfileEntry 3 }
 
 cLApPacketCaptureProfileDuration OBJECT-TYPE
@@ -8771,7 +8931,7 @@ cLApPacketCaptureProfileDuration OBJECT-TYPE
     DESCRIPTION
         "This object specifies the duration for which the Access Point
         should capture packets for specified client."
-    DEFVAL          { 10 } 
+    DEFVAL          { 10 }
     ::= { cLApPacketCaptureProfileEntry 4 }
 
 cLApPacketCaptureProfileTruncation OBJECT-TYPE
@@ -8783,7 +8943,7 @@ cLApPacketCaptureProfileTruncation OBJECT-TYPE
         "This object specifies the length of the packet after
         truncation while capturing packets on the Access Point.
         Default value is 0 which indictaes captured packet should
-        contain the full payload length." 
+        contain the full payload length."
     ::= { cLApPacketCaptureProfileEntry 5 }
 
 cLApPacketCaptureProfileFtpServerAddressType OBJECT-TYPE
@@ -8793,7 +8953,7 @@ cLApPacketCaptureProfileFtpServerAddressType OBJECT-TYPE
     DESCRIPTION
         "This object specifies the type of the ftp server
         IP Address made available through
-        cLApPacketCaptureProfileEntry." 
+        cLApPacketCaptureProfileEntry."
     ::= { cLApPacketCaptureProfileEntry 6 }
 
 cLApPacketCaptureProfileFtpServerAddress OBJECT-TYPE
@@ -8803,7 +8963,7 @@ cLApPacketCaptureProfileFtpServerAddress OBJECT-TYPE
     DESCRIPTION
         "This object specifies the IP Address of the
         FTP server. Access Point will dump the captured packets
-        to a file in this ftp server." 
+        to a file in this ftp server."
     ::= { cLApPacketCaptureProfileEntry 7 }
 
 cLApPacketCaptureProfileFtpServerPath OBJECT-TYPE
@@ -8813,7 +8973,7 @@ cLApPacketCaptureProfileFtpServerPath OBJECT-TYPE
     DESCRIPTION
         "This object specifies the directory path in the
         ftp server for storing the file which contains the 
-        captured packets in the Access Point." 
+        captured packets in the Access Point."
     ::= { cLApPacketCaptureProfileEntry 8 }
 
 cLApPacketCaptureProfileFtpUsername OBJECT-TYPE
@@ -8823,7 +8983,7 @@ cLApPacketCaptureProfileFtpUsername OBJECT-TYPE
     DESCRIPTION
         "This object specifies the username to login into
         the ftp server in order to transfer the captured 
-        packets from the Access Point." 
+        packets from the Access Point."
     ::= { cLApPacketCaptureProfileEntry 9 }
 
 cLApPacketCaptureProfileFtpPassword OBJECT-TYPE
@@ -8833,7 +8993,7 @@ cLApPacketCaptureProfileFtpPassword OBJECT-TYPE
     DESCRIPTION
         "This object specifies the password to login into
         the ftp server in order to transfer the captured
-        packets from the Access Point." 
+        packets from the Access Point."
     ::= { cLApPacketCaptureProfileEntry 10 }
 
 cLApPacketCaptureProfileClassifierArp OBJECT-TYPE
@@ -8845,7 +9005,7 @@ cLApPacketCaptureProfileClassifierArp OBJECT-TYPE
         while capturing packets on the Access Point.
         A value of 'true' indicates ARP packets should be captured.
         A value of 'false' indicates ARP packets shouldn't be captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 11 }
 
 cLApPacketCaptureProfileClassifierBroadcast OBJECT-TYPE
@@ -8859,7 +9019,7 @@ cLApPacketCaptureProfileClassifierBroadcast OBJECT-TYPE
         captured.
         A value of 'false' indicates Broadcast packets should not be
         captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 12 }
 
 cLApPacketCaptureProfileClassifierControl OBJECT-TYPE
@@ -8875,7 +9035,7 @@ cLApPacketCaptureProfileClassifierControl OBJECT-TYPE
         captured.
         A value of 'false' indicates 802.11 control packets should not
         be captured."
-    DEFVAL          { true } 
+    DEFVAL          { true }
     ::= { cLApPacketCaptureProfileEntry 13 }
 
 cLApPacketCaptureProfileClassifierData OBJECT-TYPE
@@ -8891,7 +9051,7 @@ cLApPacketCaptureProfileClassifierData OBJECT-TYPE
         captured.
         A value of 'false' indicates 802.11 Data packets should not be
         captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 14 }
 
 cLApPacketCaptureProfileClassifierDot1x OBJECT-TYPE
@@ -8906,7 +9066,7 @@ cLApPacketCaptureProfileClassifierDot1x OBJECT-TYPE
         captured.
         A value of 'false' indicates 802.11 Dot1x packets should
         not be captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 15 }
 
 cLApPacketCaptureProfileClassifierIapp OBJECT-TYPE
@@ -8920,7 +9080,7 @@ cLApPacketCaptureProfileClassifierIapp OBJECT-TYPE
         A value of 'true' indicates IAPP packets should be captured.
         A value of 'false' indicates IAPP packets should
         not be captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 16 }
 
 cLApPacketCaptureProfileClassifierIp OBJECT-TYPE
@@ -8930,9 +9090,9 @@ cLApPacketCaptureProfileClassifierIp OBJECT-TYPE
     DESCRIPTION
         "This object specifies the filters for IP packets,
         while capturing packets on the Access Point. 
-        A value of 'true' indicates IP packets should be captured. 
-        A value of 'false' indicates IP packets should not be captured."
-    DEFVAL          { false } 
+       A value of 'true' indicates IP packets should be captured. 
+       A value of 'false' indicates IP packets should not be captured."
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 17 }
 
 cLApPacketCaptureProfileClassifierManagement OBJECT-TYPE
@@ -8946,7 +9106,7 @@ cLApPacketCaptureProfileClassifierManagement OBJECT-TYPE
         captured.
         A value of 'false' indicates 802.11 Management packets should
         not be captured."
-    DEFVAL          { true } 
+    DEFVAL          { true }
     ::= { cLApPacketCaptureProfileEntry 18 }
 
 cLApPacketCaptureProfileClassifierMulticast OBJECT-TYPE
@@ -8958,9 +9118,9 @@ cLApPacketCaptureProfileClassifierMulticast OBJECT-TYPE
         packets, while capturing packets on the Access Point.
         A value of 'true' indicates Multicast packets should be
         captured.
-        A value of 'false' indicates Multicast packets should not be 
-        captured."
-    DEFVAL          { false } 
+       A value of 'false' indicates Multicast packets should not be 
+       captured."
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 19 }
 
 cLApPacketCaptureProfileClassifierTcp OBJECT-TYPE
@@ -8972,7 +9132,7 @@ cLApPacketCaptureProfileClassifierTcp OBJECT-TYPE
         while capturing packets on the Access Point.
         Value of 'true' indicates IP packets should be captured.
         Value of 'false' indicates IP packets should not be captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 20 }
 
 cLApPacketCaptureProfileClassifierUdp OBJECT-TYPE
@@ -8984,7 +9144,7 @@ cLApPacketCaptureProfileClassifierUdp OBJECT-TYPE
         while capturing packets on the Access Point.
         Value of 'true' indicates IP packets should be captured.
         Value of 'false' indicates IP packets should not be captured."
-    DEFVAL          { false } 
+    DEFVAL          { false }
     ::= { cLApPacketCaptureProfileEntry 21 }
 
 cLApPacketCaptureProfileClassifierTcpPort OBJECT-TYPE
@@ -8996,7 +9156,7 @@ cLApPacketCaptureProfileClassifierTcpPort OBJECT-TYPE
         packets, while capturing packets on the Access Point.
         Default value is 0 which indicates all TCP packets should
         be captured."
-    DEFVAL          { 0 } 
+    DEFVAL          { 0 }
     ::= { cLApPacketCaptureProfileEntry 22 }
 
 cLApPacketCaptureProfileClassifierUdpPort OBJECT-TYPE
@@ -9009,7 +9169,7 @@ cLApPacketCaptureProfileClassifierUdpPort OBJECT-TYPE
         Profile which is making use of this packet capture profile.
         Default value is 0 which indicates all UDP packets should
         be captured."
-    DEFVAL          { 0 } 
+    DEFVAL          { 0 }
     ::= { cLApPacketCaptureProfileEntry 23 }
  
 
@@ -9018,7 +9178,7 @@ cLApPacketCaptureProfileClassifierUdpPort OBJECT-TYPE
 -- *********************************************************************
 
 cLApPacketCaptureClientTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLApPacketCaptureClientEntry 
+    SYNTAX          SEQUENCE OF CLApPacketCaptureClientEntry
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
@@ -9034,10 +9194,10 @@ cLApPacketCaptureClientEntry OBJECT-TYPE
     MAX-ACCESS      not-accessible
     STATUS          current
     DESCRIPTION
-        "Each entry in this table provides information about packet
+        "Each entry in this table provides information about packet 
         capture session currently going on for a client on  802.11 
         LWAPP Access Point that has joined the controller."
-    INDEX           { cLApPacketCaptureClientDeviceMac } 
+    INDEX           { cLApPacketCaptureClientDeviceMac }
     ::= { cLApPacketCaptureClientTable 1 }
 
 CLApPacketCaptureClientEntry ::= SEQUENCE {
@@ -9119,7 +9279,7 @@ cLApPacketCaptureClientRowStatus OBJECT-TYPE
         entry in this table. When an entry is added, packet 
         capture will be started for the specified device.
         When an entry is deleted, packet capture will be stopped
-        for the specified device." 
+        for the specified device."
     ::= { cLApPacketCaptureClientEntry 6 }
  
 
@@ -9146,7 +9306,7 @@ cLApPacketCaptureApEntry OBJECT-TYPE
     DESCRIPTION
         "Each entry in this table provides information about status of
         packet capture already in progress on the specific AP."
-    INDEX           { cLApSysMacAddress } 
+    INDEX           { cLApSysMacAddress }
     ::= { cLApPacketCaptureApTable 1 }
 
 CLApPacketCaptureApEntry ::= SEQUENCE {
@@ -9163,7 +9323,7 @@ cLApPacketCaptureApDeviceMac OBJECT-TYPE
         "This object specifies the mac address of the device for
         which packet capture was started on the Access Point.
         Access Point will check for this mac address
-        while capturing packets." 
+        while capturing packets."
     ::= { cLApPacketCaptureApEntry 1 }
 
 cLApPacketCaptureApMacAddress OBJECT-TYPE
@@ -9173,7 +9333,7 @@ cLApPacketCaptureApMacAddress OBJECT-TYPE
     DESCRIPTION
         "This object specifies the base radio mac address of
         the Access Point on which packet capture was started for
-        the specific device." 
+        the specific device."
     ::= { cLApPacketCaptureApEntry 2 }
 
 cLApPacketCaptureApStatus OBJECT-TYPE
@@ -9185,55 +9345,56 @@ cLApPacketCaptureApStatus OBJECT-TYPE
         A value of 'true' indicates packet capture has been started
         for the specified device on the specific Access Point,
         A value of 'false' indicates packet capture is not started
-        for the specified device on the specific Access Point." 
+        for the specified device on the specific Access Point."
     ::= { cLApPacketCaptureApEntry 3 }
- 
 
--- ********************************************************************
+
+--********************************************************************
 -- *  Cisco 11ax Access Point Radio configuration Objects
--- ********************************************************************
+--********************************************************************
 
 cLAp11axRadioConfigTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLAp11axRadioConfigEntry 
-    MAX-ACCESS      not-accessible
-    STATUS          current
+    SYNTAX         SEQUENCE OF CLAp11axRadioConfigEntry
+    MAX-ACCESS     not-accessible
+    STATUS         current
     DESCRIPTION
         "This table represents the radio configuration
         of 11ax Access Points"
     ::= { ciscoLwappAp11axRadioConfig 1 }
 
 cLAp11axRadioConfigEntry OBJECT-TYPE
-    SYNTAX          CLAp11axRadioConfigEntry
-    MAX-ACCESS      not-accessible
-    STATUS          current
+    SYNTAX         CLAp11axRadioConfigEntry
+    MAX-ACCESS     not-accessible
+    STATUS         current
     DESCRIPTION
         "Each entry in cLAp11axRadioConfigTable
         corresponds to an 11ax Access Point radio configuration."
-    INDEX           {
+    INDEX           { 
                         cLApSysMacAddress,
                         cLApDot11IfSlotId
-                    } 
+                    }
     ::= { cLAp11axRadioConfigTable 1 }
 
-CLAp11axRadioConfigEntry ::= SEQUENCE {
-        cLAp11axDualRadioCapable   TruthValue,
-        cLAp11axRadioFRACapable    TruthValue,
-        cLAp11axDualRadioOperation INTEGER,
-        cLAp11axDualRadioMode      INTEGER,
-        cLAp11axRadioRoleOperation INTEGER,
-        cLAp11axRadioRole          INTEGER,
-        cLAp11axObssPdCapable      TruthValue
+CLAp11axRadioConfigEntry ::=SEQUENCE {
+        cLAp11axDualRadioCapable         TruthValue,
+        cLAp11axRadioFRACapable          TruthValue,
+        cLAp11axDualRadioOperation       INTEGER,
+        cLAp11axDualRadioMode            INTEGER,
+        cLAp11axRadioRoleOperation       INTEGER,
+        cLAp11axRadioRole                INTEGER,
+        cLAp11axObssPdCapable            TruthValue,
+        cLAp11axObssPdSrgCapable         TruthValue
 }
 
 cLAp11axDualRadioCapable OBJECT-TYPE
-    SYNTAX          TruthValue
+    SYNTAX          TruthValue 
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
         "This object represents whether radio is dual radio capable or
         not.
         A value of 'true' indicates the radio is dual mode capable.
-        A value of 'false' indicates the radio is not dual mode capable." 
+        A value of 'false' indicates the radio is not dual mode capable."
     ::= { cLAp11axRadioConfigEntry 1 }
 
 cLAp11axRadioFRACapable OBJECT-TYPE
@@ -9243,11 +9404,11 @@ cLAp11axRadioFRACapable OBJECT-TYPE
     DESCRIPTION
         "This object represents whether radio is FRA capable or not.
         A value of 'true' indicates the radio is FRA Capable.
-        A value of 'false' indicates the radio is not FRA capable." 
+        A value of 'false' indicates the radio is not FRA capable."
     ::= { cLAp11axRadioConfigEntry 2 }
 
 cLAp11axDualRadioOperation OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         auto(1),
                         manual(2),
                         none(3)
@@ -9259,11 +9420,11 @@ cLAp11axDualRadioOperation OBJECT-TYPE
         the slot.
         auto - Dual radio mode is automatic.
         manual - Dual radio mode is configurable manually.
-        none - Radio is not dual radio mode capable." 
+        none - Radio is not dual radio mode capable."
     ::= { cLAp11axRadioConfigEntry 3 }
 
 cLAp11axDualRadioMode OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         enabled(1),
                         disabled(2),
                         none(3)
@@ -9274,11 +9435,11 @@ cLAp11axDualRadioMode OBJECT-TYPE
         "This object specifies dual radio mode status of radio
         enabled - Dual radio mode is enabled.
         disabled- Dual radio mode is disabled.
-        none - Radio is not dual radio mode capable." 
+        none - Radio is not dual radio mode capable."
     ::= { cLAp11axRadioConfigEntry 4 }
 
 cLAp11axRadioRoleOperation OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         auto(1),
                         manual(2),
                         none(3)
@@ -9290,11 +9451,11 @@ cLAp11axRadioRoleOperation OBJECT-TYPE
         of the slot.
         auto - Radio role assignment is automatic.
         manual - Radio role assignment is manual.
-        none - Radio role assignment is neither manual nor automatic." 
+        none - Radio role assignment is neither manual nor automatic."
     ::= { cLAp11axRadioConfigEntry 5 }
 
 cLAp11axRadioRole OBJECT-TYPE
-    SYNTAX          INTEGER  {
+    SYNTAX          INTEGER {
                         clientserving(1),
                         monitor(2),
                         none(3)
@@ -9305,7 +9466,7 @@ cLAp11axRadioRole OBJECT-TYPE
         "This object specifies the role for the slot.
         local - The means the slot is capable of serving clients.
         monitor - The slot does not serves client, only monitors.
-        none - The slot is neither client serving nor monitor." 
+        none - The slot is neither client serving nor monitor."
     ::= { cLAp11axRadioConfigEntry 6 }
 
 cLAp11axObssPdCapable OBJECT-TYPE
@@ -9316,10 +9477,19 @@ cLAp11axObssPdCapable OBJECT-TYPE
         "This object represents whether the radio is 802.11ax OBSS PD capable
         or not.
         A value of 'true' indicates the radio is OBSS PD capable.
-        A value of 'false' indicates the radio is not OBSS PD capable." 
+        A value of 'false' indicates the radio is not OBSS PD capable."
     ::= { cLAp11axRadioConfigEntry 7 }
- 
 
+cLAp11axObssPdSrgCapable OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This object represents whether the radio is 802.11ax SRG OBSS PD capable
+        or not.
+        A value of 'true' indicates the radio is SRG OBSS PD capable.
+        A value of 'false' indicates the radio is not SRG OBSS PD capable."
+    ::= { cLAp11axRadioConfigEntry 8 }
 
 -- ********************************************************************
 -- *  Notification Objects
@@ -9744,25 +9914,25 @@ cLApDot11XorRadioBandChangeReason OBJECT-TYPE
     ::= { ciscoLwappApMIBNotifObjects 37 }
 
 cLApBrokenAntApName OBJECT-TYPE
-    SYNTAX          OCTET STRING (SIZE  (0..32))
-    MAX-ACCESS      accessible-for-notify
-    STATUS          current
-    DESCRIPTION
-        "This object represents the AP name of
-        the trap with broken antenna info." 
-    ::= { ciscoLwappApMIBNotifObjects 38 }
+         SYNTAX OCTET STRING (SIZE(0..32))
+         MAX-ACCESS accessible-for-notify
+         STATUS     current
+         DESCRIPTION
+             "This object represents the AP name of
+              the trap with broken antenna info."
+         ::= {  ciscoLwappApMIBNotifObjects 38 }
 
 cLApBrokenAntInfo OBJECT-TYPE
-    SYNTAX          OCTET STRING (SIZE  (0..32))
-    MAX-ACCESS      accessible-for-notify
-    STATUS          current
-    DESCRIPTION
-        "This object represents the condition of
-        antenna for a given AP. It denotes if
-        AP antenna are broken or not; if broken, then which
-        particular antenna (like ALL/A/B/C/D/AB/BC...) broken
-        will be mentioned." 
-    ::= { ciscoLwappApMIBNotifObjects 39 }
+         SYNTAX OCTET STRING (SIZE(0..32))
+         MAX-ACCESS accessible-for-notify
+         STATUS     current
+         DESCRIPTION
+             "This object represents the condition of
+              antenna for a given AP. It denotes if
+              AP antenna are broken or not; if broken, then which
+              particular antenna (like ALL/A/B/C/D/AB/BC...) broken
+              will be mentioned."
+         ::= {  ciscoLwappApMIBNotifObjects 39 }
 
 cLApRogueDot11RadioBand OBJECT-TYPE
     SYNTAX          CLDot11Band
@@ -9771,7 +9941,6 @@ cLApRogueDot11RadioBand OBJECT-TYPE
     DESCRIPTION
         "This object represents the radio band of the Rouge AP."
     ::= { ciscoLwappApMIBNotifObjects 40 }
-    
 -- ********************************************************************
 -- *  Notifications
 -- ********************************************************************
@@ -10223,137 +10392,151 @@ ciscoLwappRadioBandChangeNotify NOTIFICATION-TYPE
    ::= { ciscoLwappApMIBNotifs 31 }
 
 ciscoLwappBrokenAntennaDetails NOTIFICATION-TYPE
-    OBJECTS         {
-                        cLApBrokenAntApName,
-                        cLApBrokenAntInfo
-                    }
-    STATUS          current
-    DESCRIPTION
-        "This notification is generated whenever this AP sends the
-        antenna details, if any got broken or not"
-   ::= { ciscoLwappApMIBNotifs 33 }
--- **********************************************************************************
--- cLAPNtpInfoTable - NTP status for AP
--- **********************************************************************************
+     OBJECTS {
+                 cLApBrokenAntApName,
+                 cLApBrokenAntInfo
+             }
+     STATUS     current
+     DESCRIPTION
+             "This notification is generated whenever this AP sends the
+              antenna details, if any got broken or not"
+     ::= { ciscoLwappApMIBNotifs 33 }
 
-cLAPNtpInfoTable OBJECT-TYPE
-    SYNTAX          SEQUENCE OF CLAPNtpInfoEntry 
-    MAX-ACCESS      not-accessible
-    STATUS          current
+ciscoLwappApRadioStuck NOTIFICATION-TYPE
+     OBJECTS {
+                 cLApSysMacAddress,
+                 cLApName,
+                 bsnStationAPIfSlotId,
+             }
+     STATUS     current
+     DESCRIPTION
+        "This notification generates when an AP detects that its
+         radio is stuck"
+     ::= { ciscoLwappApMIBNotifs 34 }
+
+--**********************************************************************************
+-- cLAPNtpInfoTable - NTP status for AP
+--**********************************************************************************
+
+cLAPNtpInfoTable  OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CLAPNtpInfoEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
     DESCRIPTION
         "This table represents collection of
-        NTP-Server information received from AP."
+         NTP-Server information received from AP."
+
     ::= { ciscoLwappApNtpInfo 1 }
 
-cLAPNtpInfoEntry OBJECT-TYPE
-    SYNTAX          CLAPNtpInfoEntry
-    MAX-ACCESS      not-accessible
-    STATUS          current
+cLAPNtpInfoEntry  OBJECT-TYPE
+    SYNTAX        CLAPNtpInfoEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
     DESCRIPTION
         "Each entry in cLAPNtpInfoTable corresponds
-        NTP-server information for a particular AP."
-    INDEX           { cLApSysMacAddress } 
+         NTP-server information for a particular AP."
+
+    INDEX    { cLApSysMacAddress }
     ::= { cLAPNtpInfoTable 1 }
 
 CLAPNtpInfoEntry ::= SEQUENCE {
-        cLAPNtpInfoState         TruthValue,
-        cLApNtpInfoStatus        CLApNtpStatus,
-        cLAPNtpInfoStratum       Unsigned32,
-        cLAPNtpInfoLastSync      Unsigned32,
-        cLAPNtpInfoOffset        Integer32,
-        cLAPNtpInfoIPAddressType InetAddressType,
-        cLAPNtpInfoIPAddress     InetAddress
-}
+        cLAPNtpInfoState          TruthValue,
+        cLApNtpInfoStatus         CLApNtpStatus,
+        cLAPNtpInfoStratum        Unsigned32,
+        cLAPNtpInfoLastSync       Unsigned32,
+        cLAPNtpInfoOffset         Integer32,
+        cLAPNtpInfoIPAddressType  InetAddressType,
+        cLAPNtpInfoIPAddress      InetAddress
+    }
 
-cLAPNtpInfoState OBJECT-TYPE
-    SYNTAX          TruthValue
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoState          OBJECT-TYPE
+    SYNTAX                TruthValue
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies whether
-        NTP service is enabled or disabled at AP.
-        A value 'true' means NTP server is running at AP.
-        A value 'false' means NTP server is not running at AP" 
+         NTP service is enabled or disabled at AP.
+         A value 'true' means NTP server is running at AP.
+         A value 'false' means NTP server is not running at AP"
     ::= { cLAPNtpInfoEntry 1 }
 
-cLApNtpInfoStatus OBJECT-TYPE
-    SYNTAX          CLApNtpStatus
-    MAX-ACCESS      read-only
-    STATUS          current
+cLApNtpInfoStatus         OBJECT-TYPE
+    SYNTAX                CLApNtpStatus
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies the NTP server
-        status for AP" 
+         status for AP"
     ::= { cLAPNtpInfoEntry 2 }
 
-cLAPNtpInfoStratum OBJECT-TYPE
-    SYNTAX          Unsigned32
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoStratum        OBJECT-TYPE
+    SYNTAX                Unsigned32
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies NTP server stratum
-        for AP.
-        The object value is only applicable when 
-        cLAPNtpInfoState is 'true' and cLApNtpInfoStatus 
-        is other than none."
-    DEFVAL          { 0 } 
+         for AP.
+         The object value is only applicable when
+         cLAPNtpInfoState is 'true' and cLApNtpInfoStatus
+         is other than none."
+    DEFVAL { 0 }
     ::= { cLAPNtpInfoEntry 3 }
 
-cLAPNtpInfoLastSync OBJECT-TYPE
-    SYNTAX          Unsigned32
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoLastSync       OBJECT-TYPE
+    SYNTAX                Unsigned32
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies AP last synced time with
-        NTP server in seconds.
-        The object value is only applicable when cLAPNtpInfoState 
-        is 'true'  and cLApNtpInfoStatus is other than none."
-    DEFVAL          { 0 } 
+         NTP server in seconds.
+         The object value is only applicable when cLAPNtpInfoState
+         is 'true'  and cLApNtpInfoStatus is other than none."
+    DEFVAL { 0 }
     ::= { cLAPNtpInfoEntry 4 }
 
-cLAPNtpInfoOffset OBJECT-TYPE
-    SYNTAX          Integer32
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoOffset         OBJECT-TYPE
+    SYNTAX                Integer32
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies NTP server offset
-        in micro-seconds for AP. 
-        The object value is only applicable when 
-        cLAPNtpInfoState is 'true'  and cLApNtpInfoStatus 
-        is other than none."
-    DEFVAL          { 0 } 
+         in micro-seconds for AP.
+         The object value is only applicable when
+         cLAPNtpInfoState is 'true'  and cLApNtpInfoStatus
+         is other than none."
+    DEFVAL { 0 }
     ::= { cLAPNtpInfoEntry 5 }
 
-cLAPNtpInfoIPAddressType OBJECT-TYPE
-    SYNTAX          InetAddressType
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoIPAddressType  OBJECT-TYPE
+    SYNTAX                InetAddressType
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies the NTP server
         IP address type (ipv4 or ipv6) currently configured at AP.
-        The object value is only applicable when 
-        cLAPNtpInfoState is 'true' and 
+        The object value is only applicable when
+        cLAPNtpInfoState is 'true' and
         cLApNtpInfoStatus is other than none."
-    DEFVAL          { 0 } 
+    DEFVAL { 0 }
     ::= { cLAPNtpInfoEntry 6 }
 
-cLAPNtpInfoIPAddress OBJECT-TYPE
-    SYNTAX          InetAddress
-    MAX-ACCESS      read-only
-    STATUS          current
+cLAPNtpInfoIPAddress      OBJECT-TYPE
+    SYNTAX                InetAddress
+    MAX-ACCESS            read-only
+    STATUS                current
     DESCRIPTION
         "This object specifies the NTP server
         IP address currently configured at AP.
-        The object value is only applicable when 
-        cLAPNtpInfoState is 'true'  and 
+        The object value is only applicable when
+        cLAPNtpInfoState is 'true'  and
         cLApNtpInfoStatus is other than none."
-    DEFVAL          { 0 } 
+    DEFVAL { 0 }
     ::= { cLAPNtpInfoEntry 7 }
- 
 
--- **********************************************************************************
+--**********************************************************************************
 -- cLAPNtpInfoTable - NTP status for AP ends here
--- **********************************************************************************
---   
+--**********************************************************************************
+--
 
 -- ********************************************************************
 -- *    Compliance statements
@@ -14614,7 +14797,8 @@ ciscoLwappApGroupSup8 OBJECT-GROUP
                         cLApGlobalAPAuditReportInterval,
                         cLApGlobalAPConnectCount,
                         cLApAuthorizeApMacMethodList,
-                        cLApAuthorizeApSerialNumMethodList
+                        cLApAuthorizeApSerialNumMethodList,
+                        clApImageUpgradeHttpsEnable
                     }
     STATUS          current
     DESCRIPTION
@@ -14652,7 +14836,8 @@ ciscoLwappApNotifsGroupVer2 NOTIFICATION-GROUP
                         ciscoLwappApCpuUsageHigh,
                         ciscoLwappApUpgradeFailureNotify,
                         ciscoLwappApClientThresholdNotify,
-                        ciscoLwappBrokenAntennaDetails
+                        ciscoLwappBrokenAntennaDetails,
+                        ciscoLwappApRadioStuck
                     }
     STATUS          current
     DESCRIPTION
@@ -15690,7 +15875,8 @@ ciscoLwappAp11axGroup OBJECT-GROUP
                         cLAp11axDualRadioMode,
                         cLAp11axRadioRoleOperation,
                         cLAp11axRadioRole,
-                        cLAp11axObssPdCapable
+                        cLAp11axObssPdCapable,
+			cLAp11axObssPdSrgCapable
                     }
     STATUS          current
     DESCRIPTION
@@ -16004,7 +16190,15 @@ ciscoLwappApGroupSup14 OBJECT-GROUP
                         cLApDot11XorRadioRoleChangeReason,
                         cLApDot11XorRadioBandChangeReason,
                         cLApBrokenAntApName,
-                        cLApBrokenAntInfo
+                        cLApBrokenAntInfo,
+                        cLApIndoorMode,
+                        cLApSlotWlanStatsTxPktNum,
+                        cLApSlotWlanStatsTxOctetNum,
+                        cLApSlotWlanStatsRxPktNum,
+                        cLApSlotWlanStatsRxOctetNum,
+                        cLApSlotWlanStatsRetransmitNum,
+                        cLApSlotWlanStatsAssocClientNum,
+                        cLApSlotWlanStatsOnlineUserNum
                     }
     STATUS          current
     DESCRIPTION
@@ -16032,5 +16226,64 @@ ciscoLwappApXorRadioGroupSup2 OBJECT-GROUP
     ::= { ciscoLwappApMIBGroups 45 }
 
 END
+
+
+--%DNP%  MLC -Submitted MLC
+
+--%DNP%  MTF -TRUE MTF
+
+--%DNP%  NO REPLACEMENT =cLAdjChannelRogueEnabled 
+
+--%DNP%  NO REPLACEMENT =cLApConnectCount 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfDualRadioCapable 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfDualRadioMode 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfDualRadioOperation 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfRadioFRACapable 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfRadioRole 
+
+--%DNP%  NO REPLACEMENT =cLApDot11IfRadioRoleOperation 
+
+--%DNP%  NO REPLACEMENT =cLApExtensionChannel 
+
+--%DNP%  NO REPLACEMENT =cLApLomEnabled 
+
+--%DNP%  NO REPLACEMENT =cLApNwLegacyBeamForming 
+
+--%DNP%  NO REPLACEMENT =cLApProfile802dot1xAuthenticationEnabled 
+
+--%DNP%  NO REPLACEMENT =cLApProfileApCountryCode 
+
+--%DNP%  NO REPLACEMENT =cLApProfileCredentialEnableGlobalCredentials 
+
+--%DNP%  NO REPLACEMENT =cLApProfileEthernetInterfaceDowntime 
+
+--%DNP%  NO REPLACEMENT =cLApProfileFastHbTimerEnabled 
+
+--%DNP%  NO REPLACEMENT =cLApProfileOeapDisableLocalAccess 
+
+--%DNP%  NO REPLACEMENT =cLApProfileRadioInterfaceShutdownEnabled 
+
+--%DNP%  NO REPLACEMENT =cLApProfileVlanTagging 
+
+--%DNP%  NO REPLACEMENT =cLApWipsEnable 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApGroupSup10 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApGroupSup12 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApProfileGroup 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApProfileGroupSup1 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApProfileGroupSup3 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApXorRadioGroup 
+
+--%DNP%  NO REPLACEMENT =ciscoLwappApXorRadioGroupSup1 
 
 
