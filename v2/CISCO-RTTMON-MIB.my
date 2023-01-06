@@ -1,45 +1,18 @@
--- $Id: CISCO-RTTMON-MIB.my,v 3.1.4.4 1996/09/04 17:34:50 lmetzger Exp $
+-- $Id: CISCO-RTTMON-MIB.my,v 3.1.4.5 2022/08/30 17:34:50 sajg Exp $
 -- $Source: /release/112/cvs/Xsys/MIBS/CISCO-RTTMON-MIB.my,v $
 -- *****************************************************************
 -- Response Time Monitor Mib.
 --   
--- March 1996, Larry Metzger
+-- August 2022, Sajini G
 --   
--- Copyright (c) 1995-2012, 2014-2016 by Cisco Systems, Inc.
+-- Copyright (c) 1995-2012, 2014-2016, 2019, 2022 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log: CISCO-RTTMON-MIB.my,v $
--- %DNP% Revision 3.1.4.4  1996/09/04  17:34:50  lmetzger
--- %DNP% CSCdi68018:  Second Update to Description in RTTMON mib
--- %DNP% Branch: California_branch
--- %DNP%
--- %DNP% Revision 3.1.4.3  1996/08/16  18:38:07  lmetzger
--- %DNP% CSCdi66311:  Update Descriptions in RTTMON mib
--- %DNP% Branch: California_branch
--- %DNP%
--- %DNP% Revision 3.1.4.2  1996/06/11  19:38:37  snyder
--- %DNP% CSCdi60118:  MIB doc spellink errors
--- %DNP% Branch: California_branch
--- %DNP%
--- %DNP% Revision 3.1.4.1  1996/05/17  10:38:45  ppearce
--- %DNP% Merge IbuMod into Calif
--- %DNP%
--- %DNP% Revision 3.1.2.1  1996/03/22  19:10:10  lmetzger
--- %DNP% Initial Version of Response Time Reporter
--- %DNP%
--- %DNP% Revision 3.1  1996/03/20  01:05:49  lmetzger
--- %DNP% Placeholder for IbuMod_Calif_branch
--- %DNP%
 -- *****************************************************************
 -- $Endlog$
 --   
 
--- %DNP%  FYI:  Lines containing a comment starting with the "Do Not
--- %DNP%  Publish" prefix "%DNP%" (such as these) are automagicially
--- %DNP%  stripped from MIBS prior to publishing on ftp and cio, and
--- %DNP%  should be used for comments intended for cisco engineering
--- %DNP%  eyes only, or for new product identifiers that are not yet
--- %DNP%  announce
 
 CISCO-RTTMON-MIB DEFINITIONS ::= BEGIN
 
@@ -1136,7 +1109,7 @@ rttMonCtrlAdminFrequency OBJECT-TYPE
         rttMonCtrlAdminFrequency expiration. 
 
         NOTE:  When the rttMonCtrlAdminRttType object is defined 
-               to be 'pathEcho', setting this value to a small
+               to be 'pathEcho' or 'pathJitter', setting this value to a small
                value for your network size may cause an operation
                attempt (or multiple attempts) to be started 
                before the previous operation has finished.  In 
@@ -1146,7 +1119,7 @@ rttMonCtrlAdminFrequency OBJECT-TYPE
                the next rttMonCtrlAdminFrequency expiration.
 
         When the rttMonCtrlAdminRttType object is defined
-        to be 'pathEcho', the suggested value for this object 
+        to be 'pathEcho' or 'pathJitter', the suggested value for this object
         is greater than rttMonCtrlAdminTimeout times the 
         maximum number of expected hops to the target.
 
@@ -1404,6 +1377,7 @@ rttMonEchoAdminProtocol OBJECT-TYPE
         should be used for each probe type:
 
         echo, pathEcho   - ipIcmpEcho / mplsLspPingAppl
+        pathJitter       - ipIcmpEcho
         udpEcho          - ipUdpEchoAppl
         tcpConnect       - ipTcpConn
         http             - httpAppl
@@ -1449,11 +1423,11 @@ rttMonEchoAdminPktDataRequestSize OBJECT-TYPE
         For echo probes the total packet size = (IP header(20) + 
         ICMP header(8) + 8 (internal timestamps) + request size).
 
-        For echo and pathEcho default request size is 28.
+        For echo, pathEcho and pathJitter default request size is 28.
         For udp probe, default request size is 16 and for jitter 
         probe it is 32. For dlsw probes default request size is 0.
 
-        The minimum request size for echo and pathEcho is 28 bytes,
+        The minimum request size for echo, pathEcho and pathJitter is 28 bytes,
         for udp it is 4 and for jitter it is 16.
         For udp and jitter probes the maximum request size is 1500.
 
@@ -1526,7 +1500,7 @@ rttMonEchoAdminControlEnable OBJECT-TYPE
         will send control messages to a responder, residing on the 
         target router to respond to the data request packets being 
         sent by the source router. This object is not applicable to 
-        echo, pathEcho, dns and http probes."
+        echo, pathEcho, pathJitter, dns and http probes."
     DEFVAL          { true } 
     ::= { rttMonEchoAdminEntry 8 }
 
@@ -2789,7 +2763,7 @@ rttMonReactAdminTable OBJECT-TYPE
         All Notification/Reactions are applied to all RTT 
         End-to-End operations.  Thus, they do not apply to hops
         along a path to the target, when RttMonRttType is 
-        'pathEcho'.
+        'pathEcho' or 'pathJitter'.
 
         The format and content of SNA NMVT's are not defined 
         within this module.  
@@ -2867,7 +2841,7 @@ rttMonReactAdminTimeoutEnable OBJECT-TYPE
         operation causes rttMonCtrlOperTimeoutOccurred 
         to change its value.  
 
-        When the RttMonRttType is 'pathEcho' timeouts to 
+        When the RttMonRttType is 'pathEcho' or 'pathJitter' timeouts to
         intermediate hops will not cause 
         rttMonCtrlOperTimeoutOccurred to change its value.
         rttMonReactAdminTimeoutEnable object is superseded by
@@ -2889,12 +2863,12 @@ rttMonReactAdminThresholdType OBJECT-TYPE
         "This object specifies the conditions under which
         rttMonCtrlOperOverThresholdOccurred is changed:
 
-        NOTE:  When the RttMonRttType is 'pathEcho' this 
+        NOTE:  When the RttMonRttType is 'pathEcho' or 'pathJitter' this
                objects' value and all associated 
                object values are only valid when RTT 
                'echo' operations are to the
                rttMonEchoAdminTargetAddress object address.  Thus
-               'pathEcho' operations to intermediate
+               'pathEcho' or 'pathJitter' operations to intermediate
                hops will not cause this object to change.
 
         never       - rttMonCtrlOperOverThresholdOccurred is 
@@ -3491,7 +3465,7 @@ rttMonCtrlOperTimeoutOccurred OBJECT-TYPE
         reaction may occur, as defined by 
         rttMonReactAdminTimeoutEnable. 
 
-        When the RttMonRttType is 'pathEcho', this timeout
+        When the RttMonRttType is 'pathEcho' or 'pathJitter', this timeout
         applies only to the rttMonEchoAdminTargetAddress and
         not to intermediate hops to the Target.
 
@@ -3542,7 +3516,7 @@ rttMonCtrlOperNumRtts OBJECT-TYPE
 
         This value is incremented for each start of an RTT 
         operation.  Thus when rttMonCtrlAdminRttType is set to 
-        'pathEcho' this value will be incremented by one and 
+        'pathEcho' or 'pathJitter' this value will be incremented by one and
         not for very every hop along the path.
 
         This object has the special behavior as defined by the
@@ -3883,7 +3857,7 @@ rttMonLatestRttOperAddress OBJECT-TYPE
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
-        "When the RttMonRttType is 'echo', 'pathEcho', 'udpEcho',
+        "When the RttMonRttType is 'echo', 'pathEcho', 'pathJitter', 'udpEcho',
         'tcpConnect', 'dns' and 'dlsw' this is a string which specifies 
         the address of the target for this RTT operation.  When the 
         RttMonRttType is not one of these types this object will 
@@ -5363,8 +5337,8 @@ rttMplsVpnMonCtrlRequestSize OBJECT-TYPE
         for jitter probe is 1500. The default request size is 32 for
         jitter probe.
 
-        For echo and pathEcho default request size is 28.
-        The minimum request size for echo and pathEcho is 28 bytes."
+        For echo, pathEcho and pathJitter default request size is 28.
+        The minimum request size for echo, pathEcho and pathJitter is 28 bytes."
     DEFVAL          { 1 } 
     ::= { rttMplsVpnMonCtrlEntry 10 }
 
@@ -9014,9 +8988,6 @@ rttMonVerifyErrorNotification NOTIFICATION-TYPE
         rttMonNotification."
    ::= { rttMonNotifications 4 }
 
--- %DNP% The rttMonEchoAdminLSPSelector object was added to address
--- %DNP% customer problem field trial. The prior version of the MIB
--- %DNP% has not been published externally.
 
 rttMonNotification NOTIFICATION-TYPE
     OBJECTS         {
