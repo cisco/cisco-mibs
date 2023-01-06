@@ -5,7 +5,7 @@
 --
 -- May 1994, Jeffrey T. Johnson
 --
--- Copyright (c) 1994-2021 by cisco Systems, Inc.
+-- Copyright (c) 1994-2023 by cisco Systems, Inc.
 -- All rights reserved.
 --
 -- NOTE WELL
@@ -890,6 +890,7 @@
                         ,cws-c2960l-sm-48tq(1224)                --  Catalyst 2960L-SM 48 x GE downlink, 4 x 10GE (4 SFP+) uplinks
                         ,cws-c2960l-sm-24pq(1225)                -- Catalyst 2960L-SM 24 x GE downlink, 4 x 10GE (4 SFP+) uplinks, POE support
                         ,cws-c2960l-sm-48pq(1226)                -- Catalyst 2960L-SM 48 x GE downlink, 4 x 10GE (4 SFP+) uplinks, POE support
+                        ,dn-apl-tta-1x(1230)             -- Cisco DNA Traffic Telemetry Appliance - Model 1X
                        ,cws-c1000-24fet-4g-l(1231)           -- Catalyst 1000, 24x 1FE downlinks + 2x 1G uplink (Combo) + 2x 1G uplink (SFP) 
                        ,cws-c1000-24fep-4g-l(1232)           -- Catalyst 1000, 24x 1FE downlinks + 2x 1G uplink (Combo) + 2x 1G uplink (SFP) + Partial PoE
                        ,cws-c1000-48fet-4g-l(1233)           -- Catalyst 1000, 48x 1FE downlinks + 2x 1G uplink (Combo) + 2x 1G uplink (SFP)

@@ -7,7 +7,7 @@
 --
 -- August 1997, Ramanathan R. Kavasseri
 --
--- Copyright (c) 1997-2022 by cisco Systems, Inc.
+-- Copyright (c) 1997-2023 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log$
@@ -2120,6 +2120,7 @@ cevChassisC8500L8S2X2Y                  OBJECT IDENTIFIER ::= { cevChassis 2534 
 cevChassisC8500L8S8X4Y                  OBJECT IDENTIFIER ::= { cevChassis 2535 } -- Cisco Aggregation Services Router 1000 Series, C8500L-8S8X4Y Chassis
 cevChassisNCS57D218DDSYS                OBJECT IDENTIFIER ::= { cevChassis 2538 } -- NCS-57D2-18DD-SYS  NCS5700 Castleblack chassis
 cevChassisN9KC9232EB1                   OBJECT IDENTIFIER ::= { cevChassis 2539 } -- 32 x 800G 1RU Switch.
+cevChassisN9KC9804                      OBJECT IDENTIFIER ::= { cevChassis 2545 } -- Cisco Nexus 9800 4-slot Chassis
 
 
 cevBackplane				OBJECT IDENTIFIER ::= { cevMIBObjects 4 }
@@ -3816,7 +3817,6 @@ cevSensorTransceiverLane1RxPwr          OBJECT IDENTIFIER ::= { cevSensor 236 } 
 cevSensorTransceiverLane2RxPwr          OBJECT IDENTIFIER ::= { cevSensor 237 } -- Transceiver Rx Lane 2 power sensor
 cevSensorTransceiverLane3RxPwr          OBJECT IDENTIFIER ::= { cevSensor 238 } -- Transceiver Rx Lane 3 power sensor
 cevSensorTransceiverLane4RxPwr          OBJECT IDENTIFIER ::= { cevSensor 239 } -- Transceiver Rx Lane 4 power sensor
-
 
 
 
@@ -7727,6 +7727,12 @@ cevModuleC8500L8S4XESP         OBJECT IDENTIFIER ::= { cevModuleASR1000Type 113 
 cevModuleC8500L8S4XSIP         OBJECT IDENTIFIER ::= { cevModuleASR1000Type 114 } -- C8500L-8S4X SPA Interface Processor Module
 cevModuleC8500L8S2X2Y          OBJECT IDENTIFIER ::= { cevModuleASR1000Type 121 }  -- Cisco C8500L-8S2X2Y Routing Processor Module
 cevModuleC8500L8S8X4Y          OBJECT IDENTIFIER ::= { cevModuleASR1000Type 122 }  -- Cisco C8500L-8S8X4Y Routing Processor Module
+cevModuleC8500L8S2X2YRP        OBJECT IDENTIFIER ::= { cevModuleASR1000Type 123 }  -- C8500L-8S2X2Y Routing Processor Module
+cevModuleC8500L8S8X4YRP        OBJECT IDENTIFIER ::= { cevModuleASR1000Type 124 }  -- C8500L-8S8X4Y Routing Processor Module
+cevModuleC8500L8S2X2YESP       OBJECT IDENTIFIER ::= { cevModuleASR1000Type 125 }  -- C8500L-8S2X2Y Embedded Services Processor Module
+cevModuleC8500L8S8X4YESP       OBJECT IDENTIFIER ::= { cevModuleASR1000Type 126 }  -- C8500L-8S8X4Y Embedded Services Processor Module
+cevModuleC8500L8S2X2YSIP       OBJECT IDENTIFIER ::= { cevModuleASR1000Type 127 }  -- C8500L-8S2X2Y SPA Interface Processor Module
+cevModuleC8500L8S8X4YSIP       OBJECT IDENTIFIER ::= { cevModuleASR1000Type 128 }  -- C8500L-8S8X4Y SPA Interface Processor Module
 
 
 cevModuleCatRfgwType    OBJECT IDENTIFIER ::= { cevModule 69 }                  -- Cards that go into Rfgw chassis
