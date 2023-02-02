@@ -6078,6 +6078,7 @@ CucsFaultCode ::= TEXTUAL-CONVENTION
     fltComputeRackUnitConfigMismatch(1963),
     fltMgmtKvmCertificateCertificateUnsupported(1966),
     fltMgmtKvmCertificateCertificateEmptyParams(1967),
+    fltStorageControllerPciEquipSlotUnsecure(1968),
     fsmStFailEquipmentChassisRemoveChassisDecomission(16407),
     fsmStFailEquipmentLocatorLedSetLocatorLedExecute(16408),
     fsmStFailMgmtControllerExtMgmtIfConfigSecondary(16518),
@@ -7563,7 +7564,8 @@ CucsFaultProbableCause  ::= TEXTUAL-CONVENTION
     mswitchImgUpdateFailed(1019),
     resetCimcFailed(1020),
     sasExpanderConfigFailed(1021),
-    pollSasExpanderConfigFailed(1022)
+    pollSasExpanderConfigFailed(1022),
+    equipment_unsecure(1023)
   }
 
 CucsFaultSeverity  ::= TEXTUAL-CONVENTION
