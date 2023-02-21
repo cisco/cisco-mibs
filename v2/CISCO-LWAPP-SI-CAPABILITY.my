@@ -1,5 +1,5 @@
 -- *******************************************************************
--- CISCO-LWAPP-QOS MIB CAPABILITY
+-- CISCO-LWAPP-SI MIB CAPABILITY
 --
 -- November 18, 2020
 --
@@ -7,7 +7,7 @@
 -- All rights reserved.
 -- *******************************************************************
 
-CISCO-LWAPP-QOS-CAPABILITY DEFINITIONS ::= BEGIN
+CISCO-LWAPP-SI-CAPABILITY DEFINITIONS ::= BEGIN
 
 
 IMPORTS
@@ -19,7 +19,7 @@ IMPORTS
            FROM CISCO-SMI;
 
 
-ciscoLwappQosCapability  MODULE-IDENTITY
+ciscoLwappSiCapability  MODULE-IDENTITY
 
        LAST-UPDATED         "202011180000Z"
        ORGANIZATION         "Cisco Systems, Inc."
@@ -37,229 +37,242 @@ ciscoLwappQosCapability  MODULE-IDENTITY
 
        DESCRIPTION
                "Agent capabilities for
-               CISCO-LWAPP-QOS-MIB "
+               CISCO-LWAPP-SI-MIB "
        REVISION      "202011180000Z"
        DESCRIPTION
                "Initial version of this MIB module. "
 
-   ::= { ciscoAgentCapability 1158 }
+   ::= { ciscoAgentCapability 1160 }
 
-ciscoLwappQosCapabilityCEV1R0 AGENT-CAPABILITIES
+ciscoLwappSiCapabilityCEV1R0 AGENT-CAPABILITIES
 
        PRODUCT-RELEASE "Cisco EWLC 1.0"
        STATUS          current
-       DESCRIPTION     "CISCO-LWAPP-QOS--MIB capabilities."
+       DESCRIPTION     "CISCO-LWAPP-SI--MIB capabilities."
 
-       SUPPORTS        CISCO-LWAPP-QOS-MIB
+       SUPPORTS        CISCO-LWAPP-SI-MIB
        INCLUDES        {
-                           cLQd11SipCacConfigTable,
-                           cLQd11VoiceStatsTable,
-                           cLQoSAirTimeFairnessWlanStatisticsTable,
-                           cLAPGroupAirTimeFairnessTable,
-                           cLApAirTimeFairnessPolicyOverrideTable,
-                           cLQoSAirTimeFairnessStatisticsTable,
-                           cLQPreferredCallTable,
-                           cLAPGroupsAirTimeFairnessPolicyOverrideTable,
-                           cLQMStreamTable,
-                           cLQVoiceClientTable,
-                           cLQd11GprTable,
-                           cLQoSAirTimeFairnessTable,
-                           cLQd11CACStatsTable
-                           
+                           cLSiDot11BandTable,
+                           cLSiIdrTable,
+                           cLSiPersistentDeviceTable,
+                           cLSiPersistentDeviceChanTable,
+                           cLSiAqInterferenceClassReportTable,
+                           cLSiIdrClusterTable,
+                           cLSiAqTable
                        }
 
-       VARIATION       cLQd11SipCacConfigCodecType
+       VARIATION       cLSiD11IdrPersistentDevicePropagation
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11SipCacMaxPossibleReservedRoamingCalls
+       VARIATION       cLSiIdrEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11VoiceStatsEntry
+       VARIATION       cLSiIdrTimeStamp
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11VoiceCallCounts
+       VARIATION       cLSiIdrDetectingApMac
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11CacVoiceCallTimePeriod
+       VARIATION       cLSiIdrDutyCycle
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQoSAirTimeFairnessWlanStatisticsEntry
+       VARIATION       cLSiIdrAntennaId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanAirtimeUsedInstantaneous
+       VARIATION       cLSiIdrRssi
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanAirtimeUsedCumulative
+       VARIATION       cLSiIdrRadioBandId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanBytesSentInstantaneous
+       VARIATION       cLSiIdrDeviceSignatureLen
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanBytesSentCumulative
+       VARIATION       cLSiIdrDeviceSignature
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanBytesDroppedInstantaneous
+       VARIATION       cLSiPersistentDeviceEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanBytesDroppedCumulative
+       VARIATION       cLSiPersistentDeviceId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanFramesSentInstantaneous
+       VARIATION       cLSiPersistentDeviceType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanFramesSentCumulative
+       VARIATION       cLSiPersistentTimeStamp
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanFramesDroppedInstantaneous
+       VARIATION       cLSiPersistentDeviceChanEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessWlanFramesDroppedCumulative
+       VARIATION       cLSiPersistentDeviceChanIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupAirTimeFairnessEntry
+       VARIATION       cLSiChannelAffected
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupAirTimeFairnessMode
+       VARIATION       cLSiChannelUtil
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupAirTimeFairnessOptimizationPolicy
+       VARIATION       cLSiChannelRSSI
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessPolicyOverrideEntry
+       VARIATION       cLSiChannelPropagationFlag
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessPolicyOverride
+       VARIATION       cLSiAqInterferenceClassReportEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessOverridePolicyName
+       VARIATION       cLSiAqInterferenceClassReportIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQoSAirTimeFairnessStatisticsEntry
+       VARIATION       cLSiAqInterferenceClassReportClass
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessTotalAirtimeUsedInstantaneous
+       VARIATION       cLSiAqInterferenceClassReportSeverityIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessTotalAirtimeUsedCumulative
+       VARIATION       cLSiAqInterferenceClassReportPower
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessRadioUptime
+       VARIATION       cLSiAqInterferenceClassReportDutyCycle
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessRadioUptimeCumulative
+       VARIATION       cLSiAqInterferenceClassReportDeviceCount
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11aVideoAdmCtrlSupport
+       VARIATION       cLSiIdrClusterEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11aGprProbeInterval
+       VARIATION       cLSiIdrClusterRadioBandId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11aMacOptimization
+       VARIATION       cLSiIdrClusterClusterId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11aMaxCallLimit
+       VARIATION       cLSiIdrClusterDeviceIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11bVideoAdmCtrlSupport
+       VARIATION       cLSiIdrClusterDeviceId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11bGprProbeInterval
+       VARIATION       cLSiIdrClusterTimeStamp
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11bMacOptimization
+       VARIATION       cLSiIdrClusterDeviceType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11bMaxCallLimit
+       VARIATION       cLSiIdrClusterSeverity
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupsAirTimeFairnessPolicyOverrideEntry
+       VARIATION       cLSiIdrClusterDetectingApMac
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupAirTimeFairnessPolicyNameOverrideEnabled
+       VARIATION       cLSiIdrClusterDutyCycle
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLAPGroupAirTimeFairnessOverridePolicyName
+       VARIATION       cLSiIdrClusterAntennaId
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       ciscoLwappVoipCallFailureNotifEnabled
+       VARIATION       cLSiIdrClusterRssi
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQVoiceClientEntry
+       VARIATION       cLSiIdrClusterAffectedChannels
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11GprEntry
+       VARIATION       cLSiIdrClusterDeviceSignatureLen
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11GprSupport
+       VARIATION       cLSiIdrClusterDeviceSignature
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQoSAirTimeFairnessEntry
+       VARIATION       cLSiIdrClusterCenterIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessMode
+       VARIATION       cLSiIdrClusterType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLApAirTimeFairnessOptimizationPolicy
+       VARIATION       cLSiAqEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11CacVideoBwInUse
+       VARIATION       cLSiAqMinIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11SipCacPreferredCallsReceived
+       VARIATION       cLSiAqTotalChannelPower
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLQd11SipCacPreferredCallsAccepted
+       VARIATION       cLSiAqTotalChannelDutyCycle
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-   ::= { ciscoLwappQosCapability 1 }
+       VARIATION       cLSiAqInterferencePower
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLSiAqInterferenceDutyCycle
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLSiAqInterferenceDeviceCount
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLSiAqInterfererClassReportCount
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLSiAqTimeStamp
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+   ::= { ciscoLwappSiCapability 1 }
 
 END

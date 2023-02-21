@@ -1,5 +1,5 @@
 -- *******************************************************************
--- CISCO-LWAPP-DOT11-CLIENT-CALIB MIB CAPABILITY
+-- CISCO-LWAPP-CDP MIB CAPABILITY
 --
 -- November 18, 2020
 --
@@ -7,7 +7,7 @@
 -- All rights reserved.
 -- *******************************************************************
 
-CISCO-LWAPP-DOT11-CLIENT-CALIB-CAPABILITY DEFINITIONS ::= BEGIN
+CISCO-LWAPP-CDP-CAPABILITY DEFINITIONS ::= BEGIN
 
 
 IMPORTS
@@ -19,7 +19,7 @@ IMPORTS
            FROM CISCO-SMI;
 
 
-ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
+ciscoLwappCdpCapability  MODULE-IDENTITY
 
        LAST-UPDATED         "202011180000Z"
        ORGANIZATION         "Cisco Systems, Inc."
@@ -37,64 +37,64 @@ ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
 
        DESCRIPTION
                "Agent capabilities for
-               CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB "
+               CISCO-LWAPP-CDP-MIB "
        REVISION      "202011180000Z"
        DESCRIPTION
                "Initial version of this MIB module. "
 
-   ::= { ciscoAgentCapability 1165 }
+   ::= { ciscoAgentCapability 1161 }
 
-ciscoLwappDot11ClientCalibCapabilityCEV1R0 AGENT-CAPABILITIES
+ciscoLwappCdpCapabilityCEV1R0 AGENT-CAPABILITIES
 
        PRODUCT-RELEASE "Cisco EWLC 1.0"
        STATUS          current
-       DESCRIPTION     "CISCO-LWAPP-DOT11-CLIENT-CALIB--MIB capabilities."
+       DESCRIPTION     "CISCO-LWAPP-CDP--MIB capabilities."
 
-       SUPPORTS        CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB
+       SUPPORTS        CISCO-LWAPP-CDP-MIB
        INCLUDES        {
-                           cLD11ClientCalibTable
+                           clcCdpApTable
                        }
 
-       VARIATION       cLD11ClientCalibEntry
+       VARIATION       clcCdpApEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibMacAddress
+       VARIATION       clcCdpApCdpEnable
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconInterval
+       VARIATION       clcCdpInPackets
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibRowStatus
+       VARIATION       clcCdpOutPackets
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfRadios
+       VARIATION       clcCdpChecksumErrorPackets
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfSamples
+       VARIATION       clcCdpNoMemoryPackets
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibSamplesCollected
+       VARIATION       clcCdpInvalidPackets
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconIntervalExt
+       VARIATION       clcCdpAdvtVersion
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibStorageType
+       VARIATION       clcCdpMessageInterval
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibTableMaxEntries
+       VARIATION       clcCdpGlobalEnable
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-   ::= { ciscoLwappDot11ClientCalibCapability 1 }
+   ::= { ciscoLwappCdpCapability 1 }
 
 END
