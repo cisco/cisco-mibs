@@ -1,5 +1,5 @@
 -- *******************************************************************
--- CISCO-LWAPP-DOT11-CLIENT-CALIB MIB CAPABILITY
+-- CISCO-LWAPP-WLAN-SECURITY MIB CAPABILITY
 --
 -- November 18, 2020
 --
@@ -7,7 +7,7 @@
 -- All rights reserved.
 -- *******************************************************************
 
-CISCO-LWAPP-DOT11-CLIENT-CALIB-CAPABILITY DEFINITIONS ::= BEGIN
+CISCO-LWAPP-WLAN-SECURITY-CAPABILITY DEFINITIONS ::= BEGIN
 
 
 IMPORTS
@@ -19,7 +19,7 @@ IMPORTS
            FROM CISCO-SMI;
 
 
-ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
+ciscoLwappWlanSecurityCapability  MODULE-IDENTITY
 
        LAST-UPDATED         "202011180000Z"
        ORGANIZATION         "Cisco Systems, Inc."
@@ -37,64 +37,82 @@ ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
 
        DESCRIPTION
                "Agent capabilities for
-               CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB "
+               CISCO-LWAPP-WLAN-SECURITY-MIB "
        REVISION      "202011180000Z"
        DESCRIPTION
                "Initial version of this MIB module. "
 
-   ::= { ciscoAgentCapability 1165 }
+   ::= { ciscoAgentCapability 1157 }
 
-ciscoLwappDot11ClientCalibCapabilityCEV1R0 AGENT-CAPABILITIES
+ciscoLwappWlanSecurityCapabilityCEV1R0 AGENT-CAPABILITIES
 
        PRODUCT-RELEASE "Cisco EWLC 1.0"
        STATUS          current
-       DESCRIPTION     "CISCO-LWAPP-DOT11-CLIENT-CALIB--MIB capabilities."
+       DESCRIPTION     "CISCO-LWAPP-WLAN-SECURITY--MIB capabilities."
 
-       SUPPORTS        CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB
+       SUPPORTS        CISCO-LWAPP-WLAN-SECURITY-MIB
        INCLUDES        {
-                           cLD11ClientCalibTable
+                           cLWSecDot11EssCckmTable,
+                           cLWSecDot11EssWebPolicyTable,
+                           cLWSecDot11EssCkipTable
                        }
 
-       VARIATION       cLD11ClientCalibEntry
+       VARIATION       cLWSecDot11EssFtEnable
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibMacAddress
+       VARIATION       cLWSecDot11EssWebPolicyEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconInterval
+       VARIATION       cLWSecDot11EssWebPolicyCondRedirect
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibRowStatus
+       VARIATION       cLWSecDot11EssWebPolicySplashPageWebRedirect
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfRadios
+       VARIATION       cLWSecAaaRadiusAuthCallStationIdType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfSamples
+       VARIATION       cLWSecAaaRadiusAccUsernameDelimiter
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibSamplesCollected
+       VARIATION       cLWSecDot11EssCkipEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconIntervalExt
+       VARIATION       cLWSecDot11EssCkipSecurity
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibStorageType
+       VARIATION       cLWSecDot11EssCkipKeyIndex
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibTableMaxEntries
+       VARIATION       cLWSecDot11EssCkipKeyLength
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-   ::= { ciscoLwappDot11ClientCalibCapability 1 }
+       VARIATION       cLWSecDot11EssCkipKeyFmt
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLWSecDot11EssCkipKey
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLWSecDot11EssCkipMMHMode
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+       VARIATION       cLWSecDot11EssCkipKPEnable
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+   ::= { ciscoLwappWlanSecurityCapability 1 }
 
 END

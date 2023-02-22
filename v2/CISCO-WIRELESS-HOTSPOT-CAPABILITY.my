@@ -1,5 +1,5 @@
 -- *******************************************************************
--- CISCO-LWAPP-DOT11-CLIENT-CALIB MIB CAPABILITY
+-- CISCO-WIRELESS-HOTSPOT MIB CAPABILITY
 --
 -- November 18, 2020
 --
@@ -7,7 +7,7 @@
 -- All rights reserved.
 -- *******************************************************************
 
-CISCO-LWAPP-DOT11-CLIENT-CALIB-CAPABILITY DEFINITIONS ::= BEGIN
+CISCO-WIRELESS-HOTSPOT-CAPABILITY DEFINITIONS ::= BEGIN
 
 
 IMPORTS
@@ -19,7 +19,7 @@ IMPORTS
            FROM CISCO-SMI;
 
 
-ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
+ciscoWirelessHotspotCapability  MODULE-IDENTITY
 
        LAST-UPDATED         "202011180000Z"
        ORGANIZATION         "Cisco Systems, Inc."
@@ -37,64 +37,61 @@ ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
 
        DESCRIPTION
                "Agent capabilities for
-               CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB "
+               CISCO-WIRELESS-HOTSPOT-MIB "
        REVISION      "202011180000Z"
        DESCRIPTION
                "Initial version of this MIB module. "
 
-   ::= { ciscoAgentCapability 1165 }
+   ::= { ciscoAgentCapability 1166 }
 
-ciscoLwappDot11ClientCalibCapabilityCEV1R0 AGENT-CAPABILITIES
+ciscoWirelessHotspotCapabilityCEV1R0 AGENT-CAPABILITIES
 
        PRODUCT-RELEASE "Cisco EWLC 1.0"
        STATUS          current
-       DESCRIPTION     "CISCO-LWAPP-DOT11-CLIENT-CALIB--MIB capabilities."
+       DESCRIPTION     "CISCO-WIRELESS-HOTSPOT--MIB capabilities."
 
-       SUPPORTS        CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB
+       SUPPORTS        CISCO-WIRELESS-HOTSPOT-MIB
        INCLUDES        {
-                           cLD11ClientCalibTable
+                           cLHotspotRealmEAPAuthTable,
+                           cLHotspotAnqpServerConfigTable
                        }
 
-       VARIATION       cLD11ClientCalibEntry
+       VARIATION       cLHotspotRealmEAPAuthEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibMacAddress
+       VARIATION       cLHotspotRealmEAPAuthMethod
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconInterval
+       VARIATION       cLHotspotRealmEAPAuthRowStatus
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibRowStatus
+       VARIATION       cLHotspotRealmEAPAuthInnerAuthEAPType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfRadios
+       VARIATION       cLHotspotRealmEAPAuthNonInnerAuthEAPType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfSamples
+       VARIATION       cLHotspotRealmEAPAuthCredentialType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibSamplesCollected
+       VARIATION       cLHotspotRealmEAPAuthTunneledEAPCredentialType
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconIntervalExt
+       VARIATION       cLHotspotWanIsAtCapacity
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibStorageType
+       VARIATION       cLHotspotTermsConditionsDate
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibTableMaxEntries
-       ACCESS          not-implemented
-       DESCRIPTION     "Not supported"
-
-   ::= { ciscoLwappDot11ClientCalibCapability 1 }
+   ::= { ciscoWirelessHotspotCapability 1 }
 
 END

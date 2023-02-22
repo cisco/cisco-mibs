@@ -1,5 +1,5 @@
 -- *******************************************************************
--- CISCO-LWAPP-DOT11-CLIENT-CALIB MIB CAPABILITY
+-- CISCO-LWAPP-RF MIB CAPABILITY
 --
 -- November 18, 2020
 --
@@ -7,7 +7,7 @@
 -- All rights reserved.
 -- *******************************************************************
 
-CISCO-LWAPP-DOT11-CLIENT-CALIB-CAPABILITY DEFINITIONS ::= BEGIN
+CISCO-LWAPP-RF-CAPABILITY DEFINITIONS ::= BEGIN
 
 
 IMPORTS
@@ -19,7 +19,7 @@ IMPORTS
            FROM CISCO-SMI;
 
 
-ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
+ciscoLwappRfCapability  MODULE-IDENTITY
 
        LAST-UPDATED         "202011180000Z"
        ORGANIZATION         "Cisco Systems, Inc."
@@ -37,64 +37,71 @@ ciscoLwappDot11ClientCalibCapability  MODULE-IDENTITY
 
        DESCRIPTION
                "Agent capabilities for
-               CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB "
+               CISCO-LWAPP-RF-MIB "
        REVISION      "202011180000Z"
        DESCRIPTION
                "Initial version of this MIB module. "
 
-   ::= { ciscoAgentCapability 1165 }
+   ::= { ciscoAgentCapability 1155 }
 
-ciscoLwappDot11ClientCalibCapabilityCEV1R0 AGENT-CAPABILITIES
+ciscoLwappRfCapabilityCEV1R0 AGENT-CAPABILITIES
 
        PRODUCT-RELEASE "Cisco EWLC 1.0"
        STATUS          current
-       DESCRIPTION     "CISCO-LWAPP-DOT11-CLIENT-CALIB--MIB capabilities."
+       DESCRIPTION     "CISCO-LWAPP-RF--MIB capabilities."
 
-       SUPPORTS        CISCO-LWAPP-DOT11-CLIENT-CALIB-MIB
+       SUPPORTS        CISCO-LWAPP-RF-MIB
        INCLUDES        {
-                           cLD11ClientCalibTable
+                           cLRFProfileTable,
+                           cLRFProfileChannelListTable,
+                           cLRFProfileRemoveChannelTable,
+                           cLAPGroupsRFProfileTable
                        }
 
-       VARIATION       cLD11ClientCalibEntry
+       VARIATION       cLRFProfile11nOnly
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibMacAddress
+       VARIATION       cLRFProfileOutOfBoxAPConfig
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconInterval
+       VARIATION       cLRFProfileOutOfBoxAPPersistenceConfig
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibRowStatus
+       VARIATION       cLRFProfileChannelListEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfRadios
+       VARIATION       cLRFProfileChanNumber
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibNumberOfSamples
+       VARIATION       cLRFProfileChanAddRemove
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibSamplesCollected
+       VARIATION       cLRFProfileChanRowStatus
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibBeaconIntervalExt
+       VARIATION       cLRFProfileRemovedChannelDcaState
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibStorageType
+       VARIATION       cLAPGroupsRFProfileEntry
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-       VARIATION       cLD11ClientCalibTableMaxEntries
+       VARIATION       cLAPGroups802dot11bgRFProfileName
        ACCESS          not-implemented
        DESCRIPTION     "Not supported"
 
-   ::= { ciscoLwappDot11ClientCalibCapability 1 }
+       VARIATION       cLAPGroups802dot11aRFProfileName
+       ACCESS          not-implemented
+       DESCRIPTION     "Not supported"
+
+   ::= { ciscoLwappRfCapability 1 }
 
 END
