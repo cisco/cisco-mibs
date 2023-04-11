@@ -2276,7 +2276,7 @@ ciscoCat9407R                       OBJECT IDENTIFIER ::= { ciscoProducts 2500 }
 ciscoCat9410R                       OBJECT IDENTIFIER ::= { ciscoProducts 2501 } -- Cisco Catalyst 9400 Series 10 slot
 ciscoASR903U                        OBJECT IDENTIFIER ::= { ciscoProducts 2502 } -- Cisco Aggregation Services Router 900U Series with 3RU Chassis  
 ciscoASR902U                        OBJECT IDENTIFIER ::= { ciscoProducts 2503 } -- Cisco Aggregation Services Router 900U Series with 2RU Chassis  
-ciscoASR920U16SZIM                  OBJECT IDENTIFIER ::= { ciscoProducts 2504 } -- Cisco ASR920U Series - 12GE and 4-10GE - Modular PSU and IM         
+ciscoASR920U16SZIM                  OBJECT IDENTIFIER ::= { ciscoProducts 2504 } -- Cisco ASR920U Series - 12GE and 4-10GE - Modular PSU and IM
 ciscoC11114P                        OBJECT IDENTIFIER ::= { ciscoProducts 2505 } -- Cisco C1111-4P Router
 ciscoC11114PLteEA                   OBJECT IDENTIFIER ::= { ciscoProducts 2506 } -- Cisco C1111-4PLTEEA Router with Multimode Europe and North America Advanced LTE
 ciscoC11114PLteLA                   OBJECT IDENTIFIER ::= { ciscoProducts 2507 } -- Cisco C1111-4PLTELA Router with Latin America Multimode and Asia Pacific Advanced LTE
@@ -2738,6 +2738,7 @@ ciscoC8500L8S4X                     OBJECT IDENTIFIER ::= { ciscoProducts 3069 }
 ciscoC11138PLteEAWA                 OBJECT IDENTIFIER ::= { ciscoProducts 3070 } -- Cisco C1113-8PLTEEAWA Router
 ciscoASR9903                        OBJECT IDENTIFIER ::= { ciscoProducts 3075 } -- Cisco Aggregation Services Router (ASR) 9903 Chassis
 ciscoCat9500X28C8D                  OBJECT IDENTIFIER ::= { ciscoProducts 3084 } -- Cisco Catalyst 9500X Series, Fixed Chassis with 28-port x 100G + 8-port 400G
+ciscoC9300X24HX                     OBJECT IDENTIFIER ::= { ciscoProducts 3087 } -- Catalyst 9300x 24 ports mgig for Arcade Phase 3 90W POE Switch
 ciscoXRdControlPlaneC1              OBJECT IDENTIFIER ::= { ciscoProducts 3089 } -- Cisco XRd Control Plane Container
 ciscoASR9902                        OBJECT IDENTIFIER ::= { ciscoProducts 3090 } -- Cisco Aggregation Services Router (ASR) 9902 Chassis
 ciscoUCSC220M6                      OBJECT IDENTIFIER ::= { ciscoProducts 3100 } -- Cisco UCS C220 M6 Rack server
@@ -2765,6 +2766,7 @@ ciscoNCS57C148Q6Sys                 OBJECT IDENTIFIER ::= { ciscoProducts 3154 }
 ciscoNCS55A124Q6HS                  OBJECT IDENTIFIER ::= { ciscoProducts 3158 } -- Network Convergence Services NCS55A1 24Q6H_S 1RU Chassis
 ciscoNCS540L6Z14GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3163 } -- NCS540L Router - N540-6Z14G-SYS-D 
 ciscoIE932026S2C                    OBJECT IDENTIFIER ::= { ciscoProducts 3165 } -- Cisco Catalyst IE9300 Series Switch with 22 Ports GE SFP and 2 Ports GE Combo Downlinks and 4 Port GE SFP Uplinks with Stacking & FPGA
+ciscoFpr3105K9                     OBJECT IDENTIFIER ::= { ciscoProducts 3166 } -- Cisco Firepower 3105 Security Appliance
 ciscoUCSC225M6                     OBJECT IDENTIFIER ::= { ciscoProducts 3168 } -- Cisco UCS C225 M6 Rack server
 
 
@@ -2776,6 +2778,8 @@ ciscoDP01QSDDZF1                    OBJECT IDENTIFIER ::= { ciscoProducts 3198 }
 ciscoIE31008T4S                     OBJECT IDENTIFIER ::= { ciscoProducts 3204 } -- Catalyst IE3100 with 8 GE Copper and 4 GE SFP Ports, Fixed system, Network Essentials
 ciscoC8500L8S2X2Y                   OBJECT IDENTIFIER ::= { ciscoProducts 3205 } --  Cisco Aggregation Services Router 1000 Series, C8500L-8S2X2Y Chassis
 ciscoC8500L8S8X4Y                   OBJECT IDENTIFIER ::= { ciscoProducts 3206 } --  Cisco Aggregation Services Router 1000 Series, C8500L-8S8X4Y Chassis
+ciscoUCSC220M7                      OBJECT IDENTIFIER ::= { ciscoProducts 3208 } -- Cisco UCS C220 M7 Rack server 
+ciscoUCSC240M7                      OBJECT IDENTIFIER ::= { ciscoProducts 3209 } -- Cisco UCS C240 M7 Rack server
 ciscoC12008TD                       OBJECT IDENTIFIER ::= { ciscoProducts 3210 } -- Catalyst 1200 Series Smart Switch, 8-port GE, Desktop, Ext PS, PoE Input (C1200-8T-D)
 ciscoC12008TE2G                     OBJECT IDENTIFIER ::= { ciscoProducts 3211 } -- Catalyst 1200 Series Smart Switch, 8-port GE, Ext PS, 2x1G Combo (C1200-8T-E-2G)
 ciscoC12008PE2G                     OBJECT IDENTIFIER ::= { ciscoProducts 3212 } -- Catalyst 1200 Series Smart Switch, 8-port GE, PoE, Ext PS, 2x1G Combo (C1200-8P-E-2G)
@@ -2822,5 +2826,9 @@ ciscoC130016XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3252 }
 ciscoC130024XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3253 } -- Catalyst 1300 Series Managed Switch, 12-port 10GE, 12-port SFP+ (C1300-24XTS)
 ciscoNCS57D218DDSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3254 } -- NCS-57D2-18DD-SYS - Castleblack router 
 ciscoUCSX410CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3256 } -- Cisco UCS X410c M7 Compute Node
+ciscoFpr1010Etd                     OBJECT IDENTIFIER ::= { ciscoProducts 3257 } -- Cisco Firepower 1010E Security Appliance
+ciscoSNS3715K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3270 } -- Cisco Secure Network Server platform SNS-3715 appliance
+ciscoSNS3755K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3271 } -- Cisco Secure Network Server platform SNS-3755 appliance
+ciscoSNS3795K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3272 } -- Cisco Secure Network Server platform SNS-3795 appliance
 END
 
