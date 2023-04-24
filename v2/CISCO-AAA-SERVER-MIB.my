@@ -29,7 +29,7 @@ IMPORTS
 
 
 ciscoAAAServerMIB MODULE-IDENTITY
-	LAST-UPDATED	"200311170000Z"
+    LAST-UPDATED    "202303010000Z"
 	ORGANIZATION	"Cisco Systems,	Inc."
 	CONTACT-INFO
 		"	Cisco Systems
@@ -46,6 +46,13 @@ ciscoAAAServerMIB MODULE-IDENTITY
 		"The MIB module	for monitoring communications and status
 		 of AAA	Server operation
 		"
+	REVISION	 "202303010000Z"
+	DESCRIPTION
+            "Added objects to support AAA server state monitoring and
+            counter for authentication retransmissions
+                        casWiredServerState
+                        casAuthenRetrans
+            "
         REVISION    "200311170000Z"
         DESCRIPTION
            "Expanded the list of AAA protocols to include LDAP,
@@ -438,7 +445,9 @@ CasStatisticsEntry::=
 	    casCurrentStateDuration	   TimeInterval,
 	    casPreviousStateDuration	   TimeInterval,
 	    casTotalDeadTime		   TimeInterval,
-	    casDeadCount		   Counter32
+	    casDeadCount		   Counter32,
+            casWiredServerState            INTEGER,
+            casAuthenRetrans               Counter32
 	}
 
 --
@@ -823,21 +832,21 @@ casState OBJECT-TYPE
 	MAX-ACCESS  read-only
 	STATUS	    current
 	DESCRIPTION
-	    "Current state of this server.
+	    "Current state of this server at system.
 
-		 up(1)	 - Server responding to	requests
+		 up(1)	 - Server is alive and responding to requests
 
-		 dead(2) - Server failed to respond
+		 dead(2) - Server is dead and fails to respond to requests
 
-	     A server is marked	dead if	it does	not respond after
-	     maximum retransmissions.
+	     A server is marked	dead if	dead-criteria is met
 
-	     A server is marked	up again either	after a	waiting
-	     period or if some response	is received from it.
+         A server is marked up again when
+         1. configured dead timer expires 
+         2. when server responds to probes AAA client
 
 	     The initial value of casState is 'up(1)' at system
 	     re-initialization.	This will only transistion to 'dead(2)'
-	     if	an attempt to communicate fails.
+	     if	an attempt to communicate fails and dead-criteria is met.
 	    "
 	::= { casStatisticsEntry 25 }
 
@@ -884,7 +893,40 @@ casDeadCount OBJECT-TYPE
 	    "
 	::= { casStatisticsEntry 29 }
 
+casWiredServerState OBJECT-TYPE
+        SYNTAX      INTEGER {
+                        up(1),
+                        dead(2)
+                    }
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION
+            "Current state of this server for wired sessions.
+                 up(1)   - Server is alive and responding to requests.
+                 dead(2) - Server is dead and fails to respond to requests
+             A server is marked dead if dead-criteria is met
 
+             A server is marked up again when
+             1. configured dead timer expires 
+             2. when server responds to probes AAA client
+
+             The initial value of casWiredServerState is 'up(1)' at system
+             re-initialization. This will only transistion to 'dead(2)'
+             if an attempt to communicate fails and dead-criteria is met
+            "
+        ::= { casStatisticsEntry 30 }
+
+casAuthenRetrans OBJECT-TYPE
+        SYNTAX      Counter32
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION
+            "The number of authentication retransmissions sent to
+             this server since the first request times out.
+             Retransmissions due to request timeouts are
+             counted as distinct requests.
+            "
+        ::= { casStatisticsEntry 31 }
 
 
 -- ******************************************************************
