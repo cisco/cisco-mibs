@@ -3,7 +3,7 @@
 -- *
 -- * September 2022, ask-wireless@cisco.com
 -- *
--- * Copyright (c) 2022 by cisco Systems, Inc.
+-- * Copyright (c) 2022-2023 by cisco Systems, Inc.
 -- * All rights reserved.
 -- *
 -- *------------------------------------------------------------------
@@ -126,14 +126,13 @@ ciscoUrwbFail NOTIFICATION-TYPE
 
 ciscoUrwbFailSshLogin NOTIFICATION-TYPE
 	OBJECTS {
-		ciscoUrwbFailSshLoginFlag,
 		ciscoUrwbFailSshLoginUser
 	}
 	STATUS current
 	DESCRIPTION "CURWB SSH failed login event trap"
 ::= { ciscoUrwbTraps 4 }
 
-ciscoUrwbWebSshLogin NOTIFICATION-TYPE
+ciscoUrwbFailWebLogin NOTIFICATION-TYPE
 	OBJECTS {
 		ciscoUrwbFailWebLoginUser
 	}
