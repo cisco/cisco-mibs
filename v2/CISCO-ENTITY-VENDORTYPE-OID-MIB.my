@@ -2150,6 +2150,8 @@ cevChassisCG522E                        OBJECT IDENTIFIER ::= { cevChassis 2569 
 cevChassisCG418E                        OBJECT IDENTIFIER ::= { cevChassis 2570 } -- Cisco Catalyst Cellular Gateway LTE Cat 18
 cevChassisCG1134GW6                     OBJECT IDENTIFIER ::= { cevChassis 2571 } -- Cisco Catalyst Wireless Gateway CG113, 4G Cellular + Wi-Fi 6
 cevChassisCG113W6                       OBJECT IDENTIFIER ::= { cevChassis 2572 } -- Cisco Catalyst Wireless Gateway CG113, Wi-Fi 6
+cevChassis00NR244V96                    OBJECT IDENTIFIER ::= { cevChassis 2575 } -- IBM SAN96C-7 9024-V96 96 port PSE 64G SAN Extension Switch
+cevChassis00NR254V96                    OBJECT IDENTIFIER ::= { cevChassis 2576 } -- IBM SAN96C-7 9024-V96 96 port PSI 64G SAN Extension Switch
 
 cevBackplane				OBJECT IDENTIFIER ::= { cevMIBObjects 4 }
 cevBackplaneAtm			        OBJECT IDENTIFIER ::= { cevBackplane 4 }	-- LS1010 Chassis
@@ -2217,6 +2219,7 @@ cevBackplaneNCS1004                     OBJECT IDENTIFIER ::= { cevBackplane 82 
 cevBackplaneC950056C16D                 OBJECT IDENTIFIER ::= { cevBackplane 84 } -- Cisco Catalyst 9500 Series Fixed chassis backplane for 56-port x 100G + 16-port x400G
 cevBackplaneC950028C8D                  OBJECT IDENTIFIER ::= { cevBackplane 85 } -- Cisco Catalyst 9500 Series Fixed chassis backplane for 28-port x100G + 8-port x400G
 cevBackplaneC9610R                      OBJECT IDENTIFIER ::= { cevBackplane 86 } -- Cisco Catalyst 9600 Series 10 slot chassis backplane
+
 
 
 
@@ -4492,6 +4495,8 @@ cevModuleNC57MPA1FH1DS                  OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleNC55OIP02                      OBJECT IDENTIFIER ::= { cevModuleCommonCards 785 } -- NCS 5500, 8 ports OTU2/2e/OC192/OC48/FC MPA 
 cevModuleNCS4216RSP800                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 788 } -- NCS4216 RSP 800 System (14RU and 16 SLOT)
 cevModuleNCS4K4H4QDD                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 789 } -- Second generation NCS4K 400G Packet/WDM Sauron Line card based on 4xQSFP+/QSFP28/QSFP-DD/SFP25/Bright QDD ZR+
+cevModuleNCS1010BRK                     OBJECT IDENTIFIER ::= { cevModuleCommonCards 790 } -- This card name is for breakout optical module on ncs1010 which has following PIDs: NCS1K-BRK-8 NCS1K-BRK-16 NCS1K-BRK-24
+cevModuleNCS1010MD32                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 791 } -- This card name is for mux-demux optical module on ncs1010 which has following PIDs: NCS1K-MD-32E-C NCS1K-MD-32O-C
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -7329,6 +7334,7 @@ cevGLCLXSMRGD                          OBJECT IDENTIFIER ::= { cevModuleSFPType 
 cevGLCZXSMRGD                          OBJECT IDENTIFIER ::= { cevModuleSFPType 275 } -- Cisco GLC-ZX-SM-RGD Compatible 1000BASE-ZX SFP 1550nm 70km Industrial Transceiver
 cevGLCTRGD                             OBJECT IDENTIFIER ::= { cevModuleSFPType 276 } -- Cisco Copper SFP Module, 10/100/1000Base-TX RJ45, -40 to +85 deg C
 cevSFPGEZ                              OBJECT IDENTIFIER ::= { cevModuleSFPType 279 } -- 1000BASE-ZX Gigabit Ethernet SFP (DOM), SMF, 70Km 
+cevONSSCZ31510                         OBJECT IDENTIFIER ::= { cevModuleSFPType 307 } -- Cisco SFP 1G ONS-SC-Z3-1510 Pluggable Optics Module
 
 cevModuleONS15200Type		OBJECT IDENTIFIER ::= { cevModule 52 }			-- Represents the base class for all the modules used in ONS15200.
 cevONS15252Clip			OBJECT IDENTIFIER ::= { cevModuleONS15200Type 1 }       -- ONS15252 Client Line Interface Port
@@ -8555,6 +8561,7 @@ cevSFP10GERI                            OBJECT IDENTIFIER ::= { cevModuleSFPPlus
 cevSFP10GZRI                            OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 348 } -- 10GBASE-ZR SFP+ Module, I-Temp
 cevSFP10GLR10I                          OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 349 } -- 10GBASE-LR10 SFP+ Module, I-Temp
 cevSFP10GSRI                            OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 350 } -- 10GBASE-SR SFP+ Module for MMF - Industrial Temp
+cevDWDMSFP10GCI                         OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 351 } -- Cisco SFP+ 10G DWDM Tunable Pluggable Optics Module
 
 
 
