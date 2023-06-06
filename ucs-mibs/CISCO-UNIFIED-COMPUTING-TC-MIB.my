@@ -49139,7 +49139,12 @@ CucsStorageLinkSpeed ::= TEXTUAL-CONVENTION
         down(5),
         hostPowerOff(6),
         unsupportedDevice(7),
-        disabled(8)
+        disabled(8),
+        n24Gbps(9),
+        n2.5GT(10),
+        n5.0GT(11),
+        n8.0GT(12),
+        n16.0GT(13),
     }
 
 CucsStorageLocalDiskDiscoveredPath ::= TEXTUAL-CONVENTION

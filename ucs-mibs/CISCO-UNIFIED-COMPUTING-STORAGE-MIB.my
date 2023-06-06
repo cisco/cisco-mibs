@@ -6104,7 +6104,9 @@ CucsStorageLocalDiskEntry ::= SEQUENCE {
     cucsStorageLocalDiskVariantType                                  SnmpAdminString,
     cucsStorageLocalDiskAdminSecurityKey                             SnmpAdminString,
     cucsStorageLocalDiskDriveState                                   CucsStorageDriveFlags,
-    cucsStorageLocalDiskErrDescription                               SnmpAdminString
+    cucsStorageLocalDiskErrDescription                               SnmpAdminString,
+    cucsStorageLocalDiskNegotiatedWidth                              Unsigned32,
+    cucsStorageLocalDiskMaxWidth                                     Unsigned32
 }
 
 cucsStorageLocalDiskInstanceId OBJECT-TYPE
@@ -6515,6 +6517,24 @@ cucsStorageLocalDiskErrDescription OBJECT-TYPE
         "Cisco UCS storage:LocalDisk:errDescription managed
         object property"
     ::= { cucsStorageLocalDiskEntry 49 }
+
+cucsStorageLocalDiskNegotiatedWidth OBJECT-TYPE
+    SYNTAX       Unsigned32
+    MAX-ACCESS   read-only
+    STATUS       current
+    DESCRIPTION
+        "Cisco UCS storage:LocalDisk:Negotiated Pci Width managed object property"
+        object property"
+    ::= { cucsStorageLocalDiskEntry 50 }
+ 
+ cucsStorageLocalDiskMaxWidth OBJECT-TYPE
+    SYNTAX       Unsigned32
+    MAX-ACCESS   read-only
+    STATUS       current
+    DESCRIPTION
+        "Cisco UCS storage:LocalDisk:Max Pci Width managed object property"
+        object property"
+    ::= { cucsStorageLocalDiskEntry 51 }
 
 cucsStorageLocalDiskConfigDefTable OBJECT-TYPE
     SYNTAX           SEQUENCE OF CucsStorageLocalDiskConfigDefEntry
