@@ -6524,7 +6524,6 @@ cucsStorageLocalDiskNegotiatedWidth OBJECT-TYPE
     STATUS       current
     DESCRIPTION
         "Cisco UCS storage:LocalDisk:Negotiated Pci Width managed object property"
-        object property"
     ::= { cucsStorageLocalDiskEntry 50 }
  
  cucsStorageLocalDiskMaxWidth OBJECT-TYPE
@@ -6533,7 +6532,6 @@ cucsStorageLocalDiskNegotiatedWidth OBJECT-TYPE
     STATUS       current
     DESCRIPTION
         "Cisco UCS storage:LocalDisk:Max Pci Width managed object property"
-        object property"
     ::= { cucsStorageLocalDiskEntry 51 }
 
 cucsStorageLocalDiskConfigDefTable OBJECT-TYPE

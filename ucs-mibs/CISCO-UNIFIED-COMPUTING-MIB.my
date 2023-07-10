@@ -7565,7 +7565,7 @@ CucsFaultProbableCause  ::= TEXTUAL-CONVENTION
     resetCimcFailed(1020),
     sasExpanderConfigFailed(1021),
     pollSasExpanderConfigFailed(1022),
-    equipment_unsecure(1023)
+    equipmentUnsecure(1023)
   }
 
 CucsFaultSeverity  ::= TEXTUAL-CONVENTION
