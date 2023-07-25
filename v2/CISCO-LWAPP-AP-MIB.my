@@ -4268,7 +4268,7 @@ cLApSlotWlanStatsEntry OBJECT-TYPE
                         cLApDot11IfSlotId,
                         cLWlanIndex
                     }
-    ::= { cLApSlotWlanStatsTable 1 }
+    ::= { cLApWlanSlotStatsTable 1 }
 
 CLApSlotWlanStatsEntry ::= SEQUENCE {
         cLApSlotWlanStatsTxPktNum       Counter64,
