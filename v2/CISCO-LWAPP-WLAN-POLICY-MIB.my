@@ -3,7 +3,7 @@
 -- This MIB helps to manage the WLANs on the controller
 -- April 2016, Ambika Prasad Mohanty
 --   
--- Copyright (c) 2017-2019, 2021 by Cisco Systems, Inc.
+-- Copyright (c) 2017-2019, 2021, 2023 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -28,7 +28,7 @@ IMPORTS
 
 
 ciscoCapwapWlanPolicyMIB MODULE-IDENTITY
-    LAST-UPDATED    "201911200000Z"
+    LAST-UPDATED    "202301230000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -289,6 +289,12 @@ ciscoCapwapWlanPolicyMIB MODULE-IDENTITY
 
         [3] IEEE 802.11 - The original 1 Mbit/s and 2 Mbit/s, 
         2.4 GHz RF and IR standard."
+    REVISION        "202301230000Z"
+    DESCRIPTION
+        "Marked as deprecated:
+        - cLWlanPolicyNacType
+        - ciscoLwappWlanPolicyConfigGroupRev4
+        created a new revision ciscoLwappWlanPolicyConfigGroupRev5"
     REVISION        "202101200000Z"
     DESCRIPTION
         "Updated cLWlanPolicyIPv4AclName range"
@@ -470,7 +476,8 @@ CLWlanPolicyConfigEntry ::= SEQUENCE {
         cLWlanPolicyARPProxy                     TruthValue,
         cLWlanPolicyIPv6proxy                    INTEGER,
         cLWlanPolicyMulticastFilter              TruthValue,
-        cLWlanPolicyQBSSLoad                     TruthValue
+        cLWlanPolicyQBSSLoad                     TruthValue,
+        cLWlanPolicyL3Access                     TruthValue
 }
 
 cLWlanWlanPolicyName OBJECT-TYPE
@@ -1269,7 +1276,7 @@ cLWlanPolicyNacType OBJECT-TYPE
                         xwf(1)
                     }
     MAX-ACCESS      read-write
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "This object specifies the type of NAC configured
         radius   - Identity Service Engine NAC configured
@@ -1328,6 +1335,18 @@ cLWlanPolicyQBSSLoad OBJECT-TYPE
         A value of 'false' indicates QBSSload is disabled."
     DEFVAL          { true } 
     ::= { cLWlanPolicyConfigEntry 74 }
+
+cLWlanPolicyL3Access OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies whether Layer-3 access is enabled on a
+        particular policy profile.
+        A value of 'true' indicates Layer-3 Access is enabled.
+        A value of 'false' indicates Layer-3 Access is disabled."
+    DEFVAL          { false }
+    ::= { cLWlanPolicyConfigEntry 75 }
 
 -- ********************************************************************
 -- * Air Time Fairness Profile Configuration
@@ -2402,15 +2421,88 @@ ciscoLwappWlanPolicyConfigGroupRev4 OBJECT-GROUP
                         cLWlanPolicyMulticastFilter,
                         cLWlanPolicyQBSSLoad
                     }
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "This collection of objects represents the Policy
         configuration of WLAN to be passed to LWAPP AP. This
         deprecates ciscoLwappWlanPolicyConfigGroupRev3"
     ::= { ciscoLwappWlanPolicyGroups 9 }
 
-END
+ciscoLwappWlanPolicyConfigGroupRev5 OBJECT-GROUP
+    OBJECTS         {
+                        cLWlanPlcyRowStatus,
+                        cLWlanPolicyDescription,
+                        cLWlanPolicyInterfaceName,
+                        cLWlanPolicyCentralSwitchMode,
+                        cLWlanPolicyCentralAuthMode,
+                        cLWlanPolicyDhcpCentral,
+                        cLWlanPolicyNatPatEnabled,
+                        cLWlanPolicyAssocCentral,
+                        cLWlanPolicyIPv4AclName,
+                        cLWlanPolicyIPv6AclName,
+                        cLWlanPolicyL2AclName,
+                        cLWlanPolicySessionTimeout,
+                        cLWlanPolicyUserIdleTimeout,
+                        cLWlanPolicyClientExclTimeout,
+                        cLWlanPolicyNativeProfiling,
+                        cLWlanPolicySubscriberPolicyName,
+                        cLWlanPolicyHttpDeviceProfiling,
+                        cLWlanPolicyQosPerSSIDInput,
+                        cLWlanPolicyQosPerSSIDOutput,
+                        cLWlanPolicyQosPerBSSIDInput,
+                        cLWlanPolicyQosPerBSSIDOutput,
+                        cLWlanPolicyBlacklistTimeout,
+                        cLWlanPolicyBlacklistingCapability,
+                        cLWlanPolicyDhcpRequired,
+                        cLWlanPolicyDhcpServerIpAddress,
+                        cLWlanPolicyAaaOverride,
+                        cLWlanPolicyNac,
+                        cLWlanPolicyStatus,
+                        cLWlanPolicyRadiusHttpProfiling,
+                        cLWlanPolicyUserIdleThreshold,
+                        cLWlanPolicyQosFastlane,
+                        cLWlanPolicyDHCPDeviceProfiling,
+                        cLWlanPolicyDHCPOption82Ascii,
+                        cLWlanPolicyDHCPOption82Rid,
+                        cLWlanPolicyDHCPOption82Enable,
+                        cLWlanPolicyDHCPOption82Apmac,
+                        cLWlanPolicyDHCPOption82Apethmac,
+                        cLWlanPolicyDHCPOption82Apname,
+                        cLWlanPolicyDHCPOption82Policytag,
+                        cLWlanPolicyDHCPOption82Aplocation,
+                        cLWlanPolicyDHCPOption82Vlanid,
+                        cLWlanPolicyDHCPOption82Ssid,
+                        cLWlanPolicySplitMacAcl,
+                        cLWlanPolicyVlanCentralSwitching,
+                        cLWlanPolicyPassiveClient,
+                        cLWlanPolicyNBARProtocolDiscovery,
+                        cLWlanPolicyStaticIPMobility,
+                        clWlanPolicyMobilityAnchor,
+                        cLWlanPolicyBroadcastTagging,
+                        cLWlanPolicyWgbVlan,
+                        cLWlanPolicyReanchorClassmap,
+                        cLWlanUmbrellaParamMapName,
+                        cLWlanPolicyAccountingList,
+                        cLWlanPolicyAAAPolicyName,
+                        cLWlanPolicyQosCallSnooping,
+                        cLWlanPolicyDefaultSgt,
+                        cLWlanPolicyInlineTagging,
+                        cLWlanPolicySgaclEnforcement,
+                        cLWlanPolicyMdnsPolicy,
+                        cLWlanPolicyHotspotAnqpServer,
+                        cLWlanPolicyARPProxy,
+                        cLWlanPolicyIPv6proxy,
+                        cLWlanPolicyMulticastFilter,
+                        cLWlanPolicyQBSSLoad
+                    }
+    STATUS          current
+    DESCRIPTION
+        "This collection of objects represents the Policy
+        configuration of WLAN to be passed to LWAPP AP. This
+        deprecates ciscoLwappWlanPolicyConfigGroupRev4"
+    ::= { ciscoLwappWlanPolicyGroups 10 }
 
+END
 
 -- %DNP%  MLC -Submitted MLC
 
