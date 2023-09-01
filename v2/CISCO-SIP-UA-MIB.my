@@ -1,11 +1,16 @@
+-- $Id$
+-- $Source$
 -- *****************************************************************
 -- CISCO-SIP-UA-MIB.my: Session Initiation Protocol User Agent MIB
 --
 -- January 2000  Kevin Lingle
 --
--- Copyright (c) 2000, 2001, 2002, 2004 by cisco Systems, Inc.
+-- Copyright (c) 2000-2002, 2004, 2006, 2011 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
+-- $Log$
+-- *****************************************************************
+-- $Endlog$
 
 CISCO-SIP-UA-MIB DEFINITIONS ::= BEGIN
 IMPORTS
@@ -37,7 +42,7 @@ IMPORTS
           FROM SNMPv2-TC;
 
 ciscoSipUaMIB MODULE-IDENTITY
-     LAST-UPDATED   "200402190000Z"
+     LAST-UPDATED   "200610050000Z"
      ORGANIZATION   "Cisco Systems, Inc."
      CONTACT-INFO 
              "       Cisco Systems
@@ -72,6 +77,83 @@ ciscoSipUaMIB MODULE-IDENTITY
               and comprises all messages from the first request sent
               from the client to the server up to a final (non-1xx) 
               response sent from the server to the client."
+	      
+     REVISION  "200610050000Z"
+     DESCRIPTION
+               " Addition of the following objects:
+                cSipCfgKeepalivePrimaryTarget
+		cSipCfgKeepalivePrimaryTransport
+		cSipCfgKeepaliveSecondaryTarget
+		cSipCfgKeepaliveSecondaryTransport
+		cSipCfgPermitHost
+		cSipCfgPrimaryRegistrarServer
+		cSipCfgPrimaryRegistrarScheme
+		cSipCfgPrimaryRegistrarExpires
+		cSipCfgPrimaryRegistrarTransport
+		cSipCfgSecondaryRegistrarServer
+		cSipCfgSecondaryRegistrarScheme
+		cSipCfgSecondaryRegistrarExpires
+		cSipCfgSecondaryRegistrarTransport
+		
+		cSipCfgTimerOptions
+		cSipCfgTimerkeepaliveActive
+		cSipCfgTimerKeepaliveDown
+		
+		cSipCfgRetryOptions
+		cSipCfgRetryKeepaliveDown 
+		cSipCfgRetryKeepaliveActive
+		
+		cSipCfgPeerAssertedID
+                cSipCfgPeerAsymmetricPayload
+                cSipCfgPeerLocalHost
+                cSipCfgPeerResourcePriorityMode
+                cSipCfgPeerResourcePriorityName
+                cSipCfgPeerE911
+                cSipCfgPeerOptionsPingType
+		cSipCfgPeerOptionsPingInt
+		csipCfgPeerPrivacy
+		cSipCfgPeerClidStrip
+		cSipCfgPeerClidNetpr
+		cSipCfgPeerClidSubName
+		
+		cSipCfgAssertedID
+		cSipCfgAsymmetricPayload
+                cSipCfgLocalHost
+		cSipCfgE911
+		cSipCfgOptionsPingInt
+		cSipCfgClidStrip
+		cSipCfgClidNetpr
+		cSipCfgClidSubName
+		cSipCfgPrivacy 
+		
+		cSipStatsActiveTLSConnections
+	        cSipStatsConnTLSSendFailures
+	        cSipStatsConnTLSRemoteClosures
+	        cSipStatsConnTLSCreateFailures
+	        cSipStatsConnTLSInactiveTimeouts
+
+                 Addition of the following Conformance objects:
+                 ciscoSipCfgPeerGroupRev2
+		 ciscoSipBaseIOSConfigGroupRev2
+		 ciscoSipTimerConfigGroupRev5
+		 ciscoSipRetryStatsGroupRev5
+		 ciscoSipStatsConnectionGroupRev1
+
+                 Deprecated the following Conformance objects:
+                 ciscoSipCfgPeerGroupRev1
+		 ciscoSipBaseIOSConfigGroupRev1
+		 ciscoSipTimerConfigGroupRev4
+		 ciscoSipRetryStatsGroupRev4
+		 ciscoSipStatsConnectionGroup
+
+                 Addition of the following Compliance object:
+                 ciscoSipComplianceRev6
+
+                 Deprecated the following Compliance object:
+                 ciscoSipComplianceRev5
+               "
+	       
+
      REVISION  "200402190000Z"
      DESCRIPTION
                " Addition of the following objects:
@@ -84,6 +166,7 @@ ciscoSipUaMIB MODULE-IDENTITY
                  cSipCfgRetrySubscribe
                  cSipCfgOfferCallHold
                  cSipCfgPeerSwitchTransEnabled
+		 cSipCfgPeerAssertedID
                  cSipCfgSwitchTransportEnabled
                  cSipCfgMaximumForwards
                  cSipCfgReasonHeaderOveride
@@ -333,7 +416,8 @@ cSipCfgTransport OBJECT-TYPE
                         udp(1), 
                         tcp(2), 
                         udpAndTcp(3),
-                        disabled(4)
+                        disabled(4),
+			tls(5)
                 }
     MAX-ACCESS  read-write
     STATUS      current
@@ -707,7 +791,184 @@ cSipCfgMaximumForwards OBJECT-TYPE
           downstream server."
     DEFVAL { 70 }
     ::= { cSipCfgBase 16 }
+    
+    
+cSipCfgKeepalivePrimaryTarget OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+  MAX-ACCESS  read-write
+  STATUS      current
+  DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
 
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."   
+    ::= { cSipCfgBase 17 }
+ 
+ 
+cSipCfgKeepalivePrimaryTransport OBJECT-TYPE
+  SYNTAX      INTEGER {
+                        tcp(1),
+                        udp(2),
+                        tls(3)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the keepalive message transport type"
+    DEFVAL { udp }
+    ::= { cSipCfgBase 18 }
+    
+cSipCfgKeepaliveSecondaryTarget OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+  MAX-ACCESS  read-write
+  STATUS      current
+  DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."   
+    ::= { cSipCfgBase 19}
+ 
+ 
+cSipCfgKeepaliveSecondaryTransport OBJECT-TYPE
+  SYNTAX      INTEGER {
+                        tcp(1),
+                        udp(2),
+                        tls(3)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the keepalive message transport type"
+    DEFVAL { udp }
+    ::= { cSipCfgBase 20 }
+    
+    
+cSipCfgKeepaliveTrigger OBJECT-TYPE
+    SYNTAX      Integer32 (1..10)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies number of keepalive responses to 
+	  un-busy voice-ports"
+    ::= { cSipCfgBase 21}
+    
+cSipCfgPermitHost OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies dns of the hostnames allowed 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+          dns   - Syntax: dns:host.domain."
+    ::= { cSipCfgBase 22}
+    
+--  MIBS for SIP registrar configurations
+
+cSipCfgPrimaryRegistrarServer OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."
+    ::= { cSipCfgBase 23}
+    
+cSipCfgPrimaryRegistrarScheme   OBJECT-TYPE
+    SYNTAX      INTEGER { 
+                        sip(1), 
+                        sips(2)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the SIP URL scheme the SIP user 
+          agent will use for SIP registrar"
+    DEFVAL { sip }
+    ::= { cSipCfgBase 24}
+    
+cSipCfgPrimaryRegistrarExpires OBJECT-TYPE
+    SYNTAX      Integer32 (1..10000)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "Expires value for Registrar"
+    ::= { cSipCfgBase 25} 
+    
+cSipCfgPrimaryRegistrarTransport OBJECT-TYPE
+    SYNTAX      INTEGER { 
+                        udp(1), 
+                        tcp(2), 
+			tls(3)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the transport protocol the SIP user 
+          agent will use for SIP registrar"
+    DEFVAL { udp }
+    ::= { cSipCfgBase 26} 
+     
+
+cSipCfgSecondaryRegistrarServer OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."
+    ::= { cSipCfgBase 27}
+    
+cSipCfgSecondaryRegistrarScheme   OBJECT-TYPE
+    SYNTAX      INTEGER { 
+                        sip(1), 
+                        sips(2)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the SIP URL scheme the SIP user 
+          agent will use for SIP registrar"
+    DEFVAL { sip }
+    ::= { cSipCfgBase 28}
+    
+cSipCfgSecondaryRegistrarExpires OBJECT-TYPE
+    SYNTAX      Integer32 (1..10000)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "Expires value for Registrar"
+    ::= { cSipCfgBase 29} 
+    
+cSipCfgSecondaryRegistrarTransport OBJECT-TYPE
+    SYNTAX      INTEGER { 
+                        udp(1), 
+                        tcp(2), 
+			tls(3)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the transport protocol the SIP user 
+          agent will use for SIP registrar"
+    DEFVAL { udp }
+    ::= { cSipCfgBase 30}  
+       
 -- SIP Timer Configuration
 
 cSipCfgTimerTrying OBJECT-TYPE
@@ -875,6 +1136,36 @@ cSipCfgTimerBufferInvite OBJECT-TYPE
 
     DEFVAL { 0 }
     ::= { cSipCfgTimer 14 }
+    
+cSipCfgTimerOptions OBJECT-TYPE
+    SYNTAX      Integer32 (100..1200)
+    UNITS       "milliseconds"
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the amount of time to wait for a
+          200ok response before retransmitting the Options."
+    ::= { cSipCfgTimer 15}
+
+cSipCfgTimerkeepaliveActive OBJECT-TYPE
+    SYNTAX      Integer32 (10..600)
+    UNITS       "seconds"
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the amount of time to wait 
+          keepalive message"
+    ::= { cSipCfgTimer 16}
+
+cSipCfgTimerKeepaliveDown OBJECT-TYPE
+    SYNTAX      Integer32 (1..120)
+    UNITS       "seconds"
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the amount of time to wait 
+          keepalive message"
+    ::= { cSipCfgTimer 17}
 
 -- SIP Retry Configuration
 
@@ -988,6 +1279,33 @@ cSipCfgRetrySubscribe OBJECT-TYPE
           will retry sending a Subscribe request."
     DEFVAL { 6 }
     ::= { cSipCfgRetry 12 }
+    
+cSipCfgRetryOptions OBJECT-TYPE
+    SYNTAX      Integer32 (1..10)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the number of times a user agent
+          will retry sending a Options request."
+    ::= { cSipCfgRetry 13 }
+    
+cSipCfgRetryKeepaliveDown OBJECT-TYPE
+    SYNTAX      Integer32 (1..10)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the number of times a user agent
+          will retry sending a KeepAlive active request."
+    ::= { cSipCfgRetry 14 }
+    
+cSipCfgRetryKeepaliveActive OBJECT-TYPE
+    SYNTAX      Integer32 (1..10)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the number of times a user agent
+          will retry sending a KeepAlive Down request."
+    ::= { cSipCfgRetry 15 }
 
 -- SIP-Specific Dial Peer Configuration
 --
@@ -1039,7 +1357,19 @@ CSipCfgPeerEntry ::= SEQUENCE {
     cSipCfgPeerReliable1xxRspStr     SnmpAdminString,
     cSipCfgPeerReliable1xxRspHdr     INTEGER,
     cSipCfgPeerUrlType               INTEGER,
-    cSipCfgPeerSwitchTransEnabled    TruthValue
+    cSipCfgPeerSwitchTransEnabled    TruthValue,
+    cSipCfgPeerAssertedID            INTEGER,
+    cSipCfgPeerPrivacy               BITS,
+    cSipCfgPeerAsymmetricPayload     INTEGER,
+    cSipCfgPeerLocalHost             SnmpAdminString,
+    cSipCfgPeerResourcePriorityMode  INTEGER,
+    cSipCfgPeerResourcePriorityName  INTEGER,
+    cSipCfgPeerE911                  TruthValue,
+    cSipCfgPeerOptionsPingType       INTEGER,
+    cSipCfgPeerOptionsPingInt        Integer32,
+    cSipCfgPeerClidStrip             TruthValue,
+    cSipCfgPeerClidNetpr             TruthValue,
+    cSipCfgPeerClidSubName           TruthValue
     }
 
 cSipCfgPeerIndex OBJECT-TYPE
@@ -1055,7 +1385,8 @@ cSipCfgPeerOutSessionTransport OBJECT-TYPE
     SYNTAX      INTEGER {
                         system(1),
                         udp(2),
-                        tcp(3)
+                        tcp(3),
+			tls(4)
                 }
     MAX-ACCESS  read-write
     STATUS      current
@@ -1122,7 +1453,8 @@ cSipCfgPeerUrlType OBJECT-TYPE
     SYNTAX      INTEGER {
                         system(1),
                         sip(2),
-                        tel(3)
+                        tel(3),
+			sips(4)
                 }
     MAX-ACCESS  read-write
     STATUS      current
@@ -1146,12 +1478,168 @@ cSipCfgPeerSwitchTransEnabled OBJECT-TYPE
     DEFVAL { false }
     ::= { cSipCfgPeerEntry 6 }
 
+cSipCfgPeerAssertedID OBJECT-TYPE
+    SYNTAX      INTEGER {
+                         pai(1),
+                         ppi(2),
+                         system(3)
+                       }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the the type of asserted id  
+          enabled on the gateway at the dial peer level."
+    DEFVAL { system }
+    ::= { cSipCfgPeerEntry 7 }
+    
+    
+cSipCfgPeerPrivacy OBJECT-TYPE
+    SYNTAX      BITS   {
+                        header(1),
+                        session(2),
+                        user(3),
+                        id(4),
+                        pstn(5),
+                        critical(6),
+                        disable(7),
+                        system(8)
+                        }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the the type of privacy  
+           enabled on the gateway at the dial peer level"
+
+    DEFVAL { system }
+    ::= { cSipCfgPeerEntry 8}
+    
+    
+cSipCfgPeerAsymmetricPayload OBJECT-TYPE
+    SYNTAX      INTEGER {
+                        dynamiccodec(1),
+                        dtmf(2),
+                        all(3),
+                        system(4)
+                        }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the the type of asymmetric payload
+          support enabled on the gateway at the dial peer level"
+
+    DEFVAL { system }
+    ::= { cSipCfgPeerEntry 9}
+    
+cSipCfgPeerLocalHost OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."
+    ::= { cSipCfgPeerEntry 10}
+    
+    
+    
+cSipCfgPeerResourcePriorityMode OBJECT-TYPE
+    SYNTAX      INTEGER {
+                         loose(1),
+                         strict(2)
+                         }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "The mode for resource priority header"
+    DEFVAL {loose }
+    ::= { cSipCfgPeerEntry 11}
+    
+cSipCfgPeerResourcePriorityName OBJECT-TYPE
+   SYNTAX      INTEGER {
+                          drsn(1),
+                          dsn(2),
+                          q735(3),
+                          none(4)
+                         }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "The namespace  for resource prioroty header"
+    DEFVAL {none }
+    ::= { cSipCfgPeerEntry 12}
+    
+cSipCfgPeerE911 OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies e911 support for SIP
+          This configuration is at the voip dial-peer voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeerEntry 13 }
+    
+cSipCfgPeerOptionsPingType OBJECT-TYPE
+    SYNTAX      INTEGER {
+                        disable(1),
+                        system(2)
+                        }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the amount of time to wait for 
+          gateway to ping the remote end with Options method"
+
+    DEFVAL { system }
+    ::= { cSipCfgPeerEntry 14 }
+    
+cSipCfgPeerOptionsPingInt OBJECT-TYPE
+    SYNTAX      Integer32 (60..1200)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "The Options Ping time interval."
+     ::= { cSipCfgPeerEntry 15}
+     
+cSipCfgPeerClidStrip OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies clid strip info for SIP
+          This configuration is at the voip dial-peer voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeerEntry 16 }
+    
+cSipCfgPeerClidNetpr OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies network provided info for SIP
+          This configuration is at the voip dial-peer voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeerEntry 17 }
+    
+cSipCfgPeerClidSubName OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies clid sub name info for SIP
+          This configuration is at the voip dial-peer voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeerEntry 18 }
+	     
 -- System-wide Dial Peer Configuration
 
 cSipCfgOutSessionTransport OBJECT-TYPE
     SYNTAX      INTEGER {
                         udp(1),
-                        tcp(2)
+                        tcp(2),
+			tls(3)
                 }
     MAX-ACCESS  read-write
     STATUS      current
@@ -1210,7 +1698,8 @@ cSipCfgReliable1xxRspHdr OBJECT-TYPE
 cSipCfgUrlType OBJECT-TYPE
     SYNTAX      INTEGER {
                         sip(1),
-                        tel(2)
+                        tel(2),
+			sips(3)
                 }
     MAX-ACCESS  read-write
     STATUS      current
@@ -1219,6 +1708,121 @@ cSipCfgUrlType OBJECT-TYPE
           INVITES generated by this device."
     DEFVAL { sip }
     ::= { cSipCfgPeer 5 }
+    
+cSipCfgAssertedID OBJECT-TYPE
+    SYNTAX      INTEGER {
+                          pai(1),
+                          ppi(2),
+                          disable(3)
+                        }
+    MAX-ACCESS read-write
+    STATUS     current
+    DESCRIPTION
+          "This object specifies the the type of asserted id  
+           enabled on the gateway at the global  level"
+
+     DEFVAL { disable }
+      ::= { cSipCfgPeer 6}
+      
+    
+cSipCfgPrivacy OBJECT-TYPE
+     SYNTAX      BITS {
+                         header(1),
+                         session(2),
+                         user(3),
+                         id(4),
+                         pstn(5),
+                         critical(6),
+                         disable(7)
+                }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the the type of asserted id  
+         enabled on the gateway at the global level"
+
+    DEFVAL { disable }
+    ::= { cSipCfgPeer 7}
+
+cSipCfgAsymmetricPayload OBJECT-TYPE
+    SYNTAX      INTEGER {
+                        dynamiccodec(1),
+                        dtmf(2),
+                        all(3),
+                        disable(4)
+                        }
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies the the type of asymmetric payload
+                      support enabled on the gateway at the dial peer level"
+
+    DEFVAL { disable }
+    ::= { cSipCfgPeer 8}
+    
+cSipCfgLocalHost OBJECT-TYPE
+    SYNTAX      SnmpAdminString
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies dns of the local host 
+          dns:pots.cisco.com       The session target is the IP host 
+                                   with dns name pots.cisco.com.
+
+          The valid Mapping type definitions for the peer follow:
+             dns   - Syntax: dns:host.domain."
+    ::= { cSipCfgPeer 9}
+    
+    
+cSipCfgE911  OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies e911 support for SIP
+          This configuration is at the global level, and will only be 
+          considered if there exists no voip dial-peer."
+     DEFVAL { false }
+    ::= { cSipCfgPeer 10 }
+    
+cSipCfgOptionsPingInt OBJECT-TYPE
+    SYNTAX      Integer32 (60..1200)
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "The Options Ping time interval."
+     ::= { cSipCfgPeer 11}
+
+cSipCfgClidStrip OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies clid strip info for SIP
+          This configuration is at the voip dial- voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeer 12 }
+    
+cSipCfgClidNetpr OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies network provided info for SIP
+          This configuration is at the voip dial- voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeer 13 }
+    
+cSipCfgClidSubName OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+         "This object specifies clid sub name info for SIP
+          This configuration is at the voip dial- voice-class sip level."
+    DEFVAL { false }
+    ::= { cSipCfgPeer 14 }
+     
 
 
 -- SIP Status Code to PSTN (Public Switched Telephone Network)
@@ -1368,6 +1972,7 @@ cSipCfgAaaUsername OBJECT-TYPE
     DEFVAL { callingNumber }
     ::= { cSipCfgAaa 1 }
 
+
 cSipCfgHeaderPassingEnabled OBJECT-TYPE
     SYNTAX     TruthValue
     MAX-ACCESS read-write
@@ -1419,7 +2024,7 @@ cSipCfgSwitchTransportEnabled OBJECT-TYPE
     DEFVAL { false }
     ::= { cSipCfgVoiceServiceVoip 4 }
 
-
+    
 -- SIP Statistics
 
 -- SIP Informational Response Statistics
@@ -3357,6 +3962,17 @@ cSipStatsRetrySubscribe OBJECT-TYPE
           startup."
     ::= { cSipStatsRetry 12 }
 
+cSipStatsRetryOptions OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of Options
+          retries that have been sent by the user agent since system
+          startup."
+    ::= { cSipStatsRetry 13 }
+
+
 -- Miscellaneous SIP Statistics
 
 cSipStatsMisc3xxMappedTo4xxRsps OBJECT-TYPE
@@ -3451,7 +4067,52 @@ cSipStatsActiveTCPConnections OBJECT-TYPE
          "This object reflects the total number of active TCP
           connections since system startup."
     ::= { cSipStatsConnection 9 }
+    
+cSipStatsActiveTLSConnections OBJECT-TYPE
+    SYNTAX      Gauge32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of active TLS
+          connections since system startup."
+    ::= { cSipStatsConnection 10 }
+    
+cSipStatsConnTLSCreateFailures OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of connection create
+          failures for TLS since system startup."
+    ::= { cSipStatsConnection 11 }
+    
 
+cSipStatsConnTLSSendFailures OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of TLS send failures
+          since system startup."
+    ::= { cSipStatsConnection 12 }
+    
+cSipStatsConnTLSInactiveTimeouts OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of TLS connections that 
+          timed out due to inactivity since system startup."
+    ::= { cSipStatsConnection 13 }
+    
+cSipStatsConnTLSRemoteClosures OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+         "This object reflects the total number of TLS connections that 
+          timed out due to inactivity since system startup."
+    ::= { cSipStatsConnection 14 }
 
 -- Notifications
 
@@ -3825,7 +4486,7 @@ ciscoSipComplianceRev4 MODULE-COMPLIANCE
     ::= { ciscoSipUaMIBCompliances 5 }
 
 ciscoSipComplianceRev5 MODULE-COMPLIANCE
-    STATUS     current
+    STATUS     deprecated -- superceeded by ciscoSipComplianceRev6
     DESCRIPTION
          "The compliance statement for SIP user agent entities."
 
@@ -3911,6 +4572,96 @@ ciscoSipComplianceRev5 MODULE-COMPLIANCE
               "This group is optional."
 
     ::= { ciscoSipUaMIBCompliances 6 }
+    
+ciscoSipComplianceRev6 MODULE-COMPLIANCE
+    STATUS     current
+    DESCRIPTION
+         "The compliance statement for SIP user agent entities."
+
+    MODULE -- this module
+         MANDATORY-GROUPS { ciscoSipBaseConfigGroupRev3,
+                            ciscoSipStatsInfoStatusCodesGroup,
+                            ciscoSipStatsSuccessStatusCodesGroupRev2,
+                            ciscoSipStatsGlobalStatusCodesGroup,
+                            ciscoSipTrafficStatsGroupRev3 }
+         
+         GROUP ciscoSipTimerConfigGroupRev5
+         DESCRIPTION
+              "This group is optional.  A SIP user agent can elect to
+               not provide any timer configuration and simply adhere to
+               what is prescribed in the standard."
+
+         GROUP ciscoSipRetryConfigGroupRev5
+         DESCRIPTION
+              "This group is optional. A SIP user agent can elect to
+               not provide any timer configuration and simply adhere to
+               what is prescribed in the standard."
+
+         GROUP ciscoSipRetryStatsGroupRev4
+         DESCRIPTION
+              "This group is optional.  If implemented, the
+               ciscoSipRetryConfigGroupRev4 must also be implemented."
+
+         GROUP ciscoSipStatsRedirStatusCodesGroupRev2
+         DESCRIPTION
+              "This group is optional."
+
+         GROUP ciscoSipStatsClientStatusCodesGroupRev4
+         DESCRIPTION
+              "This group is optional."
+
+         GROUP ciscoSipStatsServerStatusCodesGroupRev1
+         DESCRIPTION
+              "This group is optional."
+
+         OBJECT      cSipCfgUserLocationServerAddr
+         MIN-ACCESS  read-only
+         DESCRIPTION
+              "Write access is not required."
+
+         OBJECT      cSipCfgTransport
+         MIN-ACCESS  read-only
+         DESCRIPTION
+              "Write access is not required."
+
+         GROUP ciscoSipCfgPeerGroupRev2
+         DESCRIPTION
+              "This group is optional.  A SIP user agent can elect to
+               not provide any dial peer related configuration if
+               dial peers are not a known concept."
+
+         GROUP ciscoSipCfgAaaGroup
+         DESCRIPTION
+              "This group is optional.  A SIP user agent can elect to
+               not provide any AAA related configuration if AAA is
+               not a known concept."
+	       
+
+         GROUP ciscoSipStatusCauseMapGroup
+         DESCRIPTION
+              "This group is optional.  A SIP user agent can elect to
+               not provide any SIP status code to PSTN cause code
+               mapping related configuration."
+
+         GROUP ciscoSipStatsMiscGroup
+         DESCRIPTION
+              "This group is optional."
+
+         GROUP ciscoSipBaseIOSConfigGroupRev2
+         DESCRIPTION
+              "This group is optional for non-IOS platforms but
+               mandatory for IOS platforms."
+        
+         GROUP ciscoSipCfgVoiceServiceVoipGroup
+         DESCRIPTION
+              "This group is optional."
+         
+         GROUP ciscoSipStatsConnectionGroup
+         DESCRIPTION
+              "This group is optional."
+
+    ::= { ciscoSipUaMIBCompliances 7 }
+
 
 -- Units of Conformance
 ciscoSipBaseConfigGroup OBJECT-GROUP
@@ -4770,7 +5521,7 @@ ciscoSipTimerConfigGroupRev4 OBJECT-GROUP
             cSipCfgTimerConnectionAging,
             cSipCfgTimerBufferInvite
     }
-    STATUS  current
+    STATUS  deprecated -- superceded by ciscoSipTimerConfigGroupRev5
     DESCRIPTION
          "A collection of objects providing basic SIP User Agent
           timer configuration."
@@ -4791,7 +5542,7 @@ ciscoSipRetryStatsGroupRev4 OBJECT-GROUP
             cSipStatsRetryInfo,
             cSipStatsRetrySubscribe
     }
-    STATUS  current
+    STATUS  deprecated -- superceded by ciscoSipRetryStatsGroupRev5
     DESCRIPTION
          "A collection of objects providing basic SIP User Agent
           retry statistics."
@@ -4811,7 +5562,7 @@ ciscoSipBaseIOSConfigGroupRev1 OBJECT-GROUP
             cSipCfgOfferCallHold,
             cSipCfgReasonHeaderOveride
     }
-    STATUS  current
+    STATUS  deprecated -- superceded by ciscoSipBaseIOSConfigGroupRev2
     DESCRIPTION
          "A collection of objects providing basic SIP User Agent 
           configuration for SIP user agents in IOS."
@@ -4913,7 +5664,7 @@ ciscoSipCfgPeerGroupRev1 OBJECT-GROUP
             cSipCfgUrlType,
             cSipCfgPeerSwitchTransEnabled
     }
-    STATUS  current
+    STATUS  deprecated -- superceded by ciscoSipCfgPeerGroupRev2
     DESCRIPTION
          "A collection of objects providing SIP related configuration
           of Dial Peers."
@@ -4944,9 +5695,154 @@ ciscoSipStatsConnectionGroup OBJECT-GROUP
             cSipStatsActiveUDPConnections,
             cSipStatsActiveTCPConnections
     }
-    STATUS  current
+    STATUS  deprecated -- superceded by ciscoSipStatsConnectionGroupRev1
     DESCRIPTION
          "A collection of objects providing basic SIP User Agent
           Transport Connection statistics."
     ::= { ciscoSipUaMIBGroups 47 }
+    
+ciscoSipCfgPeerGroupRev2 OBJECT-GROUP
+    OBJECTS {
+            cSipCfgPeerOutSessionTransport,
+            cSipCfgPeerReliable1xxRspStr, 
+            cSipCfgPeerReliable1xxRspHdr,
+            cSipCfgPeerUrlType,
+            cSipCfgOutSessionTransport,
+            cSipCfgReliable1xxRspStr,
+            cSipCfgReliable1xxRspHdr,
+            cSipCfgUrlType,
+            cSipCfgPeerSwitchTransEnabled,
+	    cSipCfgPeerAssertedID,
+            cSipCfgPeerAsymmetricPayload,
+            cSipCfgPeerLocalHost,
+            cSipCfgPeerResourcePriorityMode,
+            cSipCfgPeerResourcePriorityName,
+            cSipCfgPeerE911,
+            cSipCfgPeerOptionsPingType,
+	    cSipCfgPeerOptionsPingInt,
+	    cSipCfgPeerPrivacy,
+	    cSipCfgPeerClidStrip,
+            cSipCfgPeerClidNetpr,
+            cSipCfgPeerClidSubName,
+	    cSipCfgAssertedID,
+	    cSipCfgAsymmetricPayload,
+            cSipCfgLocalHost,
+            cSipCfgE911,
+	    cSipCfgOptionsPingInt,
+	    cSipCfgPrivacy ,
+	    cSipCfgClidStrip,
+            cSipCfgClidNetpr,
+            cSipCfgClidSubName
+    }
+    STATUS  current
+    DESCRIPTION
+         "A collection of objects providing SIP related configuration
+          of Dial Peers."
+    ::= { ciscoSipUaMIBGroups 48 }
+    
+ciscoSipBaseIOSConfigGroupRev2 OBJECT-GROUP
+    OBJECTS {
+            cSipCfgMaximumForwards,
+            cSipCfgDnsSrvQueryStringFormat,
+            cSipCfgRedirectionDisabled,
+            cSipCfgTimerSessionTimer,
+            cSipCfgEarlyMediaCutThruDisabled,
+            cSipCfgSymNatEnabled,
+            cSipCfgSymNatDirectionRole,
+            cSipCfgBindSourceAddrInterface,
+            cSipCfgSuspendResumeEnabled,
+            cSipCfgOfferCallHold,
+            cSipCfgReasonHeaderOveride,
+	    cSipCfgKeepalivePrimaryTarget,
+            cSipCfgKeepalivePrimaryTransport,
+            cSipCfgKeepaliveSecondaryTarget,
+            cSipCfgKeepaliveSecondaryTransport,
+	    cSipCfgPermitHost,
+	    cSipCfgPrimaryRegistrarServer,
+	    cSipCfgPrimaryRegistrarScheme,
+	    cSipCfgPrimaryRegistrarExpires,
+	    cSipCfgPrimaryRegistrarTransport,
+	    cSipCfgSecondaryRegistrarServer,
+	    cSipCfgSecondaryRegistrarScheme,
+	    cSipCfgSecondaryRegistrarExpires,
+	    cSipCfgSecondaryRegistrarTransport
+    }
+    STATUS  current
+    DESCRIPTION
+         "A collection of objects providing basic SIP User Agent 
+          configuration for SIP user agents in IOS."
+    ::= { ciscoSipUaMIBGroups 49 }
+
+ciscoSipTimerConfigGroupRev5 OBJECT-GROUP
+    OBJECTS {
+            cSipCfgTimerTrying,
+            cSipCfgTimerExpires,
+            cSipCfgTimerConnect,
+            cSipCfgTimerDisconnect,
+            cSipCfgTimerPrack,
+            cSipCfgTimerComet,
+            cSipCfgTimerReliableRsp,
+            cSipCfgTimerNotify,
+            cSipCfgTimerRefer,
+            cSipCfgTimerHold,
+            cSipCfgTimerInfo,
+            cSipCfgTimerConnectionAging,
+            cSipCfgTimerBufferInvite,
+	    cSipCfgTimerOptions,
+            cSipCfgTimerkeepaliveActive,
+            cSipCfgTimerKeepaliveDown
+    }
+    STATUS  current
+    DESCRIPTION
+         "A collection of objects providing basic SIP User Agent
+          timer configuration."
+    ::= { ciscoSipUaMIBGroups 50 }
+    
+ciscoSipRetryStatsGroupRev5 OBJECT-GROUP
+    OBJECTS {
+            cSipStatsRetryInvites,
+            cSipStatsRetryByes,
+            cSipStatsRetryCancels,
+            cSipStatsRetryRegisters,
+            cSipStatsRetryResponses,
+            cSipStatsRetryPracks,
+            cSipStatsRetryComets,
+            cSipStatsRetryReliable1xxRsps,
+            cSipStatsRetryNotifys,
+            cSipStatsRetryRefers,
+            cSipStatsRetryInfo,
+            cSipStatsRetrySubscribe,
+	    cSipCfgRetryOptions,
+	    cSipCfgRetryKeepaliveDown, 
+            cSipCfgRetryKeepaliveActive
+    }
+    STATUS  current
+    DESCRIPTION
+         "A collection of objects providing basic SIP User Agent
+          retry statistics."
+    ::= { ciscoSipUaMIBGroups 51 }
+    
+ciscoSipStatsConnectionGroupRev1 OBJECT-GROUP
+    OBJECTS {
+            cSipStatsConnTCPSendFailures,
+            cSipStatsConnUDPSendFailures,
+            cSipStatsConnTCPRemoteClosures,
+            cSipStatsConnUDPCreateFailures,
+            cSipStatsConnTCPCreateFailures,
+            cSipStatsConnUDPInactiveTimeouts,
+            cSipStatsConnTCPInactiveTimeouts,
+            cSipStatsActiveUDPConnections,
+            cSipStatsActiveTCPConnections,
+	    cSipStatsActiveTLSConnections,
+	    cSipStatsConnTLSSendFailures,
+	    cSipStatsConnTLSRemoteClosures,
+	    cSipStatsConnTLSCreateFailures,
+	    cSipStatsConnTLSInactiveTimeouts
+    }
+    STATUS  current
+    DESCRIPTION
+         "A collection of objects providing basic SIP User Agent
+          Transport Connection statistics."
+    ::= { ciscoSipUaMIBGroups 52 }
+    
 END
