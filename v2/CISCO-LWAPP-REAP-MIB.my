@@ -2029,8 +2029,7 @@ cLReapGroupPMKAPPropagation OBJECT-TYPE
          controller to only few APs and from those AP to other APs in
          site tag.
          A value of 'pmkDistDCDS' specifies PMK distribution between 
-         APs in site tag.
-    
+         APs in site tag."
     DEFVAL          { pmkDistCntrToAp } 
     ::= { cLReapGroupConfigEntry 57 }
 -- ********************************************************************
