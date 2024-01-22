@@ -49516,7 +49516,8 @@ CucsStoragePDriveStatus ::= TEXTUAL-CONVENTION
         zeroing(14),
         good(15),
         bad(16),
-        lockedForeignConfiguration(17)
+        lockedForeignConfiguration(17),
+        readyForRemoval(18)
     }
 
 CucsStoragePartitionFsmCurrentFsm ::= TEXTUAL-CONVENTION
