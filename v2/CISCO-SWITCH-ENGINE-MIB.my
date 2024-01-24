@@ -4709,7 +4709,10 @@ cseTcamResourceType OBJECT-TYPE
                         ingressIpv6Span(310),
                         ingressFlowPathTracerIpv4(311),
                         ingressFlowPathTracerIpv6(312),
-                        analyticsFilterTcam(313)
+                        analyticsFilterTcam(313),
+                        egressNetflow(314),
+                        egressNetflowL2(315),
+                        egressNetflowSvi(316)
                     }
     MAX-ACCESS      not-accessible
     STATUS          current
@@ -5648,7 +5651,16 @@ cseTcamResourceType OBJECT-TYPE
         Ingress Flow Path Tracer IPV6.
 
         analyticsFilterTcam(313) indicates that TCAM space is allocated for
-        Analytics Filter TCAM."
+        Analytics Filter TCAM.
+
+        egressNetflow(314) indicates that TCAM space is allocated for
+        Egress Netflow.
+
+        egressNetflowL2(315) indicates that TCAM space is allocated for
+        Egress Netflow L2.
+
+        egressNetflowSvi(316) indicates that TCAM space is allocated for
+        Egress Netflow SVI."
         
     ::= { cseTcamUsageEntry 1 }
 
