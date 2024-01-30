@@ -4712,7 +4712,9 @@ cseTcamResourceType OBJECT-TYPE
                         analyticsFilterTcam(313),
                         egressNetflow(314),
                         egressNetflowL2(315),
-                        egressNetflowSvi(316)
+                        egressNetflowSvi(316),
+                        labelLblAHv1(317),
+                        labelLblAIv1(318)
                     }
     MAX-ACCESS      not-accessible
     STATUS          current
