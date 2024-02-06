@@ -20,7 +20,7 @@ IMPORTS
 		FROM CISCO-SMI;
 
 ciscoProductsMIB MODULE-IDENTITY
-	LAST-UPDATED	"201604290000Z"
+	LAST-UPDATED	"202402060000Z"
 	ORGANIZATION	"Cisco Systems, Inc."
 	CONTACT-INFO
 		"       Cisco Systems
@@ -2742,6 +2742,7 @@ ciscoVG420132FXS6FXO                OBJECT IDENTIFIER ::= { ciscoProducts 3072 }
 ciscoVG42084FXS6FXO                 OBJECT IDENTIFIER ::= { ciscoProducts 3073 } -- Cisco VG420-84FXS/6FXO Router with 84 port FXS and 6 port FXO
 ciscoC8200L1N4T                     OBJECT IDENTIFIER ::= { ciscoProducts 3074 } -- Cisco C8200L-1N-4T Router (4xGE, 1 NIM, 1 PIM, 4Core, 8G FLASH, 4G DRAM)
 ciscoASR9903                        OBJECT IDENTIFIER ::= { ciscoProducts 3075 } -- Cisco Aggregation Services Router (ASR) 9903 Chassis
+ciscoNCS57B16D24Sys                 OBJECT IDENTIFIER ::= { ciscoProducts 3077 } -- NCS5700 Router - NCS-57B1-6D24-SYS
 ciscoCat9500X28C8D                  OBJECT IDENTIFIER ::= { ciscoProducts 3084 } -- Cisco Catalyst 9500X Series, Fixed Chassis with 28-port x 100G + 8-port 400G
 ciscoC850020X6C                     OBJECT IDENTIFIER ::= { ciscoProducts 3085 } -- Cisco Aggregation Services Router 1000 Series, C8500-20X6C Chassis
 ciscoC9300X48HXN                    OBJECT IDENTIFIER ::= { ciscoProducts 3086 } -- Catalyst 9300X 48 ports mgig switch 
