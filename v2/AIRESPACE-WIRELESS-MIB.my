@@ -4480,7 +4480,11 @@ bsnAPType OBJECT-TYPE
                         iw9167eh(133),
                         CW9166D1(134),
                         iw9167ih(136),
-                        CW9163E(137)
+                        CW9163E(137),
+                        cw9178I(138),
+                        iw9165E(139),
+                        cw9176I(140),
+                        cw9176D(141)
                     }
     MAX-ACCESS      read-only
     STATUS          current
