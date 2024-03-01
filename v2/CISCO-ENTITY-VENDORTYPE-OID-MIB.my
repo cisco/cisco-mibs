@@ -7,7 +7,7 @@
 --
 -- August 1997, Ramanathan R. Kavasseri
 --
--- Copyright (c) 1997-2023 by cisco Systems, Inc.
+-- Copyright (c) 1997-2024 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log$
@@ -2166,7 +2166,30 @@ cevChassisN9KC93108TCFX3                OBJECT IDENTIFIER ::= { cevChassis 2578 
 cevChassisN9KC9336CK1                   OBJECT IDENTIFIER ::= { cevChassis 2579 } -- Nexus 9300 series TOR chassis with 36x40G/100G ports
 cevChassisNCS1012SA                     OBJECT IDENTIFIER ::= { cevChassis 2597 } -- NCS 1012 Shelf Assembly
 cevChassisNCS1020SA                     OBJECT IDENTIFIER ::= { cevChassis 2598 } -- NCS 1020 Shelf Assembly
-
+cevChassisC11318PWN                     OBJECT IDENTIFIER ::= { cevChassis 2600 } -- Cisco C1131-8PWN 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -N Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWH                     OBJECT IDENTIFIER ::= { cevChassis 2601 } -- Cisco C1131-8PWH 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -H Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWK                     OBJECT IDENTIFIER ::= { cevChassis 2602 } -- Cisco C1131-8PWK 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -K Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWF                     OBJECT IDENTIFIER ::= { cevChassis 2603 } -- Cisco C1131-8PWF 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWD                     OBJECT IDENTIFIER ::= { cevChassis 2604 } -- Cisco C1131-8PWD 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWR                     OBJECT IDENTIFIER ::= { cevChassis 2605 } -- Cisco C1131-8PWR 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWN                    OBJECT IDENTIFIER ::= { cevChassis 2606 } -- Cisco C1131X-8PWN 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -N Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWH                    OBJECT IDENTIFIER ::= { cevChassis 2607 } -- Cisco C1131X-8PWH 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -H Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWK                    OBJECT IDENTIFIER ::= { cevChassis 2608 } -- Cisco C1131X-8PWK 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -K Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWF                    OBJECT IDENTIFIER ::= { cevChassis 2609 } -- Cisco C1131X-8PWF 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWD                    OBJECT IDENTIFIER ::= { cevChassis 2610 } -- Cisco C1131X-8PWD 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWR                    OBJECT IDENTIFIER ::= { cevChassis 2611 } -- Cisco C1131X-8PWR 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWN                 OBJECT IDENTIFIER ::= { cevChassis 2612 } -- Cisco C1131-8PLTEPWN 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -N Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWH                 OBJECT IDENTIFIER ::= { cevChassis 2613 } -- Cisco C1131-8PLTEPWH 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -H Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWK                 OBJECT IDENTIFIER ::= { cevChassis 2614 } -- Cisco C1131-8PLTEPWK 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -K Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWF                 OBJECT IDENTIFIER ::= { cevChassis 2615 } -- Cisco C1131-8PLTEPWF 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWD                 OBJECT IDENTIFIER ::= { cevChassis 2616 } -- Cisco C1131-8PLTEPWD 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWR                 OBJECT IDENTIFIER ::= { cevChassis 2617 } -- Cisco C1131-8PLTEPWR 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWN                OBJECT IDENTIFIER ::= { cevChassis 2618 } -- Cisco C1131X-8PLTEPWN 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -N Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWH                OBJECT IDENTIFIER ::= { cevChassis 2619 } -- Cisco C1131X-8PLTEPWH 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -H Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWK                OBJECT IDENTIFIER ::= { cevChassis 2620 } -- Cisco C1131X-8PLTEPWK 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -K Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWF                OBJECT IDENTIFIER ::= { cevChassis 2621 } -- Cisco C1131X-8PLTEPWF 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWD                OBJECT IDENTIFIER ::= { cevChassis 2622 } -- Cisco C1131X-8PLTEPWD 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWR                OBJECT IDENTIFIER ::= { cevChassis 2623 } -- Cisco C1131X-8PLTEPWR 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 
 cevBackplane				OBJECT IDENTIFIER ::= { cevMIBObjects 4 }
 cevBackplaneAtm			        OBJECT IDENTIFIER ::= { cevBackplane 4 }	-- LS1010 Chassis
@@ -3258,8 +3281,8 @@ cevPowerSupplyPWRCC1650WAC              OBJECT IDENTIFIER ::= { cevPowerSupply 7
 cevPowerSupplyPWRCC1650WDC              OBJECT IDENTIFIER ::= { cevPowerSupply 729 } -- Cisco C8300 2RU, 650W DC
 cevPowerSupplyPWRCC1650WDCR             OBJECT IDENTIFIER ::= { cevPowerSupply 730 } -- Cisco C8300 2RU, 650W NEBS DC 
 cevPowerSupplyPWRCC11000WAC             OBJECT IDENTIFIER ::= { cevPowerSupply 731 } -- Cisco C8300 2RU, 1000W AC
-cevPowerSupplyPWRCH1AC400W              OBJECT IDENTIFIER ::= { cevPowerSupply 732 } -- C8500L-8S4X 400 watt AC Power Supply
-cevPowerSupplyPWRCH1DC400W              OBJECT IDENTIFIER ::= { cevPowerSupply 733 } -- C8500L-8S4X 400 watt DC Power Supply
+cevPowerSupplyPWRCH1AC400W              OBJECT IDENTIFIER ::= { cevPowerSupply 732 } -- Cisco 400 watt AC Power Supply
+cevPowerSupplyPWRCH1DC400W              OBJECT IDENTIFIER ::= { cevPowerSupply 733 } -- Cisco 400 watt DC Power Supply
 cevPowerSupplyNXAPAC1500WPI             OBJECT IDENTIFIER ::= { cevPowerSupply 734 } -- This 1200W AC power supply port-side intake (with red tab) is in compliant with Network Equipment Building Systems Requirements
 cevPowerSupplyNXAPAC1500WPE             OBJECT IDENTIFIER ::= { cevPowerSupply 735 } -- This 1200W AC power supply port-side exhaust (with blue tab) is in compliant with Network Equipment Building Systems Requirements
 cevPowerSupplyNC55PWR4-4KWDC            OBJECT IDENTIFIER ::= { cevPowerSupply 736 } -- Gen 2 4.4KW DC XR power supply entry
@@ -3331,7 +3354,10 @@ cevPowerSupplyC9400PWR3200ACT           OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyDSCAC1400WI               OBJECT IDENTIFIER ::= { cevPowerSupply 834 } -- DS-CAC-1400W-I, Port side intake, 1400W AC Power Supply Unit for DS-C9396V-K9
 cevPowerSupplyDSCAC1400WE               OBJECT IDENTIFIER ::= { cevPowerSupply 835 } -- DS-CAC-1400W-E, Port side exhaust, 1400W AC Power Supply Unit for DS-C9396V-K9
 cevPowerSupplyDSCHV2000WI               OBJECT IDENTIFIER ::= { cevPowerSupply 836 } -- DS-CHV-2000W-I, Port side Intake, 2000W CHV Power Supply Unit for DS-C9396V-K9
-
+cevPowerSupplyPWRC11900WHVT             OBJECT IDENTIFIER ::= { cevPowerSupply 843 } -- 1900W hVAC/hVDC 80+ titanium Config 1 Power Supply
+cevPowerSupplyPWRCH1AC250W              OBJECT IDENTIFIER ::= { cevPowerSupply 844 } -- Cisco 250 watt AC Power Supply
+cevPowerSupplyPWRC11900WHVT2            OBJECT IDENTIFIER ::= { cevPowerSupply 845 } -- 1900W hVAC/hVDC 80+ titanium Config 1 Secondary Power Supply
+cevPowerSupplyPWRC11900WHVTB            OBJECT IDENTIFIER ::= { cevPowerSupply 846 } -- 1900W hVAC/hVDC 80+ titanium Config 1 Spare Power Supply
 
 cevFan			OBJECT IDENTIFIER ::= { cevMIBObjects 7 }
 cevFanC6260FanTray		OBJECT IDENTIFIER ::= { cevFan 3 }		-- Cisco 6260 Fan Tray
@@ -3729,7 +3755,9 @@ cevFanNCS1K14FAN                OBJECT IDENTIFIER ::= { cevFan 463 } -- Network 
 cevFanC9610FAN                  OBJECT IDENTIFIER ::= { cevFan 464 } -- Cisco Catalyst 9600 Series 10 slot Chassis Fan Tray
 cevFanNXASFAN39CFMPI            OBJECT IDENTIFIER ::= { cevFan 467 } -- Nexus 9200 Fan (Port Side Intake)
 cevFanNCS1020FAN                OBJECT IDENTIFIER ::= { cevFan 478 } -- NCS 1020 FAN Tray
-
+cevFanC8530L8S8X4YFanTray       OBJECT IDENTIFIER ::= { cevFan 479 } -- Cisco C8530L-8S8X4Y Fan Tray
+cevFanC8530L8S2X2YFanTray       OBJECT IDENTIFIER ::= { cevFan 480 } -- Cisco C8530L-8S2X2Y Fan Tray
+ 
 
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
 cevSensorMGX8800Temp			OBJECT IDENTIFIER ::= { cevSensor 11 }		-- Cabinet Temperature sensor device in MGX8800 Universal Chassis
@@ -3898,8 +3926,22 @@ cevSensorTransceiverLane3RxPwr          OBJECT IDENTIFIER ::= { cevSensor 238 } 
 cevSensorTransceiverLane4RxPwr          OBJECT IDENTIFIER ::= { cevSensor 239 } -- Transceiver Rx Lane 4 power sensor
 cevSensorModuleExternalTemp1            OBJECT IDENTIFIER ::= { cevSensor 240 } -- Generic module External temperature sensor 1
 cevSensorModuleExternalTemp2            OBJECT IDENTIFIER ::= { cevSensor 241 } -- Generic module External temperature sensor 2
-
-
+cevSensorTransceiverLane1Current        OBJECT IDENTIFIER ::= { cevSensor 242 } -- cevSensorTransceiverLane1Current - "Lane 1 Bias Current Sensor"
+cevSensorTransceiverLane2Current        OBJECT IDENTIFIER ::= { cevSensor 243 } -- cevSensorTransceiverLane2Current - "Lane 2 Bias Current Sensor"
+cevSensorTransceiverLane3Current        OBJECT IDENTIFIER ::= { cevSensor 244 } -- cevSensorTransceiverLane3Current - "Lane 3 Bias Current Sensor"
+cevSensorTransceiverLane4Current        OBJECT IDENTIFIER ::= { cevSensor 245 } -- cevSensorTransceiverLane4Current - "Lane 4 Bias Current Sensor"
+cevSensorTransceiverLane5Current        OBJECT IDENTIFIER ::= { cevSensor 246 } -- cevSensorTransceiverLane5Current - "Lane 5 Bias Current Sensor"
+cevSensorTransceiverLane6Current        OBJECT IDENTIFIER ::= { cevSensor 247 } -- cevSensorTransceiverLane6Current - "Lane 6 Bias Current Sensor"
+cevSensorTransceiverLane7Current        OBJECT IDENTIFIER ::= { cevSensor 248 } -- cevSensorTransceiverLane7Current - "Lane 7 Bias Current Sensor"
+cevSensorTransceiverLane8Current        OBJECT IDENTIFIER ::= { cevSensor 249 } -- cevSensorTransceiverLane8Current - "Lane 8 Bias Current Sensor"
+cevSensorTransceiverLane5TxPwr          OBJECT IDENTIFIER ::= { cevSensor 250 } -- cevSensorTransceiverLane5TxPwr - "Transceiver Tx Lane 5 power sensor"
+cevSensorTransceiverLane6TxPwr          OBJECT IDENTIFIER ::= { cevSensor 251 } -- cevSensorTransceiverLane6TxPwr - "Transceiver Tx Lane 6 power sensor"
+cevSensorTransceiverLane7TxPwr          OBJECT IDENTIFIER ::= { cevSensor 252 } -- cevSensorTransceiverLane7TxPwr - "Transceiver Tx Lane 7 power sensor"
+cevSensorTransceiverLane8TxPwr          OBJECT IDENTIFIER ::= { cevSensor 253 } -- cevSensorTransceiverLane8TxPwr - "Transceiver Tx Lane 8 power sensor"
+cevSensorTransceiverLane5RxPwr          OBJECT IDENTIFIER ::= { cevSensor 254 } -- cevSensorTransceiverLane5RxPwr - "Transceiver Rx Lane 5 power sensor"
+cevSensorTransceiverLane6RxPwr          OBJECT IDENTIFIER ::= { cevSensor 255 } -- cevSensorTransceiverLane6RxPwr - "Transceiver Rx Lane 6 power sensor"
+cevSensorTransceiverLane7RxPwr          OBJECT IDENTIFIER ::= { cevSensor 256 } -- cevSensorTransceiverLane7RxPwr - "Transceiver Rx Lane 7 power sensor"
+cevSensorTransceiverLane8RxPwr          OBJECT IDENTIFIER ::= { cevSensor 257 } -- cevSensorTransceiverLane8RxPwr - "Transceiver Rx Lane 8 power sensor"
 
 cevModule		OBJECT IDENTIFIER ::= { cevMIBObjects 9 }
 
@@ -4542,6 +4584,13 @@ cevModuleCIM8LType                      OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleCIM8CType                      OBJECT IDENTIFIER ::= { cevModuleCommonCards 816 } -- Coherent Interconnect Module 8 (CIM 8) is having 1.2T faceplate pluggable coherent solution. PID: CIM8-C-K9
 cevModuleNCS1K1424TXK9                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 817 } -- NCS 1014 2.4T Line Card-crossconnect modes
 cevModuleNCS1K1424TXLK9                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 818 } -- NCS 1014 2.4T licensed card-crossconnect modes
+cevModuleNCS1K14EDFA2                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 819 } -- NCS1K14 EDFA amplifier OLS card
+cevModuleNCS1KEOLTC                     OBJECT IDENTIFIER ::= { cevModuleCommonCards 821 } -- NCS 1010 Optical Line Terminal - C-band, enhanced
+cevModuleNCS1KEOLTRC                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 822 } -- NCS 1010 Optical Line Terminal with Raman - C-band, enhanced
+cevModuleNCS1KEOLTL                     OBJECT IDENTIFIER ::= { cevModuleCommonCards 823 } -- NCS 1010 Optical Line Terminal - L-band, enhanced
+cevModuleNCS1KEILARC                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 824 } -- NCS 1010 In-Line Amplifier with 1x Raman - C-band, enhanced
+cevModuleNCS1KEILA2RC                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 825 } -- NCS 1010 In-Line Amplifier with 2x Raman - C-band, enhanced
+cevModuleNCS1KEILARC2                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 826 } -- NCS 1010 In-Line Amplifier with 1x Raman west facing - C-band, enhanced
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -7384,7 +7433,6 @@ cevGLCFE100FX                          OBJECT IDENTIFIER ::= { cevModuleSFPType 
 cevGLCFE100BXD                         OBJECT IDENTIFIER ::= { cevModuleSFPType 310 } -- FE 100BASE-BX10 SFP 1550 nm TX/1310 nm RX 10 km over single-strand SMF
 cevGLCFE100BXU                         OBJECT IDENTIFIER ::= { cevModuleSFPType 311 } -- FE 100BASE-BX10 SFP 1310 nm TX/1550 nm RX 10 km over single-strand SMF
 
-
 cevModuleONS15200Type		OBJECT IDENTIFIER ::= { cevModule 52 }			-- Represents the base class for all the modules used in ONS15200.
 cevONS15252Clip			OBJECT IDENTIFIER ::= { cevModuleONS15200Type 1 }       -- ONS15252 Client Line Interface Port
 cevONS15201Clip			OBJECT IDENTIFIER ::= { cevModuleONS15200Type 2 }       -- ONS15201 Client Line Interface Port
@@ -8616,8 +8664,7 @@ cevDSSFPFC8GSW                          OBJECT IDENTIFIER ::= { cevModuleSFPPlus
 cevS10GSRPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 353 } -- SFP-10GbE Performance Monitoring, SR, MM, 850nm, 150m, I-Temp
 cevS10GLRPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 354 } -- SFP-10GbE Performance Monitoring, LR, SM, 1310nm, 10km, I-Temp
 cevS10GERPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 355 } -- SFP-10GbE Performance Monitoring, ER, SM, 1550nm, 40km, I-Temp
-
-
+cevDWDMSFP10GC                          OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 359 } -- DWDM Tunable SFP+ Module, Enterprise-Class
 
 cevDirectAttachCable10Gs   OBJECT IDENTIFIER ::= { cevModule 77 }               -- Group for DirectAttachCable10Gs Type of Cards
 cevSFPH10GBCU1M            OBJECT IDENTIFIER ::= { cevDirectAttachCable10Gs 1 } -- 10GBASE-CU SFP+ Cable 1 Meter
@@ -8698,7 +8745,6 @@ cevUCSE180DM3K9            OBJECT IDENTIFIER ::= { cevModuleUCSType 183 }       
 cevUCSE1120DM3K9           OBJECT IDENTIFIER ::= { cevModuleUCSType 184 }         -- Cisco Integrated Management Controller (CIMC) UCS-E1120D-M3/K9
 cevUCSFI64108               OBJECT IDENTIFIER ::= { cevModuleUCSType 185 }         -- Fixed Module within Cisco UCS 64108 Fabric InterConnect with 96x10G/25G UP Ports + 12x40G/100G Ports
 cevUCSFI6536FixedModule    OBJECT IDENTIFIER ::= { cevModuleUCSType 186 }         -- Fixed Module within Cisco UCS 6536 Fabric InterConnect 
-
 
 cevModuleNexus1010Type     OBJECT IDENTIFIER ::= { cevModule 81 } -- This is the module type to represent a Virtual Supervisor Card for the Nexus1010 product
 cevNexus1010VSM            OBJECT IDENTIFIER ::= { cevModuleNexus1010Type 1 }  -- Virtual Supervisor Module for Nexus1010
@@ -9294,6 +9340,12 @@ cevModuleC11318PRP          OBJECT IDENTIFIER ::= { cevModuleISRType 291 } -- Ci
 cevModuleCNIM4X             OBJECT IDENTIFIER ::= { cevModuleISRType 322 } -- 4-port non-POE Ether switch module, 2 x 1G/10G L2 SFP ports, 2 x 1G/10G L2/L3 convertible SFP ports
 cevModuleCNIM8M             OBJECT IDENTIFIER ::= { cevModuleISRType 323 } -- 4-port non-POE and 4-port POE Ether switch module, 6 x 100/1000/2500 L2 ports, 2 x 100/1000/2500 L2/L3 convertible ports 
 cevModuleCNIM8T             OBJECT IDENTIFIER ::= { cevModuleISRType 324 } -- 8-port non-POE Ether switch module, 6 x 1G L2 ports, 2 x 1G L2/L3 convertible ports
+cevModuleISRAP1101AXN       OBJECT IDENTIFIER ::= { cevModuleISRType 330 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in N domain
+cevModuleISRAP1101AXH       OBJECT IDENTIFIER ::= { cevModuleISRType 331 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in H domain
+cevModuleISRAP1101AXK       OBJECT IDENTIFIER ::= { cevModuleISRType 332 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in K domain
+cevModuleISRAP1101AXF       OBJECT IDENTIFIER ::= { cevModuleISRType 333 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in F domain
+cevModuleISRAP1101AXD       OBJECT IDENTIFIER ::= { cevModuleISRType 334 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in D domain
+cevModuleISRAP1101AXR       OBJECT IDENTIFIER ::= { cevModuleISRType 335 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in R domain
 
 
 cevModuleN77Type             OBJECT IDENTIFIER ::= { cevModule 97 }       -- Group for the Nexus7700 type of cards 
@@ -9453,7 +9505,6 @@ cevN9KC9372TXEFixedModule               OBJECT IDENTIFIER ::= { cevModuleN93KTyp
 cevN9KC9372PXEFixedModule               OBJECT IDENTIFIER ::= { cevModuleN93KType 15 } -- Nexus 9300 Series fixed module with  48x10G SFP + and 6x40G QSFP
 cevN9KC93120TXfixedModule               OBJECT IDENTIFIER ::= { cevModuleN93KType 16 } -- Nexus 9300 Series fixed module with 96x10GT and 8x40G QSFP
 cevN9KC93180YCEXFixedModule             OBJECT IDENTIFIER ::= { cevModuleN93KType 17 } -- Nexus 9300 Series fixed module with 48x10G/25G SFP and 6x40G/100G QSFP
-
 cevN9KC93108TCEXFixedModule             OBJECT IDENTIFIER ::= { cevModuleN93KType 18 } -- Cisco 1RU N9K-C93108TC-EX TOR chassis with 6x40G/100G uplink (6 QSFP/4 QSFP28) and 48x10G base T downlink 
 cevN9KC93180LCEXFixedModule             OBJECT IDENTIFIER ::= { cevModuleN93KType 19 } -- 1RU TOR fixed module with 32p QSFP28
 cevN9KC93180YCFXFixedModule             OBJECT IDENTIFIER ::= { cevModuleN93KType 20 } -- Nexus 9300 series card type 48x10/25G (SFP28) and 6x40/100G (QSFP28)
@@ -9783,7 +9834,6 @@ cevSFP25GERI                            OBJECT IDENTIFIER ::= { cevModuleSFP25S 
 cevSFP25GBX40DI                         OBJECT IDENTIFIER ::= { cevModuleSFP25S 22 } -- Downstream SFP28 BiDi 25G Module, 40km, I-Temp
 cevSFP25GBX40UI                         OBJECT IDENTIFIER ::= { cevModuleSFP25S 23 } -- Upstream SFP28 BiDi 25G Module, 40km, I-Temp
 
-
 cevModuleISR4200Type                    OBJECT IDENTIFIER ::= { cevModule 123 } -- These are modules that are used in Cisco ISR 4200 Series Router
 cevModuleISR4221RP                      OBJECT IDENTIFIER ::= { cevModuleISR4200Type 1 } -- Cisco ISR 4221 Routing Processor Module
 cevModuleISR4221FP                      OBJECT IDENTIFIER ::= { cevModuleISR4200Type 2 } -- Cisco ISR 4221 Forwarding Processor Module
@@ -9990,6 +10040,7 @@ cevQDD2x100PSM4S             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 33 } -- 2x1
 cevQDD2x100CWDM4-S           OBJECT IDENTIFIER ::= { cevModuleQSFPDD 34 } -- 2x100G-CWDM4-S QDD Module
 cevQDD2x100LR4-S             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 35 } -- 2x100G-LR4-S QDD Module
 cevQDD400GZRS                OBJECT IDENTIFIER ::= { cevModuleQSFPDD 36 } -- 400G-ZR-S QSFPDD Module
+cevQDD4x100GFRS              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 38 } -- 4x100G-FR-S QSFPDD Module
 cevQSFP400GLR4S              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 39 } -- 400GE-LR4 QSFP Module
 cevQDD400AOC1M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 40 } -- QDD 400G Active Optical Cable, 1m
 cevQDD400AOC2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 41 } -- QDD 400G Active Optical Cable, 2m
