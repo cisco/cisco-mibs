@@ -49128,24 +49128,8 @@ CucsStorageLearnMode ::= TEXTUAL-CONVENTION
 CucsStorageLinkSpeed ::= TEXTUAL-CONVENTION
     STATUS        current
     DESCRIPTION
-        ""
-    SYNTAX        INTEGER
-    {
-        unknown(0),
-        n15Gbps(1),
-        n3Gbps(2),
-        n6Gbps(3),
-        n12Gbps(4),
-        down(5),
-        hostPowerOff(6),
-        unsupportedDevice(7),
-        disabled(8),
-        n24Gbps(9),
-        n25GT(10),
-        n50GT(11),
-        n80GT(12),
-        n160GT(13),
-    }
+        "Display Link speed as a string"
+    SYNTAX       OCTET STRING
 
 CucsStorageLocalDiskDiscoveredPath ::= TEXTUAL-CONVENTION
     STATUS        current
