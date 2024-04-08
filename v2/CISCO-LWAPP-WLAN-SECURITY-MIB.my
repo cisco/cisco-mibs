@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-WLAN-SECURITY-MIB.my
 -- December 2005, Bharat Biswal, Prasanna Viswakumar
 --   
--- Copyright (c) 2005-2006, 2015-2022 by Cisco Systems, Inc.
+-- Copyright (c) 2005-2006, 2015-2024 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -30,7 +30,7 @@ IMPORTS
 
 
 ciscoLwappWlanSecurityMIB MODULE-IDENTITY
-    LAST-UPDATED    "202009020000Z"
+    LAST-UPDATED    "202306060000Z"
     ORGANIZATION    "Cisco Systems, Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -285,6 +285,12 @@ ciscoLwappWlanSecurityMIB MODULE-IDENTITY
 
         [2] draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol"
+    REVISION        "202306060000Z"
+    DESCRIPTION
+        "Added WPA3 SAE-EXT-KEY AKM (24) / FT-SAE-EXT-KEY AKM (25) Support
+         to cLWSecDot11EssCckmKeyMgmtMode:
+         - saeExtKey(11)
+         - ftSaeExtKey(12)"
     REVISION        "202201100000Z"
     DESCRIPTION
         "Added WPA3 FT-SAE Support"
@@ -403,11 +409,12 @@ CLWSecDot11EssCckmEntry ::= SEQUENCE {
         cLWSecDot11EssSaeMaxRetry          Integer32,
         cLWSecDot11OsenEnable              TruthValue,
         cLWSecDot11TMWlanId                Unsigned32,
-        cLWSecDot11EssWpa3EncType          CLSecEncryptType,
+        cLWSecDot11EssWpa3EncType          BITS,
         cLWSecDot11EssPskType              INTEGER,
         cLWSecDot11EssEasyPskEnable        TruthValue,
         cLWSecDot11EssSaePweMode           INTEGER,
-        cLWSecDot11TransitionDisable       TruthValue
+        cLWSecDot11TransitionDisable       TruthValue,
+        cLWSecDot11BeaconProtectionEnable  TruthValue
 }
 
 cLWSecDot11EssCckmWpaSupport OBJECT-TYPE
@@ -500,7 +507,9 @@ cLWSecDot11EssCckmKeyMgmtMode OBJECT-TYPE
                         osenDot1x(7),
                         sae(8),
                         owe(9),
-                        ftSae(10)
+                        ftSae(10),
+                        saeExtKey(11),
+                        ftSaeExtKey(12)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -521,6 +530,7 @@ cLWSecDot11EssCckmKeyMgmtMode OBJECT-TYPE
         FT PSK only
         FT PSK + PSK
         FT SAE + SAE
+        FT SAE-EXT-KEY + SAE-EXT-KEY
         FT dot1x + dot1x
         FT dot1x + dot1x + CCKM
         dot1x + CCKM +11w
@@ -751,7 +761,12 @@ cLWSecDot11TMWlanId OBJECT-TYPE
     ::= { cLWSecDot11EssCckmEntry 23 }
 
 cLWSecDot11EssWpa3EncType OBJECT-TYPE
-    SYNTAX          CLSecEncryptType
+    SYNTAX          BITS {
+                        aes(0),
+                        ccmp256(1),
+                        gcmp128(2),
+                        gcmp256(3)
+                    }
     MAX-ACCESS      read-write
     STATUS          current
     DESCRIPTION
@@ -760,7 +775,7 @@ cLWSecDot11EssWpa3EncType OBJECT-TYPE
         The value populated by this object is applicable
         only when cLWSecDot11EssWpa3Security populates
         a value of 'true'."
-    DEFVAL          { {  } } 
+    DEFVAL          { { aes } }
     ::= { cLWSecDot11EssCckmEntry 24 }
  
 cLWSecDot11EssPskType OBJECT-TYPE
@@ -817,6 +832,18 @@ cLWSecDot11TransitionDisable OBJECT-TYPE
         False: indicates Transition Disable feature is disabled."
         DEFVAL          { false }
         ::= { cLWSecDot11EssCckmEntry 28 }
+
+cLWSecDot11BeaconProtectionEnable OBJECT-TYPE
+    SYNTAX          TruthValue
+    MAX-ACCESS      read-write
+    STATUS          current
+    DESCRIPTION
+        "This object specifies whether Beacon Protection feature is
+        enabled or not.
+        True: indicates Beacon Protection feature is enabled.
+        False: indicates Beacon Protection feature is disabled."
+        DEFVAL          { false }
+        ::= { cLWSecDot11EssCckmEntry 29 }
 
 -- ********************************************************************
 -- Table to represent CKIP parameters
@@ -1838,6 +1865,11 @@ ciscoLwappWlanSecurityMIBComplianceRev4 MODULE-COMPLIANCE
     DESCRIPTION
         "Write access is not required."
 
+    OBJECT          cLWSecDot11BeaconProtectionEnable
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
  ::= { ciscoLwappWlanSecurityMIBCompliances 5 }
 
 -- ********************************************************************
@@ -1958,7 +1990,8 @@ ciscoLwappWlanSecurityWPA3ConfigGroup OBJECT-GROUP
                         cLWSecDot11EssWpa3EncType,
                         cLWSecDot11OsenEnable,
                         cLWSecDot11EssSaePweMode,
-                        cLWSecDot11TransitionDisable
+                        cLWSecDot11TransitionDisable,
+                        cLWSecDot11BeaconProtectionEnable
                     }
     STATUS          current
     DESCRIPTION
