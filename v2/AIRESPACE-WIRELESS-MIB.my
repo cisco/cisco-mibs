@@ -1,6 +1,6 @@
 -- **********************************************************
 -- Airespace Wireless MIB
--- Copyright (c) 2005-2022 by Cisco Systems, Inc. All rights reserved.
+-- Copyright (c) 2005-2024 by Cisco Systems, Inc. All rights reserved.
 --   
 -- This SNMP Management Information Specification
 -- embodies Cisco's confidential and proprietary
@@ -71,7 +71,7 @@ IMPORTS
 -- ********************************************************************
 
 bsnWireless MODULE-IDENTITY
-    LAST-UPDATED    "201509140000Z"
+    LAST-UPDATED    "202401120000Z"
     ORGANIZATION    "Airespace, Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -190,6 +190,9 @@ bsnWireless MODULE-IDENTITY
 
         [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol."
+    REVISION        "202401120000Z"
+    DESCRIPTION
+        "Fix syntax errors"
     REVISION        "202209160000Z"
     DESCRIPTION
         "Added new table bsnGlobalDot11System.
@@ -1894,7 +1897,7 @@ bsnMobileStationReasonCode OBJECT-TYPE
                         serviceUnavailable(1028),
                         mbssidDown(1029),
                         mmTunnelDown(1030),
-                        80211vSmartRoamFailed(1031),
+                        dot11vSmartRoamFailed(1031),
                         dot11vTimerTimeout(1032),
                         dot11vAssocFailed(1033),
                         ftAuthResponse(1034),
@@ -2070,7 +2073,7 @@ bsnMobileStationReasonCode OBJECT-TYPE
                         userTriggeredAirplaneMode(1204),
                         l2connectionUnspecified(1205),
                         l2connectionAssociation(1206),
-                        4wayHandshakeUnspecified(1207),
+                        fourWayHandshakeUnspecified(1207),
                         keyM1Failure(1208),
                         keyM3Failure(1209),
                         m3M4KeyXchngTimeout(1210),
@@ -2184,7 +2187,10 @@ bsnMobileStationReasonCode OBJECT-TYPE
                         mnapmaxstaonbssid(1318),
                         mnapmaxstaonradio(1319),
                         pmkTimeoutOnSTA(1320),
-                        excessarprate(1321)
+                        excessarprate(1321),
+                        excessndprate(1322),
+                        vrfvlanMismatch(1323),
+                        dpathencodefailed(1324)
 					}
     MAX-ACCESS      read-only
     STATUS          current
@@ -2437,7 +2443,7 @@ bsnMobileStationPolicyType OBJECT-TYPE
                         wpa2vff(3),
                         notavailable(4),
                         unknown(5),
-                        wpa2_3(6),
+                        wpa2or3(6),
                         wpaOsen(7),
                         wpaOsenWithinRsn(8)
                     }
@@ -4455,8 +4461,38 @@ bsnAPType OBJECT-TYPE
                         ap1570i(54),
                         ap1852e(55),
                         ap1852i(56),
-                        ap752i(57),
+                        ap1832i(57),
                         ap752t(58),
+                        apmr24(59),
+                        ap3702(60),
+                        ap1802i(61),
+                        ap1810w(62),
+                        apoeap1810(63),
+                        ap3802e(64),
+                        ap3802i(65),
+                        ap3802p(66),
+                        ap3802q(67),
+                        ap2802e(68),
+                        ap2802i(69),
+                        ap2802q(70),
+                        ap1815w(71),
+                        apoeap1815(72),
+                        ap1815I(73),
+                        ap1562e(74),
+                        ap1562i(75),
+                        ap1562d(76),
+                        ap1562ps(77),
+                        ap1800I(78),
+                        ap1800S(79),
+                        ap1815M(80),
+                        ap1542D(81),
+                        ap1542I(82),
+                        ap1100ac(83),
+                        ap1101ac(84),
+                        ap1582e(85),
+                        ap1582i(86),
+                        ap1542E2(87),
+                        ap1542E4(88),
                         ap9117I(89),
                         ap9115AXI(90),
                         ap9115AXE(91),
@@ -4474,13 +4510,14 @@ bsnAPType OBJECT-TYPE
                         ap9136I(115),
                         wpwifi6(116),
                         isr1101ax(129),
-                        CW9162I(130),
-                        CW9164I(131),
-                        CW9166I(132),
+                        cw9162I(130),
+                        cw9164I(131),
+                        cw9166I(132),
                         iw9167eh(133),
-                        CW9166D1(134),
+                        cw9166D1(134),
+                        iw9165DH(135),
                         iw9167ih(136),
-                        CW9163E(137),
+                        cw9163E(137),
                         cw9178I(138),
                         iw9165E(139),
                         cw9176I(140),
@@ -4700,8 +4737,8 @@ bsnAPIfType OBJECT-TYPE
                         dot11b(1),
                         dot11a(2),
                         uwb(4),
-                        dot11_6ghz(6),
-                        dot11_xor_5_6ghz(7)
+                        dot116ghz(6),
+                        dot11xor56ghz(7)
                     }
     MAX-ACCESS      read-only
     STATUS          current
@@ -9729,7 +9766,7 @@ bsnGlobalDot11aRxSopThreshold OBJECT-TYPE
         "This attribute may be used to configure Rxsop or receiver start 
         of packet custom values for 802.11a radios." 
     DEFVAL          { auto } 
-    ::= { bsnGlobalDot11bConfig 33 }
+    ::= { bsnGlobalDot11aConfig 33 }
 
 -- ********************************************************************
 -- *  Begin of bsnGlobalDot11aPhy
@@ -10581,7 +10618,7 @@ bsnRrmDot11bSignalTimeoutFactor OBJECT-TYPE
          long a neighbor expires if not receiving its neighbor packets.
          Default is 20 secs"
     DEFVAL          { 20 } 
-    ::= { bsnRrmDot11aAPDefault 14 }
+    ::= { bsnRrmDot11bAPDefault 14 }
 
 -- *********************************************************************
 -- *  Set Factory Defaults
@@ -13962,7 +13999,7 @@ bsnStationReasonCode OBJECT-TYPE
                         serviceUnavailable(1028),
                         mbssidDown(1029),
                         mmTunnelDown(1030),
-                        80211vSmartRoamFailed(1031),
+                        dot11vSmartRoamFailed(1031),
                         dot11vTimerTimeout(1032),
                         dot11vAssocFailed(1033),
                         ftAuthResponse(1034),
@@ -14138,7 +14175,7 @@ bsnStationReasonCode OBJECT-TYPE
                         userTriggeredAirplaneMode(1204),
                         l2connectionUnspecified(1205),
                         l2connectionAssociation(1206),
-                        4wayHandshakeUnspecified(1207),
+                        fourWayHandshakeUnspecified(1207),
                         keyM1Failure(1208),
                         keyM3Failure(1209),
                         m3M4KeyXchngTimeout(1210),
@@ -14253,7 +14290,9 @@ bsnStationReasonCode OBJECT-TYPE
                         mnapmaxstaonradio(1319),
                         pmkTimeoutOnSTA(1320),
                         excessarprate(1321),
-                        excessndprate(1322)
+                        excessndprate(1322),
+                        vrfvlanMismatch(1323),
+                        dpathencodefailed(1324)
                     }
     MAX-ACCESS      accessible-for-notify
     STATUS          current
