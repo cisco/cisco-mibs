@@ -357,6 +357,7 @@ ciscoLwappDot11MIB MODULE-IDENTITY
         ciscoLwappDot11MIBNotifsGroup
         ciscoLwappDot11MIBStatusGroup
         Added ciscoLwappDot11MIBComplianceRev1 in 
+        OBJECT-COMPLIANCE"
     REVISION        "201803280000Z"
     DESCRIPTION
         "Added the following tables in cldConfig.
@@ -374,7 +375,6 @@ ciscoLwappDot11MIB MODULE-IDENTITY
        cld11axMbssidTable
        Added new group ciscoLwappDot11MIBHeStatusGroup."
  
-        OBJECT-COMPLIANCE."
     REVISION        "200701040000Z"
     DESCRIPTION
         "Initial version of this MIB module."
