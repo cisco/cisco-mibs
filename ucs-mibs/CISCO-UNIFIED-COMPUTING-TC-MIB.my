@@ -46617,6 +46617,7 @@ CucsProcessorArchitecture ::= TEXTUAL-CONVENTION
     {
         any(0),
         intelP4C(1),
+        zen(107),
         opteron(132),
         turion64(134),
         dualCoreOpteron(135),
