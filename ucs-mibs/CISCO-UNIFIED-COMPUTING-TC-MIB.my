@@ -46617,6 +46617,7 @@ CucsProcessorArchitecture ::= TEXTUAL-CONVENTION
     {
         any(0),
         intelP4C(1),
+        zen(107),
         opteron(132),
         turion64(134),
         dualCoreOpteron(135),
@@ -48166,15 +48167,6 @@ CucsStorageControllerForm ::= TEXTUAL-CONVENTION
         mezzanine(2),
         pci(3),
         embedded(4)
-    }
-
-CucsStorageControllerId ::= TEXTUAL-CONVENTION
-    STATUS        current
-    DESCRIPTION
-        ""
-    SYNTAX        INTEGER
-    {
-        all(0)
     }
 
 CucsStorageControllerJBODMode ::= TEXTUAL-CONVENTION
