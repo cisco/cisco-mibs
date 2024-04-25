@@ -48169,15 +48169,6 @@ CucsStorageControllerForm ::= TEXTUAL-CONVENTION
         embedded(4)
     }
 
-CucsStorageControllerId ::= TEXTUAL-CONVENTION
-    STATUS        current
-    DESCRIPTION
-        ""
-    SYNTAX        INTEGER
-    {
-        all(0)
-    }
-
 CucsStorageControllerJBODMode ::= TEXTUAL-CONVENTION
     STATUS        current
     DESCRIPTION
