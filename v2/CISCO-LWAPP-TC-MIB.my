@@ -261,8 +261,8 @@ CLApIfType ::= TEXTUAL-CONVENTION
                         uwb(3),
                         dot11abgn(4),
                         rlan(5),
-                        dot11_6ghz(6),
-                        dot11_xor_5_6ghz(7)
+                        dot11-6ghz(6),
+                        dot11-xor-5-6ghz(7)
                     }
 
 CLDot11Channel ::= TEXTUAL-CONVENTION
@@ -864,9 +864,6 @@ CLApNtpStatus ::= TEXTUAL-CONVENTION
                 }
 
 END
-
-END
-
 
 -- %DNP%  MLC -Compiled MLC
 

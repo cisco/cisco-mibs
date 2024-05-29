@@ -1189,7 +1189,7 @@ cldcClientMobileStPolicyType OBJECT-TYPE
                          wpa2(3),
                          wpa2vff(4),
                          notavailable(5),
-                         wpa2_3(6),
+                         wpa2-3(6),
                          wpaOsen(7),
                          wpaOsenWithinRsn(8)
                      }

@@ -196,7 +196,7 @@ ciscoLwappRFMIB MODULE-IDENTITY
          - cLRFProfileMultiBssidProfile
          Added new table cLMultiBSSIDProfileTable
          Added conformance group ciscoLwappRFConfigGroup10
-         Added compliance group ciscoLwappRFMIBComplianceRev7".
+         Added compliance group ciscoLwappRFMIBComplianceRev7"
     REVISION        "202009020000Z"
     DESCRIPTION
         "Added below object to the cLRFProfileTable
@@ -1138,8 +1138,8 @@ cLRFProfileNdpMode OBJECT-TYPE
 cLRFProfile11ax6GHzFeature OBJECT-TYPE
      SYNTAX          INTEGER  {
                          none(0),
-                         bcast_probe_response(1),
-                         fils_discovery(2)
+                         bcast-probe-response(1),
+                         fils-discovery(2)
                      }
      MAX-ACCESS      read-write
      STATUS          current
@@ -1750,7 +1750,6 @@ cLMultiBSSIDProfile11beOfdmaMultiRU OBJECT-TYPE
     DEFVAL          { false }
     ::= { cLMultiBSSIDProfileEntry 14 }
 
-cLMultiBSSIDProfileRowStatus OBJECT-TYPE
 -- ********************************************************************
 -- *    Compliance statements
 -- ********************************************************************

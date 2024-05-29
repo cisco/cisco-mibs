@@ -4476,7 +4476,7 @@ ciscoLwappQosCacStatsGroup OBJECT-GROUP
      OBJECTS         {
                          cLQCacIPLearnQStats,
                          cLQCacOutstandingAAAReqQStats,
-                         cLQCacIPCHighStats,
+                         cLQCacIPCHighStats
                      }
      STATUS          current
      DESCRIPTION
