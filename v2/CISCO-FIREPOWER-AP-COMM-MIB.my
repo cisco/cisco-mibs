@@ -55,7 +55,6 @@ IMPORTS
     CfprApCommNtpProviderAdminState,
     CfprApCommProtocol,
     CfprApCommShellProto,
-    CfprApCommSnmpAdminState,
     CfprApCommSnmpAuth,
     CfprApCommSnmpConfigState,
     CfprApCommSnmpNotificationType,

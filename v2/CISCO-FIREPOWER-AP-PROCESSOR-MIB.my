@@ -58,8 +58,7 @@ IMPORTS
     CfprApProcessorQualArch,
     CfprApProcessorRuntimeHistThresholded,
     CfprApProcessorRuntimeThresholded,
-    CfprApProcessorUnitArch,
-    CfprApProcessorUnitId
+    CfprApProcessorUnitArch
         FROM CISCO-FIREPOWER-AP-TC-MIB;
 
 cfprApProcessorObjects MODULE-IDENTITY
