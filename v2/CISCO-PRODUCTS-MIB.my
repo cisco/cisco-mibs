@@ -2742,6 +2742,8 @@ ciscoVG420132FXS6FXO                OBJECT IDENTIFIER ::= { ciscoProducts 3072 }
 ciscoVG42084FXS6FXO                 OBJECT IDENTIFIER ::= { ciscoProducts 3073 } -- Cisco VG420-84FXS/6FXO Router with 84 port FXS and 6 port FXO
 ciscoC8200L1N4T                     OBJECT IDENTIFIER ::= { ciscoProducts 3074 } -- Cisco C8200L-1N-4T Router (4xGE, 1 NIM, 1 PIM, 4Core, 8G FLASH, 4G DRAM)
 ciscoASR9903                        OBJECT IDENTIFIER ::= { ciscoProducts 3075 } -- Cisco Aggregation Services Router (ASR) 9903 Chassis
+ciscoNCS57B15DSESys                 OBJECT IDENTIFIER ::= { ciscoProducts 3076 } -- ncs5700 Shadowtower
+ciscoNCS57B16D24Sys                 OBJECT IDENTIFIER ::= { ciscoProducts 3077 } -- ncs5700 Shadowtower
 ciscoCat9200CX12T2X2G               OBJECT IDENTIFIER ::= { ciscoProducts 3078 } -- Catalyst 9200CX 12x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, Class 6 PD port
 ciscoCat9200CX12P2X2G               OBJECT IDENTIFIER ::= { ciscoProducts 3079 } -- Catalyst 9200CX 12x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, PoE+ for 240W
 ciscoCat9500X28C8D                  OBJECT IDENTIFIER ::= { ciscoProducts 3084 } -- Cisco Catalyst 9500X Series, Fixed Chassis with 28-port x 100G + 8-port 400G
@@ -2920,5 +2922,6 @@ ciscoC1131X8PLTEPWR                 OBJECT IDENTIFIER ::= { ciscoProducts 3351 }
 ciscoNCS1014                        OBJECT IDENTIFIER ::= { ciscoProducts 3366 } -- Network Convergence System 1014 chassis with timing support
 ciscoNCS1012                        OBJECT IDENTIFIER ::= { ciscoProducts 3367 } -- Cisco Network Convergence System 1012, Optical Line System
 ciscoNCS1020                        OBJECT IDENTIFIER ::= { ciscoProducts 3368 } -- Cisco Network Convergence System 1020, Optical Line System
+ciscoC9610R                         OBJECT IDENTIFIER ::= { ciscoProducts 3383 } -- Cisco Catalyst 9600 Series 10 Slot
 END
 
