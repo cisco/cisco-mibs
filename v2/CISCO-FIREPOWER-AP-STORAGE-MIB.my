@@ -104,7 +104,6 @@ IMPORTS
     CfprApStorageLinkSpeed,
     CfprApStorageLocalDiskConfigFlexFlashRAIDReportingState,
     CfprApStorageLocalDiskConfigFlexFlashState,
-    CfprApStorageLocalDiskId,
     CfprApStorageLocalDiskMode,
     CfprApStorageLocalDiskPartitionType,
     CfprApStorageLunType,
@@ -117,13 +116,11 @@ IMPORTS
     CfprApStorageProtocol,
     CfprApStorageRaidBatteryOperabilityQualifier,
     CfprApStorageReadType,
-    CfprApStorageSyncAction,
     CfprApStorageSystemFsmCurrentFsm,
     CfprApStorageSystemFsmStageName,
     CfprApStorageSystemFsmTaskItem,
     CfprApStorageTechnology,
     CfprApStorageVDriveState,
-    CfprApStorageVirtualDriveId,
     CfprApStorageVsanRefSwitchId,
     CfprApVnicConfigIssues
         FROM CISCO-FIREPOWER-AP-TC-MIB;
