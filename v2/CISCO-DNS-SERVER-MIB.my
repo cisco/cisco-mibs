@@ -8,6 +8,13 @@
 -- All rights reserved. 
 --  
 -- *********************************************************************
+--%DNP% The initial implementation of this MIB is for environment that 
+--%DNP% does not support 64 BIT counters or objects within tables. 
+--%DNP% Therefore, the objects under cDnsQueryIntervalStats, 
+--%DNP% cDnsPerfIntervalStats, cDnsSecurityIntervalStats, 
+--%DNP% cDnsErrorIntervalStats, cDnsMaxCounterIntervalStats and 
+--%DNP% cDnsHaIntervalStats are provided as scalars rather than in a 
+--%DNP% table that provides history.
 
 CISCO-DNS-SERVER-MIB DEFINITIONS ::= BEGIN
 
@@ -28,7 +35,7 @@ IMPORTS
                 FROM CISCO-SMI;
 
 ciscoDnsServerMIB MODULE-IDENTITY
-        LAST-UPDATED        "200503010000Z"
+        LAST-UPDATED        "200805310000Z"
         ORGANIZATION        "Cisco Systems, Inc."
         CONTACT-INFO
                 "       Cisco Systems
@@ -104,6 +111,9 @@ ciscoDnsServerMIB MODULE-IDENTITY
                             updates"
          
 
+        REVISION        "200805310000Z"
+        DESCRIPTION
+                "Added new HA-DNS counters."
         REVISION        "200503010000Z"
         DESCRIPTION
                 "Updated to add new DNS counters."
@@ -1575,6 +1585,38 @@ cDnsHaUpdateLatencyAverage           OBJECT-TYPE
              list."
     ::= { cDnsHaStats 30 }
 
+cDnsHaMsgSyncPendingRcvdCnts           OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SYNCPENDING messages received." 
+    ::= { cDnsHaStats 31 }
+
+cDnsHaMsgSyncPendingSentCnts           OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SYNCPENDING messages sent." 
+    ::= { cDnsHaStats 32 }
+
+cDnsHaMsgShutdownRcvdCnts              OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SHUTDOWN messages received."
+    ::= { cDnsHaStats 33 }
+
+cDnsHaMsgShutdownSentCnts              OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SHUTDOWN messages sent."
+    ::= { cDnsHaStats 34 }
+
 -- cDnsHaIntervalStats
 cDnsHaIntCommInterruptedStates         OBJECT-TYPE
     SYNTAX      Unsigned32
@@ -1871,6 +1913,42 @@ cDnsHaIntSampleInterval OBJECT-TYPE
              configured reporting interval and the statistics are reset
              since the last cDnsHaIntSampleTime."
     ::= { cDnsHaIntervalStats 32 }
+
+cDnsHaIntMsgSyncPendingRcvdCnts           OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SYNCPENDING messages received 
+             during reporting interval." 
+    ::= { cDnsHaIntervalStats 33 }
+
+cDnsHaIntMsgSyncPendingSentCnts           OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SYNCPENDING messages sent 
+             during reporting interval." 
+    ::= { cDnsHaIntervalStats 34 }
+
+cDnsHaIntMsgShutdownRcvdCnts              OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SHUTDOWN messages received
+             during reporting interval."
+    ::= { cDnsHaIntervalStats 35 }
+
+cDnsHaIntMsgShutdownSentCnts              OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "Total number of HA_DNS_SHUTDOWN messages sent 
+	     during reporting interval."
+    ::= { cDnsHaIntervalStats 36 }
 
 
 -- Conformance
@@ -2176,7 +2254,11 @@ cDnsHaStatsGroup OBJECT-GROUP
                 cDnsHaSyncConflictCnts,
                 cDnsHaSyncDiscardNameCnts,
                 cDnsHaSyncMergeNameCnts,
-                cDnsHaUpdateLatencyAverage
+                cDnsHaUpdateLatencyAverage,
+                cDnsHaMsgSyncPendingRcvdCnts,
+                cDnsHaMsgSyncPendingSentCnts,
+                cDnsHaMsgShutdownRcvdCnts,
+                cDnsHaMsgShutdownSentCnts
         }
         STATUS current
         DESCRIPTION
@@ -2217,7 +2299,12 @@ cDnsHaStatsIntervalGroup OBJECT-GROUP
                 cDnsHaIntSyncMergeNameCnts,
                 cDnsHaIntUpdateLatencyAverage,
                 cDnsHaIntSampleTime,
-                cDnsHaIntSampleInterval
+                cDnsHaIntSampleInterval,
+                cDnsHaIntMsgSyncPendingRcvdCnts,
+                cDnsHaIntMsgSyncPendingSentCnts,
+                cDnsHaIntMsgShutdownRcvdCnts,
+                cDnsHaIntMsgShutdownSentCnts
+
         }
         STATUS current
         DESCRIPTION
@@ -2226,3 +2313,8 @@ cDnsHaStatsIntervalGroup OBJECT-GROUP
         ::= { cDnsServMIBGroups 13 }
 
 END
+
+
+--%DNP%  MLC -Submitted MLC
+
+--%DNP%  MTF -TRUE MTF
