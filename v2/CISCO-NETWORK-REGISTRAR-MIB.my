@@ -1,9 +1,7 @@
 -- *********************************************************************
--- CISCO-NETWORK-REGISTRAR-MIB.my 
+-- CISCO-NETWORK-REGISTRAR-MIB.my
 -- 
--- January 2005, Shobana Sampath
--- 
--- Copyright (c) 1998-2003, 2005 by Cisco Systems, Inc. 
+-- Copyright (c) 1998-2023 by Cisco Systems, Inc. 
 -- All rights reserved. 
 -- *********************************************************************
 -- This MIB allows administrators to receive notifications (via traps)
@@ -27,17 +25,27 @@ IMPORTS
     MODULE-IDENTITY,
     OBJECT-TYPE,
     NOTIFICATION-TYPE,
-    IpAddress, Unsigned32, Gauge32
+    IpAddress,
+    Unsigned32,
+    Gauge32
         FROM SNMPv2-SMI
-    MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP 
+    MODULE-COMPLIANCE,
+    OBJECT-GROUP,
+    NOTIFICATION-GROUP
         FROM SNMPv2-CONF
-    TEXTUAL-CONVENTION, DisplayString, TruthValue 
+    InetAddressIPv6
+        FROM INET-ADDRESS-MIB
+    SnmpAdminString
+        FROM SNMP-FRAMEWORK-MIB
+    TEXTUAL-CONVENTION,
+    DisplayString,
+    TruthValue
         FROM SNMPv2-TC
     ciscoMgmt
         FROM CISCO-SMI;
 
 ciscoNetworkRegistrarMIB MODULE-IDENTITY
-    LAST-UPDATED        "200503030000Z"
+    LAST-UPDATED        "202301220000Z"
     ORGANIZATION        "Cisco Systems, Inc."
     CONTACT-INFO
         "Cisco Systems
@@ -51,7 +59,59 @@ ciscoNetworkRegistrarMIB MODULE-IDENTITY
              E-mail: cs-cnr-snmp@cisco.com"
     DESCRIPTION
         "MIB for Cisco Network Registrar (CNR)."
+    REVISION        "202301220000Z"
+    DESCRIPTION
+        "Added the following new notification:
+           ciscoNetRegFailoverSyncFailure
 
+         Added the following new objects:
+           cnrNotifMainIPAddress
+           cnrNotifMainIPv6Address
+           cnrNotifBackupIPAddress
+           cnrNotifBackupIPv6Address
+           cnrNotifSyncDirection
+           cnrNotifSyncError"
+    REVISION        "201704030000Z"
+    DESCRIPTION
+        "Added new RELAY-AGENT (4) enumeration type to
+	cnrNotifRelatedServerType."
+    REVISION        "201609230000Z"
+    DESCRIPTION
+        "Added the following object:
+        cnrNotifDnsServerIp6Address
+
+        Updated the following DNS notifications:
+        ciscoNetRegMastersNotResp
+        ciscoNetRegMastersResp
+        ciscoNetRegSecondaryZonesExpired
+        ciscoNetRegHaDnsPartnerUp
+        ciscoNetRegHaDnsPartnerDown
+        ciscoNetRegHaDnsConfigErr
+           
+        Deprecated the following DNS notifications:
+        ciscoNetRegDnsForwardersNotResp
+        ciscoNetRegDnsForwardersResp"
+    REVISION        "201406130000Z"
+    DESCRIPTION
+        "Added the following new object:
+        cnrNotifFailoverCfgErrType
+
+        Updated following notification for new object:
+        ciscoNetRegFailoverConfigMismatch"
+    REVISION        "201305240000Z"
+    DESCRIPTION
+        "Added the following new objects:
+        cnrNotifIPv6Server
+        cnrNotifFailoverPairName
+
+        Updated following notifications for DHCPv6:
+        ciscoNetRegFailoverConfigMismatch
+        ciscoNetRegOtherServerNotResp
+        ciscoNetRegOtherServerResp
+        ciscoNetRegAddressConflict"
+    REVISION        "201005240000Z"
+    DESCRIPTION
+        "Clarified CnrPhysAddress."
     REVISION        "200503030000Z"
     DESCRIPTION
         "Added the following new notification:
@@ -91,7 +151,6 @@ ciscoNetworkRegistrarMIB MODULE-IDENTITY
            cnrDHCPScopeFreeAddrValue        
            cnrDHCPScopeFreeAddrUnits        
         "
-
     REVISION        "200301110000Z"
     DESCRIPTION
         "Added configuration objects to enable
@@ -127,22 +186,16 @@ CnrPhysAddress ::= TEXTUAL-CONVENTION
     DESCRIPTION
         "A Layer 1 address which includes the hardware address
          space as well as the usual MAC address. This object is
-         encoded in ASCII as
-             <type>,<length>,<address>
-         where
-             <type> is the value of the hardware address space
-             field, as used in ARP (i.e, 1 for Ethernet,
-             6 for token ring...)  IANA has a list of
-             registered numbers for this field.
-             <length>  is the length of the address, in bytes (not
-             ASCII chars)
-             <address> is the ASCII hex-encoded address (2 ASCII
-              characters per byte; 12 chars for an Ethernet
-             address.)
+         encoded as a sequence of octets:
+            1st octet is the type (RFC 2131 htype field)
+            2nd octet is the hardware address length (RFC 2131
+                hlen field)
+            3rd and later octets are the hardware address (RFC
+                2131 chaddr field)
          This encoding is intended to mirror the representation
          of MAC addresses in DHCP."
-    REFERENCE       "RFC 2131"
-    SYNTAX        OCTET STRING(SIZE (1..32))
+    REFERENCE     "RFC 2131"
+    SYNTAX        OCTET STRING(SIZE (2..18))
 
 
 --  cnrDHCPScopeTable:  Table of DHCP scopes
@@ -422,7 +475,8 @@ cnrNotifPrimarySubnetNumber OBJECT-TYPE
 cnrNotifRelatedServerType  OBJECT-TYPE
     SYNTAX     INTEGER {dnsPrimary(1), 
                         ldap(2), 
-                        failoverPartner(3) } 
+                        failoverPartner(3),
+			relay-agent(4) } 
     MAX-ACCESS accessible-for-notify
     STATUS     current
     DESCRIPTION
@@ -452,6 +506,96 @@ cnrNotifDnsRemoteServersList OBJECT-TYPE
     DESCRIPTION
         "Comma-separated list of remote server IP addresses."
     ::= { cnrNotifObjects 17 }
+
+cnrNotifIPv6Server OBJECT-TYPE
+    SYNTAX          InetAddressIPv6
+    MAX-ACCESS      accessible-for-notify
+    STATUS          current
+    DESCRIPTION
+        "The IPv6 Address of a server with which CNR is
+        attempting to communicate." 
+    ::= { cnrNotifObjects 18 }
+
+cnrNotifFailoverPairName OBJECT-TYPE
+    SYNTAX          SnmpAdminString (SIZE  (1..255))
+    MAX-ACCESS      accessible-for-notify
+    STATUS          current
+    DESCRIPTION
+        "The name of the failover-pair." 
+    ::= { cnrNotifObjects 19 }
+
+cnrNotifFailoverCfgErrType  OBJECT-TYPE
+    SYNTAX     INTEGER {mclt-error(1), 
+                        hba-error(2), 
+                        backup-percentage-error(3), 
+                        server-address-error(4), 
+                        config-error(5), 
+                        internal-error(6), 
+                        backup-load-balancing-config-error(7), 
+                        main-load-balancing-config-error(8) } 
+    MAX-ACCESS accessible-for-notify
+    STATUS     current
+    DESCRIPTION
+        "The failover configuration error type." 
+    ::= { cnrNotifObjects 20 }
+
+cnrNotifDnsServerIp6Address OBJECT-TYPE
+    SYNTAX        InetAddressIPv6
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "The IPv6 address of the DNS server."
+    ::= { cnrNotifObjects 21 }
+
+cnrNotifMainIPAddress OBJECT-TYPE
+    SYNTAX     IpAddress
+    MAX-ACCESS accessible-for-notify
+    STATUS     current
+    DESCRIPTION
+        "The IP address of the main server."
+    ::= { cnrNotifObjects 22 }
+
+cnrNotifMainIPv6Address OBJECT-TYPE
+    SYNTAX        InetAddressIPv6
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "The IPv6 address of the main server."
+    ::= { cnrNotifObjects 23 }
+
+cnrNotifBackupIPAddress OBJECT-TYPE
+    SYNTAX     IpAddress
+    MAX-ACCESS accessible-for-notify
+    STATUS     current
+    DESCRIPTION
+        "The IP address of the backup server."
+    ::= { cnrNotifObjects 24 }
+
+cnrNotifBackupIPv6Address OBJECT-TYPE
+    SYNTAX        InetAddressIPv6
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "The IPv6 address of the backup server."
+    ::= { cnrNotifObjects 25 }
+
+cnrNotifSyncDirection  OBJECT-TYPE
+    SYNTAX     INTEGER {main-to-backup(1),
+                        backup-to-main(2)}
+    MAX-ACCESS accessible-for-notify
+    STATUS     current
+    DESCRIPTION
+        "Direction of the failover sync operation." 
+    ::= { cnrNotifObjects 26 }
+
+cnrNotifSyncError OBJECT-TYPE
+    SYNTAX          SnmpAdminString (SIZE  (1..255))
+    MAX-ACCESS      accessible-for-notify
+    STATUS          current
+    DESCRIPTION
+        "Error observed during failover sync operation."
+    ::= { cnrNotifObjects 27 }
+
 
 -- cnrNotifCfgObjects: Objects used to enable/disable notifications
 
@@ -675,6 +819,16 @@ cnrEnableHaDnsConfigErr OBJECT-TYPE
     DEFVAL { false }
     ::= { cnrNotifCfgObjects 22 }
 
+cnrEnableFailoverSyncFailure OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+        "Indicates whether the ciscoNetRegFailoverSyncFailure
+        notification should be generated for this entity. "
+    DEFVAL { false }
+    ::= { cnrNotifCfgObjects 23 }
+
 -- Notifications
 
 ciscoNetRegMIBNotificationPrefix OBJECT IDENTIFIER
@@ -777,15 +931,20 @@ ciscoNetRegDuplicateAddress NOTIFICATION-TYPE
 
 ciscoNetRegAddressConflict NOTIFICATION-TYPE
     OBJECTS { cnrNotifContestedIpAddress,
-              cnrNotifServer }
+              cnrNotifServer,
+              cnrNotifIPv6Server,
+              cnrNotifFailoverPairName }
     STATUS  current
     DESCRIPTION
        "This notification indicates that the DHCP server on this
         host, and a DHCP server on another host, have claimed
         ownership for the same IP address.  The
         cnrNotifContestedIpAddress object indicates which address
-        is under contention.  The cnrNotifServer object indicates
-        with which other server a conflict was detected."
+        is under contention.  The cnrNotifServer or 
+        cnrNotifIPv6Server object indicates with which other 
+        server a conflict was detected. The
+        cnrNotifFailoverPairName object indicates failover
+        pair name."
     ::= { ciscoNetRegMIBNotifications 8 }
 
 ciscoNetRegOtherServerResponding NOTIFICATION-TYPE
@@ -813,16 +972,22 @@ ciscoNetRegOtherServerResponding NOTIFICATION-TYPE
     ::= { ciscoNetRegMIBNotifications 9 }
 
 ciscoNetRegFailoverConfigMismatch NOTIFICATION-TYPE
-    OBJECTS { cnrNotifServer }
-    STATUS  current
+    OBJECTS { cnrNotifServer,
+              cnrNotifIPv6Server,
+              cnrNotifFailoverPairName,
+              cnrNotifFailoverCfgErrType}
+    STATUS          current
     DESCRIPTION
        "This notification signifies that a server has detected
         via the failover protocol that its configuration does
         not match that of its failover peer, and that reliable 
         DHCP operation in the event of a server failure may not
         be possible.  The identity of the peer server is given
-        by the cnrNotifServer object."        
-    ::= { ciscoNetRegMIBNotifications 10 }
+        by the cnrNotifServer or cnrNotifIPv6Server object. The
+        cnrNotifFailoverPairName object indicates failover
+        pair name. The cnrNotifFailoverCfgErrType object
+        indicates failover configuration error type."
+   ::= { ciscoNetRegMIBNotifications 10 }
 
 ciscoNetRegFreeAddrLowThreshold NOTIFICATION-TYPE
     OBJECTS { cnrNotifDHCPScopeFreeAddrLow,
@@ -876,7 +1041,8 @@ ciscoNetRegFreeAddrHighThreshold NOTIFICATION-TYPE
 
 ciscoNetRegOtherServerNotResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifServer,
-              cnrNotifRelatedServerType }
+              cnrNotifRelatedServerType,
+              cnrNotifIPv6Server }
     STATUS  current
     DESCRIPTION
        "This notification signifies that a server is not
@@ -888,13 +1054,14 @@ ciscoNetRegOtherServerNotResp NOTIFICATION-TYPE
         notification.
 
         The identity of the server is given by the cnrNotifServer
-        object. The type of the server is indicated by the 
-        cnrNotifRelatedServerType object."
-    ::= { ciscoNetRegMIBNotifications 13 }
+        or cnrNotifIPv6Server object. The type of the server is
+        indicated by the cnrNotifRelatedServerType object."
+   ::= { ciscoNetRegMIBNotifications 13 }
 
 ciscoNetRegOtherServerResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifServer,
-              cnrNotifRelatedServerType }
+              cnrNotifRelatedServerType,
+              cnrNotifIPv6Server }
     STATUS  current
     DESCRIPTION
        "This notification signifies that a server is now 
@@ -904,8 +1071,8 @@ ciscoNetRegOtherServerResp NOTIFICATION-TYPE
         ciscoNetRegOtherServerNotResp notification.
 
         The identity of the server is given by the cnrNotifServer
-        object. The type of the server is indicated by the 
-        cnrNotifRelatedServerType object.
+        or cnrNotifIPv6Server object. The type of the server is
+        indicated by the cnrNotifRelatedServerType object.
 
         NOTE: One should not rely on recieving this notification
         as an indication that all is well with the network.
@@ -917,27 +1084,30 @@ ciscoNetRegOtherServerResp NOTIFICATION-TYPE
     ::= { ciscoNetRegMIBNotifications 14 }
 
 ciscoNetRegHaDnsPartnerDown NOTIFICATION-TYPE
-    OBJECTS { cnrNotifServer }
+    OBJECTS { cnrNotifServer,
+              cnrNotifIPv6Server }
     STATUS  current
     DESCRIPTION
         "This notification signifies that communication with a 
          HA-DNS (High Availability DNS) server's partner has been 
          interrupted. The identity of the HA-DNS partner server is 
-         given by the cnrNotifServer object."        
+         given by the cnrNotifServer or cnrNotifIPv6Server object."        
     ::= { ciscoNetRegMIBNotifications 15 }
 
 ciscoNetRegHaDnsPartnerUp NOTIFICATION-TYPE
-    OBJECTS { cnrNotifServer }
+    OBJECTS { cnrNotifServer,
+              cnrNotifIPv6Server }
     STATUS  current
     DESCRIPTION
         "This notification signifies that communication with a 
          HA-DNS server's partner has been restored. The identity 
          of the HA-DNS partner server is given by the cnrNotifServer 
-         object."        
+         or cnrNotifIPv6Server object."        
     ::= { ciscoNetRegMIBNotifications 16 }
 
 ciscoNetRegMastersNotResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifDnsServerIpAddress,
+              cnrNotifDnsServerIp6Address,
               cnrNotifZoneName,
               cnrNotifDnsRemoteServersList }
     STATUS  current
@@ -950,13 +1120,15 @@ ciscoNetRegMastersNotResp NOTIFICATION-TYPE
         the ciscoNetRegMastersResp notification.
         
         The identity of the secondary server is given by 
-        cnrNotifDnsServerIpAddress; the identity of the master
-        servers is given by the cnrNotifDnsRemoteServersList; and 
+        cnrNotifDnsServerIpAddress or cnrNotifDnsServerIp6Address;
+        the identity of the master servers is given by the
+        cnrNotifDnsRemoteServersList; and 
         the zone is given by cnrNotifZoneName."
     ::= { ciscoNetRegMIBNotifications 17 }
 
 ciscoNetRegMastersResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifDnsServerIpAddress,
+              cnrNotifDnsServerIp6Address,
               cnrNotifZoneName,
               cnrNotifDnsRemoteServersList }
     STATUS  current
@@ -969,13 +1141,15 @@ ciscoNetRegMastersResp NOTIFICATION-TYPE
         reached.
 
         The identity of the secondary server is given by 
-        cnrNotifDnsServerIpAddress; the identity of the master 
-        servers is given by the cnrNotifDnsRemoteServersList; and 
+        cnrNotifDnsServerIpAddress or cnrNotifDnsServerIp6Address;
+        the identity of the master servers is given by the
+        cnrNotifDnsRemoteServersList; and 
         the zone is given by cnrNotifZoneName object."
     ::= { ciscoNetRegMIBNotifications 18 }
 
 ciscoNetRegSecondaryZonesExpired NOTIFICATION-TYPE
     OBJECTS { cnrNotifDnsServerIpAddress,
+              cnrNotifDnsServerIp6Address,
               cnrNotifZoneName,
               cnrNotifDnsRemoteServersList }
     STATUS  current
@@ -985,15 +1159,16 @@ ciscoNetRegSecondaryZonesExpired NOTIFICATION-TYPE
         because the TTL has passed. 
 
         The identity of the DNS secondary server is given by 
-        cnrNotifDnsServerIpAddress; the identity of the master
-        servers is given by the cnrNotifDnsRemoteServersList; and  
+        cnrNotifDnsServerIpAddress or cnrNotifDnsServerIp6Address;
+        the identity of the master servers is given by the
+        cnrNotifDnsRemoteServersList; and  
         the zone is given by cnrNotifZoneName object."
     ::= { ciscoNetRegMIBNotifications 19 }
     
 ciscoNetRegDnsForwardersNotResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifDnsServerIpAddress,
               cnrNotifDnsRemoteServersList }
-    STATUS  current
+    STATUS  deprecated
     DESCRIPTION
        "This notification indicates that a DNS recursive resolver was
         not able to reach any of its configured forwarders. Once this
@@ -1002,15 +1177,15 @@ ciscoNetRegDnsForwardersNotResp NOTIFICATION-TYPE
         the ciscoNetRegDnsForwardersResp notification.
 
         The identity of the affected DNS resolving server is given by 
-        cnrNotifDnsServerIpAddress and the identity of the 
-        forwarders is given by the cnrRemoteServersList object."
+        cnrNotifDnsServerIpAddress and the identity of the forwarders
+        is given by the cnrRemoteServersList object."
     ::= { ciscoNetRegMIBNotifications 20 }
 
 
 ciscoNetRegDnsForwardersResp NOTIFICATION-TYPE
     OBJECTS { cnrNotifDnsServerIpAddress,
               cnrNotifDnsRemoteServersList }
-    STATUS  current
+    STATUS  deprecated
     DESCRIPTION
        "This notification indicates that a DNS recursive resolver was 
         able to reach at least one of its configured forwarders and 
@@ -1020,22 +1195,43 @@ ciscoNetRegDnsForwardersResp NOTIFICATION-TYPE
         configured forwarders.
         
         The identity of the affected DNS resolving server is given by 
-        cnrNotifDnsServerIpAddress and the identity of the 
-        forwarders is given by the cnrRemoteServersList object."
-
+        cnrNotifDnsServerIpAddress and the identity of the forwarders
+        is given by the cnrRemoteServersList object."
     ::= { ciscoNetRegMIBNotifications 21 }
 
 ciscoNetRegHaDnsConfigErr NOTIFICATION-TYPE
     OBJECTS { cnrNotifServer,
-              cnrNotifZoneName }
+              cnrNotifZoneName,
+              cnrNotifIPv6Server }
     STATUS  current
     DESCRIPTION
         "This notification indicates a configuration mismatch between
          two HA-DNS partners. The first zone that has a mismatch will
          be reported and is denoted by cnrNotifZoneName and the 
          server with the configuration error is denoted by 
-         cnrNotifServer object."
+         cnrNotifServer or cnrNotifIPv6Server object."
     ::= { ciscoNetRegMIBNotifications 22 }
+
+ciscoNetRegFailoverSyncFailure NOTIFICATION-TYPE
+    OBJECTS { cnrNotifFailoverPairName,
+              cnrNotifMainIPAddress,
+              cnrNotifMainIPv6Address,
+              cnrNotifBackupIPAddress,
+              cnrNotifBackupIPv6Address,
+              cnrNotifSyncDirection,
+              cnrNotifSyncError }
+    STATUS  current
+    DESCRIPTION
+        "This notification indicates sync operation failure between
+        failover pair. Failure reason is denoted by cnrNotifSyncError.
+        cnrNotifFailoverPairName specifies the failover pair name.
+        cnrNotifMainIPAddress and cnrNotifMainIPv6Address specifies
+        the main server IPv4 and IPv6 address respectively.
+        cnrNotifBackupIPAddress and cnrNotifBackupIPv6Address specifies
+        the backup server IPv4 and IPv6 address respectively.
+        cnrNotifSyncDirection indicates the direction of sync
+        operation."
+    ::= { ciscoNetRegMIBNotifications 23 }
 
 -- Conformance
 
@@ -1222,7 +1418,12 @@ ciscoNetworkRegistrarMIBCompRev1 MODULE-COMPLIANCE
     MIN-ACCESS read-only
     DESCRIPTION
         "Write access is not required."
-	
+
+    OBJECT cnrEnableFailoverSyncFailure 
+    MIN-ACCESS read-only
+    DESCRIPTION
+        "Write access is not required."
+
     ::= { ciscoNetworkRegistrarMIBCompliances 2 }
 
 
@@ -1304,7 +1505,17 @@ ciscoNetRegistrarNotifInfoGroup OBJECT-GROUP
               cnrNotifRelatedServerType, 
               cnrNotifDnsServerIpAddress,
               cnrNotifZoneName,
-              cnrNotifDnsRemoteServersList
+              cnrNotifDnsRemoteServersList,
+              cnrNotifIPv6Server,
+              cnrNotifFailoverPairName,
+              cnrNotifFailoverCfgErrType,
+              cnrNotifDnsServerIp6Address,
+              cnrNotifMainIPAddress,
+              cnrNotifMainIPv6Address,
+              cnrNotifBackupIPAddress,
+              cnrNotifBackupIPv6Address,
+              cnrNotifSyncDirection,
+              cnrNotifSyncError
             }  
     STATUS current
     DESCRIPTION
@@ -1330,7 +1541,8 @@ ciscoNetRegistrarNotEnableGroup OBJECT-GROUP
               cnrEnableSecondaryZoneExpired,
               cnrEnableDnsForwardersNotResp,
               cnrEnableDnsForwardersResp,
-              cnrEnableHaDnsConfigErr
+              cnrEnableHaDnsConfigErr,
+              cnrEnableFailoverSyncFailure
             }
     STATUS current
     DESCRIPTION
@@ -1356,7 +1568,8 @@ ciscoNetRegistrarNotificatGroup NOTIFICATION-GROUP
                     ciscoNetRegSecondaryZonesExpired,
                     ciscoNetRegDnsForwardersNotResp,
                     ciscoNetRegDnsForwardersResp,
-                    ciscoNetRegHaDnsConfigErr }
+                    ciscoNetRegHaDnsConfigErr,
+                    ciscoNetRegFailoverSyncFailure }
     STATUS current
     DESCRIPTION
         "Notifications which are implemented by the
