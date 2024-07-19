@@ -4,7 +4,7 @@
 -- June 2006, Devesh Pujari, Srinath Candadai
 -- March 2011 Suja Thangaveluchamy
 --
--- Copyright (c) 2006, 2010-2012, 2016-2018, 2020-2021 by Cisco Systems, Inc.
+-- Copyright (c) 2006, 2010-2012, 2016-2018, 2020-2021, 2024 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -1189,7 +1189,7 @@ cldcClientMobileStPolicyType OBJECT-TYPE
                          wpa2(3),
                          wpa2vff(4),
                          notavailable(5),
-                         wpa2_3(6),
+                         wpa2or3(6),
                          wpaOsen(7),
                          wpaOsenWithinRsn(8)
                      }
