@@ -4,7 +4,7 @@
 --   
 -- Aug 2019 Vickey Kumar (vickkuma), Karthik R (krajanga)
 --   
--- Copyright (c) 2019-2020 by Cisco Systems, Inc.
+-- Copyright (c) 2019-2021 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 
@@ -47,11 +47,11 @@ ciscoAlarmMIB MODULE-IDENTITY
             Tel: +1 800 553-NETS
             E-mail: cs-<list>@cisco.com"
     DESCRIPTION
+        "Added hwCem(68) to existing CoiAlarmObjectTypeClass object."
+    REVISION        "202105170000Z"
+    DESCRIPTION
         "The MIB module describes a generic solution to model alarms
         and to store the current list of active alarms."
-    REVISION        "202008310000Z"
-    DESCRIPTION
-        "MIB changes for trap"
     REVISION        "201908280000Z"
     DESCRIPTION
         "Initial version of the MIB module."
@@ -132,7 +132,11 @@ CoiAlarmObjectTypeClass ::= TEXTUAL-CONVENTION
                         swCfgmgr(61),
                         swG709Otnsec(62),
                         hwCpri(63),
-                        hwImfpga(64)
+                        hwImfpga(64),
+                        swFsdbaggConnMismatch(65),
+                        hwFibreChannel(66),
+                        hwE1(67),
+                        hwCem(68)
                     }
 -- **************************************************************
 -- Textual Conventions definition will be defined before this line
@@ -249,8 +253,8 @@ coiAlarmTimeStamp OBJECT-TYPE
     STATUS          current
     DESCRIPTION
         "The time at which the alarm was raised by the system.
-        This value is expressed in seconds since
-        00:00:00 UTC, January 1, 1970 (see time(2))." 
+         This value is expressed in seconds since
+         00:00:00 UTC, January 1, 1970 (see time(2))." 
     ::= { coiAlarmActiveEntry 7 }
 
 coiAlarmSeverity OBJECT-TYPE
@@ -306,33 +310,33 @@ coiAlarmDescription OBJECT-TYPE
         to understand the problem." 
     ::= { coiAlarmActiveEntry 11 }
  
-
-
--- definitions realted to alarm traps
-
+--definitions realted to alarm traps
 coiAlarmStatusChange NOTIFICATION-TYPE
-    OBJECTS         {
-                        coiAlarmIndex,
-                        coiAlarmObjectIfIndex,
-                        coiAlarmObjectEntPhyIndex,
-                        coiAlarmObjectName,
-                        coiAlarmType,
-                        coiAlarmSeverity,
-                        coiAlarmStatus,
-                        coiAlarmDescription
-                    }
-    STATUS          current
-    DESCRIPTION
+    OBJECTS  { coiAlarmIndex,
+               coiAlarmObjectIfIndex,
+               coiAlarmObjectEntPhyIndex,
+               coiAlarmObjectName,
+               coiAlarmType,
+               coiAlarmSeverity,
+               coiAlarmStatus,
+               coiAlarmDescription
+            }
+    STATUS  current
+    DESCRIPTION 
         "This Notification is generated when ever an alarm is updated
-        in the alarm mib.
-        varbind coiAlarmIndex,coiAlarmObjectIFINdex and 
-        coiAlarmObjectEntPhyIndex indicates the index of the alarm 
-        i.e fow sw, interface and hw alarms will have the respective index
-        varbind coiObjectName indicates the alarms name.
-        varbind coiAlarmSeverity indicates the severity of the alarm.
-        varbind coiAlarmStatus indicates the status of the alarm"
-   ::= { ciscoAlarmMIBNotifs 1 }
+         in the alarm mib.
+         varbind coiAlarmIndex,coiAlarmObjectIFINdex and 
+         coiAlarmObjectEntPhyIndex indicates the index of the alarm 
+         i.e fow sw, interface and hw alarms will have the respective index
+         varbind coiObjectName indicates the alarms name.
+         varbind coiAlarmSeverity indicates the severity of the alarm.
+         varbind coiAlarmStatus indicates the status of the alarm"
+    ::= { ciscoAlarmMIBNotifs 1}
+
+--trap realted definations end here
 
 END
 
+
+-- %DNP%  MLC -Compiled MLC
 
