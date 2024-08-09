@@ -54,6 +54,9 @@ ciscoAlarmMIB MODULE-IDENTITY
         and to store the current list of active alarms."
     REVISION        "201908280000Z"
     DESCRIPTION
+        "MIB changes for trap"
+    REVISION        "201908280000Z"
+    DESCRIPTION
         "Initial version of the MIB module."
     ::= { ciscoMgmt 869 }
 
