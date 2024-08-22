@@ -30,10 +30,14 @@ storageTextualConventions MODULE-IDENTITY
             San Jose, CA  95134
             USA
             Tel: +1 800 553 -NETS
-            E-mail: cs-san@cisco.com"
+            E-mail: cs-san@cisco.com"		
     DESCRIPTION
         "This module defines textual conventions used in
         Storage Area Network technology specific mibs."
+    REVISION        "202408200000Z"
+    DESCRIPTION
+        "Added enumerated values fiftyG(14),sixtyFourG(15) and
+         autoMaxSixtyFourG(16) to FcIfSpeed"			
     REVISION        "202102120000Z"
     DESCRIPTION
         "Added enumerated values sixtyFourG and
@@ -98,7 +102,6 @@ storageTextualConventions MODULE-IDENTITY
     DESCRIPTION
         "Initial version of this MIB module."
     ::= { ciscoModules 4 }
-
 
 
 VsanIndex ::= TEXTUAL-CONVENTION
@@ -359,9 +362,10 @@ FcIfSpeed ::= TEXTUAL-CONVENTION
           thirtyTwoG  (12) - 32GBit.
           autoMaxThirtyTwoG (13) - Negotiate to determine the
                              speed automatically upto a
-                             maximum of 32Gbit.
-          sixtyFourG  (14) - 64GBit.
-          autoMaxSixtyFourG (15) - Negotiate to determine the
+                             maximum of 32Gbit."
+          fiftyG      (14) - 50GBit.
+          sixtyFourG  (15) - 64GBit.
+          autoMaxSixtyFourG (16) - Negotiate to determine the
                              speed automatically upto a
                              maximum of 64Gbit."
     SYNTAX          INTEGER  {
@@ -378,8 +382,9 @@ FcIfSpeed ::= TEXTUAL-CONVENTION
                         autoMaxSixteenG(11),
                         thirtyTwoG(12),
                         autoMaxThirtyTwoG(13),
-                        sixtyFourG(14),
-                        autoMaxSixtyFourG(15)
+						fiftyG(14),
+                        sixtyFourG(15),
+                        autoMaxSixtyFourG(16)
                     }
 
 PortMemberList ::= TEXTUAL-CONVENTION
