@@ -2102,7 +2102,6 @@ cevChassisASR9902                     OBJECT IDENTIFIER ::= { cevChassis 2432 } 
 cevChassis03FR027R16                  OBJECT IDENTIFIER ::= { cevChassis 2433 } -- IBM SAN16C-R 8977-R16 16 Port PSI 32G SAN Extension Switch    
 cevChassis03FR026R16                  OBJECT IDENTIFIER ::= { cevChassis 2434 } -- IBM SAN16C-R 8977-R16 16 Port PSE 32G SAN Extension Switch    
 cevChassisC9200CX8P2X2G               OBJECT IDENTIFIER ::= { cevChassis 2435 } -- Catalyst 9200CX 8x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, PoE+ for 240W 
-cevChassisC9200CX8PT2G                 OBJECT IDENTIFIER ::= { cevChassis 2436 } -- Catalyst 9200CX 8x1G Downlinks, 8x30W PoE+, 2x1G 90W PD Cu Uplinks
 cevChassisC9200CX8UXG2X                OBJECT IDENTIFIER ::= { cevChassis 2437 } -- Catalyst 9200CX 4x1G, 4x10G mGig Downlinks, 8x60W UPoE, 2x10G SFP+ Uplinks  
 cevChassisFpr3110td                   OBJECT IDENTIFIER ::= { cevChassis 2438 } -- Chassis for Cisco Firepower 3110 Security Appliance
 cevChassisFpr3120td                   OBJECT IDENTIFIER ::= { cevChassis 2439 } -- Chassis for Cisco Firepower 3120 Security Appliance
@@ -2118,6 +2117,7 @@ cevChassisNCS1010SA                   OBJECT IDENTIFIER ::= { cevChassis 2478 } 
 cevChassisNCS57C148Q6Sys              OBJECT IDENTIFIER ::= { cevChassis 2484 } -- NCS5700 Twins
 cevChassisUCSFI6536                   OBJECT IDENTIFIER ::= { cevChassis 2485 } -- Cisco UCS Unified Computing System 6536 36-40G/100G Port Fabric Interconnect
 cevChassisNCS540L6Z14GSysD            OBJECT IDENTIFIER ::= { cevChassis 2491 } -- NCS540L Router - N540-6Z14G-SYS-D
+cevChassisC9200CX12P2XGH              OBJECT IDENTIFIER ::= { cevChassis 2492 } -- Catalyst 9200CX 12x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, PoE+ for 240W, 310W Internal FEP with SAF-D-Grid Power Connector for HVDC
 cevChassisFpr3105td                   OBJECT IDENTIFIER ::= { cevChassis 2493 } -- Chassis for Cisco Firepower 3105 Security Appliance
 cevChassisIE31004T2S                  OBJECT IDENTIFIER ::= { cevChassis 2494 } -- Catalyst IE3100 with 4 GE Copper and 2 GE SFP Ports, Fixed system, Network Essentials
 cevChassisIE31008T2C                  OBJECT IDENTIFIER ::= { cevChassis 2495 } -- Catalyst IE3100 with 8 GE Copper and 2 Combo Ports, Fixed system, Network Essentials
@@ -2201,7 +2201,15 @@ cevChassisC1131X8PLTEPWF                OBJECT IDENTIFIER ::= { cevChassis 2621 
 cevChassisC1131X8PLTEPWD                OBJECT IDENTIFIER ::= { cevChassis 2622 } -- Cisco C1131X-8PLTEPWD 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisC1131X8PLTEPWR                OBJECT IDENTIFIER ::= { cevChassis 2623 } -- Cisco C1131X-8PLTEPWR 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisN9KC92348GCFX3                OBJECT IDENTIFIER ::= { cevChassis 2652 } -- Cisco Nexus 9200 Series fixed switch with 48x100M/1G BASE-T + 4x10/25 Gbps SFP28 + 2x40/100-Gbps QSFP28 ports
-
+cevChassisN9KC93320TCFX3P               OBJECT IDENTIFIER ::= { cevChassis 2659 } -- 2RU TOR fixed chassis with 12 x 100M/1G/2.5G/5G/10G BASE-T+2x40/100G QSFP28 ports
+cevChassisC11318PWS                     OBJECT IDENTIFIER ::= { cevChassis 2661 } -- Cisco C1131-8PWS 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWS                    OBJECT IDENTIFIER ::= { cevChassis 2662 } -- Cisco C1131X-8PWS 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWS                 OBJECT IDENTIFIER ::= { cevChassis 2663 } -- Cisco C1131-8PLTEPWS 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWS                OBJECT IDENTIFIER ::= { cevChassis 2664 } -- Cisco C1131X-8PLTEPWS 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PWI                     OBJECT IDENTIFIER ::= { cevChassis 2665 } -- Cisco C1131-8PWI 8 Ports GE LAN Router Chassis with 4GB memory, 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PWI                    OBJECT IDENTIFIER ::= { cevChassis 2666 } -- Cisco C1131X-8PWI 8 Ports GE LAN Router Chassis with 8GB memory, 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC11318PLTEPWI                 OBJECT IDENTIFIER ::= { cevChassis 2667 } -- Cisco C1131-8PLTEPWI 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisC1131X8PLTEPWI                OBJECT IDENTIFIER ::= { cevChassis 2668 } -- Cisco C1131X-8PLTEPWI 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 
 cevBackplane				OBJECT IDENTIFIER ::= { cevMIBObjects 4 }
 cevBackplaneAtm			        OBJECT IDENTIFIER ::= { cevBackplane 4 }	-- LS1010 Chassis
@@ -3366,6 +3374,8 @@ cevPowerSupplyC9400PWR3200ACT           OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyDSCAC1400WI               OBJECT IDENTIFIER ::= { cevPowerSupply 834 } -- DS-CAC-1400W-I, Port side intake, 1400W AC Power Supply Unit for DS-C9396V-K9
 cevPowerSupplyDSCAC1400WE               OBJECT IDENTIFIER ::= { cevPowerSupply 835 } -- DS-CAC-1400W-E, Port side exhaust, 1400W AC Power Supply Unit for DS-C9396V-K9
 cevPowerSupplyDSCHV2000WI               OBJECT IDENTIFIER ::= { cevPowerSupply 836 } -- DS-CHV-2000W-I, Port side Intake, 2000W CHV Power Supply Unit for DS-C9396V-K9
+cevPowerSupplyNXAPAC1400WPI             OBJECT IDENTIFIER ::= { cevPowerSupply 841 } -- N9K NXA-PAC-1400W-PI port-intake power supply unit
+cevPowerSupplyNXAPAC1400WPE             OBJECT IDENTIFIER ::= { cevPowerSupply 842 } -- N9K NXA-PAC-1400W-PE port-exhaust power supply unit
 cevPowerSupplyPWRC11900WHVT             OBJECT IDENTIFIER ::= { cevPowerSupply 843 } -- 1900W hVAC/hVDC 80+ titanium Config 1 Power Supply
 cevPowerSupplyPWRCH1AC250W              OBJECT IDENTIFIER ::= { cevPowerSupply 844 } -- Cisco 250 watt AC Power Supply
 cevPowerSupplyPWRC11900WHVT2            OBJECT IDENTIFIER ::= { cevPowerSupply 845 } -- 1900W hVAC/hVDC 80+ titanium Config 1 Secondary Power Supply
@@ -3768,6 +3778,8 @@ cevFanA907FANH                  OBJECT IDENTIFIER ::= { cevFan 462 } -- ASR907-H
 cevFanNCS1K14FAN                OBJECT IDENTIFIER ::= { cevFan 463 } -- Network Convergence System 1014 FAN Module
 cevFanC9610FAN                  OBJECT IDENTIFIER ::= { cevFan 464 } -- Cisco Catalyst 9600 Series 10 slot Chassis Fan Tray
 cevFanNXASFAN39CFMPI            OBJECT IDENTIFIER ::= { cevFan 467 } -- Nexus 9200 Fan (Port Side Intake)
+cevFanNXASFAN160CFM2PI          OBJECT IDENTIFIER ::= { cevFan 470 } -- Smart fan for N9K TOR - port intake
+cevFanNXASFAN160CFM2PE          OBJECT IDENTIFIER ::= { cevFan 471 } -- Smart fan for N9K TOR - port exhaust
 cevFanCW9800MFanTray            OBJECT IDENTIFIER ::= { cevFan 475 } -- Cisco Catalyst CW9800M Fan Tray 
 cevFanCW9800H1FanTray           OBJECT IDENTIFIER ::= { cevFan 476 } -- Cisco Catalyst CW9800H1 Fan Tray 
 cevFanCW9800H2FanTray           OBJECT IDENTIFIER ::= { cevFan 477 } -- Cisco Catalyst CW9800H2 Fan Tray 
@@ -3775,7 +3787,6 @@ cevFanNCS1020FAN                OBJECT IDENTIFIER ::= { cevFan 478 } -- NCS 1020
 cevFanC8530L8S8X4YFanTray       OBJECT IDENTIFIER ::= { cevFan 479 } -- Cisco C8530L-8S8X4Y Fan Tray
 cevFanC8530L8S2X2YFanTray       OBJECT IDENTIFIER ::= { cevFan 480 } -- Cisco C8530L-8S2X2Y Fan Tray
 cevFanNCS1010                   OBJECT IDENTIFIER ::= { cevFan 481 } -- NCS1010 Fan Module
-
 
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
 cevSensorMGX8800Temp			OBJECT IDENTIFIER ::= { cevSensor 11 }		-- Cabinet Temperature sensor device in MGX8800 Universal Chassis
@@ -4620,6 +4631,7 @@ cevModuleNCS1KMD32ECE                   OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleNCS1KMD32OCE                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 835 } -- NCS 1000 32chs Odd Mux/Demux-150GHz-C-band Enhanced - PID: NCS1K-MD-32O-CE
 cevModuleC9610SSD480GB                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 836 } -- This is 480GB SSD used in Catalyst 9610 switch. This is fruable ssd accessed through SATA 
 cevModuleN9KC92348GCFX3                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 837 } -- Cisco Nexus 9200 Series fixed switch with 48x100M/1G BASE-T + 4x10/25 Gbps SFP28 + 2x40/100-Gbps QSFP28 ports 
+cevModuleN9KC93320TCFX3P                OBJECT IDENTIFIER ::= { cevModuleCommonCards 838 } -- 2RU TOR fixed module with 12 x 100M/1G/2.5G/5G/10G BASE-T + 2 x 40/100G QSFP28 ports
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -7462,6 +7474,7 @@ cevGLCFE100FX                          OBJECT IDENTIFIER ::= { cevModuleSFPType 
 cevGLCFE100BXD                         OBJECT IDENTIFIER ::= { cevModuleSFPType 310 } -- FE 100BASE-BX10 SFP 1550 nm TX/1310 nm RX 10 km over single-strand SMF
 cevGLCFE100BXU                         OBJECT IDENTIFIER ::= { cevModuleSFPType 311 } -- FE 100BASE-BX10 SFP 1310 nm TX/1550 nm RX 10 km over single-strand SMF
 cevSFP50GERI                           OBJECT IDENTIFIER ::= { cevModuleSFPType 315 } -- Cisco SFP28 50G ER Pluggable Optics Module
+cevONSSCPTP1510                        OBJECT IDENTIFIER ::= { cevModuleSFPType 316 } -- Cisco SFP GE 1510 OSC Pluggable Optics Module
 
 cevModuleONS15200Type		OBJECT IDENTIFIER ::= { cevModule 52 }			-- Represents the base class for all the modules used in ONS15200.
 cevONS15252Clip			OBJECT IDENTIFIER ::= { cevModuleONS15200Type 1 }       -- ONS15252 Client Line Interface Port
@@ -8782,8 +8795,9 @@ cevUCSIOM2304Q             OBJECT IDENTIFIER ::= { cevModuleUCSType 176 }       
 cevUCSFI6454FixedModule    OBJECT IDENTIFIER ::= { cevModuleUCSType 182 }         -- Fixed Module within Cisco UCS 6454 Fabric InterConnect with 40x10G/25G + 6x40G/100G + 8 UP Ports
 cevUCSE180DM3K9            OBJECT IDENTIFIER ::= { cevModuleUCSType 183 }         -- Cisco Integrated Management Controller (CIMC) UCS-E180D-M3/K9
 cevUCSE1120DM3K9           OBJECT IDENTIFIER ::= { cevModuleUCSType 184 }         -- Cisco Integrated Management Controller (CIMC) UCS-E1120D-M3/K9
-cevUCSFI64108               OBJECT IDENTIFIER ::= { cevModuleUCSType 185 }         -- Fixed Module within Cisco UCS 64108 Fabric InterConnect with 96x10G/25G UP Ports + 12x40G/100G Ports
+cevUCSFI64108              OBJECT IDENTIFIER ::= { cevModuleUCSType 185 }         -- Fixed Module within Cisco UCS 64108 Fabric InterConnect with 96x10G/25G UP Ports + 12x40G/100G Ports
 cevUCSFI6536FixedModule    OBJECT IDENTIFIER ::= { cevModuleUCSType 186 }         -- Fixed Module within Cisco UCS 6536 Fabric InterConnect 
+cevUCSXS9108100G           OBJECT IDENTIFIER ::= { cevModuleUCSType 188 }         -- Fixed module within Cisco UCSX-Direct FI/IFM
 
 cevModuleNexus1010Type     OBJECT IDENTIFIER ::= { cevModule 81 } -- This is the module type to represent a Virtual Supervisor Card for the Nexus1010 product
 cevNexus1010VSM            OBJECT IDENTIFIER ::= { cevModuleNexus1010Type 1 }  -- Virtual Supervisor Module for Nexus1010
@@ -9385,6 +9399,7 @@ cevModuleISRAP1101AXK       OBJECT IDENTIFIER ::= { cevModuleISRType 332 } -- Ci
 cevModuleISRAP1101AXF       OBJECT IDENTIFIER ::= { cevModuleISRType 333 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in F domain
 cevModuleISRAP1101AXD       OBJECT IDENTIFIER ::= { cevModuleISRType 334 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in D domain
 cevModuleISRAP1101AXR       OBJECT IDENTIFIER ::= { cevModuleISRType 335 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in R domain
+cevModuleIRM11004S8I        OBJECT IDENTIFIER ::= { cevModuleISRType 341 } -- Goldcrest is an Expansion module of IR1101 with 4xGE SFP Ports and 8 Digital IO alarm ports
 
 cevModuleN77Type             OBJECT IDENTIFIER ::= { cevModule 97 }       -- Group for the Nexus7700 type of cards 
 cevN77c7718Fab2              OBJECT IDENTIFIER ::= { cevModuleN77Type 1 } -- Fabric for Nexus7700 18-slot chassis 
@@ -9721,6 +9736,7 @@ cevN9KC92304QCFixedModule               OBJECT IDENTIFIER ::= { cevModuleN92KTyp
 cevN9KC9232CFixedModule                 OBJECT IDENTIFIER ::= { cevModuleN92KType 7 } -- Nexus N9K-C9232C Series fixed module with 32x40G/100G QSFP28 Ethernet
 cevN9KC92348GCXFixedModule              OBJECT IDENTIFIER ::= { cevModuleN92KType 8 } -- TOR 48x100M/1G Base-T + 4x10/25G SPF28 + 2x40/100G QSFP28
 cevN9KC9232EB1FixedModule               OBJECT IDENTIFIER ::= { cevModuleN92KType 9 } -- 32 port 800G module
+cevN9KC92348GCFX3                       OBJECT IDENTIFIER ::= { cevModuleN92KType 11 } -- Cisco Nexus 9200 Series fixed switch with 48x100M/1G BASE-T + 4x10/25 Gbps SFP28 + 2x40/100-Gbps QSFP28 ports
 
 cevModuleN9KType                        OBJECT IDENTIFIER ::= { cevModule 115 } -- Group for the Nexus9000 Module
 cevN9KFabricExtenderConnectionCable     OBJECT IDENTIFIER ::= { cevModuleN9KType 1 } -- N9K FEX Fabric Extender cabling
@@ -10119,7 +10135,9 @@ cevQDD4ZQ100CU3M             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 77 } --  4Z
 cevDP04QSDDER1               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 78 } --  Cisco QSFPDD 400G ER1 Pluggable Optics Module
 cevQDDONSOLS                 OBJECT IDENTIFIER ::= { cevModuleQSFPDD 79 } --  Cisco QSFP-DD Pluggable Optical Line System
 cevQDD400GSR4DOT2BD          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 81 } --  400G BiDi QDD Module, 70/100/150m over OM3/OM4/OM5
-
+cevQDD400GDR4PLUS            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 82 } --  QSFP-DD-400G-DR4-PLUS cable
+cevONSQSFPOTDR               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 83 } --  QSFP DD ONS OTDR Module from Coherent 
+cevQSFPDDZT5                 OBJECT IDENTIFIER ::= { cevModuleQSFPDD 84 } --  Cisco QSFP DD ZT5 Pluggable Optics Module  
 
 cevModuleNCS540LType        OBJECT IDENTIFIER ::= { cevModule 140  } --  NCS540L series
 cevModuleNCS540L28Z4SysA    OBJECT IDENTIFIER ::= { cevModuleNCS540LType 1 } -- NCS540L series - NCS540-28Z4-SYS-A Module
@@ -10636,6 +10654,7 @@ cevC9200BFixedSwitchStack   OBJECT IDENTIFIER ::= { cevStack 33 } -- A stack of 
 cevCat100010GbpsStack       OBJECT IDENTIFIER ::= { cevStack 34 } -- A 10 Gbps ethernet stack of cat1000 switch modules 
 cevCat10001GbpsStack        OBJECT IDENTIFIER ::= { cevStack 35 } -- A 1 Gbps ethernet stack of cat1000 switch modules
 cevIE9300Stack              OBJECT IDENTIFIER ::= { cevStack 39 } -- Cisco Catalyst IE9300 stackable Ethernet switches with unified identity, control and management
+cevStackC9610RVirtualStack  OBJECT IDENTIFIER ::= { cevStack 41 } -- Cisco Catalyst 9600 Series 10 slot Virtual Stack
 
 cevMidplane                  OBJECT IDENTIFIER ::= { cevMIBObjects 12 }	-- Midplane of the chassis
 cevMidplaneUmg9820           OBJECT IDENTIFIER ::= { cevMidplane 1 } -- Midplane of umg9820
