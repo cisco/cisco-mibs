@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-DOT11-MIB.my
 -- January 2007, Devesh Pujari, Srinath Candadai
 --   
--- Copyright (c) 2007, 2009-2010, 2014-2021, 2023 by Cisco Systems, Inc.
+-- Copyright (c) 2007, 2009-2010, 2014-2021, 2023-2024 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -38,7 +38,7 @@ IMPORTS
 -- ********************************************************************
 
 ciscoLwappDot11MIB MODULE-IDENTITY
-    LAST-UPDATED    "201902130000Z"
+    LAST-UPDATED    "202405140000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -356,7 +356,7 @@ ciscoLwappDot11MIB MODULE-IDENTITY
         ciscoLwappDot11MIBConfigGroup
         ciscoLwappDot11MIBNotifsGroup
         ciscoLwappDot11MIBStatusGroup
-        Added ciscoLwappDot11MIBComplianceRev1 in 
+        Added ciscoLwappDot11MIBComplianceRev1 in MODULE-COMPLIANCE"
     REVISION        "201803280000Z"
     DESCRIPTION
         "Added the following tables in cldConfig.
@@ -372,9 +372,8 @@ ciscoLwappDot11MIB MODULE-IDENTITY
        cld11axMcsTable,
        cldDot11axHeCapTable,
        cld11axMbssidTable
-       Added new group ciscoLwappDot11MIBHeStatusGroup."
- 
-        OBJECT-COMPLIANCE."
+       Added new group ciscoLwappDot11MIBHeStatusGroup.
+       OBJECT-COMPLIANCE."
     REVISION        "200701040000Z"
     DESCRIPTION
         "Initial version of this MIB module."
@@ -1667,7 +1666,7 @@ cldDot11aNdpMode OBJECT-TYPE
         "This attribute is used to configure neighbor
         discovery mode for 802.11a radios."
     DEFVAL          { 0 }
-    ::= { cldDot11dpMode 2 }
+    ::= { cldDot11NdpMode 2 }
 
 -- ********************************************************************
 -- *  Begin of cldDot116GHzPhy
