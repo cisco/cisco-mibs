@@ -40308,7 +40308,8 @@ CucsMemoryType ::= TEXTUAL-CONVENTION
         ddr2FbDimm(20),
         ddr3(24),
         fbd2(25),
-        ddr4(26)
+        ddr4(26),
+        ddr5(27)
     }
 
 CucsMemoryUnitId ::= TEXTUAL-CONVENTION
