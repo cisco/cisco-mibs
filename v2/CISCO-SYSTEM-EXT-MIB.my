@@ -687,6 +687,20 @@ ciscoSystemSwitchingModeOper OBJECT-TYPE
         'nexus9000'     - system is opeerating in Nexus 9000 mode." 
     ::= { ciscoSystemSwitchingModeGroup 2 }
 
+ciscoSystemSwitchingMode OBJECT-TYPE
+    SYNTAX          INTEGER  {
+                        cutThrough(1),
+                        storeAndForward(2)
+                    }
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "Object indicate system's operating switching mode.
+
+        'cutThrough'         - switch begins forwarding the frame as soon as the switch has read the destination details in the packet header
+        'storeAndForward'    - switch checks each frame for CRC errors before forwarding them to the network. Each frame is stored until the entire frame has been received and checked." 
+    ::= { ciscoSystemSwitchingModeGroup 3 }
+
 -- System Maint Mode Group
 
 cseMaintModeState OBJECT-TYPE
@@ -1354,7 +1368,8 @@ ciscoSystemExtInfoGroupRev3 OBJECT-GROUP
 ciscoSystemSwitchingModeObjectsGroup OBJECT-GROUP
     OBJECTS         {
                         ciscoSystemSwitchingModeAdmin,
-                        ciscoSystemSwitchingModeOper
+                        ciscoSystemSwitchingModeOper,
+                        ciscoSystemSwitchingMode
                     }
     STATUS          current
     DESCRIPTION
