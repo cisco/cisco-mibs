@@ -697,8 +697,8 @@ ciscoSystemSwitchingMode OBJECT-TYPE
     DESCRIPTION
         "Object indicate system's operating switching mode.
 
-        'cutThrough'         - Operate in cut through mode
-        'storeAndForward'    - Operate in store and forward mode." 
+        'cutThrough'         - switch begins forwarding the frame as soon as the switch has read the destination details in the packet header
+        'storeAndForward'    - switch checks each frame for CRC errors before forwarding them to the network. Each frame is stored until the entire frame has been received and checked." 
     ::= { ciscoSystemSwitchingModeGroup 3 }
 
 -- System Maint Mode Group
