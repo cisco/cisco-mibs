@@ -689,16 +689,16 @@ ciscoSystemSwitchingModeOper OBJECT-TYPE
 
 ciscoSystemSwitchingMode OBJECT-TYPE
     SYNTAX          INTEGER  {
-                        CutThrough(1),
-                        StoreAndForward(2)
+                        cutThrough(1),
+                        storeAndForward(2)
                     }
     MAX-ACCESS      read-only
     STATUS          current
     DESCRIPTION
         "Object indicate system's operating switching mode.
 
-        'CutThrough'         - Operate in cut through mode
-        'StoreAndForward'    - Operate in store and forward mode." 
+        'cutThrough'         - Operate in cut through mode
+        'storeAndForward'    - Operate in store and forward mode." 
     ::= { ciscoSystemSwitchingModeGroup 3 }
 
 -- System Maint Mode Group
