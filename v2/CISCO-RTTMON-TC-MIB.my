@@ -428,7 +428,7 @@ RttMonRttType ::= TEXTUAL-CONVENTION
 
         The value 'fabricPathEcho' will cause the RTT application to
         perform delay performance measurment and verify connectivity in
-        a Fabric Path Network."
+        a Fabric Path Network.
 
         NOTE:  The 'pathJitter' time delay operation is a heuristic
                measurement because an intermediate hop may forward
