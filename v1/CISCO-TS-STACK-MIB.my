@@ -14,7 +14,7 @@ CISCO-TS-STACK-MIB DEFINITIONS ::= BEGIN
            FROM RFC1155-SMI
 
    Timeout
-           FROM RFC1493
+           FROM BRIDGE-MIB
 
    OBJECT-TYPE
            FROM RFC-1212
@@ -26,7 +26,7 @@ CISCO-TS-STACK-MIB DEFINITIONS ::= BEGIN
 
    ringStationIfIndex,
    ringStationMacAddress
-           FROM RFC-1513
+           FROM TOKEN-RING-RMON-MIB
 
    ifName
            FROM IF-MIB
