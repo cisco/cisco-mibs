@@ -4714,7 +4714,18 @@ cseTcamResourceType OBJECT-TYPE
                         egressNetflowL2(315),
                         egressNetflowSvi(316),
                         labelLblAHv1(317),
-                        labelLblAIv1(318)
+                        labelLblAIv1(318),
+                        IngressAnalyticsL2V4(319),
+                        IngressAnalyticsL2V6(320),
+                        IngressAnalyticsL3V4(321),
+                        IngressAnalyticsL3V6(322),
+                        IngressAnalyticsMAC(323),
+                        EgressAnalyticsL3V4(324),
+                        EgressAnalyticsL3V6(325),
+                        ingressSvcRedirP1v4(326),
+                        ingressSvcRedirP1v6(327),
+                        ingressSvcRedirP2v4(328),
+                        ingressSvcRedirP2v6(329)
                     }
     MAX-ACCESS      not-accessible
     STATUS          current
