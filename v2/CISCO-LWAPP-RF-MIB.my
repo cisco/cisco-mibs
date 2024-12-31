@@ -1138,8 +1138,8 @@ cLRFProfileNdpMode OBJECT-TYPE
 cLRFProfile11ax6GHzFeature OBJECT-TYPE
      SYNTAX          INTEGER  {
                          none(0),
-                         bcast_probe_response(1),
-                         fils_discovery(2)
+                         bcastproberesponse(1),
+                         filsdiscovery(2)
                      }
      MAX-ACCESS      read-write
      STATUS          current
