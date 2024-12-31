@@ -248,10 +248,10 @@ CLApIfType ::= TEXTUAL-CONVENTION
         rlan - This value indicates that this is a RLAN
 	interface.
 
-        dot11_6ghz - This value indicates that the radio
+        dot116ghz - This value indicates that the radio
 	interface is following 802.11 6ghz standard.
 
-	dot11_xor_5_6ghz - This value indicates that the
+	dot11xor56ghz - This value indicates that the
 	radio interface is operating in XOR mode between
 	802.11a and 802.11 6ghz."
 
@@ -261,8 +261,8 @@ CLApIfType ::= TEXTUAL-CONVENTION
                         uwb(3),
                         dot11abgn(4),
                         rlan(5),
-                        dot11_6ghz(6),
-                        dot11_xor_5_6ghz(7)
+                        dot116ghz(6),
+                        dot11xor56ghz(7)
                     }
 
 CLDot11Channel ::= TEXTUAL-CONVENTION
