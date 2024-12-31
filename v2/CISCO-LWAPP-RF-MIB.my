@@ -196,7 +196,7 @@ ciscoLwappRFMIB MODULE-IDENTITY
          - cLRFProfileMultiBssidProfile
          Added new table cLMultiBSSIDProfileTable
          Added conformance group ciscoLwappRFConfigGroup10
-         Added compliance group ciscoLwappRFMIBComplianceRev7".
+         Added compliance group ciscoLwappRFMIBComplianceRev7."
     REVISION        "202009020000Z"
     DESCRIPTION
         "Added below object to the cLRFProfileTable
