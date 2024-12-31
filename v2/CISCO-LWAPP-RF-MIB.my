@@ -1750,7 +1750,7 @@ cLMultiBSSIDProfile11beOfdmaMultiRU OBJECT-TYPE
     DEFVAL          { false }
     ::= { cLMultiBSSIDProfileEntry 14 }
 
-cLMultiBSSIDProfileRowStatus OBJECT-TYPE
+
 -- ********************************************************************
 -- *    Compliance statements
 -- ********************************************************************
