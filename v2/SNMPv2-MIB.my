@@ -18,17 +18,18 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
        TimeTicks, Counter32, snmpModules, mib-2
            FROM SNMPv2-SMI
        DisplayString, TestAndIncr, TimeStamp
+
            FROM SNMPv2-TC
        MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
            FROM SNMPv2-CONF;
-
+   
    snmpMIB MODULE-IDENTITY
        LAST-UPDATED "200210160000Z"
        ORGANIZATION "IETF SNMPv3 Working Group"
        CONTACT-INFO
                "WG-EMail:   snmpv3@lists.tislabs.com
                 Subscribe:  snmpv3-request@lists.tislabs.com
-
+   
                 Co-Chair:   Russ Mundy
                             Network Associates Laboratories
                 postal:     15204 Omega Drive, Suite 300
@@ -36,7 +37,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                             USA
                 EMail:      mundy@tislabs.com
                 phone:      +1 301 947-7107
-
+   
                 Co-Chair:   David Harrington
                             Enterasys Networks
                 postal:     35 Industrial Way
@@ -45,7 +46,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                             USA
                 EMail:      dbh@enterasys.com
                 phone:      +1 603 337-2614
-
+   
                 Editor:     Randy Presuhn
                             BMC Software, Inc.
                 postal:     2141 North First Street
@@ -55,7 +56,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                 phone:      +1 408 546-1006"
        DESCRIPTION
                "The MIB module for SNMP entities.
-
+   
                 Copyright (C) The Internet Society (2002). This
                 version of this MIB module is part of RFC 3418;
                 see the RFC itself for full legal notices.
@@ -66,6 +67,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                 RFC 3418."
        REVISION      "199511090000Z"
        DESCRIPTION
+
                "This revision of this MIB module was published as
                 RFC 1907."
        REVISION      "199304010000Z"
@@ -73,19 +75,19 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The initial revision of this MIB module was published
                as RFC 1450."
        ::= { snmpModules 1 }
-
+   
    snmpMIBObjects OBJECT IDENTIFIER ::= { snmpMIB 1 }
-
+   
    --  ::= { snmpMIBObjects 1 }        this OID is obsolete
    --  ::= { snmpMIBObjects 2 }        this OID is obsolete
    --  ::= { snmpMIBObjects 3 }        this OID is obsolete
-
+   
    -- the System group
    --
    -- a collection of objects common to all managed systems.
-
+   
    system   OBJECT IDENTIFIER ::= { mib-2 1 }
-
+   
    sysDescr OBJECT-TYPE
        SYNTAX      DisplayString (SIZE (0..255))
        MAX-ACCESS  read-only
@@ -96,7 +98,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                the system's hardware type, software operating-system,
                and networking software."
        ::= { system 1 }
-
+   
    sysObjectID OBJECT-TYPE
        SYNTAX      OBJECT IDENTIFIER
        MAX-ACCESS  read-only
@@ -112,8 +114,9 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                it could assign the identifier 1.3.6.1.4.1.424242.1.1
                to its `Fred Router'."
        ::= { system 2 }
-
+   
    sysUpTime OBJECT-TYPE
+
        SYNTAX      TimeTicks
        MAX-ACCESS  read-only
        STATUS      current
@@ -122,7 +125,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                network management portion of the system was last
                re-initialized."
        ::= { system 3 }
-
+   
    sysContact OBJECT-TYPE
        SYNTAX      DisplayString (SIZE (0..255))
        MAX-ACCESS  read-write
@@ -133,7 +136,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                to contact this person.  If no contact information is
                known, the value is the zero-length string."
        ::= { system 4 }
-
+   
    sysName OBJECT-TYPE
        SYNTAX      DisplayString (SIZE (0..255))
        MAX-ACCESS  read-write
@@ -144,7 +147,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                domain name.  If the name is unknown, the value is
                the zero-length string."
        ::= { system 5 }
-
+   
    sysLocation OBJECT-TYPE
        SYNTAX      DisplayString (SIZE (0..255))
        MAX-ACCESS  read-write
@@ -154,7 +157,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                closet, 3rd floor').  If the location is unknown, the
                value is the zero-length string."
        ::= { system 6 }
-
+   
    sysServices OBJECT-TYPE
        SYNTAX      INTEGER (0..127)
        MAX-ACCESS  read-only
@@ -162,6 +165,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
        DESCRIPTION
                "A value which indicates the set of services that this
                entity may potentially offer.  The value is a sum.
+
                This sum initially takes the value zero. Then, for
                each layer, L, in the range 1 through 7, that this node
                performs transactions for, 2 raised to (L - 1) is added
@@ -171,24 +175,24 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                services would have a value of 72 (2^(4-1) + 2^(7-1)).
                Note that in the context of the Internet suite of
                protocols, values should be calculated accordingly:
-
+   
                     layer      functionality
                       1        physical (e.g., repeaters)
                       2        datalink/subnetwork (e.g., bridges)
                       3        internet (e.g., supports the IP)
                       4        end-to-end  (e.g., supports the TCP)
                       7        applications (e.g., supports the SMTP)
-
+   
                For systems including OSI protocols, layers 5 and 6
                may also be counted."
        ::= { system 7 }
-
+   
    -- object resource information
    --
    -- a collection of objects which describe the SNMP entity's
    -- (statically and dynamically configurable) support of
    -- various MIB modules.
-
+   
    sysORLastChange OBJECT-TYPE
        SYNTAX     TimeStamp
        MAX-ACCESS read-only
@@ -197,7 +201,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The value of sysUpTime at the time of the most recent
                change in state or value of any instance of sysORID."
        ::= { system 8 }
-
+   
    sysORTable OBJECT-TYPE
        SYNTAX     SEQUENCE OF SysOREntry
        MAX-ACCESS not-accessible
@@ -219,14 +223,14 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "An entry (conceptual row) in the sysORTable."
        INDEX      { sysORIndex }
        ::= { sysORTable 1 }
-
+   
    SysOREntry ::= SEQUENCE {
        sysORIndex     INTEGER,
        sysORID        OBJECT IDENTIFIER,
        sysORDescr     DisplayString,
        sysORUpTime    TimeStamp
    }
-
+   
    sysORIndex OBJECT-TYPE
        SYNTAX     INTEGER (1..2147483647)
        MAX-ACCESS not-accessible
@@ -235,7 +239,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The auxiliary variable used for identifying instances
                of the columnar objects in the sysORTable."
        ::= { sysOREntry 1 }
-
+   
    sysORID OBJECT-TYPE
        SYNTAX     OBJECT IDENTIFIER
        MAX-ACCESS read-only
@@ -246,7 +250,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                by the local SNMP application acting as a command
                responder."
        ::= { sysOREntry 2 }
-
+   
    sysORDescr OBJECT-TYPE
        SYNTAX     DisplayString
        MAX-ACCESS read-only
@@ -255,10 +259,11 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "A textual description of the capabilities identified
                by the corresponding instance of sysORID."
        ::= { sysOREntry 3 }
-
+   
    sysORUpTime OBJECT-TYPE
        SYNTAX     TimeStamp
        MAX-ACCESS read-only
+
        STATUS     current
        DESCRIPTION
                "The value of sysUpTime at the time this conceptual
@@ -269,9 +274,9 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
    --
    -- a collection of objects providing basic instrumentation and
    -- control of an SNMP entity.
-
+   
    snmp     OBJECT IDENTIFIER ::= { mib-2 11 }
-
+   
    snmpInPkts OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -280,7 +285,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of messages delivered to the SNMP
                entity from the transport service."
        ::= { snmp 1 }
-
+   
    snmpInBadVersions OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -290,7 +295,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                to the SNMP entity and were for an unsupported SNMP
                version."
        ::= { snmp 3 }
-
+   
    snmpInBadCommunityNames OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -306,11 +311,12 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
               allowed to use a specified community name) MAY include
               in this value the number of messages which failed the
               additional check(s).  It is strongly RECOMMENDED that
+
               the documentation for any security model which is used
               to authenticate community-based SNMP messages specify
               the precise conditions that contribute to this value."
        ::= { snmp 4 }
-
+   
    snmpInBadCommunityUses OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -329,7 +335,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
               to and visibility of MIB instrumentation specify the
               precise conditions that contribute to this value."
        ::= { snmp 5 }
-
+   
    snmpInASNParseErrs OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -338,7 +344,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of ASN.1 or BER errors encountered by
                the SNMP entity when decoding received SNMP messages."
        ::= { snmp 6 }
-
+   
    snmpEnableAuthenTraps OBJECT-TYPE
        SYNTAX      INTEGER { enabled(1), disabled(2) }
        MAX-ACCESS  read-write
@@ -349,13 +355,14 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                object overrides any configuration information; as such,
                it provides a means whereby all authenticationFailure
                traps may be disabled.
-
+   
                Note that it is strongly recommended that this object
                be stored in non-volatile memory so that it remains
                constant across re-initializations of the network
                management system."
-       ::= { snmp 30 }
 
+       ::= { snmp 30 }
+   
    snmpSilentDrops OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -372,7 +379,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
               maximum message size associated with the originator of
               the request."
        ::= { snmp 31 }
-
+   
    snmpProxyDrops OBJECT-TYPE
        SYNTAX     Counter32
        MAX-ACCESS read-only
@@ -388,28 +395,29 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                no Response Class PDU (such as a Response-PDU) could
                be returned."
        ::= { snmp 32 }
-
+   
    -- information for notifications
    --
    -- a collection of objects which allow the SNMP entity, when
    -- supporting a notification originator application,
    -- to be configured to generate SNMPv2-Trap-PDUs.
-
+   
    snmpTrap       OBJECT IDENTIFIER ::= { snmpMIBObjects 4 }
-
+   
    snmpTrapOID OBJECT-TYPE
        SYNTAX     OBJECT IDENTIFIER
        MAX-ACCESS accessible-for-notify
        STATUS     current
        DESCRIPTION
+
                "The authoritative identification of the notification
                currently being sent.  This variable occurs as
                the second varbind in every SNMPv2-Trap-PDU and
                InformRequest-PDU."
        ::= { snmpTrap 1 }
-
+   
    --  ::= { snmpTrap 2 }   this OID is obsolete
-
+   
    snmpTrapEnterprise OBJECT-TYPE
        SYNTAX     OBJECT IDENTIFIER
        MAX-ACCESS accessible-for-notify
@@ -421,13 +429,13 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                into a SNMPv2-Trap-PDU, this variable occurs as the
                last varbind."
        ::= { snmpTrap 3 }
-
+   
    --  ::= { snmpTrap 4 }   this OID is obsolete
 
    -- well-known traps
-
+   
    snmpTraps      OBJECT IDENTIFIER ::= { snmpMIBObjects 5 }
-
+   
    coldStart NOTIFICATION-TYPE
        STATUS  current
        DESCRIPTION
@@ -436,7 +444,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                reinitializing itself and that its configuration may
                have been altered."
        ::= { snmpTraps 1 }
-
+   
    warmStart NOTIFICATION-TYPE
        STATUS  current
        DESCRIPTION
@@ -445,7 +453,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                is reinitializing itself such that its configuration
                is unaltered."
        ::= { snmpTraps 2 }
-
+   
    -- Note the linkDown NOTIFICATION-TYPE ::= { snmpTraps 3 }
    -- and the linkUp NOTIFICATION-TYPE ::= { snmpTraps 4 }
    -- are defined in RFC 2863 [RFC2863]
@@ -460,18 +468,18 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                 trap, the snmpEnableAuthenTraps object indicates
                 whether this trap will be generated."
        ::= { snmpTraps 5 }
-
+   
    -- Note the egpNeighborLoss notification is defined
    -- as { snmpTraps 6 } in RFC 1213
-
+   
    -- the set group
    --
    -- a collection of objects which allow several cooperating
    -- command generator applications to coordinate their use of the
    -- set operation.
-
+   
    snmpSet        OBJECT IDENTIFIER ::= { snmpMIBObjects 6 }
-
+   
    snmpSetSerialNo OBJECT-TYPE
        SYNTAX     TestAndIncr
        MAX-ACCESS read-write
@@ -480,43 +488,45 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "An advisory lock used to allow several cooperating
                command generator applications to coordinate their
                use of the SNMP set operation.
-
+   
                This object is used for coarse-grain coordination.
                To achieve fine-grain coordination, one or more similar
                objects might be defined within each MIB group, as
                appropriate."
        ::= { snmpSet 1 }
-
+   
    -- conformance information
-
+   
    snmpMIBConformance
                   OBJECT IDENTIFIER ::= { snmpMIB 2 }
-
+   
    snmpMIBCompliances
                   OBJECT IDENTIFIER ::= { snmpMIBConformance 1 }
    snmpMIBGroups  OBJECT IDENTIFIER ::= { snmpMIBConformance 2 }
-
+   
    -- compliance statements
+
+
    --    ::= { snmpMIBCompliances 1 }      this OID is obsolete
    snmpBasicCompliance MODULE-COMPLIANCE
        STATUS  deprecated
        DESCRIPTION
                "The compliance statement for SNMPv2 entities which
                implement the SNMPv2 MIB.
-
+   
                This compliance statement is replaced by
                snmpBasicComplianceRev2."
        MODULE  -- this module
            MANDATORY-GROUPS { snmpGroup, snmpSetGroup, systemGroup,
                               snmpBasicNotificationsGroup }
-
-           GROUP   snmpCommunityGroup1
+   
+           GROUP   snmpCommunityGroup
            DESCRIPTION
                "This group is mandatory for SNMPv2 entities which
                support community-based authentication."
-
+   
        ::= { snmpMIBCompliances 2 }
-
+   
    snmpBasicComplianceRev2 MODULE-COMPLIANCE
        STATUS  current
        DESCRIPTION
@@ -525,28 +535,29 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
        MODULE  -- this module
            MANDATORY-GROUPS { snmpGroup, snmpSetGroup, systemGroup,
                               snmpBasicNotificationsGroup }
-
-           GROUP   snmpCommunityGroup1
+   
+           GROUP   snmpCommunityGroup
            DESCRIPTION
                "This group is mandatory for SNMP entities which
                support community-based authentication."
-
+   
            GROUP   snmpWarmStartNotificationGroup
            DESCRIPTION
                "This group is mandatory for an SNMP entity which
                supports command responder applications, and is
                able to reinitialize itself such that its
                configuration is unaltered."
-
+   
        ::= { snmpMIBCompliances 3 }
-
+   
    -- units of conformance
-
+   
    --  ::= { snmpMIBGroups 1 }           this OID is obsolete
    --  ::= { snmpMIBGroups 2 }           this OID is obsolete
    --  ::= { snmpMIBGroups 3 }           this OID is obsolete
-   --  ::= { snmpMIBGroups 4 }           this OID is obsolete
 
+   --  ::= { snmpMIBGroups 4 }           this OID is obsolete
+   
    snmpGroup OBJECT-GROUP
        OBJECTS { snmpInPkts,
                  snmpInBadVersions,
@@ -559,8 +570,8 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "A collection of objects providing basic instrumentation
                and control of an SNMP entity."
        ::= { snmpMIBGroups 8 }
-
-   snmpCommunityGroup1 OBJECT-GROUP
+   
+   snmpCommunityGroup OBJECT-GROUP
        OBJECTS { snmpInBadCommunityNames,
                  snmpInBadCommunityUses }
        STATUS  current
@@ -569,7 +580,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                of a SNMP entity which supports community-based
                authentication."
        ::= { snmpMIBGroups 9 }
-
+   
    snmpSetGroup OBJECT-GROUP
        OBJECTS { snmpSetSerialNo }
        STATUS  current
@@ -578,7 +589,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                command generator applications to coordinate their
                use of the set operation."
        ::= { snmpMIBGroups 5 }
-
+   
    systemGroup OBJECT-GROUP
        OBJECTS { sysDescr, sysObjectID, sysUpTime,
                  sysContact, sysName, sysLocation,
@@ -590,15 +601,16 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The system group defines objects which are common to all
                managed systems."
        ::= { snmpMIBGroups 6 }
-
+   
    snmpBasicNotificationsGroup NOTIFICATION-GROUP
        NOTIFICATIONS { coldStart, authenticationFailure }
+
        STATUS        current
        DESCRIPTION
           "The basic notifications implemented by an SNMP entity
            supporting command responder applications."
        ::= { snmpMIBGroups 7 }
-
+   
    snmpWarmStartNotificationGroup NOTIFICATION-GROUP
       NOTIFICATIONS { warmStart }
       STATUS        current
@@ -607,7 +619,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
         command responder applications, if it is able to reinitialize
         itself such that its configuration is unaltered."
      ::= { snmpMIBGroups 11 }
-
+   
    snmpNotificationGroup OBJECT-GROUP
        OBJECTS { snmpTrapOID, snmpTrapEnterprise }
        STATUS  current
@@ -615,10 +627,10 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "These objects are required for entities
                which support notification originator applications."
        ::= { snmpMIBGroups 12 }
-
+   
    -- definitions in RFC 1213 made obsolete by the inclusion of a
    -- subset of the snmp group in this MIB
-
+   
    snmpOutPkts OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -628,9 +640,9 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                passed from the SNMP protocol entity to the
                transport service."
        ::= { snmp 2 }
-
+   
    -- { snmp 7 } is not used
-
+   
    snmpInTooBigs OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -652,7 +664,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                which the value of the error-status field was
                `noSuchName'."
        ::= { snmp 9 }
-
+   
    snmpInBadValues OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -663,7 +675,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                which the value of the error-status field was
                `badValue'."
        ::= { snmp 10 }
-
+   
    snmpInReadOnlys OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -678,7 +690,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                as a means of detecting incorrect implementations of
                the SNMP."
        ::= { snmp 11 }
-
+   
    snmpInGenErrs OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -688,8 +700,9 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                to the SNMP protocol entity and for which the value
                of the error-status field was `genErr'."
        ::= { snmp 12 }
-
+   
    snmpInTotalReqVars OBJECT-TYPE
+
        SYNTAX      Counter32
        MAX-ACCESS  read-only
        STATUS      obsolete
@@ -699,7 +712,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                as the result of receiving valid SNMP Get-Request
                and Get-Next PDUs."
        ::= { snmp 13 }
-
+   
    snmpInTotalSetVars OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -709,7 +722,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                altered successfully by the SNMP protocol entity as
                the result of receiving valid SNMP Set-Request PDUs."
        ::= { snmp 14 }
-
+   
    snmpInGetRequests OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -719,7 +732,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                have been accepted and processed by the SNMP
                protocol entity."
        ::= { snmp 15 }
-
+   
    snmpInGetNexts OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -728,7 +741,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Get-Next PDUs which have been
                accepted and processed by the SNMP protocol entity."
        ::= { snmp 16 }
-
+   
    snmpInSetRequests OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -748,7 +761,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                have been accepted and processed by the SNMP protocol
                entity."
        ::= { snmp 18 }
-
+   
    snmpInTraps OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -757,7 +770,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Trap PDUs which have been
                accepted and processed by the SNMP protocol entity."
        ::= { snmp 19 }
-
+   
    snmpOutTooBigs OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -767,7 +780,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                by the SNMP protocol entity and for which the value
                of the error-status field was `tooBig.'"
        ::= { snmp 20 }
-
+   
    snmpOutNoSuchNames OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -777,7 +790,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                by the SNMP protocol entity and for which the value
                of the error-status was `noSuchName'."
        ::= { snmp 21 }
-
+   
    snmpOutBadValues OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -789,7 +802,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
        ::= { snmp 22 }
 
    -- { snmp 23 } is not used
-
+   
    snmpOutGenErrs OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -799,7 +812,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                by the SNMP protocol entity and for which the value
                of the error-status field was `genErr'."
        ::= { snmp 24 }
-
+   
    snmpOutGetRequests OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -808,7 +821,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Get-Request PDUs which
                have been generated by the SNMP protocol entity."
        ::= { snmp 25 }
-
+   
    snmpOutGetNexts OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -817,7 +830,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Get-Next PDUs which have
                been generated by the SNMP protocol entity."
        ::= { snmp 26 }
-
+   
    snmpOutSetRequests OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -826,7 +839,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Set-Request PDUs which
                have been generated by the SNMP protocol entity."
        ::= { snmp 27 }
-
+   
    snmpOutGetResponses OBJECT-TYPE
        SYNTAX      Counter32
        MAX-ACCESS  read-only
@@ -844,7 +857,7 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
                "The total number of SNMP Trap PDUs which have
                been generated by the SNMP protocol entity."
        ::= { snmp 29 }
-
+   
    snmpObsoleteGroup OBJECT-GROUP
        OBJECTS { snmpOutPkts, snmpInTooBigs, snmpInNoSuchNames,
                  snmpInBadValues, snmpInReadOnlys, snmpInGenErrs,
@@ -862,3 +875,4 @@ SNMPv2-MIB DEFINITIONS ::= BEGIN
        ::= { snmpMIBGroups 10 }
 
 END
+
