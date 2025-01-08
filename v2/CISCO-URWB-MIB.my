@@ -77,7 +77,7 @@ ciscoUrwbNotif NOTIFICATION-TYPE
 		ciscoUrwbStaMid,
 		ciscoUrwbStaSignal,
 		ciscoUrwbStaRxBytes,
-		ciscoUrwbStaRxPackets,
+		ciscoUrwbStaRxPkts,
 		ciscoUrwbStaRxRate,
 		ciscoUrwbStaRxMcs,
 		ciscoUrwbStaRxMcsFlag,
@@ -255,7 +255,7 @@ ciscoUrwbStaNum OBJECT-TYPE
 ::= { ciscoUrwbInfo 20 }
 
 ciscoUrwbStaTable OBJECT-TYPE
-	SYNTAX SEQUENCE OF ciscoUrwbStaEntry
+	SYNTAX SEQUENCE OF CiscoUrwbStaEntry
 	MAX-ACCESS not-accessible
 	STATUS current
 	DESCRIPTION "The list of connected stations. The number of entries is
@@ -263,14 +263,14 @@ ciscoUrwbStaTable OBJECT-TYPE
 ::= { ciscoUrwbInfo 21 }
 
 ciscoUrwbStaEntry OBJECT-TYPE
-	SYNTAX ciscoUrwbStaEntry
+	SYNTAX CiscoUrwbStaEntry
 	MAX-ACCESS not-accessible
 	STATUS current
 	DESCRIPTION "An entry containing one Station"
 	INDEX { ciscoUrwbStaIndex }
 ::= { ciscoUrwbStaTable 1 }
 
-ciscoUrwbStaEntry ::=
+CiscoUrwbStaEntry ::=
 	SEQUENCE {
 		ciscoUrwbStaIndex		INTEGER,
 		ciscoUrwbLocalMacAddress		DisplayString,
@@ -418,21 +418,21 @@ ciscoUrwbTputNum OBJECT-TYPE
 ::= { ciscoUrwbInfo 22 }
 
 ciscoUrwbTputTable OBJECT-TYPE
-	SYNTAX SEQUENCE OF ciscoUrwbTputEntry
+	SYNTAX SEQUENCE OF CiscoUrwbTputEntry
 	MAX-ACCESS not-accessible
 	STATUS current
 	DESCRIPTION "Throughput table"
 ::= { ciscoUrwbInfo 23 }
 
 ciscoUrwbTputEntry OBJECT-TYPE
-	SYNTAX ciscoUrwbTputEntry
+	SYNTAX CiscoUrwbTputEntry
 	MAX-ACCESS not-accessible
 	STATUS current
 	DESCRIPTION "An Throughput entry"
 	INDEX { ciscoUrwbTputIndex }
 ::= { ciscoUrwbTputTable 1 }
 
-ciscoUrwbTputEntry ::=
+CiscoUrwbTputEntry ::=
 	SEQUENCE {
 		ciscoUrwbTputIndex		INTEGER,
 		ciscoUrwbTputIface		INTEGER,
