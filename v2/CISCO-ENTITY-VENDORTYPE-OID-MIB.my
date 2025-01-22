@@ -7,7 +7,7 @@
 --
 -- August 1997, Ramanathan R. Kavasseri
 --
--- Copyright (c) 1997-2024 by cisco Systems, Inc.
+-- Copyright (c) 1997-2025 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log$
@@ -2102,8 +2102,8 @@ cevChassisASR9902                     OBJECT IDENTIFIER ::= { cevChassis 2432 } 
 cevChassis03FR027R16                  OBJECT IDENTIFIER ::= { cevChassis 2433 } -- IBM SAN16C-R 8977-R16 16 Port PSI 32G SAN Extension Switch    
 cevChassis03FR026R16                  OBJECT IDENTIFIER ::= { cevChassis 2434 } -- IBM SAN16C-R 8977-R16 16 Port PSE 32G SAN Extension Switch    
 cevChassisC9200CX8P2X2G               OBJECT IDENTIFIER ::= { cevChassis 2435 } -- Catalyst 9200CX 8x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, PoE+ for 240W 
-cevChassisC9200CX8PT2G                OBJECT IDENTIFIER ::= { cevChassis 2436 } -- Catalyst 9200CX 8x1G Downlinks, 8x30W PoE+, 2x1G 90W PD Cu Uplinks
-cevChassisC9200CX8UXG2X                OBJECT IDENTIFIER ::= { cevChassis 2437 } -- Catalyst 9200CX 4x1G, 4x10G mGig Downlinks, 8x60W UPoE, 2x10G SFP+ Uplinks  
+cevChassisC9200CX8PT2G                OBJECT IDENTIFIER ::= { cevChassis 2436 } -- Catalyst 9200CX 8x1G Downlinks, 8x30W PoE+, 2x1G 90W PD Cu Uplinks 
+cevChassisC9200CX8UXG2X               OBJECT IDENTIFIER ::= { cevChassis 2437 } -- Catalyst 9200CX 4x1G, 4x10G mGig Downlinks, 8x60W UPoE, 2x10G SFP+ Uplinks  
 cevChassisFpr3110td                   OBJECT IDENTIFIER ::= { cevChassis 2438 } -- Chassis for Cisco Firepower 3110 Security Appliance
 cevChassisFpr3120td                   OBJECT IDENTIFIER ::= { cevChassis 2439 } -- Chassis for Cisco Firepower 3120 Security Appliance
 cevChassisFpr3130td                   OBJECT IDENTIFIER ::= { cevChassis 2440 } -- Chassis for Cisco Firepower 3130 Security Appliance
@@ -2215,7 +2215,6 @@ cevChassisC1131X8PWI                    OBJECT IDENTIFIER ::= { cevChassis 2666 
 cevChassisC11318PLTEPWI                 OBJECT IDENTIFIER ::= { cevChassis 2667 } -- Cisco C1131-8PLTEPWI 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisC1131X8PLTEPWI                OBJECT IDENTIFIER ::= { cevChassis 2668 } -- Cisco C1131X-8PLTEPWI 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisN9336CSE1                     OBJECT IDENTIFIER ::= { cevChassis 2680 } -- Nexus 9300 series TOR chassis with 36x40G/100G ports
-
 
 
 
@@ -3393,8 +3392,9 @@ cevPowerSupplyPWRC2850WACE              OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyPWRC2500WACE              OBJECT IDENTIFIER ::= { cevPowerSupply 849 } -- 500WAC Power Supply with Port Side Air Exhaust
 cevPowerSupplyNXAPAC350WPE2             OBJECT IDENTIFIER ::= { cevPowerSupply 860 } -- N9K 350W AC Power Supply, Port Exhaust
 cevPowerSupplyNXAPAC350WPI2             OBJECT IDENTIFIER ::= { cevPowerSupply 861 } -- N9K 350W AC Power Supply, Port Intake
-cevPowerSupplyPSU1200WACPE             OBJECT IDENTIFIER ::= { cevPowerSupply 869 } -- 1200W ACPE Power Supply unit
-cevPowerSupplyPSU1200WACPI             OBJECT IDENTIFIER ::= { cevPowerSupply 870 } -- 1200W ACPI Power Supply unit
+cevPowerSupplyPSU1200WACPE              OBJECT IDENTIFIER ::= { cevPowerSupply 869 } -- 1200W ACPE Power Supply unit
+cevPowerSupplyPSU1200WACPI              OBJECT IDENTIFIER ::= { cevPowerSupply 870 } -- 1200W ACPI Power Supply unit
+
 
 cevFan			OBJECT IDENTIFIER ::= { cevMIBObjects 7 }
 cevFanC6260FanTray		OBJECT IDENTIFIER ::= { cevFan 3 }		-- Cisco 6260 Fan Tray
@@ -3801,6 +3801,9 @@ cevFanNCS1020FAN                OBJECT IDENTIFIER ::= { cevFan 478 } -- NCS 1020
 cevFanC8530L8S8X4YFanTray       OBJECT IDENTIFIER ::= { cevFan 479 } -- Cisco C8530L-8S8X4Y Fan Tray
 cevFanC8530L8S2X2YFanTray       OBJECT IDENTIFIER ::= { cevFan 480 } -- Cisco C8530L-8S2X2Y Fan Tray
 cevFanNCS1010                   OBJECT IDENTIFIER ::= { cevFan 481 } -- NCS1010 Fan Module
+cevFanCW9800LFanTray            OBJECT IDENTIFIER ::= { cevFan 487 } -- Cisco Catalyst CW9800L Fan Tray %DND% until Nov 2025, contact cevFan
+cevFanCsf200                    OBJECT IDENTIFIER ::= { cevFan 488 } -- Cisco Firewall 200 Series Fan %DND% until Dec 2026, contact chirbhat
+cevFanUCSFAN6664                OBJECT IDENTIFIER ::= { cevFan 489 } -- Cisco UCS 6664 Fan Module %DND% until Jun 2025, contact dhrmehta
 
 
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
@@ -8736,8 +8739,8 @@ cevS10GSRPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlus
 cevS10GLRPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 354 } -- SFP-10GbE Performance Monitoring, LR, SM, 1310nm, 10km, I-Temp
 cevS10GERPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 355 } -- SFP-10GbE Performance Monitoring, ER, SM, 1550nm, 40km, I-Temp
 cevDWDMSFP10GC                          OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 359 } -- DWDM Tunable SFP+ Module, Enterprise-Class
-cevDWDMSFP10GEI                         OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 360 } -- Cisco SFP+ 10G DWDM Tunable Pluggable Optics Module
-cevDWDMSFP10GCSE                        OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 361 } -- Cisco SFP+ 10G DWDM Tunable Pluggable Optics Module
+cevDWDMSFP10GEI                         OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 360 } -- Cisco SFP+ 10G DWDM Tunable Pluggable Optics Module 
+cevDWDMSFP10GCSE                        OBJECT IDENTIFIER ::= { cevModuleSFPPlusS 361 } -- Cisco SFP+ 10G DWDM Tunable Pluggable Optics Module 
 
 cevDirectAttachCable10Gs   OBJECT IDENTIFIER ::= { cevModule 77 }               -- Group for DirectAttachCable10Gs Type of Cards
 cevSFPH10GBCU1M            OBJECT IDENTIFIER ::= { cevDirectAttachCable10Gs 1 } -- 10GBASE-CU SFP+ Cable 1 Meter
@@ -9420,7 +9423,10 @@ cevModuleISRAP1101AXK       OBJECT IDENTIFIER ::= { cevModuleISRType 332 } -- Ci
 cevModuleISRAP1101AXF       OBJECT IDENTIFIER ::= { cevModuleISRType 333 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in F domain
 cevModuleISRAP1101AXD       OBJECT IDENTIFIER ::= { cevModuleISRType 334 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in D domain
 cevModuleISRAP1101AXR       OBJECT IDENTIFIER ::= { cevModuleISRType 335 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in R domain
+cevModulePLTE450            OBJECT IDENTIFIER ::= { cevModuleISRType 340 } -- 450MHz Category-4 LTE PIM
 cevModuleIRM11004S8I        OBJECT IDENTIFIER ::= { cevModuleISRType 341 } -- Goldcrest is an Expansion module of IR1101 with 4xGE SFP Ports and 8 Digital IO alarm ports
+cevModuleISRAP1101AXS       OBJECT IDENTIFIER ::= { cevModuleISRType 342 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in S domain 
+cevModuleISRAP1101AXI       OBJECT IDENTIFIER ::= { cevModuleISRType 343 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in I domain
 cevModuleCNIMWAN4S          OBJECT IDENTIFIER ::= { cevModuleISRType 352 } -- Network interface module with 4 x 1G SFP ports
 cevModuleCNIMWAN2X          OBJECT IDENTIFIER ::= { cevModuleISRType 353 } -- Network interface module with 2 x 1G/10G SFP ports
 
@@ -10175,16 +10181,16 @@ cevQDD8x100GLR               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 85 } --  8x
 cevQDD400GBD                 OBJECT IDENTIFIER ::= { cevModuleQSFPDD 86 } --  400G-BD QDD Module
 cevQDD2x400GDR4              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 87 } --  cevQDD2x400GDR4  2x400G DR4 QSFP-DD module
 cevQDD8x100GDR8              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 88 } --  cevQDD8x100GDR8  8x100G DR8 QSFP-DD Module
-cevQDD2Q200CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 90 } -- QDD 2Q200 Passive Copper Cable, 1m
-cevQDD2Q200CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 91 } -- QDD 2Q200 Passive Copper Cable, 2m
-cevQDD2Q200CU2DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 92 } -- QDD 2Q200 Passive Copper Cable, 2.5m
-cevQDD2Q200AOC5M             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 93 } -- 2Q200-AOC5M QDD Module
+cevQDD2Q200CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 90 } -- QDD 2Q200 Passive Copper Cable, 1m 
+cevQDD2Q200CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 91 } -- QDD 2Q200 Passive Copper Cable, 2m 
+cevQDD2Q200CU2DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 92 } -- QDD 2Q200 Passive Copper Cable, 2.5m 
+cevQDD2Q200AOC5M             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 93 } -- 2Q200-AOC5M QDD Module 
 cevQDD2Q400CU1DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 94 } -- 2Q400-CU1.5M QDD Module
 cevQDD2Q400CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 95 } -- 2Q400-CU1M QDD Module
-cevQDD2Q400CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 96 } -- 2Q400-CU2M QDD Module
-cevQDD2R400CU1DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 97 } -- 2R400-CU1.5M QDD Module
+cevQDD2Q400CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 96 } -- 2Q400-CU2M QDD Module 
+cevQDD2R400CU1DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 97 } -- 2R400-CU1.5M QDD Module 
 cevQDD2R400CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 98 } -- 2R400-CU1M QDD Module
-cevQDD2R400CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 99 } -- 2R400-CU2M QDD Module
+cevQDD2R400CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 99 } -- 2R400-CU2M QDD Module 
 cevQDD4Q200CU1DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 100 } -- 4Q200-CU1.5M QDD Module
 cevQDD4Q200CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 101 } -- 4Q200-CU1M QDD Module
 cevQDD4Q200CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 102 } -- 4Q200-CU2M QDD Module
@@ -10193,8 +10199,8 @@ cevQDD4R200CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 104 } -- 4R
 cevQDD4R200CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 105 } -- 4R200-CU2M QDD Module
 cevQDD4x100GFRG              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 106 } -- 4X100G-FR-G QDD Module
 cevQDD4X100GLRG              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 107 } -- 4X100G-LR-G QDD Module
-cevQDD8x50AOC5M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 108 } -- 8x50-AOC5M QDD Module
-cevQDD8x50CUDOT5M            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 109 } -- 8x50-CU0.5M QDD Module
+cevQDD8x50AOC5M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 108 } -- 8x50-AOC5M QDD Module 
+cevQDD8x50CUDOT5M            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 109 } -- 8x50-CU0.5M QDD Module 
 cevQDD8x50CU1DOT5M           OBJECT IDENTIFIER ::= { cevModuleQSFPDD 110 } -- 8x50-CU1.5M QDD Module
 cevQDD8x100GDR03             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 111 } -- 8x100G-DR-03 QDD Module
 cevQDD400GSR4S               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 112 } -- 400G-SR4 QDD Module
@@ -10213,7 +10219,6 @@ cevQDDO800CU2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 124 } -- O8
 cevQDDR800CU1DOT5M           OBJECT IDENTIFIER ::= { cevModuleQSFPDD 125 } -- R800-CU1.5M QDD Module
 cevQDDR800CU1M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 126 } -- R800-CU1M QDD Module
 cevQDDR800CU2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 127 } -- R800-CU2M QDD Module
-
 
 cevModuleNCS540LType        OBJECT IDENTIFIER ::= { cevModule 140  } --  NCS540L series
 cevModuleNCS540L28Z4SysA    OBJECT IDENTIFIER ::= { cevModuleNCS540LType 1 } -- NCS540L series - NCS540-28Z4-SYS-A Module
@@ -10386,7 +10391,7 @@ cevQSFP4x50CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFP56 28 } -- 4x5
 cevQSFP4x50CU2DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFP56 29 } -- 4x50-CU2.5M QSFP56 Module
 cevQSFP4x50CU3M              OBJECT IDENTIFIER ::= { cevModuleQSFP56 30 } -- 4S50-CU3M QSFP56 Module
 
-cevModuleOSFP                OBJECT IDENTIFIER ::= { cevModule 155 } -- OSFP Group of Optics
+cevModuleOSFP                OBJECT IDENTIFIER ::= { cevModule 155 } -- OSFP Group of Optics 
 cevOSFP2x400GFR4             OBJECT IDENTIFIER ::= { cevModuleOSFP 1 } -- 2x400G-FR4 OSFP Module
 cevOSFPR2x400GFR4            OBJECT IDENTIFIER ::= { cevModuleOSFP 2 } -- 2x400G-FR4 OSFPR Module
 cevOSFP2x400GLR4             OBJECT IDENTIFIER ::= { cevModuleOSFP 3 } -- 2x400G-LR4 OSFP Module
@@ -10764,6 +10769,7 @@ cevPort400GigEthernet                   OBJECT IDENTIFIER ::= { cevPort 374 } --
 cevPortAlarmExt                         OBJECT IDENTIFIER ::= { cevPort 403 } -- External Alarm Port
 cevPortBreakout200GePort                OBJECT IDENTIFIER ::= { cevPort 404 } -- 200GE Breakout Port
 cevPortBreakout400GePort                OBJECT IDENTIFIER ::= { cevPort 405} -- 400G Breakout port
+cevPortBreakout40GePort                 OBJECT IDENTIFIER ::= { cevPort 406} -- 40GE Breakout Port 
 cevPort25GigEthPhy                      OBJECT IDENTIFIER ::= { cevPort 407} -- 1-port 25G  
 cevPortSP10GigSFPPlus                   OBJECT IDENTIFIER ::= { cevPort 408} -- a type of 10GE port SFP+ Multi Source Agreement form factor  
 cevPort40GigEthPhy                      OBJECT IDENTIFIER ::= { cevPort 409} -- 1-port 40G  
