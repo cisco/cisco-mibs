@@ -7,7 +7,7 @@
 --
 -- August 1997, Ramanathan R. Kavasseri
 --
--- Copyright (c) 1997-2024 by cisco Systems, Inc.
+-- Copyright (c) 1997-2025 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log$
@@ -2103,7 +2103,7 @@ cevChassis03FR027R16                  OBJECT IDENTIFIER ::= { cevChassis 2433 } 
 cevChassis03FR026R16                  OBJECT IDENTIFIER ::= { cevChassis 2434 } -- IBM SAN16C-R 8977-R16 16 Port PSE 32G SAN Extension Switch    
 cevChassisC9200CX8P2X2G               OBJECT IDENTIFIER ::= { cevChassis 2435 } -- Catalyst 9200CX 8x GE downlinks, 2x 1G copper + 2x 10G SFP+ uplinks, PoE+ for 240W 
 cevChassisC9200CX8PT2G                OBJECT IDENTIFIER ::= { cevChassis 2436 } -- Catalyst 9200CX 8x1G Downlinks, 8x30W PoE+, 2x1G 90W PD Cu Uplinks
-cevChassisC9200CX8UXG2X                OBJECT IDENTIFIER ::= { cevChassis 2437 } -- Catalyst 9200CX 4x1G, 4x10G mGig Downlinks, 8x60W UPoE, 2x10G SFP+ Uplinks  
+cevChassisC9200CX8UXG2X               OBJECT IDENTIFIER ::= { cevChassis 2437 } -- Catalyst 9200CX 4x1G, 4x10G mGig Downlinks, 8x60W UPoE, 2x10G SFP+ Uplinks
 cevChassisFpr3110td                   OBJECT IDENTIFIER ::= { cevChassis 2438 } -- Chassis for Cisco Firepower 3110 Security Appliance
 cevChassisFpr3120td                   OBJECT IDENTIFIER ::= { cevChassis 2439 } -- Chassis for Cisco Firepower 3120 Security Appliance
 cevChassisFpr3130td                   OBJECT IDENTIFIER ::= { cevChassis 2440 } -- Chassis for Cisco Firepower 3130 Security Appliance
@@ -2215,7 +2215,6 @@ cevChassisC1131X8PWI                    OBJECT IDENTIFIER ::= { cevChassis 2666 
 cevChassisC11318PLTEPWI                 OBJECT IDENTIFIER ::= { cevChassis 2667 } -- Cisco C1131-8PLTEPWI 8 Ports GE LAN Router Chassis with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisC1131X8PLTEPWI                OBJECT IDENTIFIER ::= { cevChassis 2668 } -- Cisco C1131X-8PLTEPWI 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -I Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisN9336CSE1                     OBJECT IDENTIFIER ::= { cevChassis 2680 } -- Nexus 9300 series TOR chassis with 36x40G/100G ports
-
 
 
 
@@ -3393,8 +3392,9 @@ cevPowerSupplyPWRC2850WACE              OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyPWRC2500WACE              OBJECT IDENTIFIER ::= { cevPowerSupply 849 } -- 500WAC Power Supply with Port Side Air Exhaust
 cevPowerSupplyNXAPAC350WPE2             OBJECT IDENTIFIER ::= { cevPowerSupply 860 } -- N9K 350W AC Power Supply, Port Exhaust
 cevPowerSupplyNXAPAC350WPI2             OBJECT IDENTIFIER ::= { cevPowerSupply 861 } -- N9K 350W AC Power Supply, Port Intake
-cevPowerSupplyPSU1200WACPE             OBJECT IDENTIFIER ::= { cevPowerSupply 869 } -- 1200W ACPE Power Supply unit
-cevPowerSupplyPSU1200WACPI             OBJECT IDENTIFIER ::= { cevPowerSupply 870 } -- 1200W ACPI Power Supply unit
+cevPowerSupplyPSU1200WACPE              OBJECT IDENTIFIER ::= { cevPowerSupply 869 } -- 1200W ACPE Power Supply unit
+cevPowerSupplyPSU1200WACPI              OBJECT IDENTIFIER ::= { cevPowerSupply 870 } -- 1200W ACPI Power Supply unit
+
 
 cevFan			OBJECT IDENTIFIER ::= { cevMIBObjects 7 }
 cevFanC6260FanTray		OBJECT IDENTIFIER ::= { cevFan 3 }		-- Cisco 6260 Fan Tray
@@ -9420,7 +9420,10 @@ cevModuleISRAP1101AXK       OBJECT IDENTIFIER ::= { cevModuleISRType 332 } -- Ci
 cevModuleISRAP1101AXF       OBJECT IDENTIFIER ::= { cevModuleISRType 333 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in F domain
 cevModuleISRAP1101AXD       OBJECT IDENTIFIER ::= { cevModuleISRType 334 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in D domain
 cevModuleISRAP1101AXR       OBJECT IDENTIFIER ::= { cevModuleISRType 335 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in R domain
+cevModulePLTE450            OBJECT IDENTIFIER ::= { cevModuleISRType 340 } -- 450MHz Category-4 LTE PIM
 cevModuleIRM11004S8I        OBJECT IDENTIFIER ::= { cevModuleISRType 341 } -- Goldcrest is an Expansion module of IR1101 with 4xGE SFP Ports and 8 Digital IO alarm ports
+cevModuleISRAP1101AXS       OBJECT IDENTIFIER ::= { cevModuleISRType 342 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in S domain 
+cevModuleISRAP1101AXI       OBJECT IDENTIFIER ::= { cevModuleISRType 343 } -- Cisco ISR Series WLAN Access Point Module that supports 802.11ax in I domain
 cevModuleCNIMWAN4S          OBJECT IDENTIFIER ::= { cevModuleISRType 352 } -- Network interface module with 4 x 1G SFP ports
 cevModuleCNIMWAN2X          OBJECT IDENTIFIER ::= { cevModuleISRType 353 } -- Network interface module with 2 x 1G/10G SFP ports
 
@@ -10214,7 +10217,6 @@ cevQDDR800CU1DOT5M           OBJECT IDENTIFIER ::= { cevModuleQSFPDD 125 } -- R8
 cevQDDR800CU1M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 126 } -- R800-CU1M QDD Module
 cevQDDR800CU2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 127 } -- R800-CU2M QDD Module
 
-
 cevModuleNCS540LType        OBJECT IDENTIFIER ::= { cevModule 140  } --  NCS540L series
 cevModuleNCS540L28Z4SysA    OBJECT IDENTIFIER ::= { cevModuleNCS540LType 1 } -- NCS540L series - NCS540-28Z4-SYS-A Module
 cevModuleNCS540L28Z4SysD    OBJECT IDENTIFIER ::= { cevModuleNCS540LType 2 } -- NCS540L series - NCS540-28Z4-SYS-D Module
@@ -10764,6 +10766,7 @@ cevPort400GigEthernet                   OBJECT IDENTIFIER ::= { cevPort 374 } --
 cevPortAlarmExt                         OBJECT IDENTIFIER ::= { cevPort 403 } -- External Alarm Port
 cevPortBreakout200GePort                OBJECT IDENTIFIER ::= { cevPort 404 } -- 200GE Breakout Port
 cevPortBreakout400GePort                OBJECT IDENTIFIER ::= { cevPort 405} -- 400G Breakout port
+cevPortBreakout40GePort                 OBJECT IDENTIFIER ::= { cevPort 406} -- 40GE Breakout Port 
 cevPort25GigEthPhy                      OBJECT IDENTIFIER ::= { cevPort 407} -- 1-port 25G  
 cevPortSP10GigSFPPlus                   OBJECT IDENTIFIER ::= { cevPort 408} -- a type of 10GE port SFP+ Multi Source Agreement form factor  
 cevPort40GigEthPhy                      OBJECT IDENTIFIER ::= { cevPort 409} -- 1-port 40G  
