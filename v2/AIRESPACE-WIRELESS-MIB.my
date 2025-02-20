@@ -19,23 +19,7 @@
 -- Date: 01 Jan 2006
 -- **********************************************************
 --   
--- %DNP%  FYI:  Lines containing a comment starting with the "Do Not
--- %DNP%  Publish" prefix "%DNP%" (such as these) are automagicially
--- %DNP%  stripped from MIBS prior to publishing on ftp and cio, and
--- %DNP%  should be used for comments intended for cisco engineering
--- %DNP%  eyes only, or for new product identifiers that are not yet
--- %DNP%  announced.
 --   
--- %DNP%   ****************************************************
--- %DNP%   ** As approver for the 3.x review of this this MIB
--- %DNP%   ** it is essential that I indicate that many of the
--- %DNP%   ** changes are illegal(see RFC 2578).  In fact,
--- %DNP%   ** these modifications will break existing applications
--- %DNP%   ** and force those applications to become aware of
--- %DNP%   ** which image level supports a particiular version
--- %DNP%   ** of this MIB.  For example,the order and number of
--- %DNP%   ** object in many of the notifications were changed.
--- %DNP%   ****************************************************
 
 AIRESPACE-WIRELESS-MIB DEFINITIONS ::= BEGIN
 
@@ -4506,7 +4490,12 @@ bsnAPType OBJECT-TYPE
                         esw6300(100),
                         ap9130AXI(101),
                         ap9130AXE(102),
+                        ap9105AXI(106),
+                        ap9105AXW1(107),
                         pwifiac2(110),
+                        ap9124AXI(112),
+                        ap9124AXD(113),
+                        ap9124AXE(114),
                         ap9136I(115),
                         wpwifi6(116),
                         isr1101ax(129),
@@ -4521,7 +4510,13 @@ bsnAPType OBJECT-TYPE
                         cw9178I(138),
                         iw9165E(139),
                         cw9176I(140),
-                        cw9176D(141)
+                        cw9176D(141),
+                        cw9172I(142),
+                        cw9172H(143),
+                        cw9179F(144),
+                        cw9174I(145),
+                        cw9174E(146),
+                        cw9171I(147)
                     }
     MAX-ACCESS      read-only
     STATUS          current
@@ -18229,305 +18224,109 @@ bsnWrasObsTrap NOTIFICATION-GROUP
 END
 
 
--- %DNP%  MLC -Compiled MLC
 
--- %DNP%  MRS -with reviewer MRS
 
--- %DNP%  NO REPLACEMENT =bsnAPAdminStatus 
 
--- %DNP%  NO REPLACEMENT =bsnAPAssociated 
 
--- %DNP%  NO REPLACEMENT =bsnAPGroupsVlanMappingEntry 
 
--- %DNP%  NO REPLACEMENT =bsnAPGroupsVlanMappingInterfaceName 
 
--- %DNP%  NO REPLACEMENT =bsnAPGroupsVlanMappingRowStatus 
 
--- %DNP%  NO REPLACEMENT =bsnAPGroupsVlanMappingSsid 
 
--- %DNP%  NO REPLACEMENT =bsnAPGroupsVlanMappingTable 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfAdminStatus 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11CurrentCCAMode 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11NumberSupportedPowerLevels 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11PhyTxPowerEntry 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11PhyTxPowerTable 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel1 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel2 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel3 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel4 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel5 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel6 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel7 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDot11TxPowerLevel8 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfDown 
 
--- %DNP%  NO REPLACEMENT =bsnAPIfUp 
 
--- %DNP%  NO REPLACEMENT =bsnAPPortNumber 
 
--- %DNP%  NO REPLACEMENT =bsnAPRegulatoryDomainMismatch 
 
--- %DNP%  NO REPLACEMENT =bsnApGroup 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssIPv6Bridging 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNAllowTKIPClients 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNAuthKeyMgmtMode 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNAuthPresharedKey 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNAuthPresharedKeyHex 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNSecurity 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssRSNWPACompatibilityMode 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssWPAAuthKeyMgmtMode 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssWPAAuthPresharedKey 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssWPAAuthPresharedKeyHex 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssWPAEncryptionType 
 
--- %DNP%  NO REPLACEMENT =bsnDot11EssWPASecurity 
 
--- %DNP%  NO REPLACEMENT =bsnEssGroup 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11CountryIndex 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11Group 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11LoadBalancing 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11aFirstChannelNumber 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11aMaximumTransmitPowerLevel 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11aNumberofChannels 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11bFirstChannelNumber 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11bMaximumTransmitPowerLevel 
 
--- %DNP%  NO REPLACEMENT =bsnGlobalDot11bNumberofChannels 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestClientRSSI 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestEntry 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestId 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestLocalRSSI 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestLocalSNR 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestMacAddress 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestReceivedPktCount 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestRowStatus 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestSendPktCount 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestSendPktLength 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestStatus 
 
--- %DNP%  NO REPLACEMENT =bsnLinkTestTable 
 
--- %DNP%  NO REPLACEMENT =bsnRadiusAuthCacheCredentialsLocally 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11aGlobalAutomaticGrouping 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11aGlobalGroupInterval 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11aGroupLastUpdateTime 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11aGroupLeaderMacAddr 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11bGlobalAutomaticGrouping 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11bGlobalGroupInterval 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11bGroupLastUpdateTime 
 
--- %DNP%  NO REPLACEMENT =bsnRrmDot11bGroupLeaderMacAddr 
 
--- %DNP%  NO REPLACEMENT =bsnRrmIsDot11aGroupLeader 
 
--- %DNP%  NO REPLACEMENT =bsnRrmIsDot11bGroupLeader 
 
--- %DNP%  NO REPLACEMENT =bsnTrapsGroup 
 
--- %DNP%  NO REPLACEMENT =bsnUtilityGroup 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDepGroup 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11aGroupEntry 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11aGroupTable 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11aPeerIpAddress 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11aPeerMacAddress 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11bGroupEntry 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11bGroupTable 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11bPeerIpAddress 
 
--- %DNP%  NO REPLACEMENT =bsnWrasDot11bPeerMacAddress 
 
--- %DNP%  NO REPLACEMENT =countryChangeTrap 
 
--- %DNP%  MOS -bsnRogueAPDetectingAPRadioType MOS 
 
--- %DNP%  MOS -bsnRogueAPDetectingAPRadioType MOS 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~20~17 - 2015061006:14 PST - sthumati -18.3 -ACK
--- %DNP%  - RE: Please change the enum name to ' apLabelMacAddress ' and ... 
--- %DNP%We are maintaining the legacy MIBS.In leagacy also we are using same 
--- %DNP%enum names .Now if we change the name of enum.It may affect the PI side.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~19~18 - 2015061006:11 PST - sthumati -18.3 -ACK
--- %DNP%  - RE: Please remove comma at the end of each enum description. 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~18~ - 2015061004:36 PST - supasupu -18.2 -ACK
--- %DNP%  - Please remove comma at the end of each enum description.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~17~ - 2015061004:35 PST - supasupu -18.2 -ACK
--- %DNP%  - Please change the enum name to ' apLabelMacAddress ' and 
--- %DNP%apLabelAddressSsid to ' apLabelMacAddressSsid '
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~16~9 - 2015060902:33 PST - sthumati -18.2 -ACK
--- %DNP%  - RE: Please remove new line before "object" from the below description. 
--- %DNP%... 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAPType~15~10 - 2015060902:33 PST - sthumati -18.2 -ACK
--- %DNP%  - RE: It is better to add one line description about each enum type. 
--- %DNP%Atleast, ... 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~13~12 - 2015060901:01 PST - sthumati -18.2 -ACK
--- %DNP%  - RE: Please do not mention sets in the description of each enum type. 
--- %DNP%Change ... 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~14~11 - 2015060901:01 PST - sthumati -18.2 -ACK
--- %DNP%  - RE: Please change the indentation in description field. 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~12~ - 2015060405:20 PST - supasupu -18.1 -ACK
--- %DNP%  - Please do not mention sets in the description of each enum type. Change 
--- %DNP%the description accordingly. For example, if the enum type is ipAddr 
--- %DNP%just say System IP address.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~11~ - 2015060405:07 PST - supasupu -18.1 -ACK
--- %DNP%  - Please change the indentation in description field.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAPType~10~ - 2015060405:02 PST - supasupu -18.1 -ACK
--- %DNP%  - It is better to add one line description about each enum type. Atleast, 
--- %DNP%a desription for each group of enum types.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~9~ - 2015060404:56 PST - supasupu -18.1 -ACK
--- %DNP%  - Please remove new line before "object" from the below description. 
--- %DNP%- 
--- %DNP%Added enumerated values 3 to 12 to 
--- %DNP%        bsnAAARadiusCallStationIdType 
--- %DNP%        object
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~7~4 - 2015052701:59 PST - sthumati -18.1 -ACK
--- %DNP%  - RE: Line length in the desription field should not cross 72 characters. 
--- %DNP%... 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~8~3 - 2015052701:59 PST - sthumati -18.1 -ACK
--- %DNP%  - RE: A submission should not have two revisions. Please club two new ... 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAPType~6~1 - 2015052701:55 PST - sthumati -18.1 -ACK
--- %DNP%  - RE: Please add description of each type in the enum in the description 
--- %DNP%... 
--- %DNP%These enums are just Ap model numbers. In approved mib also they didnt 
--- %DNP%add any description.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~5~2 - 2015052701:54 PST - sthumati -18.1 -ACK
--- %DNP%  - RE: Please add description for each enum value in the description field. 
--- %DNP% 
--- %DNP%Done.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~4~ - 2015052502:01 PST - supasupu -18.0 -ACK
--- %DNP%  - Line length in the desription field should not cross 72 characters. 
--- %DNP%Please change accordingly. Please change length of line in the revision 
--- %DNP%"201406260000Z" as well.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnWireless~3~ - 2015052501:59 PST - supasupu -18.0 -ACK
--- %DNP%  - A submission should not have two revisions. Please club two new 
--- %DNP%revisions to one.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAAARadiusCallStationIdType~2~ - 2015052501:59 PST - supasupu -18.0 -ACK
--- %DNP%  - Please add description for each enum value in the description field.
--- %DNP%
--- %DNP% -0 MRC 
 
--- %DNP%  MRC - bsnAPType~1~ - 2015052501:57 PST - supasupu -18.0 -ACK
--- %DNP%  - Please add description of each type in the enum in the description 
--- %DNP%field.
--- %DNP%
--- %DNP% -0 MRC 
 
