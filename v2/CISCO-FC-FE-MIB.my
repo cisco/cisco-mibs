@@ -7049,7 +7049,7 @@ cffFcFeMIBComplianceRev17 MODULE-COMPLIANCE
     DESCRIPTION
         "Write access is not required."
 
-    OBJECT          TransceiverPowerControl
+    OBJECT          fcIfTransceiverPowerControl
     MIN-ACCESS      read-only
     DESCRIPTION
         "Write access is not required."
@@ -7651,7 +7651,7 @@ fcIfGroupRev6 OBJECT-GROUP
         				fcIfTransceiverPower,
         				fcIfTransceiverPowerControl,
         				fcIfSysTransceiverPowerControlCapability,
-        				fcIfSysTransceiverPowerControl,
+        				fcIfSysTransceiverPowerControl
                     }
     STATUS          current
     DESCRIPTION
