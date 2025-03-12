@@ -6,7 +6,7 @@ Various Public Simple Network Management Protocol (SNMP) management information 
 ### :exclamation: Disclaimer
 - This Repo is a mirror of various internal MIB files from various Cisco Repos. 
 - All changes **MUST** be modified at the source and then replicated out to this repo.
-  - For contributing, issues, or pull requests. Please review the CONTRIBUTING.md file.
+  - For contributing, issues, or pull requests. Please review the [CONTRIBUTING.md](https://github.com/cisco/cisco-mibs/blob/main/CONTRIBUTING.md) file.
 
 ---
 
