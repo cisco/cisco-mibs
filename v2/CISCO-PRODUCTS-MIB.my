@@ -2375,6 +2375,7 @@ ciscoRA1783SAD2T2Std                OBJECT IDENTIFIER ::= { ciscoProducts 2614 }
 cisco8818                           OBJECT IDENTIFIER ::= { ciscoProducts 2615 } -- Cisco 8818 18 LC Slot Chassis
 cisco8812                           OBJECT IDENTIFIER ::= { ciscoProducts 2616 } -- Cisco 8812 12 LC Slot Chassis
 cisco8808                           OBJECT IDENTIFIER ::= { ciscoProducts 2617 } -- Cisco 8808 8 LC Slot Chassis 
+cisco8804                           OBJECT IDENTIFIER ::= { ciscoProducts 2618 } -- Cisco 8804 4 LC Slot Chassis
 ciscoC11092PLteGB                   OBJECT IDENTIFIER ::= { ciscoProducts 2619 } -- Cisco C1109-2PLTEGB 2 ports GE LAN M2M Router with Multimode LTE WWAN Global (non-US), 1 GE WAN and USB 3.0/Micro USB Console
 ciscoC11092PLteUS                   OBJECT IDENTIFIER ::= { ciscoProducts 2620 } -- Cisco C1109-2PLTEUS 2 ports GE LAN M2M Router with Multimode LTE WWAN US, 1 GE WAN and USB 3.0/Micro USB Console
 ciscoC11092PLteVZ                   OBJECT IDENTIFIER ::= { ciscoProducts 2621 } -- Cisco C1109-2PLTEVZ 2 ports GE LAN M2M Router with Multimode LTE WWAN Verizon, 1 GE WAN and USB 3.0/Micro USB Console
