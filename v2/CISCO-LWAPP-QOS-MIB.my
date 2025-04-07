@@ -2,7 +2,7 @@
 -- CISCO-LWAPP-QOS-MIB.my
 -- November 2011 Gayathri
 --   
--- Copyright (c) 2011-2013, 2018, 2021, 2023 by Cisco Systems, Inc.
+-- Copyright (c) 2011-2013, 2018, 2021, 2023-2025 by Cisco Systems, Inc.
 -- All rights reserved.
 -- *******************************************************************
 
@@ -59,7 +59,7 @@ IMPORTS
 -- ********************************************************************
 
 ciscoLwappQosMIB MODULE-IDENTITY
-    LAST-UPDATED    "201302270000Z"
+    LAST-UPDATED    "202412050000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems,
@@ -189,6 +189,11 @@ ciscoLwappQosMIB MODULE-IDENTITY
 
         [2] Draft-obara-capwap-lwapp-00.txt, IETF Light 
         Weight Access Point Protocol"
+    REVISION        "202412050000Z"
+    DESCRIPTION
+        "Removed reference of cLQVoiceWlanConfigDetectVoipCallFailure
+        in ciscoLwappQosDot11VoiceConfigGroup
+        and corrected syntax errors"
     REVISION        "201803080000Z"
     DESCRIPTION
         "Added cLGlobalAirTimeAllocation."
@@ -4298,7 +4303,6 @@ ciscoLwappQosDot11VoiceStatsGroup OBJECT-GROUP
 
 ciscoLwappQosDot11VoiceConfigGroup OBJECT-GROUP
     OBJECTS         {
-                        cLQVoiceWlanConfigDetectVoipCallFailure,
                         cLQVoiceClientCallingNumber,
                         cLQVoiceClientLastCalledNumber,
                         cLQVoiceClientLastCallFailureReasonCode
@@ -4476,7 +4480,7 @@ ciscoLwappQosCacStatsGroup OBJECT-GROUP
      OBJECTS         {
                          cLQCacIPLearnQStats,
                          cLQCacOutstandingAAAReqQStats,
-                         cLQCacIPCHighStats,
+                         cLQCacIPCHighStats
                      }
      STATUS          current
      DESCRIPTION
