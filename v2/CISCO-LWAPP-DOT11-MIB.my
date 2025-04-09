@@ -250,6 +250,9 @@ ciscoLwappDot11MIB MODULE-IDENTITY
 
         [4] Enhanced Wireless Consortium PHY Specification,
             v1.27."
+    REVISION        "202405140000Z"
+    DESCRIPTION
+        "Corrected syntax errors"
     REVISION        "202305300000Z"
     DESCRIPTION
         "Added below objects to the cld11beMcsTable
