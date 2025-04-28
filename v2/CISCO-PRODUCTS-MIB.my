@@ -37,6 +37,10 @@ ciscoProductsMIB MODULE-IDENTITY
 		"This module defines the object identifiers that are
 		assigned to various hardware platforms, and hence are
 		returned as values for sysObjectID"
+        REVISION "202504210000Z"
+        DESCRIPTION
+                 "Added following OIDs:
+                  cisco821248FHM"
         REVISION "201305280000Z"
         DESCRIPTION
                  "Added following OIDs:
@@ -2375,7 +2379,7 @@ ciscoRA1783SAD2T2Std                OBJECT IDENTIFIER ::= { ciscoProducts 2614 }
 cisco8818                           OBJECT IDENTIFIER ::= { ciscoProducts 2615 } -- Cisco 8818 18 LC Slot Chassis
 cisco8812                           OBJECT IDENTIFIER ::= { ciscoProducts 2616 } -- Cisco 8812 12 LC Slot Chassis
 cisco8808                           OBJECT IDENTIFIER ::= { ciscoProducts 2617 } -- Cisco 8808 8 LC Slot Chassis 
-cisco8804                           OBJECT IDENTIFIER ::= { ciscoProducts 2618 } -- Cisco 8804 4 LC Slot Chassis
+cisco8804                           OBJECT IDENTIFIER ::= { ciscoProducts 2618 } -- Cisco 8804 4 LC Slot Chassis 
 ciscoC11092PLteGB                   OBJECT IDENTIFIER ::= { ciscoProducts 2619 } -- Cisco C1109-2PLTEGB 2 ports GE LAN M2M Router with Multimode LTE WWAN Global (non-US), 1 GE WAN and USB 3.0/Micro USB Console
 ciscoC11092PLteUS                   OBJECT IDENTIFIER ::= { ciscoProducts 2620 } -- Cisco C1109-2PLTEUS 2 ports GE LAN M2M Router with Multimode LTE WWAN US, 1 GE WAN and USB 3.0/Micro USB Console
 ciscoC11092PLteVZ                   OBJECT IDENTIFIER ::= { ciscoProducts 2621 } -- Cisco C1109-2PLTEVZ 2 ports GE LAN M2M Router with Multimode LTE WWAN Verizon, 1 GE WAN and USB 3.0/Micro USB Console
@@ -2888,18 +2892,10 @@ ciscoC130024XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3253 }
 ciscoNCS57D218DDSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3254 } -- NCS-57D2-18DD-SYS - Castleblack router 
 ciscoUCSX410CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3256 } -- Cisco UCS X410c M7 Compute Node
 ciscoFpr1010Etd                     OBJECT IDENTIFIER ::= { ciscoProducts 3257 } -- Cisco Firepower 1010E Security Appliance
-ciscoC8570G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3268 } -- Cisco Aggregation Services Router 1000 Series, C8570-G2 Chassis 
-ciscoC8550G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3269 } -- Cisco Aggregation Services Router 1000 Series, C8550-G2 Chassis 
+cisco821248FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3261 } --  Cisco 8212 2RU System w/ 48x 400G QSFP56-DD w/ MACsec
 ciscoSNS3715K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3270 } -- Cisco Secure Network Server platform SNS-3715 appliance
 ciscoSNS3755K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3271 } -- Cisco Secure Network Server platform SNS-3755 appliance
 ciscoSNS3795K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3272 } -- Cisco Secure Network Server platform SNS-3795 appliance
-ciscoC8351G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3273 } -- Cisco C8330-6TM4SX Chassis
-ciscoC8355G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3274 } -- Cisco C8330X-6TM4SX Chassis
-ciscoC8375EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3275 } -- Cisco C8375-E-G2 Chassis
-ciscoC8355EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3276 } -- Cisco C8355-E-G2 Chassis
-ciscoC8231EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3277 } -- Cisco C8231-E-G2 Chassis
-ciscoC8235EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3278 } -- Cisco C8235-E-G2 Chassis
-ciscoC8235G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3279 } -- Cisco C8230-8TM2S Chassis
 ciscoIW9165DHURWB                   OBJECT IDENTIFIER ::= { ciscoProducts 3280 } -- Ultra-Reliable Wireless Backhaul on 2x2 Wi-fi 6E Cisco Catalyst IW9165D Heavy Duty Series Access Points
 ciscoIW9165EURWB                    OBJECT IDENTIFIER ::= { ciscoProducts 3281 } -- Ultra-Reliable Wireless Backhaul on 2x2 Wi-fi 6E Cisco Catalyst IW9165E Rugged Access Points
 ciscoIW9167EHURWB                   OBJECT IDENTIFIER ::= { ciscoProducts 3282 } -- Ultra-Reliable Wireless Backhaul on 4x4 Wi-fi 6E Cisco Catalyst IW9167E Heavy Duty Series Access Points
@@ -2961,5 +2957,6 @@ ciscoC1300X48NGU4X                  OBJECT IDENTIFIER ::= { ciscoProducts 3415 }
 ciscoC1300X48P4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3416 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28, PoE 
 ciscoC1300X48T4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3417 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28
 ciscoC9KVA100L                      OBJECT IDENTIFIER ::= { ciscoProducts 3427 } -- Catalyst 9000 Argon 8 port switch
+
 END
 
