@@ -76,6 +76,10 @@ ciscoProcessMIB MODULE-IDENTITY
         "Added new attribute in cpmProcessTable.
         Added new notification for a process in cpmProcessTable
         upon PM state change."
+    REVISION        "201804140000Z"
+    DESCRIPTION
+        "cpmCPUTotal15min object is deprecated and
+        new object cpmCPUTotal15minRev is added."
     REVISION        "201106230000Z"
     DESCRIPTION
         "Added new table cpmCoreTable as well as a new optoinal
@@ -233,9 +237,11 @@ CpmCPUTotalEntry ::= SEQUENCE {
         cpmCPUTotal5sec                  Gauge32,
         cpmCPUTotal1min                  Gauge32,
         cpmCPUTotal5min                  Gauge32,
+        cpmCPUTotal15min 		 Gauge32,
         cpmCPUTotal5secRev               Gauge32,
         cpmCPUTotal1minRev               Gauge32,
         cpmCPUTotal5minRev               Gauge32,
+        cpmCPUTotal15minRev		 Gauge32,
         cpmCPUMonInterval                Unsigned32,
         cpmCPUTotalMonIntervalValue      Gauge32,
         cpmCPUInterruptMonIntervalValue  Gauge32,
@@ -322,6 +328,18 @@ cpmCPUTotal5min OBJECT-TYPE
         of value (0..100)." 
     ::= { cpmCPUTotalEntry 5 }
 
+cpmCPUTotal15min OBJECT-TYPE
+        SYNTAX          Gauge32 (1..100)
+        MAX-ACCESS      read-only
+        STATUS          deprecated
+        DESCRIPTION
+		"The overall CPU busy percentage in the last 15 minute
+		period. This object deprecates the avgBusy5 object from 
+		the OLD-CISCO-SYSTEM-MIB. This object is deprecated
+		by cpmCPUTotal15minRev which has the changed range 
+		of value (0..100)."
+	::= { cpmCPUTotalEntry 30 }
+
 cpmCPUTotal5secRev OBJECT-TYPE
     SYNTAX          Gauge32 (0..100)
     UNITS           "percent"
@@ -355,6 +373,17 @@ cpmCPUTotal5minRev OBJECT-TYPE
         period. This object deprecates the object cpmCPUTotal5min 
         and increases the value range to (0..100)." 
     ::= { cpmCPUTotalEntry 8 }
+
+cpmCPUTotal15minRev OBJECT-TYPE
+        SYNTAX          Gauge32 (0..100)
+	UNITS		"percent"
+        MAX-ACCESS      read-only
+        STATUS          current
+        DESCRIPTION
+		"The overall CPU busy percentage in the last 15 minute
+		period. This object deprecates the object cpmCPUTotal15min 
+		and increases the value range to (0..100)."
+	::= { cpmCPUTotalEntry 31 }
 
 cpmCPUMonInterval OBJECT-TYPE
     SYNTAX          Unsigned32
@@ -2608,7 +2637,8 @@ cpmCPUTotalGroup OBJECT-GROUP
                         cpmCPUTotalPhysicalIndex,
                         cpmCPUTotal5sec,
                         cpmCPUTotal1min,
-                        cpmCPUTotal5min
+                        cpmCPUTotal5min,
+                        cpmCPUTotal15min
                     }
     STATUS          deprecated
     DESCRIPTION
@@ -2661,7 +2691,8 @@ cpmCPUTotalGroupRev OBJECT-GROUP
                         cpmCPUTotalPhysicalIndex,
                         cpmCPUTotal5secRev,
                         cpmCPUTotal1minRev,
-                        cpmCPUTotal5minRev
+                        cpmCPUTotal5minRev,
+                        cpmCPUTotal15minRev
                     }
     STATUS          deprecated
     DESCRIPTION
