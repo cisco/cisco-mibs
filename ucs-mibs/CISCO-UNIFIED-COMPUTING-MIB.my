@@ -1811,6 +1811,7 @@ CucsManagedObjectDn ::= TEXTUAL-CONVENTION
         -- fltStorageLocalDiskThermalIssueNonCritical
         -- fltStorageLocalDiskFailed
         -- fltStorageLocalDiskUnhealthy
+        -- fltStorageLocalDiskNotSupported
         -- fltStorageLocalDiskPCIeSlotHwDisabled
         -- fsmStFailStorageLocalDiskUpdateLocalDisk:PollUpdateStatus
         -- fsmStFailStorageLocalDiskUpdateLocalDisk:PowerOffServers
