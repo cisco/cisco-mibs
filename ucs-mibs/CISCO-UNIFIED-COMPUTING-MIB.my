@@ -29,7 +29,7 @@ IMPORTS
                 FROM CISCO-SMI;
 
 ciscoUnifiedComputingMIB MODULE-IDENTITY
-        LAST-UPDATED  "201001290000Z" 
+        LAST-UPDATED  "202506040000Z" 
         ORGANIZATION  "Cisco"
         CONTACT-INFO
             "Cisco Systems
@@ -73,7 +73,7 @@ ciscoUnifiedComputingMIB MODULE-IDENTITY
          power supply objects and fan objects are examples of
          automatically created MOs.
          "
-      REVISION "201001290000Z" 
+      REVISION "202506040000Z" 
       DESCRIPTION
          "Initial version of this MIB module."
   ::= { ciscoMgmt 719 }
