@@ -37,10 +37,21 @@ ciscoProductsMIB MODULE-IDENTITY
 		"This module defines the object identifiers that are
 		assigned to various hardware platforms, and hence are
 		returned as values for sysObjectID"
-        REVISION "202504210000Z"
+        REVISION "202506130000Z"
         DESCRIPTION
                  "Added following OIDs:
-                  cisco821248FHM"
+                  cisco871148ZM,cisco8712MODM,ciscoUCSXE1X0CM8,ciscoC9610RVirtualStack,ciscoC8131G2
+                  Added DNP for: ciscoIE310018T2CCC,ciscoCsf220,ciscoCsf220G,
+                  ciscoCsf240P,ciscoCsf240GP,ciscoCsf260GP,cisco8404RSP148EM,
+				  cisco8404RSP12FH4H,cisco84MPA2H12ZM,cisco84MPA2FH6HM,cisco8404DCPEM,
+				  cisco8404FANTRAY,ciscoCsf6160,ciscoCsf6170,ciscoCsf6130,ciscoCsf6120,
+				  ciscoESS93008X16T,ciscoCsf1230,ciscoCsf1240,ciscoCsf1250,ciscoCsf1260"
+		REVISION "202504210000Z"
+        DESCRIPTION
+                 "Added following OIDs:
+                  cisco821248FHM
+                  Added DNP for: ciscoC8351G2,ciscoC8355G2,ciscoC8375EG2,
+                  ciscoC8355EG2,ciscoC8231EG2,ciscoC8235EG2,ciscoC8235G2."
         REVISION "201305280000Z"
         DESCRIPTION
                  "Added following OIDs:
@@ -2908,6 +2919,10 @@ ciscoIE31004P2S                     OBJECT IDENTIFIER ::= { ciscoProducts 3288 }
 ciscoCsf1210ce                      OBJECT IDENTIFIER ::= { ciscoProducts 3303 } -- Cisco Secure Firewall 1210CE
 ciscoCsf1210cp                      OBJECT IDENTIFIER ::= { ciscoProducts 3304 } -- Cisco Secure Firewall 1210CP
 ciscoCsf1220cx                      OBJECT IDENTIFIER ::= { ciscoProducts 3305 } -- Cisco Secure Firewall 1220CX
+ciscoCsf1230                        OBJECT IDENTIFIER ::= { ciscoProducts 3306 } -- Cisco Secure Firewall 1230
+ciscoCsf1240                        OBJECT IDENTIFIER ::= { ciscoProducts 3307 } -- Cisco Secure Firewall 1240
+ciscoCsf1250                        OBJECT IDENTIFIER ::= { ciscoProducts 3308 } -- Cisco Secure Firewall 1250
+ciscoCsf1260                        OBJECT IDENTIFIER ::= { ciscoProducts 3309 } -- Cisco Secure Firewall 1260
 ciscoCW9800M                        OBJECT IDENTIFIER ::= { ciscoProducts 3323 } -- Cisco Catalyst CW9800M Wireless Controller
 ciscoCW9800H1                       OBJECT IDENTIFIER ::= { ciscoProducts 3324 } -- Cisco Catalyst CW9800H1 Wireless Controller
 ciscoCW9800H2                       OBJECT IDENTIFIER ::= { ciscoProducts 3325 } -- Cisco Catalyst CW9800H2 Wireless Controller
@@ -2939,6 +2954,7 @@ ciscoC1131X8PLTEPWR                 OBJECT IDENTIFIER ::= { ciscoProducts 3351 }
 ciscoNCS1014                        OBJECT IDENTIFIER ::= { ciscoProducts 3366 } -- Network Convergence System 1014 chassis with timing support
 ciscoNCS1012                        OBJECT IDENTIFIER ::= { ciscoProducts 3367 } -- Cisco Network Convergence System 1012, Optical Line System
 ciscoNCS1020                        OBJECT IDENTIFIER ::= { ciscoProducts 3368 } -- Cisco Network Convergence System 1020, Optical Line System
+ciscoESS93008X16T                   OBJECT IDENTIFIER ::= { ciscoProducts 3378 } -- Catalyst ESS9300 Embedded VPX Series switch – with 8 10G ports and 10 1G copper ports, Fixed system, Network Advantage
 ciscoC9610R                         OBJECT IDENTIFIER ::= { ciscoProducts 3383 } -- Cisco 9600 Series 10 Slot
 ciscoC11318PWS                      OBJECT IDENTIFIER ::= { ciscoProducts 3396 } -- Cisco C1131-8PWS 8 Ports GE LAN Router with 4GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC1131X8PWS                     OBJECT IDENTIFIER ::= { ciscoProducts 3397 } -- Cisco C1131X-8PWS 8 Ports GE LAN Router with 8GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
@@ -2957,6 +2973,9 @@ ciscoC1300X48NGU4X                  OBJECT IDENTIFIER ::= { ciscoProducts 3415 }
 ciscoC1300X48P4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3416 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28, PoE 
 ciscoC1300X48T4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3417 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28
 ciscoC9KVA100L                      OBJECT IDENTIFIER ::= { ciscoProducts 3427 } -- Catalyst 9000 Argon 8 port switch
+cisco871148ZM                       OBJECT IDENTIFIER ::= { ciscoProducts 3452 } -- Cisco 8711 1RU chassis with 48x 50G + 4x 200G + 6x 400G port
+cisco8712MODM                       OBJECT IDENTIFIER ::= { ciscoProducts 3453 } -- Cisco 8712 6.4T System
+ciscoC9610RVirtualStack             OBJECT IDENTIFIER ::= { ciscoProducts 3455 } -- Virtual Stack of Cisco 9610
 
 END
 
