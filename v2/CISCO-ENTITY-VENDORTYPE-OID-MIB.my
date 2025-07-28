@@ -3839,7 +3839,6 @@ cevFanNCS1010                   OBJECT IDENTIFIER ::= { cevFan 481 } -- NCS1010 
 cevFanNCS1K4FANP                OBJECT IDENTIFIER ::= { cevFan 491 } -- Network Convergence System 1014 Programmable FAN
 cevFan8700PE                    OBJECT IDENTIFIER ::= { cevFan 492 } -- Cisco 8000 Fan Tray 2RU Chassis Port-S Exhaust / Back-to-front
 
-
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
 cevSensorMGX8800Temp			OBJECT IDENTIFIER ::= { cevSensor 11 }		-- Cabinet Temperature sensor device in MGX8800 Universal Chassis
 cevSensorMGX8800PSVoltage		OBJECT IDENTIFIER ::= { cevSensor 12 }		-- Power Supply Voltage Monitoring device in MGX8800 Universal Chassis
@@ -4689,6 +4688,7 @@ cevModuleNCS1KMD32OCE                   OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleC9610SSD480GB                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 836 } -- This is 480GB SSD used in Catalyst 9610 switch. This is fruable ssd accessed through SATA 
 cevModuleN9KC92348GCFX3                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 837 } -- Cisco Nexus 9200 Series fixed switch with 48x100M/1G BASE-T + 4x10/25 Gbps SFP28 + 2x40/100-Gbps QSFP28 ports 
 cevModuleN9KC93320TCFX3P                OBJECT IDENTIFIER ::= { cevModuleCommonCards 838 } -- 2RU TOR fixed module with 12 x 100M/1G/2.5G/5G/10G BASE-T + 2 x 40/100G QSFP28 ports
+cevModuleC9610SSD480GV1                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 844 } -- This is 480GB SSD used in Cisco 9610 switch. This is fruable ssd accessed through SATA
 cevModuleNCS1KE2OLTREC                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 854 } -- NCS1010 OpticalLineTerminal EnhancedRaman-C-band no A/D amp
 cevModuleNCS1KE2OLTC                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 855 } -- NCS 1010 Optical Line Terminal - C-band, no A/D amp
 cevModuleNCS1KE2OLTRC                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 856 } -- NCS 1010 Optical Line Terminal Raman - C-band, no A/D amp
@@ -4698,6 +4698,7 @@ cevModuleNCS1KEILAREC2                  OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleNCS1010CNTBK9                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 860 } -- NCS 1010 Controller, 9600bps console baud-rate
 cevModuleNCS1K1424TAK9                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 861 } -- Aquila TXP NCS1014 2.4T Line Card
 cevModuleNCS1K1424TALK9                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 862 } -- Aquila TXP NCS1014 2.4T  Licensed Line Card
+cevModuleNCS1K14CNTBK9                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 868 } -- NCS 1014 Controller, 9600bps console baud-rate
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -7553,6 +7554,7 @@ cevSFP1GTX                             OBJECT IDENTIFIER ::= { cevModuleSFPType 
 cevS1GTEPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPType 318 } -- 1000BASE-T Performance Monitoring, RJ45, I-Temp
 cevS1GLHPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPType 319 } -- 1000BASE-LH Performance Monitoring, SM, 1310nm, I-Temp
 cevS1GSXPMDI                           OBJECT IDENTIFIER ::= { cevModuleSFPType 320 } -- 1000BASE-SX Performance Monitoring, MM, 850nm, I-Temp
+cevSFPPONOLT20ITEMP                    OBJECT IDENTIFIER ::= { cevModuleSFPType 321 } -- Cisco SFP PON OLT Pluggable Optics Module
 
 cevModuleONS15200Type		OBJECT IDENTIFIER ::= { cevModule 52 }			-- Represents the base class for all the modules used in ONS15200.
 cevONS15252Clip			OBJECT IDENTIFIER ::= { cevModuleONS15200Type 1 }       -- ONS15252 Client Line Interface Port
@@ -9721,8 +9723,6 @@ cevN9KC93108TCFX3                       OBJECT IDENTIFIER ::= { cevModuleN93KTyp
 cevN9KC9336CK1FixedModule               OBJECT IDENTIFIER ::= { cevModuleN93KType 65 } -- Nexus 9300 Series fixed module with 36x 40/100GE ports
 cevN9336CSE1FixedModule                 OBJECT IDENTIFIER ::= { cevModuleN93KType 74 } -- Nexus 9300 Series fixed module with 36x 40/100GE ports
 
-
-
 cevModuleISR4300Type                    OBJECT IDENTIFIER ::= { cevModule 104 } -- These are modules that are used in Cisco ISR 4300 Series Router
 cevModuleISR4351RP                      OBJECT IDENTIFIER ::= { cevModuleISR4300Type 1 } -- Cisco ISR 4351 Routing Processor Module
 cevModuleISR4351FP                      OBJECT IDENTIFIER ::= { cevModuleISR4300Type 2 } -- Cisco ISR 4351 Forwarding Processor Module
@@ -10276,6 +10276,7 @@ cevQDD8x100GLR               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 85 } --  8x
 cevQDD400GBD                 OBJECT IDENTIFIER ::= { cevModuleQSFPDD 86 } --  400G-BD QDD Module
 cevQDD2x400GDR4              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 87 } --  cevQDD2x400GDR4  2x400G DR4 QSFP-DD module
 cevQDD8x100GDR8              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 88 } --  cevQDD8x100GDR8  8x100G DR8 QSFP-DD Module
+cevDP04QSDDULH               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 89 } --  Cisco QDD 400G ULH Pluggable Optics Module
 cevQDD2Q200CU1M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 90 } -- QDD 2Q200 Passive Copper Cable, 1m
 cevQDD2Q200CU2M              OBJECT IDENTIFIER ::= { cevModuleQSFPDD 91 } -- QDD 2Q200 Passive Copper Cable, 2m
 cevQDD2Q200CU2DOT5M          OBJECT IDENTIFIER ::= { cevModuleQSFPDD 92 } -- QDD 2Q200 Passive Copper Cable, 2.5m
@@ -10314,6 +10315,7 @@ cevQDDO800CU2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 124 } -- O8
 cevQDDR800CU1DOT5M           OBJECT IDENTIFIER ::= { cevModuleQSFPDD 125 } -- R800-CU1.5M QDD Module
 cevQDDR800CU1M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 126 } -- R800-CU1M QDD Module
 cevQDDR800CU2M               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 127 } -- R800-CU2M QDD Module
+cevQDD400GFR4G               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 128 } -- 400G-FR4-S QDD Module
 cevQSFP400GBD                OBJECT IDENTIFIER ::= { cevModuleQSFPDD 129 } -- 400GE-BD QSFP Module
 cevQDD800GDR8                OBJECT IDENTIFIER ::= { cevModuleQSFPDD 130 } -- 800G-DR8 QSFP-DD Module
 cevQDD800GDR82               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 131 } -- 800G-DR82 QSFP-DD Module
