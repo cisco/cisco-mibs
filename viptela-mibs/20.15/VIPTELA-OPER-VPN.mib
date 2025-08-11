@@ -1,0 +1,1988 @@
+-- Namespace: http://viptela.com/oper-vpn
+
+VIPTELA-OPER-VPN DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE,
+    Integer32, Unsigned32, Counter32, Counter64,
+    Gauge32, IpAddress
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION, RowStatus, DateAndTime,
+    TruthValue
+        FROM SNMPv2-TC
+    Ipv6Address
+        FROM IPV6-TC
+    viptela, VpnIndex
+        FROM VIPTELA-GLOBAL
+;
+
+viptela-oper-vpn MODULE-IDENTITY
+    LAST-UPDATED "202407010000Z"
+    ORGANIZATION "Viptela, Inc."
+    CONTACT-INFO "Viptela, Inc.  Email:support@viptela.com"
+    DESCRIPTION "This module defines the data model for VPN operational data"
+    REVISION "202407010000Z"
+    DESCRIPTION "Viptela Revision 20.15"
+    REVISION "202403010000Z"
+    DESCRIPTION "Viptela Revision 20.14"
+    REVISION "202311010000Z"
+    DESCRIPTION "Viptela Revision 20.13"
+    REVISION "202307010000Z"
+    DESCRIPTION "Viptela Revision 20.12"
+    REVISION "202303010000Z"
+    DESCRIPTION "Viptela Revision 20.11"
+    REVISION "202212150000Z"
+    DESCRIPTION "Viptela Revision 20.10"
+    REVISION "202206010000Z"
+    DESCRIPTION "Viptela Revision 20.9"
+    REVISION "202203010000Z"
+    DESCRIPTION "Viptela Revision 20.8"
+    REVISION "202111010000Z"
+    DESCRIPTION "Viptela Revision 20.7"
+    REVISION "202107010000Z"
+    DESCRIPTION "Viptela Revision 20.6"
+    REVISION "202103010000Z"
+    DESCRIPTION "Viptela Revision 20.5"
+    REVISION "202011010000Z"
+    DESCRIPTION "Viptela Revision 20.4"
+    REVISION "202007010000Z"
+    DESCRIPTION "Viptela Revision 20.3"
+    REVISION "202002240000Z"
+    DESCRIPTION "Viptela Revision 20.1"
+    REVISION "201911150000Z"
+    DESCRIPTION "Viptela Revision 19.3"
+    REVISION "201908150000Z"
+    DESCRIPTION "Viptela Revision 19.2"
+    REVISION "201811010000Z"
+    DESCRIPTION "Viptela Revision 18.4"
+    REVISION "201808200000Z"
+    DESCRIPTION "Viptela Revision 18.3.1"
+    REVISION "201806250000Z"
+    DESCRIPTION "Viptela Revision 18.3"
+    REVISION "201804250000Z"
+    DESCRIPTION "Viptela Revision 18.2"
+    REVISION "201803150000Z"
+    DESCRIPTION "Viptela Revision 18.1.1"
+    REVISION "201801160000Z"
+    DESCRIPTION "Viptela Revision 17.2.3"
+    REVISION "201711010000Z"
+    DESCRIPTION "Viptela Revision 17.2.1"
+    REVISION "201708010000Z"
+    DESCRIPTION "Viptela Revision 17.2"
+    REVISION "201705250000Z"
+    DESCRIPTION "Viptela Revision 17.1.1"
+    REVISION "201704060000Z"
+    DESCRIPTION "Viptela Revision 17.1"
+    REVISION "201702150000Z"
+    DESCRIPTION "Viptela Revision 16.3.2"
+    REVISION "201702060000Z"
+    DESCRIPTION "Viptela Revision 16.3.1"
+    REVISION "201611160000Z"
+    DESCRIPTION "Viptela Revision 16.3"
+    REVISION "201610250000Z"
+    DESCRIPTION "Viptela Revision 16.2.10"
+    REVISION "201610240000Z"
+    DESCRIPTION "Viptela Revision 16.2.4"
+    REVISION "201608100000Z"
+    DESCRIPTION "Viptela Revision 16.2.2"
+    REVISION "201608010000Z"
+    DESCRIPTION "Viptela Revision 16.2.1"
+    REVISION "201606090000Z"
+    DESCRIPTION "Viptela Revision 16.2"
+    REVISION "201604220000Z"
+    DESCRIPTION "Viptela Revision 16.1.1"
+    REVISION "201603150000Z"
+    DESCRIPTION "Viptela Revision 16.1"
+    REVISION "201601300000Z"
+    DESCRIPTION "Viptela Revision 15.4.3"
+    REVISION "201512280000Z"
+    DESCRIPTION "Viptela Revision 15.4.1"
+    REVISION "201512010000Z"
+    DESCRIPTION "Viptela Revision 15.4.0"
+    REVISION "201510310000Z"
+    DESCRIPTION "Viptela Revision 15.3.5"
+    REVISION "201509270000Z"
+    DESCRIPTION "Viptela Revision 15.3.3"
+    REVISION "201509010000Z"
+    DESCRIPTION "Viptela Revision 15.3.1"
+    REVISION "201507010000Z"
+    DESCRIPTION "Viptela Revision 15.3"
+    ::= { viptela 12 }
+
+UnsignedByte ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:unsignedByte"
+    SYNTAX      Unsigned32 (0 .. 255)
+
+UnsignedShort ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:unsignedShort"
+    SYNTAX      Unsigned32 (0 .. 65535)
+
+ConfdString ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs: and confd: types mapped to strings"
+    SYNTAX      OCTET STRING
+
+Ipv4Prefix ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1d.1d.1d.1d/1d"
+    STATUS      current
+    DESCRIPTION "confd:ipv4Prefix"
+    SYNTAX      OCTET STRING (SIZE (5))
+
+InetAddressIP ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "confd:inetAddressIP"
+    SYNTAX      OCTET STRING (SIZE (4|16))
+
+IpPrefix ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "confd:ipPrefix"
+    SYNTAX      OCTET STRING (SIZE (5|17))
+
+String ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs:string"
+    SYNTAX      OCTET STRING
+
+HexList ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1x:"
+    STATUS      current
+    DESCRIPTION "confd:hexList"
+    SYNTAX      OCTET STRING
+
+IfAddressTypeEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Interface IP address type"
+    SYNTAX	INTEGER {ifaddrEnumInvalid(0), ifaddrEnumIpv4Static(1), ifaddrEnumIpv4Dhcp(2),ifaddrEnumIpv6Static(3),ifaddrEnumIpv6Dhcp(4),ifaddrEnumIpv6Ra(5), ifaddrEnumIpv6LinkLocal(6)}
+
+SfpPowerType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP optical power measurement basis"
+    SYNTAX      INTEGER {sfpPowerTypeAverageInputPower(0),sfpPowerTypeOma(1)}
+
+SfpPhysicalIdentifierEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP physical identifer type"
+    SYNTAX      INTEGER {sfpPiUnknownUnspecified(0),sfpPiGbic(1),sfpPiSff(2),sfpPiSfpSfpPlus(3),sfpPiUnknown(256)}
+
+SfpConnectorTypeEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP connector types"
+    SYNTAX      INTEGER {sfpConnectorTypeUnknownUnspecified(0),sfpConnectorTypeSc(1),sfpConnectorTypeFcStyle1Cu(2),sfpConnectorTypeFcStyle2Cu(3),sfpConnectorTypeBncTnc(4),sfpConnectorTypeCoax(5),sfpConnectorTypeFiberJack(6),sfpConnectorTypeLc(7),sfpConnectorTypeRj(8),sfpConnectorTypeMu(9),sfpConnectorTypeSg(10),sfpConnectorTypeOpticalPigtail(11),sfpConnectorTypeMpo1x12(12),sfpConnectorTypeMpo2x16(13),sfpConnectorTypeHssdcIi(32),sfpConnectorTypeCopperPigtail(33),sfpConnectorTypeRj45(34),sfpConnectorTypeNoSeparableConnector(35),sfpConnectorTypeMxc2x16(36),sfpConnectorTypeUnknown(256)}
+
+SfpCalibrationType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP calibration type"
+    SYNTAX      INTEGER {sfpCalibrationTypeNone(0),sfpCalibrationTypeInternal(1),sfpCalibrationTypeExternal(2)}
+
+SfpRateSelectEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP rate selection type"
+    SYNTAX      INTEGER {sfpRateSelectUnspecified(0),sfpRateSelect4-2-1G-RateSelectAndAs0As1(1),sfpRateSelect8-4-2G-RxRateSelect(2),sfpRateSelect8-4-2G-TxRateSelect(4),sfpRateSelect8-4-2G-RxAndTxRateSelect(6),sfpRateSelect16-8-4G-RxRateSelect(8),sfpRateSelect16-8-4G-RxAndTxRateSelect(10),sfpRateSelect32-16-8G-RxAndTxRateSelect(12),sfpRateSelect10-8G-RxAndTxRateSelect(14),sfpRateSelectReserved(256),sfpRateSelectUnallocated(257)}
+
+SfpTransceiverComplianceEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP transceiver compliance types"
+    SYNTAX      INTEGER {sfpTransceiverComplianceUnexpected(0),sfpTransceiverCompliance10gBaseEr(1),sfpTransceiverCompliance10gBaseLrm(2),sfpTransceiverCompliance10gBaseSr(3),sfpTransceiverCompliance10gBaseLr(4),sfpTransceiverCompliance1gBaseT(5),sfpTransceiverCompliance1gBaseCx(6),sfpTransceiverCompliance1gBaseLx(7),sfpTransceiverCompliance1gBaseSx(8)}
+
+Yesno ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Friendly boolean type"
+    SYNTAX      INTEGER {no(0),yes(1)}
+
+VpnIfFlagsType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION ""
+     SYNTAX      BITS {inactive(0),detect(1),pseudo(2)}
+
+SfpTimingType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP clock timing type"
+    SYNTAX      INTEGER {sfpTimingTypeInternalRetimer(0),sfpTimingTypeCdr(1)}
+
+SfpEncodingEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "SFP encoding types"
+    SYNTAX      INTEGER {sfpEncodingUnspecified(0),sfpEncoding8b-10b(1),sfpEncoding4b-5b(2),sfpEncodingNrz(3),sfpEncodingManchester(4),sfpEncodingScrambled(5),sfpEncoding64b-66b(6),sfpEncoding256b-257b(7),sfpEncodingPam4(8),sfpEncodingReserved(255)}
+
+SfpHexBytes ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "Hexadecimal octet array type"
+    SYNTAX      OCTET STRING
+
+T3 ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION ""
+    SYNTAX      BITS {dhcp(0),dns(1),icmp(2),sshd(3),ntp(4),stun(5),all(6),bgp(7),ospf(8),netconf(9),https(10)}
+
+RouteStatusType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION ""
+    SYNTAX      BITS {b(0),f(1),i(2),s(3),r(4),l(5)}
+
+VpnIfPauseType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION ""
+    SYNTAX      BITS {txPause(0),rxPause(1)}
+
+PppInterfaceAuthEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "PPP authentication type"
+    SYNTAX      INTEGER {chap(0),pap(1)}
+
+CloudExpressAppType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cloudexpress applications"
+    SYNTAX      INTEGER { salesforce        (1),
+                          office365         (2),
+                          amazonAws         (3),
+                          oracle            (4),
+                          boxNet            (6),
+                          dropbox           (7),
+                          intuit            (9),
+                          concur            (10),
+                          sugarCrm          (11),
+                          zohoCrm           (12),
+                          zendesk           (13),
+                          gotomeeting       (14),
+                          webex             (15),
+                          googleApps        (16)
+                        }
+TlocColorEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "TLOC color"
+    SYNTAX      INTEGER { default           (1),
+                          mpls              (2),
+                          metro-ethernet    (3),
+                          biz-internet      (4),
+                          public-internet   (5),
+                          lte               (6),
+                          threeG            (7),
+                          red               (8),
+                          green             (9),
+                          blue              (10),
+                          gold              (11),
+                          silver            (12),
+                          bronze            (13),
+                          custom1           (14),
+                          custom2           (15),
+                          custom3           (16),
+                          private1          (17),
+                          private2          (18),
+                          private3          (19),
+                          private4          (20),
+                          private5          (21),
+                          private6          (22)
+                        }
+
+-- IP information
+-- tagpath /ip
+ip OBJECT IDENTIFIER ::= { viptela-oper-vpn 7 }
+
+-- Display DHCP information
+-- tagpath /dhcp
+dhcp OBJECT IDENTIFIER ::= { viptela-oper-vpn 12 }
+
+-- Display DHCPv6 information
+-- tagpath /dhcpv6
+dhcpv6 OBJECT IDENTIFIER ::= { viptela-oper-vpn 18 }
+
+-- tagpath /arp
+arpTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF ArpEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display ARP table"
+    ::= { viptela-oper-vpn 1 }
+
+-- tagpath /arp
+arpEntry OBJECT-TYPE
+    SYNTAX      ArpEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { arpVpnId, arpIfName, arpIp }
+        ::= { arpTable 1 }
+
+ArpEntry ::=
+    SEQUENCE {
+        arpVpnId Unsigned32,
+        arpIfName String,
+        arpIp InetAddressIP,
+        arpMac String,
+        arpState INTEGER,
+        arpIdleTimer String,
+        arpUptime String
+    }
+
+-- tagpath /arp/vpn-id
+arpVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { arpEntry 1 }
+
+-- tagpath /arp/if-name
+arpIfName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Interface name"
+    ::= { arpEntry 2 }
+
+-- tagpath /arp/ip
+arpIp OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { arpEntry 3 }
+
+-- tagpath /arp/mac
+arpMac OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "MAC address"
+    ::= { arpEntry 4 }
+
+-- tagpath /arp/state
+arpState OBJECT-TYPE
+    SYNTAX      INTEGER {static(0),dynamic(1),invalid(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { arpEntry 5 }
+
+-- tagpath /arp/idle-timer
+arpIdleTimer OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Time before expiration, in seconds"
+    ::= { arpEntry 6 }
+
+-- tagpath /arp/uptime
+arpUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "How long this neighbor entry has been active, in seconds"
+    ::= { arpEntry 7 }
+
+-- tagpath /nd6
+nd6Table OBJECT-TYPE
+    SYNTAX      SEQUENCE OF Nd6Entry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display IPv6 neighbor table"
+    ::= { viptela-oper-vpn 3 }
+
+-- tagpath /nd6
+nd6Entry OBJECT-TYPE
+    SYNTAX      Nd6Entry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { nd6VpnId, nd6IfName, nd6Ip }
+        ::= { nd6Table 1 }
+
+Nd6Entry ::=
+    SEQUENCE {
+        nd6VpnId Unsigned32,
+        nd6IfName String,
+        nd6Ip InetAddressIP,
+        nd6Mac String,
+        nd6State INTEGER,
+        nd6IdleTimer String,
+        nd6Uptime String
+    }
+
+-- tagpath /nd6/vpn-id
+nd6VpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { nd6Entry 1 }
+
+-- tagpath /nd6/if-name
+nd6IfName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Interface name"
+    ::= { nd6Entry 2 }
+
+-- tagpath /nd6/ip
+nd6Ip OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { nd6Entry 3 }
+
+-- tagpath /nd6/mac
+nd6Mac OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "MAC address"
+    ::= { nd6Entry 4 }
+
+-- tagpath /nd6/state
+nd6State OBJECT-TYPE
+    SYNTAX      INTEGER {static(0),dynamic(1),invalid(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { nd6Entry 5 }
+
+-- tagpath /nd6/idle-timer
+nd6IdleTimer OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Time before expiration, in seconds"
+    ::= { nd6Entry 6 }
+
+-- tagpath /nd6/uptime
+nd6Uptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "How long this neighbor entry has been active, in seconds"
+    ::= { nd6Entry 7 }
+
+-- tagpath /interface
+interfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF InterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display interface"
+    ::= { viptela-oper-vpn 2 }
+
+-- tagpath /interface
+interfaceEntry OBJECT-TYPE
+    SYNTAX      InterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { interfaceVpnId, interfaceIfname, interfaceAfType }
+        ::= { interfaceTable 1 }
+
+InterfaceEntry ::=
+    SEQUENCE {
+        interfaceVpnId Unsigned32,
+        interfaceIfname String,
+        interfaceIpAddress String,
+        interfaceIpv6Address String,
+        interfaceIfAdminStatus String,
+        interfaceIfOperStatus String,
+        interfaceDesc String,
+        interfaceIpv6AdminStatus String,
+        interfaceEncapType INTEGER,
+        interfacePortType INTEGER,
+        interfaceIfindex Unsigned32,
+        interfaceMtu Unsigned32,
+        interfaceHwaddr String,
+        interfaceSpeedMbps Unsigned32,
+        interfaceDuplex INTEGER,
+        interfaceAutoNeg TruthValue,
+        interfacePauseType VpnIfPauseType,
+        interfaceTcpMssAdjust UnsignedShort,
+        interfaceUptime String,
+        interfaceAllowService T3,
+        interfaceRxPackets Counter64,
+        interfaceRxOctets Counter64,
+        interfaceRxErrors Counter64,
+        interfaceRxDrops Counter64,
+        interfaceTxPackets Counter64,
+        interfaceTxOctets Counter64,
+        interfaceTxErrors Counter64,
+        interfaceTxDrops Counter64,
+        interfaceRxPps Counter64,
+        interfaceRxKbps Counter64,
+        interfaceTxPps Counter64,
+        interfaceTxKbps Counter64,
+        interfaceAfType INTEGER,
+        interfaceLinkLocalAddress String,
+        interfaceIfTrackerStatus String,
+        interfaceAddrType IfAddressTypeEnum
+    }
+
+-- tagpath /interface/vpn-id
+interfaceVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { interfaceEntry 1 }
+
+-- tagpath /interface/ifname
+interfaceIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Interface name"
+    ::= { interfaceEntry 2 }
+
+-- tagpath /interface/ip-address
+interfaceIpAddress OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Address"
+    ::= { interfaceEntry 3 }
+
+-- tagpath /interface/ipv6-address
+interfaceIpv6Address OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IPv6 Address"
+    ::= { interfaceEntry 4 }
+
+-- tagpath /interface/if-admin-status
+interfaceIfAdminStatus OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 8))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface administrative status"
+    ::= { interfaceEntry 5 }
+
+-- tagpath /interface/if-oper-status
+interfaceIfOperStatus OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 16))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface operational status"
+    ::= { interfaceEntry 6 }
+
+-- tagpath /interface/if-tracker-status
+interfaceIfTrackerStatus OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 16))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface tracker status"
+    ::= { interfaceEntry 106 }
+
+-- tagpath /interface/addr-type
+interfaceAddrType OBJECT-TYPE
+    SYNTAX      IfAddressTypeEnum
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface primary address type"
+    ::= { interfaceEntry 107 }
+
+-- tagpath /interface/desc
+interfaceDesc OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 127))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface description"
+    ::= { interfaceEntry 7 }
+
+-- tagpath /interface/if-ipv6-admin-status
+interfaceIpv6AdminStatus OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 8))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface IPv6 administrative status"
+    ::= { interfaceEntry 8 }
+
+-- tagpath /interface/encap-type
+interfaceEncapType OBJECT-TYPE
+    SYNTAX      INTEGER {null(0),vlan(1),ppp(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Encapsulation type"
+    ::= { interfaceEntry 9 }
+
+-- tagpath /interface/port-type
+interfacePortType OBJECT-TYPE
+    SYNTAX      INTEGER {service(0),transport(1),loopback(2),mgmt(3)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Port type"
+    ::= { interfaceEntry 10 }
+
+-- tagpath /interface/ifindex
+interfaceIfindex OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface index"
+    ::= { interfaceEntry 11 }
+
+-- tagpath /interface/mtu
+interfaceMtu OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "MTU"
+    ::= { interfaceEntry 12 }
+
+-- tagpath /interface/hwaddr
+interfaceHwaddr OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Hardware address"
+    ::= { interfaceEntry 13 }
+
+-- tagpath /interface/speed-mbps
+interfaceSpeedMbps OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Speed"
+    ::= { interfaceEntry 14 }
+
+-- tagpath /interface/duplex
+interfaceDuplex OBJECT-TYPE
+    SYNTAX      INTEGER {full(0),half(1),nA(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Duplex mode"
+    ::= { interfaceEntry 15 }
+
+-- tagpath /interface/auto-neg
+interfaceAutoNeg OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Autonegotiation"
+    ::= { interfaceEntry 16 }
+
+-- tagpath /interface/pause-type
+interfacePauseType OBJECT-TYPE
+    SYNTAX      VpnIfPauseType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Pause parameters type"
+    ::= { interfaceEntry 17 }
+
+-- tagpath /interface/tcp-mss-adjust
+interfaceTcpMssAdjust OBJECT-TYPE
+    SYNTAX      UnsignedShort
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "TCP MSS on SYN packets, in bytes"
+    ::= { interfaceEntry 18 }
+
+-- tagpath /interface/uptime
+interfaceUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface uptime"
+    ::= { interfaceEntry 19 }
+
+-- tagpath /interface/allow-service
+interfaceAllowService OBJECT-TYPE
+    SYNTAX      T3
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Which services are allowed on this interface (only for WAN interfaces)"
+    ::= { interfaceEntry 20 }
+
+-- tagpath /interface/rx-packets
+interfaceRxPackets OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 21 }
+
+-- tagpath /interface/rx-octets
+interfaceRxOctets OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 22 }
+
+-- tagpath /interface/rx-errors
+interfaceRxErrors OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 23 }
+
+-- tagpath /interface/rx-drops
+interfaceRxDrops OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 24 }
+
+-- tagpath /interface/tx-packets
+interfaceTxPackets OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 25 }
+
+-- tagpath /interface/tx-octets
+interfaceTxOctets OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 26 }
+
+-- tagpath /interface/tx-errors
+interfaceTxErrors OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 27 }
+
+-- tagpath /interface/tx-drops
+interfaceTxDrops OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 28 }
+
+-- tagpath /interface/rx-pps
+interfaceRxPps OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 29 }
+
+-- tagpath /interface/rx-kbps
+interfaceRxKbps OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 30 }
+
+-- tagpath /interface/tx-pps
+interfaceTxPps OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 31 }
+
+-- tagpath /interface/tx-kbps
+interfaceTxKbps OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { interfaceEntry 32 }
+
+-- tagpath /interface/af-type
+interfaceAfType OBJECT-TYPE
+    SYNTAX      INTEGER{ipv4(0), ipv6(1)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Interface AF Type"
+    ::= { interfaceEntry 100 }
+
+-- tagpath /interface/link-local-address
+interfaceLinkLocalAddress OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Link local address"
+    ::= { interfaceEntry 101 }
+
+
+-- tagpath /interface/if-addr
+interfaceIfAddrTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF InterfaceIfAddrEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display interface addresses"
+    ::= { viptela-oper-vpn 4 }
+
+-- tagpath /interface/if-addr
+interfaceIfAddrEntry OBJECT-TYPE
+    SYNTAX      InterfaceIfAddrEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { interfaceVpnId, interfaceIfname, interfaceAfType, interfaceIfAddrAddrId }
+        ::= { interfaceIfAddrTable 1 }
+
+InterfaceIfAddrEntry ::=
+    SEQUENCE {
+        interfaceIfAddrAddrId        Unsigned32,
+        interfaceIfAddrIpAddress     String,
+        interfaceIfAddrBroadcastAddr IpAddress,
+        interfaceIfAddrSecondary     TruthValue
+    }
+
+-- tagpath /interface/if-addr/addr-id
+interfaceIfAddrAddrId OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Address ID"
+    ::= { interfaceIfAddrEntry 1 }
+
+-- tagpath /interface/if-addr/ip-address
+interfaceIfAddrIpAddress OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { interfaceIfAddrEntry 2 }
+
+-- tagpath /interface/if-addr/broadcast-addr
+interfaceIfAddrBroadcastAddr OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Broadcast address"
+    ::= { interfaceIfAddrEntry 3 }
+
+-- tagpath /interface/if-addr/secondary
+interfaceIfAddrSecondary OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Secondary address"
+    ::= { interfaceIfAddrEntry 4 }
+
+-- tagpath /ip/routes-table
+ipRoutesTableTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF IpRoutesTableEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "List of routes"
+    ::= { ip 1 }
+
+-- tagpath /ip/routes-table
+ipRoutesTableEntry OBJECT-TYPE
+    SYNTAX      IpRoutesTableEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ipRoutesTableVpnId, ipRoutesTableAddressFamily, ipRoutesTablePrefix, ipRoutesTablePathId }
+        ::= { ipRoutesTableTable 1 }
+
+IpRoutesTableEntry ::=
+    SEQUENCE {
+        ipRoutesTableVpnId Unsigned32,
+        ipRoutesTableAddressFamily INTEGER,
+        ipRoutesTablePrefix IpPrefix,
+        ipRoutesTablePathId Unsigned32,
+        ipRoutesTableProtocol INTEGER,
+        ipRoutesTableProtocolSubType INTEGER,
+        ipRoutesTableDistance Unsigned32,
+        ipRoutesTableMetric Unsigned32,
+        ipRoutesTableUptime String,
+        ipRoutesTablePathFlags Unsigned32,
+        ipRoutesTableNexthopFlags Unsigned32,
+        ipRoutesTableNexthopType INTEGER,
+        ipRoutesTableNexthopIfname String,
+        ipRoutesTableNexthopAddr InetAddressIP,
+        ipRoutesTableNexthopRtype INTEGER,
+        ipRoutesTableNexthopRifname String,
+        ipRoutesTableNexthopRaddr InetAddressIP,
+        ipRoutesTableNexthopRsrc InetAddressIP,
+        ipRoutesTableIp InetAddressIP,
+        ipRoutesTableColor INTEGER,
+        ipRoutesTableEncap INTEGER,
+        ipRoutesTableNexthopVpn Unsigned32,
+        ipRoutesTableNexthopLabel Unsigned32,
+        ipRoutesTableRstatus RouteStatusType,
+        ipRoutesTableOmpTag Unsigned32,
+        ipRoutesTableOspfTag Unsigned32
+    }
+
+-- tagpath /ip/routes-table/vpn-id
+ipRoutesTableVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { ipRoutesTableEntry 1 }
+
+-- tagpath /ip/routes-table/address-family
+ipRoutesTableAddressFamily OBJECT-TYPE
+    SYNTAX      INTEGER {ipv4(0),ipv6(1)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Address Family"
+    ::= { ipRoutesTableEntry 2 }
+
+-- tagpath /ip/routes-table/prefix
+ipRoutesTablePrefix OBJECT-TYPE
+    SYNTAX      IpPrefix
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Route"
+    ::= { ipRoutesTableEntry 3 }
+
+-- tagpath /ip/routes-table/path-id
+ipRoutesTablePathId OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Path identifier"
+    ::= { ipRoutesTableEntry 4 }
+
+-- tagpath /ip/routes-table/protocol
+ipRoutesTableProtocol OBJECT-TYPE
+    SYNTAX      INTEGER {connected(0),static(1),ospf(2),bgp(3),omp(4),nat(5),gre(6),natpoolOmp(7),natpoolService(8),stdIpsec(9)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Protocol"
+    ::= { ipRoutesTableEntry 5 }
+
+-- tagpath /ip/routes-table/protocol-sub-type
+ipRoutesTableProtocolSubType OBJECT-TYPE
+    SYNTAX      INTEGER {intraArea(1),interArea(2),external1(3),external2(4),nssaExternal1(5),nssaExternal2(6),bgpExternal(7),bgpInternal(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Subtype"
+    ::= { ipRoutesTableEntry 6 }
+
+-- tagpath /ip/routes-table/distance
+ipRoutesTableDistance OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Distance"
+    ::= { ipRoutesTableEntry 7 }
+
+-- tagpath /ip/routes-table/metric
+ipRoutesTableMetric OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Metric"
+    ::= { ipRoutesTableEntry 8 }
+
+-- tagpath /ip/routes-table/uptime
+ipRoutesTableUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Uptime (Days:Hours:Minutes:Seconds)"
+    ::= { ipRoutesTableEntry 9 }
+
+-- tagpath /ip/routes-table/path-flags
+ipRoutesTablePathFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path flags"
+    ::= { ipRoutesTableEntry 10 }
+
+-- tagpath /ip/routes-table/nexthop-flags
+ipRoutesTableNexthopFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop flags"
+    ::= { ipRoutesTableEntry 11 }
+
+-- tagpath /ip/routes-table/nexthop-type
+ipRoutesTableNexthopType OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop type"
+    ::= { ipRoutesTableEntry 12 }
+
+-- tagpath /ip/routes-table/nexthop-ifname
+ipRoutesTableNexthopIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop interface name"
+    ::= { ipRoutesTableEntry 13 }
+
+-- tagpath /ip/routes-table/nexthop-addr
+ipRoutesTableNexthopAddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop address"
+    ::= { ipRoutesTableEntry 14 }
+
+-- tagpath /ip/routes-table/nexthop-rtype
+ipRoutesTableNexthopRtype OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop type"
+    ::= { ipRoutesTableEntry 15 }
+
+-- tagpath /ip/routes-table/nexthop-rifname
+ipRoutesTableNexthopRifname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop interface name"
+    ::= { ipRoutesTableEntry 16 }
+
+-- tagpath /ip/routes-table/nexthop-raddr
+ipRoutesTableNexthopRaddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop address"
+    ::= { ipRoutesTableEntry 17 }
+
+-- tagpath /ip/routes-table/nexthop-rsrc
+ipRoutesTableNexthopRsrc OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop source"
+    ::= { ipRoutesTableEntry 18 }
+
+-- tagpath /ip/routes-table/ip
+ipRoutesTableIp OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { ipRoutesTableEntry 19 }
+
+-- tagpath /ip/routes-table/color
+ipRoutesTableColor OBJECT-TYPE
+    SYNTAX      INTEGER {default(1),mpls(2),metro-ethernet(3),biz-internet(4),public-internet(5),lte(6),threeG(7),red(8),green(9),blue(10),gold(11),silver(12),bronze(13),custom1(14),custom2(15),custom3(16),private1(17),private2(18),private3(19),private4(20),private5(21),private6(22)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Color"
+    ::= { ipRoutesTableEntry 20 }
+
+-- tagpath /ip/routes-table/encap
+ipRoutesTableEncap OBJECT-TYPE
+    SYNTAX      INTEGER {gre(1),ipsec(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Encapsulation"
+    ::= { ipRoutesTableEntry 21 }
+
+-- tagpath /ip/routes-table/nexthop-vpn
+ipRoutesTableNexthopVpn OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop VPN"
+    ::= { ipRoutesTableEntry 22 }
+
+-- tagpath /ip/routes-table/nexthop-label
+ipRoutesTableNexthopLabel OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop label"
+    ::= { ipRoutesTableEntry 23 }
+
+-- tagpath /ip/routes-table/rstatus
+ipRoutesTableRstatus OBJECT-TYPE
+    SYNTAX      RouteStatusType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path status (fib/selected/blackhole/inactive/recursive)"
+    ::= { ipRoutesTableEntry 24 }
+
+-- tagpath /ip/routes-table/omp-tag
+ipRoutesTableOmpTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OMP Tag"
+    ::= { ipRoutesTableEntry 25 }
+
+-- tagpath /ip/routes-table/ospf-tag
+ipRoutesTableOspfTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OSPF Tag"
+    ::= { ipRoutesTableEntry 26 }
+
+-- tagpath /ip/longer-routes-table
+ipLongerRoutesTableTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF IpLongerRoutesTableEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "List of longer routes"
+    ::= { ip 5 }
+
+-- tagpath /ip/longer-routes-table
+ipLongerRoutesTableEntry OBJECT-TYPE
+    SYNTAX      IpLongerRoutesTableEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ipLongerRoutesTableVpnId, ipLongerRoutesTableAddressFamily, ipLongerRoutesTablePrefix, ipLongerRoutesTableLongerPrefix, ipLongerRoutesTablePathId }
+        ::= { ipLongerRoutesTableTable 1 }
+
+IpLongerRoutesTableEntry ::=
+    SEQUENCE {
+        ipLongerRoutesTableVpnId Unsigned32,
+        ipLongerRoutesTableAddressFamily INTEGER,
+        ipLongerRoutesTablePrefix IpPrefix,
+        ipLongerRoutesTableLongerPrefix IpPrefix,
+        ipLongerRoutesTablePathId Unsigned32,
+        ipLongerRoutesTableProtocol INTEGER,
+        ipLongerRoutesTableProtocolSubType INTEGER,
+        ipLongerRoutesTableDistance Unsigned32,
+        ipLongerRoutesTableMetric Unsigned32,
+        ipLongerRoutesTableUptime String,
+        ipLongerRoutesTablePathFlags Unsigned32,
+        ipLongerRoutesTableNexthopFlags Unsigned32,
+        ipLongerRoutesTableNexthopType INTEGER,
+        ipLongerRoutesTableNexthopIfname String,
+        ipLongerRoutesTableNexthopAddr InetAddressIP,
+        ipLongerRoutesTableNexthopRtype INTEGER,
+        ipLongerRoutesTableNexthopRifname String,
+        ipLongerRoutesTableNexthopRaddr InetAddressIP,
+        ipLongerRoutesTableNexthopRsrc InetAddressIP,
+        ipLongerRoutesTableTlocIp InetAddressIP,
+        ipLongerRoutesTableTlocColor INTEGER,
+        ipLongerRoutesTableTlocEncap INTEGER,
+        ipLongerRoutesTableNexthopVpn Unsigned32,
+        ipLongerRoutesTableNexthopLabel Unsigned32,
+        ipLongerRoutesTableRstatus RouteStatusType,
+        ipLongerRoutesTableOmpTag Unsigned32,
+        ipLongerRoutesTableOspfTag Unsigned32
+    }
+
+-- tagpath /ip/longer-routes-table/vpn-id
+ipLongerRoutesTableVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { ipLongerRoutesTableEntry 1 }
+
+-- tagpath /ip/longer-routes-table/address-family
+ipLongerRoutesTableAddressFamily OBJECT-TYPE
+    SYNTAX      INTEGER {ipv4(0),ipv6(1)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Address Family"
+    ::= { ipLongerRoutesTableEntry 2 }
+
+-- tagpath /ip/longer-routes-table/prefix
+ipLongerRoutesTablePrefix OBJECT-TYPE
+    SYNTAX      IpPrefix
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Route"
+    ::= { ipLongerRoutesTableEntry 3 }
+
+-- tagpath /ip/longer-routes-table/longer-prefix
+ipLongerRoutesTableLongerPrefix OBJECT-TYPE
+    SYNTAX      IpPrefix
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Longer route"
+    ::= { ipLongerRoutesTableEntry 4 }
+
+-- tagpath /ip/longer-routes-table/path-id
+ipLongerRoutesTablePathId OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Path identifier"
+    ::= { ipLongerRoutesTableEntry 5 }
+
+-- tagpath /ip/longer-routes-table/protocol
+ipLongerRoutesTableProtocol OBJECT-TYPE
+    SYNTAX      INTEGER {connected(0),static(1),ospf(2),bgp(3),omp(4),nat(5),gre(6),natpoolOmp(7),natpoolService(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Protocol"
+    ::= { ipLongerRoutesTableEntry 6 }
+
+-- tagpath /ip/longer-routes-table/protocol-sub-type
+ipLongerRoutesTableProtocolSubType OBJECT-TYPE
+    SYNTAX      INTEGER {intraArea(1),interArea(2),external1(3),external2(4),nssaExternal1(5),nssaExternal2(6),bgpExternal(7),bgpInternal(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Subtype"
+    ::= { ipLongerRoutesTableEntry 7 }
+
+-- tagpath /ip/longer-routes-table/distance
+ipLongerRoutesTableDistance OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Distance"
+    ::= { ipLongerRoutesTableEntry 8 }
+
+-- tagpath /ip/longer-routes-table/metric
+ipLongerRoutesTableMetric OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Metric"
+    ::= { ipLongerRoutesTableEntry 9 }
+
+-- tagpath /ip/longer-routes-table/uptime
+ipLongerRoutesTableUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Uptime (Days:Hours:Minutes:Seconds)"
+    ::= { ipLongerRoutesTableEntry 10 }
+
+-- tagpath /ip/longer-routes-table/path-flags
+ipLongerRoutesTablePathFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path flags"
+    ::= { ipLongerRoutesTableEntry 11 }
+
+-- tagpath /ip/longer-routes-table/nexthop-flags
+ipLongerRoutesTableNexthopFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop flags"
+    ::= { ipLongerRoutesTableEntry 12 }
+
+-- tagpath /ip/longer-routes-table/nexthop-type
+ipLongerRoutesTableNexthopType OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop type"
+    ::= { ipLongerRoutesTableEntry 13 }
+
+-- tagpath /ip/longer-routes-table/nexthop-ifname
+ipLongerRoutesTableNexthopIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop interface name"
+    ::= { ipLongerRoutesTableEntry 14 }
+
+-- tagpath /ip/longer-routes-table/nexthop-addr
+ipLongerRoutesTableNexthopAddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop address"
+    ::= { ipLongerRoutesTableEntry 15 }
+
+-- tagpath /ip/longer-routes-table/nexthop-rtype
+ipLongerRoutesTableNexthopRtype OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop type"
+    ::= { ipLongerRoutesTableEntry 16 }
+
+-- tagpath /ip/longer-routes-table/nexthop-rifname
+ipLongerRoutesTableNexthopRifname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop interface name"
+    ::= { ipLongerRoutesTableEntry 17 }
+
+-- tagpath /ip/longer-routes-table/nexthop-raddr
+ipLongerRoutesTableNexthopRaddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop address"
+    ::= { ipLongerRoutesTableEntry 18 }
+
+-- tagpath /ip/longer-routes-table/nexthop-rsrc
+ipLongerRoutesTableNexthopRsrc OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop source"
+    ::= { ipLongerRoutesTableEntry 19 }
+
+-- tagpath /ip/longer-routes-table/tloc/ip
+ipLongerRoutesTableTlocIp OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { ipLongerRoutesTableEntry 20 }
+
+-- tagpath /ip/longer-routes-table/tloc/color
+ipLongerRoutesTableTlocColor OBJECT-TYPE
+    SYNTAX      INTEGER {default(1),mpls(2),metro-ethernet(3),biz-internet(4),public-internet(5),lte(6),threeG(7),red(8),green(9),blue(10),gold(11),silver(12),bronze(13),custom1(14),custom2(15),custom3(16),private1(17),private2(18),private3(19),private4(20),private5(21),private6(22)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Color"
+    ::= { ipLongerRoutesTableEntry 21 }
+
+-- tagpath /ip/longer-routes-table/tloc/encap
+ipLongerRoutesTableTlocEncap OBJECT-TYPE
+    SYNTAX      INTEGER {gre(1),ipsec(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Encapsulation"
+    ::= { ipLongerRoutesTableEntry 22 }
+
+-- tagpath /ip/longer-routes-table/nexthop-vpn
+ipLongerRoutesTableNexthopVpn OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop VPN"
+    ::= { ipLongerRoutesTableEntry 23 }
+
+-- tagpath /ip/longer-routes-table/nexthop-label
+ipLongerRoutesTableNexthopLabel OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop label"
+    ::= { ipLongerRoutesTableEntry 24 }
+
+-- tagpath /ip/longer-routes-table/rstatus
+ipLongerRoutesTableRstatus OBJECT-TYPE
+    SYNTAX      RouteStatusType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path status (fib/selected/blackhole/inactive/recursive)"
+    ::= { ipLongerRoutesTableEntry 25 }
+
+-- tagpath /ip/longer-routes-table/omp-tag
+ipLongerRoutesTableOmpTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Omp Tag"
+    ::= { ipLongerRoutesTableEntry 26 }
+
+-- tagpath /ip/longer-routes-table/ospf-tag
+ipLongerRoutesTableOspfTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OSPF Tag"
+    ::= { ipLongerRoutesTableEntry 27 }
+
+-- tagpath /ip/best-match-route
+ipBestMatchRouteTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF IpBestMatchRouteEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Best matching route"
+    ::= { ip 6 }
+
+-- tagpath /ip/best-match-route
+ipBestMatchRouteEntry OBJECT-TYPE
+    SYNTAX      IpBestMatchRouteEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ipBestMatchRouteVpnId, ipBestMatchRouteAddressFamily, ipBestMatchRouteDestination, ipBestMatchRoutePathId }
+        ::= { ipBestMatchRouteTable 1 }
+
+IpBestMatchRouteEntry ::=
+    SEQUENCE {
+        ipBestMatchRouteVpnId Unsigned32,
+        ipBestMatchRouteAddressFamily INTEGER,
+        ipBestMatchRouteDestination InetAddressIP,
+        ipBestMatchRoutePathId Unsigned32,
+        ipBestMatchRoutePrefix IpPrefix,
+        ipBestMatchRouteProtocol INTEGER,
+        ipBestMatchRouteProtocolSubType INTEGER,
+        ipBestMatchRouteDistance Unsigned32,
+        ipBestMatchRouteMetric Unsigned32,
+        ipBestMatchRouteUptime String,
+        ipBestMatchRoutePathFlags Unsigned32,
+        ipBestMatchRouteNexthopFlags Unsigned32,
+        ipBestMatchRouteNexthopType INTEGER,
+        ipBestMatchRouteNexthopIfname String,
+        ipBestMatchRouteNexthopAddr InetAddressIP,
+        ipBestMatchRouteNexthopRtype INTEGER,
+        ipBestMatchRouteNexthopRifname String,
+        ipBestMatchRouteNexthopRaddr InetAddressIP,
+        ipBestMatchRouteNexthopRsrc InetAddressIP,
+        ipBestMatchRouteTlocIp InetAddressIP,
+        ipBestMatchRouteTlocColor INTEGER,
+        ipBestMatchRouteTlocEncap INTEGER,
+        ipBestMatchRouteNexthopLabel Unsigned32,
+        ipBestMatchRouteRstatus RouteStatusType,
+        ipBestMatchRouteOmpTag Unsigned32,
+        ipBestMatchRouteNexthopVpn Unsigned32,
+        ipBestMatchRouteOspfTag Unsigned32
+    }
+
+-- tagpath /ip/best-match-route/vpn-id
+ipBestMatchRouteVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { ipBestMatchRouteEntry 1 }
+
+-- tagpath /ip/best-match-route/address-family
+ipBestMatchRouteAddressFamily OBJECT-TYPE
+    SYNTAX      INTEGER {ipv4(0),ipv6(1)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Address Family"
+    ::= { ipBestMatchRouteEntry 2 }
+
+-- tagpath /ip/best-match-route/destination
+ipBestMatchRouteDestination OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Destination address"
+    ::= { ipBestMatchRouteEntry 3 }
+
+-- tagpath /ip/best-match-route/path-id
+ipBestMatchRoutePathId OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Path identifier"
+    ::= { ipBestMatchRouteEntry 4 }
+
+-- tagpath /ip/best-match-route/prefix
+ipBestMatchRoutePrefix OBJECT-TYPE
+    SYNTAX      IpPrefix
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Route"
+    ::= { ipBestMatchRouteEntry 5 }
+
+-- tagpath /ip/best-match-route/protocol
+ipBestMatchRouteProtocol OBJECT-TYPE
+    SYNTAX      INTEGER {connected(0),static(1),ospf(2),bgp(3),omp(4),nat(5),gre(6),natpoolOmp(7),natpoolService(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Protocol"
+    ::= { ipBestMatchRouteEntry 6 }
+
+-- tagpath /ip/best-match-route/protocol-sub-type
+ipBestMatchRouteProtocolSubType OBJECT-TYPE
+    SYNTAX      INTEGER {intraArea(1),interArea(2),external1(3),external2(4),nssaExternal1(5),nssaExternal2(6),bgpExternal(7),bgpInternal(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Subtype"
+    ::= { ipBestMatchRouteEntry 7 }
+
+-- tagpath /ip/best-match-route/distance
+ipBestMatchRouteDistance OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Distance"
+    ::= { ipBestMatchRouteEntry 8 }
+
+-- tagpath /ip/best-match-route/metric
+ipBestMatchRouteMetric OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Metric"
+    ::= { ipBestMatchRouteEntry 9 }
+
+-- tagpath /ip/best-match-route/uptime
+ipBestMatchRouteUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Uptime (Days:Hours:Minutes:Seconds)"
+    ::= { ipBestMatchRouteEntry 10 }
+
+-- tagpath /ip/best-match-route/path-flags
+ipBestMatchRoutePathFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path flags"
+    ::= { ipBestMatchRouteEntry 11 }
+
+-- tagpath /ip/best-match-route/nexthop-flags
+ipBestMatchRouteNexthopFlags OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop flags"
+    ::= { ipBestMatchRouteEntry 12 }
+
+-- tagpath /ip/best-match-route/nexthop-type
+ipBestMatchRouteNexthopType OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop type"
+    ::= { ipBestMatchRouteEntry 13 }
+
+-- tagpath /ip/best-match-route/nexthop-ifname
+ipBestMatchRouteNexthopIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop interface name"
+    ::= { ipBestMatchRouteEntry 14 }
+
+-- tagpath /ip/best-match-route/nexthop-addr
+ipBestMatchRouteNexthopAddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop address"
+    ::= { ipBestMatchRouteEntry 15 }
+
+-- tagpath /ip/best-match-route/nexthop-rtype
+ipBestMatchRouteNexthopRtype OBJECT-TYPE
+    SYNTAX      INTEGER {if-connected(0),interface(1),ipv4(2),ipv4-with-ifindex(3),ipv4-with-ifname(4),ipv4-indirect(5),ipv6(6),ipv6-with-ifindex(7),ipv6-with-ifname(8),ipv6-indirect(9),blackhole(10),extranet(11)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop type"
+    ::= { ipBestMatchRouteEntry 16 }
+
+-- tagpath /ip/best-match-route/nexthop-rifname
+ipBestMatchRouteNexthopRifname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop interface name"
+    ::= { ipBestMatchRouteEntry 17 }
+
+-- tagpath /ip/best-match-route/nexthop-raddr
+ipBestMatchRouteNexthopRaddr OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop address"
+    ::= { ipBestMatchRouteEntry 18 }
+
+-- tagpath /ip/best-match-route/nexthop-rsrc
+ipBestMatchRouteNexthopRsrc OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Recursive lookup next-hop source"
+    ::= { ipBestMatchRouteEntry 19 }
+
+-- tagpath /ip/best-match-route/tloc/ip
+ipBestMatchRouteTlocIp OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IP address"
+    ::= { ipBestMatchRouteEntry 20 }
+
+-- tagpath /ip/best-match-route/tloc/color
+ipBestMatchRouteTlocColor OBJECT-TYPE
+    SYNTAX      INTEGER {default(1),mpls(2),metro-ethernet(3),biz-internet(4),public-internet(5),lte(6),threeG(7),red(8),green(9),blue(10),gold(11),silver(12),bronze(13),custom1(14),custom2(15),custom3(16),private1(17),private2(18),private3(19),private4(20),private5(21),private6(22)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Color"
+    ::= { ipBestMatchRouteEntry 21 }
+
+-- tagpath /ip/best-match-route/tloc/encap
+ipBestMatchRouteTlocEncap OBJECT-TYPE
+    SYNTAX      INTEGER {gre(1),ipsec(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Encapsulation"
+    ::= { ipBestMatchRouteEntry 22 }
+
+-- tagpath /ip/best-match-route/nexthop-label
+ipBestMatchRouteNexthopLabel OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop label"
+    ::= { ipBestMatchRouteEntry 23 }
+
+-- tagpath /ip/best-match-route/rstatus
+ipBestMatchRouteRstatus OBJECT-TYPE
+    SYNTAX      RouteStatusType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Path status (fib/selected/blackhole/inactive/recursive)"
+    ::= { ipBestMatchRouteEntry 24 }
+
+-- tagpath /ip/best-match-route/omp-tag
+ipBestMatchRouteOmpTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Omp Tag"
+    ::= { ipBestMatchRouteEntry 25 }
+
+-- tagpath /ip/best-match-route/nexthop-vpn
+ipBestMatchRouteNexthopVpn OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Next-hop VPN"
+    ::= { ipBestMatchRouteEntry 26 }
+
+-- tagpath /ip/best-match-route/ospf-tag
+ipBestMatchRouteOspfTag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OSPF Tag"
+    ::= { ipBestMatchRouteEntry 27 }
+
+-- tagpath /ip/routes-summary
+ipRoutesSummaryTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF IpRoutesSummaryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Summary of routes"
+    ::= { ip 10 }
+
+-- tagpath /ip/routes-summary
+ipRoutesSummaryEntry OBJECT-TYPE
+    SYNTAX      IpRoutesSummaryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ipRoutesSummaryVpnId, ipRoutesSummaryAddressFamily, ipRoutesSummaryRouteProtocol }
+        ::= { ipRoutesSummaryTable 1 }
+
+IpRoutesSummaryEntry ::=
+    SEQUENCE {
+        ipRoutesSummaryVpnId Unsigned32,
+        ipRoutesSummaryAddressFamily INTEGER,
+        ipRoutesSummaryRouteProtocol INTEGER,
+        ipRoutesSummaryReceived Unsigned32,
+        ipRoutesSummaryInstalled Unsigned32,
+        ipRoutesSummaryImport Unsigned32
+    }
+
+-- tagpath /ip/routes-summary/vpn-id
+ipRoutesSummaryVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { ipRoutesSummaryEntry 1 }
+
+-- tagpath /ip/routes-summary/address-family
+ipRoutesSummaryAddressFamily OBJECT-TYPE
+    SYNTAX      INTEGER {ipv4(0),ipv6(1)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Address Family"
+    ::= { ipRoutesSummaryEntry 2 }
+
+-- tagpath /ip/routes-summary/route-protocol
+ipRoutesSummaryRouteProtocol OBJECT-TYPE
+    SYNTAX      INTEGER {connected(0),static(1),ospf(2),bgp(3),omp(4),nat(5),gre(6),natpoolOmp(7),natpoolService(8)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Protocol"
+    ::= { ipRoutesSummaryEntry 3 }
+
+-- tagpath /ip/routes-summary/received
+ipRoutesSummaryReceived OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of routes received"
+    ::= { ipRoutesSummaryEntry 4 }
+
+-- tagpath /ip/routes-summary/installed
+ipRoutesSummaryInstalled OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of routes installed"
+    ::= { ipRoutesSummaryEntry 5 }
+
+-- tagpath /ip/routes-summary/imported
+ipRoutesSummaryImport OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of routes imported"
+	::= { ipRoutesSummaryEntry 6 }
+    
+-- tagpath /dhcp/client-interface
+dhcpInterfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF DhcpInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display DHCP client interface information"
+    ::= { dhcp 1 }
+
+-- tagpath /dhcp/client-interface
+dhcpInterfaceEntry OBJECT-TYPE
+    SYNTAX      DhcpInterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { dhcpInterfaceVpnId, dhcpInterfaceIfname }
+        ::= { dhcpInterfaceTable 1 }
+
+DhcpInterfaceEntry ::=
+    SEQUENCE {
+        dhcpInterfaceVpnId Unsigned32,
+        dhcpInterfaceIfname String,
+        dhcpInterfaceState INTEGER,
+        dhcpInterfaceAcquiredIp Ipv4Prefix,
+        dhcpInterfaceServer IpAddress,
+        dhcpInterfaceLeaseTime String,
+        dhcpInterfaceTimeRemaining String,
+        dhcpInterfaceGateway IpAddress
+    }
+
+-- tagpath /dhcp/client-interface/vpn-id
+dhcpInterfaceVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { dhcpInterfaceEntry 1 }
+
+-- tagpath /dhcp/client-interface/ifname
+dhcpInterfaceIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Interface name"
+    ::= { dhcpInterfaceEntry 2 }
+
+-- tagpath /dhcp/client-interface/state
+dhcpInterfaceState OBJECT-TYPE
+    SYNTAX      INTEGER {init(0),request(1),bound(2),renew(3),rebind(4),release(5),dynamic-ip(6)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { dhcpInterfaceEntry 3 }
+
+-- tagpath /dhcp/client-interface/acquired-ip
+dhcpInterfaceAcquiredIp OBJECT-TYPE
+    SYNTAX      Ipv4Prefix
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Acquired IP address"
+    ::= { dhcpInterfaceEntry 4 }
+
+-- tagpath /dhcp/client-interface/server
+dhcpInterfaceServer OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Server IP"
+    ::= { dhcpInterfaceEntry 5 }
+
+-- tagpath /dhcp/client-interface/lease-time
+dhcpInterfaceLeaseTime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Lease time (Days:Hours:Minutes:Seconds)"
+    ::= { dhcpInterfaceEntry 6 }
+
+-- tagpath /dhcp/client-interface/time-remaining
+dhcpInterfaceTimeRemaining OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Lease time remaining (Days:Hours:Minutes:Seconds)"
+    ::= { dhcpInterfaceEntry 7 }
+
+-- tagpath /dhcp/client-interface/gateway
+dhcpInterfaceGateway OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Default gateway"
+    ::= { dhcpInterfaceEntry 8 }
+
+-- tagpath /dhcp/client-interface/dns-list
+dhcpInterfaceDnsListTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF DhcpInterfaceDnsListEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "List of DNS servers"
+    ::= { viptela-oper-vpn 13 }
+
+-- tagpath /dhcp/client-interface/dns-list
+dhcpInterfaceDnsListEntry OBJECT-TYPE
+    SYNTAX      DhcpInterfaceDnsListEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { dhcpInterfaceVpnId, dhcpInterfaceIfname, dhcpInterfaceDnsListIndex }
+        ::= { dhcpInterfaceDnsListTable 1 }
+
+DhcpInterfaceDnsListEntry ::=
+    SEQUENCE {
+        dhcpInterfaceDnsListIndex Unsigned32,
+        dhcpInterfaceDnsListDns IpAddress
+    }
+
+-- tagpath /dhcp/client-interface/dns-list/index
+dhcpInterfaceDnsListIndex OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index"
+    ::= { dhcpInterfaceDnsListEntry 1 }
+
+-- tagpath /dhcp/client-interface/dns-list/dns
+dhcpInterfaceDnsListDns OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "DNS IP"
+    ::= { dhcpInterfaceDnsListEntry 2 }
+
+-- tagpath /dhcpv6/interface
+dhcpv6InterfaceTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF Dhcpv6InterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display DHCPv6 client interface information"
+    ::= { dhcpv6 1 }
+
+-- tagpath /dhcpv6/interface
+dhcpv6InterfaceEntry OBJECT-TYPE
+    SYNTAX      Dhcpv6InterfaceEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { dhcpv6InterfaceVpnId, dhcpv6InterfaceIfname }
+        ::= { dhcpv6InterfaceTable 1 }
+
+Dhcpv6InterfaceEntry ::=
+    SEQUENCE {
+        dhcpv6InterfaceVpnId Unsigned32,
+        dhcpv6InterfaceIfname String,
+        dhcpv6InterfaceState INTEGER,
+        dhcpv6InterfaceAcquiredIp IpPrefix,
+        dhcpv6InterfaceServer String,
+        dhcpv6InterfaceLeaseTime String,
+        dhcpv6InterfaceTimeRemaining String,
+        dhcpv6InterfaceGateway Ipv6Address
+    }
+
+-- tagpath /dhcpv6/interface/vpn-id
+dhcpv6InterfaceVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "VPN ID"
+    ::= { dhcpv6InterfaceEntry 1 }
+
+-- tagpath /dhcpv6/interface/ifname
+dhcpv6InterfaceIfname OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Interface name"
+    ::= { dhcpv6InterfaceEntry 2 }
+
+-- tagpath /dhcpv6/interface/state
+dhcpv6InterfaceState OBJECT-TYPE
+    SYNTAX      INTEGER {init(0),request(1),bound(2),renew(3),rebind(4),release(5)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { dhcpv6InterfaceEntry 3 }
+
+-- tagpath /dhcpv6/interface/acquired-ip
+dhcpv6InterfaceAcquiredIp OBJECT-TYPE
+    SYNTAX      IpPrefix
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Acquired IP address"
+    ::= { dhcpv6InterfaceEntry 4 }
+
+-- tagpath /dhcpv6/interface/server
+dhcpv6InterfaceServer OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Server ID"
+    ::= { dhcpv6InterfaceEntry 5 }
+
+-- tagpath /dhcpv6/interface/lease-time
+dhcpv6InterfaceLeaseTime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Lease time (Days:Hours:Minutes:Seconds)"
+    ::= { dhcpv6InterfaceEntry 6 }
+
+-- tagpath /dhcpv6/interface/time-remaining
+dhcpv6InterfaceTimeRemaining OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Lease time remaining (Days:Hours:Minutes:Seconds)"
+    ::= { dhcpv6InterfaceEntry 7 }
+
+-- tagpath /dhcpv6/interface/gateway
+dhcpv6InterfaceGateway OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Default gateway"
+    ::= { dhcpv6InterfaceEntry 8 }
+
+-- tagpath /dhcpv6/interface/dns-list
+dhcpv6InterfaceDnsListTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF Dhcpv6InterfaceDnsListEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "List of DNS servers"
+    ::= { viptela-oper-vpn 19 }
+
+-- tagpath /dhcpv6/interface/dns-list
+dhcpv6InterfaceDnsListEntry OBJECT-TYPE
+    SYNTAX      Dhcpv6InterfaceDnsListEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { dhcpv6InterfaceVpnId, dhcpv6InterfaceIfname, dhcpv6InterfaceDnsListIndex }
+        ::= { dhcpv6InterfaceDnsListTable 1 }
+
+Dhcpv6InterfaceDnsListEntry ::=
+    SEQUENCE {
+        dhcpv6InterfaceDnsListIndex Unsigned32,
+        dhcpv6InterfaceDnsListDns Ipv6Address
+    }
+
+-- tagpath /dhcpv6/interface/dns-list/index
+dhcpv6InterfaceDnsListIndex OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index"
+    ::= { dhcpv6InterfaceDnsListEntry 1 }
+
+-- tagpath /dhcpv6/interface/dns-list/dns
+dhcpv6InterfaceDnsListDns OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "DNS IP"
+    ::= { dhcpv6InterfaceDnsListEntry 2 }
+
+END

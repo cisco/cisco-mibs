@@ -1,0 +1,1801 @@
+-- Namespace: http://viptela.com/oper-system
+
+VIPTELA-OPER-SYSTEM DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE,
+    Integer32, Unsigned32, Counter32, Counter64,
+    Gauge32, IpAddress
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION, RowStatus, DateAndTime,
+    TruthValue
+        FROM SNMPv2-TC
+    viptela, VpnIndex
+        FROM VIPTELA-GLOBAL
+    DeviceModelType
+        FROM VIPTELA-MODELS
+;
+
+viptela-oper-system MODULE-IDENTITY
+    LAST-UPDATED "202507010000Z"
+    ORGANIZATION "Viptela, Inc."
+    CONTACT-INFO "Viptela, Inc.  Email:support@viptela.com"
+    DESCRIPTION "This module defines the data model for system operational data"
+    REVISION "202507010000Z"
+    DESCRIPTION "Viptela Revision 20.18"
+    REVISION "202503010000Z"
+    DESCRIPTION "Viptela Revision 20.17"
+    REVISION "202411010000Z"
+    DESCRIPTION "Viptela Revision 20.16"
+    REVISION "202407010000Z"
+    DESCRIPTION "Viptela Revision 20.15"
+    REVISION "202403010000Z"
+    DESCRIPTION "Viptela Revision 20.14"
+    REVISION "202311010000Z"
+    DESCRIPTION "Viptela Revision 20.13"
+    REVISION "202307010000Z"
+    DESCRIPTION "Viptela Revision 20.12"
+    REVISION "202303010000Z"
+    DESCRIPTION "Viptela Revision 20.11"
+    REVISION "202212150000Z"
+    DESCRIPTION "Viptela Revision 20.10"
+    REVISION "202206010000Z"
+    DESCRIPTION "Viptela Revision 20.9"
+    REVISION "202203010000Z"
+    DESCRIPTION "Viptela Revision 20.8"
+    REVISION "202111010000Z"
+    DESCRIPTION "Viptela Revision 20.7"
+    REVISION "202107010000Z"
+    DESCRIPTION "Viptela Revision 20.6"
+    REVISION "202103010000Z"
+    DESCRIPTION "Viptela Revision 20.5"
+    REVISION "202011010000Z"
+    DESCRIPTION "Viptela Revision 20.4"
+    REVISION "202007010000Z"
+    DESCRIPTION "Viptela Revision 20.3"
+    REVISION "202002240000Z"
+    DESCRIPTION "Viptela Revision 20.1"
+    REVISION "201911150000Z"
+    DESCRIPTION "Viptela Revision 19.3"
+    REVISION "201908150000Z"
+    DESCRIPTION "Viptela Revision 19.2"
+    REVISION "201811010000Z"
+    DESCRIPTION "Viptela Revision 18.4"
+    REVISION "201808200000Z"
+    DESCRIPTION "Viptela Revision 18.3.1"
+    REVISION "201806250000Z"
+    DESCRIPTION "Viptela Revision 18.3"
+    REVISION "201804250000Z"
+    DESCRIPTION "Viptela Revision 18.2"
+    REVISION "201803150000Z"
+    DESCRIPTION "Viptela Revision 18.1.1"
+    REVISION "201801160000Z"
+    DESCRIPTION "Viptela Revision 17.2.3"
+    REVISION "201711010000Z"
+    DESCRIPTION "Viptela Revision 17.2.1"
+    REVISION "201708010000Z"
+    DESCRIPTION "Viptela Revision 17.2"
+    REVISION "201705250000Z"
+    DESCRIPTION "Viptela Revision 17.1.1"
+    REVISION "201704060000Z"
+    DESCRIPTION "Viptela Revision 17.1"
+    REVISION "201702150000Z"
+    DESCRIPTION "Viptela Revision 16.3.2"
+    REVISION "201702060000Z"
+    DESCRIPTION "Viptela Revision 16.3.1"
+    REVISION "201611160000Z"
+    DESCRIPTION "Viptela Revision 16.3"
+    REVISION "201610250000Z"
+    DESCRIPTION "Viptela Revision 16.2.10"
+    REVISION "201610240000Z"
+    DESCRIPTION "Viptela Revision 16.2.4"
+    REVISION "201608100000Z"
+    DESCRIPTION "Viptela Revision 16.2.2"
+    REVISION "201608010000Z"
+    DESCRIPTION "Viptela Revision 16.2.1"
+    REVISION "201606090000Z"
+    DESCRIPTION "Viptela Revision 16.2"
+    REVISION "201604220000Z"
+    DESCRIPTION "Viptela Revision 16.1.1"
+    REVISION "201603150000Z"
+    DESCRIPTION "Viptela Revision 16.1"
+    REVISION "201601300000Z"
+    DESCRIPTION "Viptela Revision 15.4.3"
+    REVISION "201512280000Z"
+    DESCRIPTION "Viptela Revision 15.4.1"
+    REVISION "201512010000Z"
+    DESCRIPTION "Viptela Revision 15.4.0"
+    REVISION "201510310000Z"
+    DESCRIPTION "Viptela Revision 15.3.5"
+    REVISION "201509270000Z"
+    DESCRIPTION "Viptela Revision 15.3.3"
+    REVISION "201509010000Z"
+    DESCRIPTION "Viptela Revision 15.3.1"
+    REVISION "201507010000Z"
+    DESCRIPTION "Viptela Revision 15.3"
+    ::= { viptela 11 }
+
+UnsignedByte ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:unsignedByte"
+    SYNTAX      Unsigned32 (0 .. 255)
+
+UnsignedShort ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:unsignedShort"
+    SYNTAX      Unsigned32 (0 .. 65535)
+
+ConfdString ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs: and confd: types mapped to strings"
+    SYNTAX      OCTET STRING
+
+InetAddressIP ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "confd:inetAddressIP"
+    SYNTAX      OCTET STRING (SIZE (4|16))
+
+String ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs:string"
+    SYNTAX      OCTET STRING
+
+Permission1 ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION ""
+    SYNTAX      OCTET STRING
+
+Permission ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION ""
+    SYNTAX      OCTET STRING
+
+-- Display system status information
+-- tagpath /system-status
+systemStatus OBJECT IDENTIFIER ::= { viptela-oper-system 1 }
+
+-- tagpath /system-status/personality
+systemStatusPersonality OBJECT-TYPE
+    SYNTAX      INTEGER {vedge(1),
+                         vsmart(2),
+                         vmanage(3),
+                         vapigw(4)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 1 }
+
+-- tagpath /system-status/version
+systemStatusVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 2 }
+
+-- tagpath /system-status/loghost_status
+systemStatusLoghostStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 3 }
+
+-- tagpath /system-status/loghost_name
+systemStatusLoghostName OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 4 }
+
+-- tagpath /system-status/disk_status
+systemStatusDiskStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 5 }
+
+-- tagpath /system-status/reboot_reason
+systemStatusRebootReason OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 6 }
+
+-- tagpath /system-status/core_files_status
+systemStatusCoreFilesStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 7 }
+
+-- tagpath /system-status/uptime
+systemStatusUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 8 }
+
+-- tagpath /system-status/min1_avg
+systemStatusMin1Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 9 }
+
+-- tagpath /system-status/min5_avg
+systemStatusMin5Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 10 }
+
+-- tagpath /system-status/min15_avg
+systemStatusMin15Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 11 }
+
+-- tagpath /system-status/totalp
+systemStatusTotalp OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 12 }
+
+-- tagpath /system-status/runningp
+systemStatusRunningp OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 13 }
+
+-- tagpath /system-status/cpu_user
+systemStatusCpuUser OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 14 }
+
+-- tagpath /system-status/cpu_system
+systemStatusCpuSystem OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 15 }
+
+-- tagpath /system-status/cpu_idle
+systemStatusCpuIdle OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 16 }
+
+-- tagpath /system-status/mem_total
+systemStatusMemTotal OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 17 }
+
+-- tagpath /system-status/mem_used
+systemStatusMemUsed OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 18 }
+
+-- tagpath /system-status/mem_free
+systemStatusMemFree OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 19 }
+
+-- tagpath /system-status/mem_buffers
+systemStatusMemBuffers OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 20 }
+
+-- tagpath /system-status/mem_cached
+systemStatusMemCached OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 21 }
+
+-- tagpath /system-status/disk_fs
+systemStatusDiskFs OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 22 }
+
+-- tagpath /system-status/disk_size
+systemStatusDiskSize OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 23 }
+
+-- tagpath /system-status/disk_used
+systemStatusDiskUsed OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 24 }
+
+-- tagpath /system-status/disk_avail
+systemStatusDiskAvail OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 25 }
+
+-- tagpath /system-status/disk_use
+systemStatusDiskUse OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 26 }
+
+-- tagpath /system-status/disk_total_bytes
+systemStatusDiskTotalBytes OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 27 }
+
+-- tagpath /system-status/disk_used_bytes
+systemStatusDiskUsedBytes OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 28 }
+
+-- tagpath /system-status/disk_avail_bytes
+systemStatusDiskAvailBytes OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 29 }
+
+-- tagpath /system-status/disk_mount
+systemStatusDiskMount OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 30 }
+
+-- tagpath /system-status/services
+systemStatusServices OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 31 }
+
+-- tagpath /system-status/board_type
+systemStatusBoardType OBJECT-TYPE
+    SYNTAX      INTEGER {vedge-1000(0),
+                        vedge-2000(1),
+                        sim(2),
+                        none(3),
+                        unknown(4),
+                        vedge-100(5), 
+                        vedge-100-B(6), 
+                        vedge-5000(7), 
+                        vedge-CSR(8), 
+                        vedge-ISR(9), 
+                        vedge-ASR(10), 
+                        vedge-101-B(11), 
+                        vedge-1001(12), 
+                        vedge-101-m(13), 
+                        vedge-ISR1100-4G(14), 
+                        vedge-ISR1100-4GLTE(15), 
+                        vedge-ISR1100-6G(16), 
+                        vedge-encs(17), 
+                        vedge-ISR1100X-4G(18), 
+                        vedge-ISR1100X-6G(19)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 32 }
+
+-- tagpath /system-status/config_date/date-time-string
+systemStatusConfigDateDateTimeString OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Pretty string version of date and time"
+    ::= { systemStatus 33 }
+
+-- tagpath /system-status/current_date/date-time-string
+systemStatusCurrentDateDateTimeString OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Pretty string version of date and time"
+    ::= { systemStatus 34 }
+
+-- tagpath /system-status/procs
+systemStatusProcs OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 100 }
+
+-- tagpath /system-status/disk_bsize
+systemStatusDiskBsize OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 101 }
+
+-- tagpath /system-status/disk_blocks
+systemStatusDiskBlocks OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 102 }
+
+-- tagpath /system-status/disk_bused
+systemStatusDiskBused OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 103 }
+
+-- tagpath /system-status/disk_bavail
+systemStatusDiskBavail OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 104 }
+
+-- tagpath /system-status/standalone_vbond
+systemStatusStandaloneVbond OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 35 }
+
+-- tagpath /system-status/vmanaged
+systemStatusVmanaged OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Device is managed by the vmanage"
+    ::= { systemStatus 36 }
+
+-- tagpath /system-status/pseudo-confirm-commit
+systemStatusPseudoConfirmCommit OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Only valid for vmanage .. is always hidden"
+    ::= { systemStatus 37 }
+
+-- tagpath /system-status/config-template-name
+systemStatusConfigTemplateName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Configuration template assigned by the vManage"
+    ::= { systemStatus 38 }
+
+-- tagpath /system-status/policy-template-name
+systemStatusPolicyTemplateName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Policy template assigned by the vManage"
+    ::= { systemStatus 39 }
+
+-- tagpath /system-status/policy-template-version
+systemStatusPolicyTemplateVersion OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 64))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Policy template version assigned by the vManage"
+    ::= { systemStatus 40 }
+
+-- tagpath /system-status/vmanage-storage-disk-fs
+systemStatusVmanageStorageDiskFs OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 41 }
+
+-- tagpath /system-status/vmanage-storage-disk-size
+systemStatusVmanageStorageDiskSize OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 42 }
+
+-- tagpath /system-status/vmanage-storage-disk-used
+systemStatusVmanageStorageDiskUsed OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 43 }
+
+-- tagpath /system-status/vmanage-storage-disk-avail
+systemStatusVmanageStorageDiskAvail OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 44 }
+
+-- tagpath /system-status/vmanage-storage-disk-use
+systemStatusVmanageStorageDiskUse OBJECT-TYPE
+    SYNTAX      ConfdString
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 45 }
+
+-- tagpath /system-status/vmanage-storage-disk-mount
+systemStatusVmanageStorageDiskMount OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 46 }
+
+-- tagpath /system-status/model
+systemStatusModel OBJECT-TYPE
+    SYNTAX      DeviceModelType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 47 }
+
+-- tagpath /system-status/reboot_type
+systemStatusRebootType OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 48 }
+
+-- tagpath /system-status/total_cpu_count
+systemStatusTotalCpuCount OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 49 }
+
+-- tagpath /system-status/bootloader_version
+systemStatusBootloaderVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 52 }
+
+
+-- tagpath /system-status/build_number
+systemStatusBuildNumber OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 53 }
+
+-- tagpath /system-status/state
+systemStatusState OBJECT-TYPE
+    SYNTAX      INTEGER {blkng-green(0),green(1),yellow(2),red(3)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 54 }
+
+-- tagpath /system-status/state_description
+systemStatusSystemStateDescription OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 55 }
+
+-- tagpath /system-status/model_sku
+systemStatusSystemModelSku OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 56 }
+
+-- tagpath /system-status/fips_mode
+systemStatusSystemFipsMode OBJECT-TYPE
+    SYNTAX      INTEGER {unavailable(0),disabled(1),enabled(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 58 }
+
+-- tagpath /system-status/testbed_mode
+systemStatusSystemTestbedMode OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 59 }
+
+-- tagpath /system-status/ctrl_compatibility
+systemStatusSystemCtrlCompatibility OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 60 }
+
+-- tagpath /system-status/timezone
+systemStatusSystemTimezone OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 61 }
+
+-- tagpath /system-status/engineering_signed
+systemStatusSystemEngineeringSigned OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 62 }
+
+-- tagpath /system-status/li_license_enabled
+systemStatusSystemLiLicenseEnabled OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 63 }
+
+-- tagpath /system-status/chassis_serial_number
+systemStatusSystemChassisSerialNumber OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 64 }
+
+-- tagpath /system-status/in_prod_mode
+systemStatusSystemInProdMode OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { systemStatus 65 }
+
+-- Display system reboot related information
+-- tagpath /reboot
+reboot OBJECT IDENTIFIER ::= { viptela-oper-system 4 }
+
+-- Display AAA information
+-- tagpath /aaa
+aaa OBJECT IDENTIFIER ::= { viptela-oper-system 7 }
+
+-- Display logging information
+-- tagpath /logging
+logging OBJECT IDENTIFIER ::= { viptela-oper-system 9 }
+
+-- tagpath /logging/host_status
+loggingHostStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 1 }
+
+-- tagpath /logging/host_name
+loggingHostName OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 2 }
+
+-- tagpath /logging/host_priority
+loggingHostPriority OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 3 }
+
+-- tagpath /logging/host_vpn_id
+loggingHostVpnId OBJECT-TYPE
+    SYNTAX      VpnIndex
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 4 }
+
+-- tagpath /logging/disk_status
+loggingDiskStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 5 }
+
+-- tagpath /logging/disk_priority
+loggingDiskPriority OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 6 }
+
+-- tagpath /logging/disk_filename
+loggingDiskFilename OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 7 }
+
+-- tagpath /logging/disk_filesize
+loggingDiskFilesize OBJECT-TYPE
+    SYNTAX      UnsignedShort
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 8 }
+
+-- tagpath /logging/disk_filerotate
+loggingDiskFilerotate OBJECT-TYPE
+    SYNTAX      UnsignedByte
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { logging 9 }
+
+-- Display NTP information
+-- tagpath /ntp
+ntp OBJECT IDENTIFIER ::= { viptela-oper-system 10 }
+
+-- tagpath /ntp/refid
+ntpRefid OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Current source of synchronization. Obsoleted in Release 15.4.0"
+    ::= { ntp 3 }
+
+-- tagpath /ntp/reftime
+ntpReftime OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Time when the system clock was last set or corrected. Obsoleted in Release 15.4.0"
+    ::= { ntp 4 }
+
+-- tagpath /ntp/stratum
+ntpStratum OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Stratum. Obsoleted in Release 15.4.0"
+    ::= { ntp 5 }
+
+-- tagpath /ntp/rootdelay
+ntpRootdelay OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Total round-trip delay to currently selected reference clock. Obsoleted in Release 15.4.0"
+    ::= { ntp 6 }
+
+-- tagpath /ntp/rootdisp
+ntpRootdisp OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Total dispersion to currently selected reference clock. Obsoleted in Release 15.4.0"
+    ::= { ntp 7 }
+
+-- tagpath /ntp/freq_drift_ppm
+ntpFreqDriftPpm OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Kernel frequency drift. Obsoleted in Release 15.4.0"
+    ::= { ntp 8 }
+
+-- tagpath /ntp/poll_interval
+ntpPollInterval OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Polling interval. Obsoleted in Release 15.4.0"
+    ::= { ntp 9 }
+
+-- tagpath /ntp/offset
+ntpOffset OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      obsolete
+    DESCRIPTION "Offset. Obsoleted in Release 15.4.0"
+    ::= { ntp 10 }
+
+-- Display transport connection information
+-- tagpath /transport
+transport OBJECT IDENTIFIER ::= { viptela-oper-system 11 }
+
+-- tagpath /reboot/history
+rebootHistoryTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF RebootHistoryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display system reboot history"
+    ::= { reboot 1 }
+
+-- tagpath /reboot/history
+rebootHistoryEntry OBJECT-TYPE
+    SYNTAX      RebootHistoryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { rebootHistoryRebootDateTime }
+        ::= { rebootHistoryTable 1 }
+
+RebootHistoryEntry ::=
+    SEQUENCE {
+        rebootHistoryRebootDateTime DateAndTime,
+        rebootHistoryRebootReason String
+    }
+
+-- tagpath /reboot/history/reboot_date_time
+rebootHistoryRebootDateTime OBJECT-TYPE
+    SYNTAX      DateAndTime
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Reboot date and time in confd format"
+    ::= { rebootHistoryEntry 1 }
+
+-- tagpath /reboot/history/reboot_reason
+rebootHistoryRebootReason OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Reboot reason"
+    ::= { rebootHistoryEntry 3 }
+
+-- tagpath /boot-partition
+bootPartitionTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF BootPartitionEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display boot partition information"
+    ::= { viptela-oper-system 5 }
+
+-- tagpath /boot-partition
+bootPartitionEntry OBJECT-TYPE
+    SYNTAX      BootPartitionEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { bootPartitionPartition }
+        ::= { bootPartitionTable 1 }
+
+BootPartitionEntry ::=
+    SEQUENCE {
+        bootPartitionPartition INTEGER,
+        bootPartitionActive TruthValue,
+        bootPartitionVersion String,
+        bootPartitionTimestamp DateAndTime
+    }
+
+-- tagpath /boot-partition/partition
+bootPartitionPartition OBJECT-TYPE
+    SYNTAX      INTEGER {a1(0),a2(1)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Partition number"
+    ::= { bootPartitionEntry 1 }
+
+-- tagpath /boot-partition/active
+bootPartitionActive OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Whether partition is active"
+    ::= { bootPartitionEntry 2 }
+
+-- tagpath /boot-partition/version
+bootPartitionVersion OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Version"
+    ::= { bootPartitionEntry 3 }
+
+-- tagpath /boot-partition/timestamp
+bootPartitionTimestamp OBJECT-TYPE
+    SYNTAX      DateAndTime
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Date and time created"
+    ::= { bootPartitionEntry 4 }
+
+-- tagpath /users
+usersTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF UsersEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display users currently logged in"
+    ::= { viptela-oper-system 6 }
+
+-- tagpath /users
+usersEntry OBJECT-TYPE
+    SYNTAX      UsersEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { usersSession }
+        ::= { usersTable 1 }
+
+UsersEntry ::=
+    SEQUENCE {
+        usersSession Unsigned32,
+        usersUser String,
+        usersContext String,
+        usersFrom InetAddressIP,
+        usersProto INTEGER,
+        usersAuthGroup String,
+        usersLoginTime DateAndTime
+    }
+
+-- tagpath /users/session
+usersSession OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "User session ID"
+    ::= { usersEntry 1 }
+
+-- tagpath /users/user
+usersUser OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "User name"
+    ::= { usersEntry 2 }
+
+-- tagpath /users/context
+usersContext OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "CLI | NETCONF | WEBUI"
+    ::= { usersEntry 3 }
+
+-- tagpath /users/from
+usersFrom OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Address from which user session originates"
+    ::= { usersEntry 4 }
+
+-- tagpath /users/proto
+usersProto OBJECT-TYPE
+    SYNTAX      INTEGER {unknown(0),tcp(1),ssh(2),system(3),console(4),ssl(5),http(6),https(7),udp(8)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Protocol used by user to log in"
+    ::= { usersEntry 5 }
+
+-- tagpath /users/auth-group
+usersAuthGroup OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "User group"
+    ::= { usersEntry 6 }
+
+-- tagpath /users/login-time
+usersLoginTime OBJECT-TYPE
+    SYNTAX      DateAndTime
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Login time of a user"
+    ::= { usersEntry 7 }
+
+-- tagpath /aaa/usergroup
+aaaUsergroupTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF AaaUsergroupEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display user group information"
+    ::= { aaa 1 }
+
+-- tagpath /aaa/usergroup
+aaaUsergroupEntry OBJECT-TYPE
+    SYNTAX      AaaUsergroupEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { IMPLIED aaaUsergroupName }
+        ::= { aaaUsergroupTable 1 }
+
+AaaUsergroupEntry ::=
+    SEQUENCE {
+        aaaUsergroupName String
+    }
+
+-- tagpath /aaa/usergroup/name
+aaaUsergroupName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Name of the user group"
+    ::= { aaaUsergroupEntry 1 }
+
+-- tagpath /aaa/usergroup/task
+aaaUsergroupTaskTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF AaaUsergroupTaskEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Tasks and permissions"
+    ::= { viptela-oper-system 8 }
+
+-- tagpath /aaa/usergroup/task
+aaaUsergroupTaskEntry OBJECT-TYPE
+    SYNTAX      AaaUsergroupTaskEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { aaaUsergroupName, aaaUsergroupTaskMode }
+        ::= { aaaUsergroupTaskTable 1 }
+
+AaaUsergroupTaskEntry ::=
+    SEQUENCE {
+        aaaUsergroupTaskMode String,
+        aaaUsergroupTaskPermission Permission1
+    }
+
+-- tagpath /aaa/usergroup/task/mode
+aaaUsergroupTaskMode OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Task mode"
+    ::= { aaaUsergroupTaskEntry 1 }
+
+-- tagpath /aaa/usergroup/task/permission
+aaaUsergroupTaskPermission OBJECT-TYPE
+    SYNTAX      Permission1
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Permissions"
+    ::= { aaaUsergroupTaskEntry 2 }
+
+-- tagpath /aaa/accounting
+accountingTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF AccountingEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display accounting info for users"
+    ::= { aaa 3 }
+
+-- tagpath /aaa/accounting
+accountingEntry OBJECT-TYPE
+    SYNTAX      AccountingEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { accountingSessid }
+        ::= { accountingTable 1 }
+
+AccountingEntry ::=
+    SEQUENCE {
+        accountingSessid Unsigned32,
+        accountingUser String,
+        accountingType INTEGER,
+        accountingFrom String,
+        accountingAge String,
+        accountingServer String,
+        accountingProto INTEGER,
+        accountingNumSent Unsigned32,
+        accountingNumFailed Unsigned32
+    }
+
+-- tagpath /aaa/accounting/sessid
+accountingSessid OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "User session ID"
+    ::= { accountingEntry 1 }
+
+-- tagpath /aaa/accounting/user
+accountingUser OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "User name"
+    ::= { accountingEntry 2 }
+
+-- tagpath /aaa/accounting/type
+accountingType OBJECT-TYPE
+    SYNTAX      INTEGER {console(4),ssh(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Console | SSH"
+    ::= { accountingEntry 3 }
+
+-- tagpath /aaa/accounting/from
+accountingFrom OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Address and port from which session originated"
+    ::= { accountingEntry 4 }
+
+-- tagpath /aaa/accounting/age
+accountingAge OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Session Age"
+    ::= { accountingEntry 5 }
+
+-- tagpath /aaa/accounting/server
+accountingServer OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Last server which was contacted"
+    ::= { accountingEntry 6 }
+
+-- tagpath /aaa/accounting/proto
+accountingProto OBJECT-TYPE
+    SYNTAX      INTEGER {tacacs(1),radius(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "TACACS | RADIUS"
+    ::= { accountingEntry 7 }
+
+-- tagpath /aaa/accounting/num-sent
+accountingNumSent OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of records successfully sent"
+    ::= { accountingEntry 8 }
+
+-- tagpath /aaa/accounting/num-failed
+accountingNumFailed OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of records failed to sent"
+    ::= { accountingEntry 9 }
+
+
+-- tagpath /ntp/peer
+ntpPeerTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF NtpPeerEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display NTP peer information"
+    ::= { ntp 1 }
+
+-- tagpath /ntp/peer
+ntpPeerEntry OBJECT-TYPE
+    SYNTAX      NtpPeerEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ntpPeerIndex }
+        ::= { ntpPeerTable 1 }
+
+NtpPeerEntry ::=
+    SEQUENCE {
+        ntpPeerIndex Unsigned32,
+        ntpPeerRemote String,
+        ntpPeerRefid String,
+        ntpPeerSt Integer32,
+        ntpPeerType String,
+        ntpPeerWhen String,
+        ntpPeerPoll Integer32,
+        ntpPeerReach String,
+        ntpPeerDelay String,
+        ntpPeerOffset String,
+        ntpPeerJitter String
+    }
+
+-- tagpath /ntp/peer/index
+ntpPeerIndex OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index on this list"
+    ::= { ntpPeerEntry 1 }
+
+-- tagpath /ntp/peer/remote
+ntpPeerRemote OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "NTP server"
+    ::= { ntpPeerEntry 2 }
+
+-- tagpath /ntp/peer/refid
+ntpPeerRefid OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Current source of synchronization"
+    ::= { ntpPeerEntry 3 }
+
+-- tagpath /ntp/peer/st
+ntpPeerSt OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Stratum"
+    ::= { ntpPeerEntry 4 }
+
+-- tagpath /ntp/peer/type
+ntpPeerType OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Type"
+    ::= { ntpPeerEntry 5 }
+
+-- tagpath /ntp/peer/when
+ntpPeerWhen OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "When"
+    ::= { ntpPeerEntry 6 }
+
+-- tagpath /ntp/peer/poll
+ntpPeerPoll OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Polling interval, in seconds"
+    ::= { ntpPeerEntry 7 }
+
+-- tagpath /ntp/peer/reach
+ntpPeerReach OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Status of reachability register, in octal"
+    ::= { ntpPeerEntry 8 }
+
+-- tagpath /ntp/peer/delay
+ntpPeerDelay OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Latest delay"
+    ::= { ntpPeerEntry 9 }
+
+-- tagpath /ntp/peer/offset
+ntpPeerOffset OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Latest offset"
+    ::= { ntpPeerEntry 10 }
+
+-- tagpath /ntp/peer/jitter
+ntpPeerJitter OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Latest jitter"
+    ::= { ntpPeerEntry 11 }
+
+-- tagpath /ntp/associations
+ntpAssociationsTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF NtpAssociationsEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display NTP peer association"
+    ::= { ntp 2 }
+
+-- tagpath /ntp/associations
+ntpAssociationsEntry OBJECT-TYPE
+    SYNTAX      NtpAssociationsEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { ntpAssociationsIdx }
+        ::= { ntpAssociationsTable 1 }
+
+NtpAssociationsEntry ::=
+    SEQUENCE {
+        ntpAssociationsIdx Integer32,
+        ntpAssociationsAssocid String,
+        ntpAssociationsStatus String,
+        ntpAssociationsConf String,
+        ntpAssociationsReachability String,
+        ntpAssociationsAuth String,
+        ntpAssociationsCondition String,
+        ntpAssociationsLastEvent String,
+        ntpAssociationsCount Integer32
+    }
+
+-- tagpath /ntp/associations/idx
+ntpAssociationsIdx OBJECT-TYPE
+    SYNTAX      Integer32 (0 .. 2147483647)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index on this list"
+    ::= { ntpAssociationsEntry 1 }
+
+-- tagpath /ntp/associations/associd
+ntpAssociationsAssocid OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Association ID"
+    ::= { ntpAssociationsEntry 2 }
+
+-- tagpath /ntp/associations/status
+ntpAssociationsStatus OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Peer status word, in hexadecimal"
+    ::= { ntpAssociationsEntry 3 }
+
+-- tagpath /ntp/associations/conf
+ntpAssociationsConf OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Configuration (persistent or ephemeral)"
+    ::= { ntpAssociationsEntry 4 }
+
+-- tagpath /ntp/associations/reachability
+ntpAssociationsReachability OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Reachability (yes or no)"
+    ::= { ntpAssociationsEntry 5 }
+
+-- tagpath /ntp/associations/auth
+ntpAssociationsAuth OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Authentication (ok, yes, bad, or none)"
+    ::= { ntpAssociationsEntry 6 }
+
+-- tagpath /ntp/associations/condition
+ntpAssociationsCondition OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Selection status"
+    ::= { ntpAssociationsEntry 7 }
+
+-- tagpath /ntp/associations/last_event
+ntpAssociationsLastEvent OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 32))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Event report"
+    ::= { ntpAssociationsEntry 8 }
+
+-- tagpath /ntp/associations/count
+ntpAssociationsCount OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Event count"
+    ::= { ntpAssociationsEntry 9 }
+
+-- tagpath /transport/connection
+transportConnectionTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF TransportConnectionEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    ::= { transport 1 }
+
+-- tagpath /transport/connection
+transportConnectionEntry OBJECT-TYPE
+    SYNTAX      TransportConnectionEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { transportConnectionTrackType,
+            transportConnectionSource,
+            transportConnectionDestination,
+            transportConnectionHost
+          }
+        ::= { transportConnectionTable 1 }
+
+TransportConnectionEntry ::=
+    SEQUENCE {
+        transportConnectionTrackType INTEGER,
+        transportConnectionSource InetAddressIP,
+        transportConnectionDestination InetAddressIP,
+        transportConnectionHost String
+    }
+
+-- tagpath /transport/connection/track-type
+transportConnectionTrackType OBJECT-TYPE
+    SYNTAX      INTEGER {none(0),ip(1),dnsname(2),apiurl(3)}
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Tracking Type"
+    ::= { transportConnectionEntry 1 }
+
+-- tagpath /transport/connection/source
+transportConnectionSource OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Source address"
+    ::= { transportConnectionEntry 2 }
+
+-- tagpath /transport/connection/destination
+transportConnectionDestination OBJECT-TYPE
+    SYNTAX      InetAddressIP
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Destination address"
+    ::= { transportConnectionEntry 3 }
+
+-- tagpath /transport/connection/host
+transportConnectionHost OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host IP/DNS"
+    ::= { transportConnectionEntry 4 }
+
+-- tagpath /transport/connection/history
+transportConnectionHistoryTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF TransportConnectionHistoryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display transport connection history"
+    ::= { viptela-oper-system 12 }
+
+-- tagpath /transport/connection/history
+transportConnectionHistoryEntry OBJECT-TYPE
+    SYNTAX      TransportConnectionHistoryEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { transportConnectionTrackType,
+            transportConnectionSource,
+            transportConnectionDestination,
+            transportConnectionHost,
+            transportConnectionHistoryIndex }
+        ::= { transportConnectionHistoryTable 1 }
+
+TransportConnectionHistoryEntry ::=
+    SEQUENCE {
+        transportConnectionHistoryIndex Unsigned32,
+        transportConnectionHistoryTime String,
+        transportConnectionHistoryState INTEGER
+    }
+
+-- tagpath /transport/connection/history/index
+transportConnectionHistoryIndex OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index"
+    ::= { transportConnectionHistoryEntry 1 }
+
+-- tagpath /transport/connection/history/time
+transportConnectionHistoryTime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Time of log (Days:Hours:Minutes:Seconds)"
+    ::= { transportConnectionHistoryEntry 2 }
+
+-- tagpath /transport/connection/history/state
+transportConnectionHistoryState OBJECT-TYPE
+    SYNTAX      INTEGER {down(0),up(1)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { transportConnectionHistoryEntry 3 }
+
+-- tagpath /crash
+crashTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF CrashEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display system crash log list"
+    ::= { viptela-oper-system 13 }
+
+-- tagpath /crash
+crashEntry OBJECT-TYPE
+    SYNTAX      CrashEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { crashIndex }
+        ::= { crashTable 1 }
+
+CrashEntry ::=
+    SEQUENCE {
+        crashIndex Integer32,
+        crashCoreTime String,
+        crashCoreFilename String
+    }
+
+-- tagpath /crash/index
+crashIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0 .. 15)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index on this list"
+    ::= { crashEntry 1 }
+
+-- tagpath /crash/core-time
+crashCoreTime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Time core file was generated"
+    ::= { crashEntry 2 }
+
+-- tagpath /crash/core-filename
+crashCoreFilename OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Core file name"
+    ::= { crashEntry 3 }
+
+-- tagpath /software
+softwareTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF SoftwareEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display software versions"
+    ::= { viptela-oper-system 14 }
+
+-- tagpath /software
+softwareEntry OBJECT-TYPE
+    SYNTAX      SoftwareEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { IMPLIED softwareVersion }
+        ::= { softwareTable 1 }
+
+SoftwareEntry ::=
+    SEQUENCE {
+        softwareVersion String,
+        softwareActive TruthValue,
+        softwareDefault TruthValue,
+        softwarePrevious TruthValue,
+        softwareTimestamp DateAndTime,
+        softwareConfirmed String,
+        softwareNext TruthValue
+    }
+
+-- tagpath /software/version
+softwareVersion OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Version"
+    ::= { softwareEntry 1 }
+
+-- tagpath /software/active
+softwareActive OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Is active"
+    ::= { softwareEntry 2 }
+
+-- tagpath /software/default
+softwareDefault OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Is default"
+    ::= { softwareEntry 3 }
+
+-- tagpath /software/previous
+softwarePrevious OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Is previous"
+    ::= { softwareEntry 4 }
+
+-- tagpath /software/timestamp
+softwareTimestamp OBJECT-TYPE
+    SYNTAX      DateAndTime
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Date and time created"
+    ::= { softwareEntry 5 }
+
+-- tagpath /software/confirmed
+softwareConfirmed OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Confirmed by"
+    ::= { softwareEntry 6 }
+
+-- tagpath /software/next
+softwareNext OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Is next based image"
+    ::= { softwareEntry 7 }
+
+-- tagpath /images
+imagesTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF ImagesEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display downloaded software images"
+    ::= { viptela-oper-system 17 }
+
+-- tagpath /images
+imagesEntry OBJECT-TYPE
+    SYNTAX      ImagesEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { imagesIndex }
+        ::= { imagesTable 1 }
+
+ImagesEntry ::=
+    SEQUENCE {
+        imagesIndex Integer32,
+        imagesFilename String,
+        imagesTimestamp String,
+        imagesFilesize Counter64
+    }
+
+-- tagpath /images/index
+imagesIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0 .. 10)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index on this list"
+    ::= { imagesEntry 1 }
+
+-- tagpath /images/filename
+imagesFilename OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Downloaded Software image file name"
+    ::= { imagesEntry 2 }
+
+-- tagpath /images/timestamp
+imagesTimestamp OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Date and time the software image file was downloaded"
+    ::= { imagesEntry 3 }
+
+-- tagpath /images/filesize
+imagesFilesize OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { imagesEntry 4 }
+
+-- tagpath /logging/cacert
+loggingCacertTable OBJECT-TYPE
+    SYNTAX      SEQUENCE OF LoggingCacertEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Display installed cacerts for remote logging"
+    ::= { logging 10 }
+
+-- tagpath /logging/cacert
+loggingCacertEntry OBJECT-TYPE
+    SYNTAX      LoggingCacertEntry
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION ""
+    INDEX { loggingCacertIndex }
+        ::= { loggingCacertTable 1 }
+
+LoggingCacertEntry ::=
+    SEQUENCE {
+        loggingCacertIndex Integer32,
+        loggingCacertName String,
+        loggingCacertValidity String
+    }
+
+-- tagpath /logging/cacert/index
+loggingCacertIndex OBJECT-TYPE
+    SYNTAX      Integer32 (0 .. 10)
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Index on this list"
+    ::= { loggingCacertEntry 1 }
+
+-- tagpath /logging/cacert/name
+loggingCacertName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "Installed cacert name"
+    ::= { loggingCacertEntry 2 }
+
+-- tagpath /logging/cacert/validity
+loggingCacertValidity OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Valid until date on the cacert"
+    ::= { loggingCacertEntry 3 }
+
+END
