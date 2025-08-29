@@ -2234,6 +2234,12 @@ cevChassisC1131X8PLTEPWK                OBJECT IDENTIFIER ::= { cevChassis 2620 
 cevChassisC1131X8PLTEPWF                OBJECT IDENTIFIER ::= { cevChassis 2621 } -- Cisco C1131X-8PLTEPWF 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisC1131X8PLTEPWD                OBJECT IDENTIFIER ::= { cevChassis 2622 } -- Cisco C1131X-8PLTEPWD 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 cevChassisC1131X8PLTEPWR                OBJECT IDENTIFIER ::= { cevChassis 2623 } -- Cisco C1131X-8PLTEPWR 8 Ports GE LAN Router Chassis with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+cevChassisIE35008P3S                    OBJECT IDENTIFIER ::= { cevChassis 2624 } -- Cisco IE3500 w/ 8 GE PoE+ and 3 1G-SFP, Modular 
+cevChassisIE35008T3S                    OBJECT IDENTIFIER ::= { cevChassis 2625 } -- Cisco E3500 w/ 8 GE Copper and 3 1G-SFP, Modular
+cevChassisIE35058P3S                    OBJECT IDENTIFIER ::= { cevChassis 2626 } -- Cisco lE3505 w/ 8 GE PoE+ and 3 1G-SFP, Adv Modular 
+cevChassisIE35058T3S                    OBJECT IDENTIFIER ::= { cevChassis 2627 } -- Cisco IE3505 w/ 8 GE Copper and 3 1G-SFP, Adv Modular 
+cevChassisIE35008U3X                    OBJECT IDENTIFIER ::= { cevChassis 2628 } -- Cisco IE3500 w/ 8 GE UPoE and 3 10G-SFP, Modular
+cevChassisIE35008T3X                    OBJECT IDENTIFIER ::= { cevChassis 2629 } -- Cisco IE3500 w/ 8 GE and 3 10G-SFP, Modular 
 cevChassisESS93008X16T                  OBJECT IDENTIFIER ::= { cevChassis 2649 } -- Catalyst ESS9300 Embedded VPX Series switch – with 8 10G ports and 10 1G copper ports, Fixed system, Network Advantage
 cevChassisN9KC92348GCFX3                OBJECT IDENTIFIER ::= { cevChassis 2652 } -- Cisco Nexus 9200 Series fixed switch with 48x10/100M/1G BASE-T + 4x10/25 Gbps SFP28 + 2x40/100-Gbps QSFP28 ports
 cevChassisN9KC93320TCFX3P               OBJECT IDENTIFIER ::= { cevChassis 2659 } -- 2RU TOR fixed chassis with 12 x 100M/1G/2.5G/5G/10G BASE-T+2x40/100G QSFP28 ports
@@ -2249,6 +2255,7 @@ cevChassisN9336CSE1                     OBJECT IDENTIFIER ::= { cevChassis 2680 
 cevChassis871148ZM                      OBJECT IDENTIFIER ::= { cevChassis 2717 } -- Cisco 8711 1RU chassis with 48x 50G + 4x 200G + 6x 400G port
 cevChassis8712MODM                      OBJECT IDENTIFIER ::= { cevChassis 2718 } -- Cisco 8712 6.4T System
 cevChassis8804                          OBJECT IDENTIFIER ::= { cevChassis 2721 } -- Cisco 8804 4 LC Slot Chassis
+cevChassisNCS540L6Z6GSys                OBJECT IDENTIFIER ::= { cevChassis 2727 } -- NCS540L series - N540X-6Z6G-SYS Chassis  Network Convergence System- 540l Chassis with 6x1G & 6x10G ports Fruable PSU and Fans
 
 cevBackplane				OBJECT IDENTIFIER ::= { cevMIBObjects 4 }
 cevBackplaneAtm			        OBJECT IDENTIFIER ::= { cevBackplane 4 }	-- LS1010 Chassis
@@ -3429,6 +3436,9 @@ cevPowerSupplyNXAPAC350WPI2             OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyPSU1200WACPE              OBJECT IDENTIFIER ::= { cevPowerSupply 869 } -- 1200W ACPE Power Supply unit
 cevPowerSupplyPSU1200WACPI              OBJECT IDENTIFIER ::= { cevPowerSupply 870 } -- 1200W ACPI Power Supply unit
 cevPowerSupplyPSU3KWDCPIORV3            OBJECT IDENTIFIER ::= { cevPowerSupply 875 } -- Cisco 3KW LVDC Power Module with Port-side AirIntake
+cevPowerSupplyNXAPAC1100WPE3            OBJECT IDENTIFIER ::= { cevPowerSupply 881 } -- Nexus 1100W AC Power Supply Unit, Port Exhaust
+cevPowerSupplyNXAPAC1100WPI3            OBJECT IDENTIFIER ::= { cevPowerSupply 882 } -- Nexus 1100W AC Power Supply Unit, Port Intake
+
 
 cevFan			OBJECT IDENTIFIER ::= { cevMIBObjects 7 }
 cevFanC6260FanTray		OBJECT IDENTIFIER ::= { cevFan 3 }		-- Cisco 6260 Fan Tray
@@ -3838,6 +3848,7 @@ cevFanC8530L8S2X2YFanTray       OBJECT IDENTIFIER ::= { cevFan 480 } -- Cisco C8
 cevFanNCS1010                   OBJECT IDENTIFIER ::= { cevFan 481 } -- NCS1010 Fan Module
 cevFanNCS1K4FANP                OBJECT IDENTIFIER ::= { cevFan 491 } -- Network Convergence System 1014 Programmable FAN
 cevFan8700PE                    OBJECT IDENTIFIER ::= { cevFan 492 } -- Cisco 8000 Fan Tray 2RU Chassis Port-S Exhaust / Back-to-front
+cevFanNCS5406Z6GFAN             OBJECT IDENTIFIER ::= { cevFan 496 } -- N540X-6Z6G-SYS Modular Fan tray
 
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
 cevSensorMGX8800Temp			OBJECT IDENTIFIER ::= { cevSensor 11 }		-- Cabinet Temperature sensor device in MGX8800 Universal Chassis
@@ -8246,6 +8257,14 @@ cevModuleRAIE1783CMS20DB         OBJECT IDENTIFIER ::= { cevModuleIEType 219 } -
 cevModuleRAIE1783CMS20DP         OBJECT IDENTIFIER ::= { cevModuleIEType 220 } -- Stratix 5200 switch, 18 copper 10/100/1000 ports, 2 Combo 100/1000 ports, full FW, DLR
 cevModuleRAIE1783CMS20DN         OBJECT IDENTIFIER ::= { cevModuleIEType 221 } -- Stratix 5200 switch, 18 copper 10/100/1000 ports, 2 Combo 100/1000 ports, full FW, DLR, PRP, NAT
 cevModuleIE31008T4S              OBJECT IDENTIFIER ::= { cevModuleIEType 227 } -- Catalyst IE3100 with 8 GE Copper and 4 GE SFP Ports, Fixed system, Network Essentials
+cevModuleIEM35008P               OBJECT IDENTIFIER ::= { cevModuleIEType 230 } -- Cisco IE3500 Expansion Module w/ 8 port GE PoE 8 Copper 10/100/1000 
+cevModuleIEM35008T               OBJECT IDENTIFIER ::= { cevModuleIEType 231 } -- Cisco IE3500 Expansion Module w/ 8 Copper 10/100/1000 
+cevModuleIEM35008S               OBJECT IDENTIFIER ::= { cevModuleIEType 232 } -- Cisco IE3500 Expansion Module w/ 8 SFP 10/100/1000
+cevModuleIEM35006T2S             OBJECT IDENTIFIER ::= { cevModuleIEType 233 } -- Cisco IE3500 Expansion Module w/  8 Port Mixed, 6 Copper 10/100/1000 and 2 1G-SFP 
+cevModuleIEM350016T              OBJECT IDENTIFIER ::= { cevModuleIEType 234 } -- Cisco IE3500 Expansion Module w/  16 Port Copper 10/100/1000 
+cevModuleIEM350016P              OBJECT IDENTIFIER ::= { cevModuleIEType 235 } -- Cisco IE3500 Expansion Module w/ 16 port PoE+ 16 Copper 10/100/1000 
+cevModuleIEM350014T2S            OBJECT IDENTIFIER ::= { cevModuleIEType 236 } -- Cisco IE3500 Expansion Module w/  16 Port Mixed, 14 Copper 10/100/1000 and 2 1G-SFP 
+cevModuleIEM35004MU              OBJECT IDENTIFIER ::= { cevModuleIEType 237 } -- Cisco IE3500 Expansion Module 4 Copper 100/1G/2.5G w/4PPoE 
 
 cevModuleN5KType        OBJECT IDENTIFIER ::= { cevModule 72 }                  -- Group for the Nexus 5000 N5K Type of cards
 cevN5kM1008             OBJECT IDENTIFIER ::= { cevModuleN5KType 1 }            -- Expansion Module, 8 port FC 1/2/4G (requires SFP)
