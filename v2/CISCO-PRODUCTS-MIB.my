@@ -2951,6 +2951,12 @@ ciscoC1131X8PLTEPWK                 OBJECT IDENTIFIER ::= { ciscoProducts 3348 }
 ciscoC1131X8PLTEPWF                 OBJECT IDENTIFIER ::= { ciscoProducts 3349 } -- Cisco C1131X-8PLTEPWF 8 Ports GE LAN Router with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -F Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC1131X8PLTEPWD                 OBJECT IDENTIFIER ::= { ciscoProducts 3350 } -- Cisco C1131X-8PLTEPWD 8 Ports GE LAN Router with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -D Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC1131X8PLTEPWR                 OBJECT IDENTIFIER ::= { ciscoProducts 3351 } -- Cisco C1131X-8PLTEPWR 8 Ports GE LAN Router with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -R Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
+ciscoIE35008P3S                     OBJECT IDENTIFIER ::= { ciscoProducts 3352 } -- Cisco IE3500 w/ 8 GE PoE+ and 3 1G-SFP, Modular 
+ciscoIE35008T3S                     OBJECT IDENTIFIER ::= { ciscoProducts 3353 } -- Cisco IE3500 w/ 8 GE Copper and 3 1G-SFP, Modular
+ciscoIE35058P3S                     OBJECT IDENTIFIER ::= { ciscoProducts 3354 } -- Cisco lE3505 w/ 8 GE PoE+ and 3 1G-SFP, Adv Modular 
+ciscoIE35058T3S                     OBJECT IDENTIFIER ::= { ciscoProducts 3355 } -- Cisco IE3505 w/ 8 GE Copper and 3 1G-SFP, Adv Modular 
+ciscoIE35008U3X                     OBJECT IDENTIFIER ::= { ciscoProducts 3356 } -- Cisco IE3500 w/ 8 GE UPoE and 3 10G-SFP, Modular 
+ciscoIE35008T3X                     OBJECT IDENTIFIER ::= { ciscoProducts 3357 } -- Cisco IE3500 w/ 8 GE and 3 10G-SFP, Modular 
 ciscoNCS1014                        OBJECT IDENTIFIER ::= { ciscoProducts 3366 } -- Network Convergence System 1014 chassis with timing support
 ciscoNCS1012                        OBJECT IDENTIFIER ::= { ciscoProducts 3367 } -- Cisco Network Convergence System 1012, Optical Line System
 ciscoNCS1020                        OBJECT IDENTIFIER ::= { ciscoProducts 3368 } -- Cisco Network Convergence System 1020, Optical Line System
@@ -2976,6 +2982,7 @@ ciscoC9KVA100L                      OBJECT IDENTIFIER ::= { ciscoProducts 3427 }
 cisco871148ZM                       OBJECT IDENTIFIER ::= { ciscoProducts 3452 } -- Cisco 8711 1RU chassis with 48x 50G + 4x 200G + 6x 400G port
 cisco8712MODM                       OBJECT IDENTIFIER ::= { ciscoProducts 3453 } -- Cisco 8712 6.4T System
 ciscoC9610RVirtualStack             OBJECT IDENTIFIER ::= { ciscoProducts 3455 } -- Virtual Stack of Cisco 9610
+ciscoNCS540L6Z6GSys                 OBJECT IDENTIFIER ::= { ciscoProducts 3463 } -- NCS540L Router - N540X-6Z6G-SYS
 
 END
 
