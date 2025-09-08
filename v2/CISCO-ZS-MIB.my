@@ -3,7 +3,7 @@
 --   
 -- September 2002 H K Vivek
 --   
--- Copyright (c) 2002-2014 by cisco Systems Inc.
+-- Copyright (c) 2002-2025 by cisco Systems Inc.
 -- All rights reserved.
 --   
 -- *********************************************************************
@@ -46,11 +46,13 @@ IMPORTS
     FcGs3RejectReasonCode
         FROM CISCO-NS-MIB
     ciscoMgmt
-        FROM CISCO-SMI;
+        FROM CISCO-SMI
+    TimeIntervalSec
+        FROM CISCO-TC;
 
 
 ciscoZsMIB MODULE-IDENTITY
-    LAST-UPDATED    "201411250000Z"
+    LAST-UPDATED    "202509080000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -83,6 +85,26 @@ ciscoZsMIB MODULE-IDENTITY
                      2 databases can be merged, the
                      ISL is brought up. Otherwise,
                      the link is isolated."
+    REVISION        "202509080000Z"
+    DESCRIPTION
+        "Added following objects:
+         - zoneSetLastChangeInSec
+         - zoneLastChangeInSec  
+         - zoneAliasLastChangeInSec
+         - zoneEnforcedZoneSetActivateTimeInSec
+         - zoneEnforcedZoneActivateTimeInSec
+        
+        Deprecated following OBJECT-GROUPS
+         - zoneConfigurationGroup7
+
+        Added following OBJECT-GROUPS
+         - zoneConfigurationGroup8
+
+        Deprecated following compliance
+         - zoneServerMIBComplianceRev9"
+
+        Added new compliance
+         - zoneServerMIBComplianceRev10"
     REVISION        "201411250000Z"
     DESCRIPTION
         "Added following OBJECT-GROUP
@@ -858,7 +880,8 @@ ZoneSetEntry ::= SEQUENCE {
         zoneSetZoneList   FcList,
         zoneSetLastChange TimeStamp,
         zoneSetRowStatus  RowStatus,
-        zoneSetClone      SnmpAdminString
+        zoneSetClone      SnmpAdminString,
+        zoneSetLastChangeInSec TimeIntervalSec
 }
 
 zoneSetIndex OBJECT-TYPE
@@ -941,6 +964,21 @@ zoneSetClone OBJECT-TYPE
         string is returned." 
     ::= { zoneSetEntry 6 }
  
+
+zoneSetLastChangeInSec OBJECT-TYPE
+    SYNTAX          TimeIntervalSec
+    UNITS           "Seconds"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        change to this zone set entry.
+        This object gives time in seconds whereas 
+        zoneSetLastChange gives time in centiseconds.
+        If the entry has not been modified since the last 
+        re-initialization of the local network management 
+        system, then this object will contain a zero value." 
+    ::= { zoneSetEntry 7 }
 
 -- zoneSetActivateTable
 
@@ -1157,7 +1195,8 @@ ZoneEntry ::= SEQUENCE {
         zoneQosPriority ZoneQosPriorityLevel,
         zoneBroadcast   TruthValue,
         zoneClone       SnmpAdminString,
-        zoneSmartZoning TruthValue
+        zoneSmartZoning TruthValue,
+        zoneLastChangeInSec TimeIntervalSec
 }
 
 zoneIndex OBJECT-TYPE
@@ -1349,6 +1388,20 @@ zoneSmartZoning OBJECT-TYPE
     DEFVAL          { true } 
     ::= { zoneEntry 12 }
  
+zoneLastChangeInSec OBJECT-TYPE
+    SYNTAX          TimeIntervalSec
+    UNITS           "Seconds"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        change to this zone entry.
+        This object gives time in seconds whereas 
+        zoneLastChange gives time in centiseconds.
+        If the entry has not been modified since the last 
+        re-initialization of the local network management 
+        system, then this object will contain a zero value." 
+    ::= { zoneEntry 13 }
 
 
 -- zoneAliasTable
@@ -1389,7 +1442,8 @@ ZoneAliasEntry ::= SEQUENCE {
         zoneAliasMemberList FcList,
         zoneAliasRowStatus  RowStatus,
         zoneAliasLastChange TimeStamp,
-        zoneAliasClone      SnmpAdminString
+        zoneAliasClone      SnmpAdminString,
+        zoneAliasLastChangeInSec TimeIntervalSec
 }
 
 zoneAliasIndex OBJECT-TYPE
@@ -1477,6 +1531,21 @@ zoneAliasClone OBJECT-TYPE
         string is returned." 
     ::= { zoneAliasEntry 6 }
  
+
+zoneAliasLastChangeInSec OBJECT-TYPE
+    SYNTAX          TimeIntervalSec
+    UNITS           "Seconds"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The value of sysUpTime at the time of the last
+        change to this alias entry.
+        This object gives time in seconds whereas 
+        zoneAliasLastChange gives time in centiseconds.
+        If the entry has not been modified since the last 
+        re-initialization of the local network management 
+        system, then this object will contain a zero value." 
+    ::= { zoneAliasEntry 7 }
 
 
 -- zoneMemberTable
@@ -1742,7 +1811,8 @@ zoneEnforcedZoneSetEntry OBJECT-TYPE
 ZoneEnforcedZoneSetEntry ::= SEQUENCE {
         zoneEnforcedZoneSetName         SnmpAdminString,
         zoneEnforcedZoneSetZoneList     FcList,
-        zoneEnforcedZoneSetActivateTime TimeStamp
+        zoneEnforcedZoneSetActivateTime TimeStamp,
+        zoneEnforcedZoneSetActivateTimeInSec TimeIntervalSec
 }
 
 zoneEnforcedZoneSetName OBJECT-TYPE
@@ -1777,6 +1847,21 @@ zoneEnforcedZoneSetActivateTime OBJECT-TYPE
         management system, then this object will 
         contain a zero value." 
     ::= { zoneEnforcedZoneSetEntry 3 }
+
+zoneEnforcedZoneSetActivateTimeInSec OBJECT-TYPE
+    SYNTAX          TimeIntervalSec
+    UNITS           "Seconds"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The sysUpTime at which this entry was most recently 
+        activated. This object gives 
+        time in seconds whereas zoneEnforcedZoneSetActivateTime 
+        gives time in centiseconds. If this entry has been 
+        activated prior to the last re-initialization of the 
+        local network management system, then this object will 
+        contain a zero value." 
+    ::= { zoneEnforcedZoneSetEntry 4 }
  
 
 
@@ -1819,7 +1904,8 @@ ZoneEnforcedZoneEntry ::= SEQUENCE {
         zoneEnforcedZoneQos          TruthValue,
         zoneEnforcedZoneQosPriority  ZoneQosPriorityLevel,
         zoneEnforcedZoneBroadcast    TruthValue,
-        zoneEnforcedZoneSmartZoning  TruthValue
+        zoneEnforcedZoneSmartZoning  TruthValue,
+        zoneEnforcedZoneActivateTimeInSec TimeIntervalSec
 }
 
 zoneEnforcedZoneName OBJECT-TYPE
@@ -1924,6 +2010,20 @@ zoneEnforcedZoneSmartZoning OBJECT-TYPE
         zone set was activated." 
     ::= { zoneEnforcedZoneEntry 9 }
  
+zoneEnforcedZoneActivateTimeInSec OBJECT-TYPE
+    SYNTAX          TimeIntervalSec
+    UNITS           "Seconds"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The sysUpTime at which this entry was most recently 
+        activated. This object gives 
+        time in seconds whereas zoneEnforcedZoneActivateTime 
+        gives time in centiseconds. If this entry has been 
+        activated prior to the last re-initialization of the 
+        local network management system, then this object will 
+        contain a zero value." 
+    ::= { zoneEnforcedZoneEntry 10 } 
 
 
 zoneEnforcedZoneAliasNumber OBJECT-TYPE
@@ -4587,7 +4687,7 @@ zoneServerMIBComplianceRev8 MODULE-COMPLIANCE
     ::= { zoneServerMIBCompliances 9 }
 
 zoneServerMIBComplianceRev9 MODULE-COMPLIANCE
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "The compliance statement for entities which
         implement the Zone Server."
@@ -4712,6 +4812,133 @@ zoneServerMIBComplianceRev9 MODULE-COMPLIANCE
     DESCRIPTION
         "Only IPv4 support is required."
     ::= { zoneServerMIBCompliances 10 }
+
+zoneServerMIBComplianceRev10 MODULE-COMPLIANCE
+    STATUS          current
+    DESCRIPTION
+        "The compliance statement for entities which
+        implement the Zone Server."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        zoneConfigurationGroup8,
+                        zoneStatisticsGroup,
+                        zoneNotificationControlGroup1,
+                        zoneNotificationGroup2,
+                        zoneNotificationControlGroup1Sup1,
+                        zoneConfigGroupSup2
+                    }
+
+    GROUP           zoneLunStatsGroup
+    DESCRIPTION
+        "Only entities that support LUN zoning need to
+        support this group."
+
+    GROUP           zoneNotificationControlGroup1Sup2
+    DESCRIPTION
+        "Only entities that support more than 2048
+        zones per zoneset need to support this group."
+
+    GROUP           zoneNotificationGroup2Sup1
+    DESCRIPTION
+        "Only entities that support more than 2048
+        zones per zoneset need to support this group."
+
+    GROUP           zoneConfigGroupSup4
+    DESCRIPTION
+        "Only entities that need to associate more than
+        2048 zones per zoneset need to support this
+        group."
+
+    GROUP           zoneConfigGroupSup5
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        more than 8192 zones per zoneset."
+
+    GROUP           zoneConfigGroupSup6
+    DESCRIPTION
+        "This group is mandatory for platforms which support
+        compacting zones."
+
+    OBJECT          zoneSetRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneSetActivateRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneAliasRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneMemberRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneCopyRowStatus
+    SYNTAX          INTEGER  {
+                        active(1),
+                        createAndGo(4),
+                        destroy(6)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only three values 'createAndGo', 'destroy' and
+        'active' out of the six enumerated values need to be
+        supported."
+
+    OBJECT          zoneCopyServerAddrType
+    SYNTAX          INTEGER  {
+                        ipv4(1)
+                    }
+    MIN-ACCESS      read-create
+    DESCRIPTION
+        "Only IPv4 support is required."
+    ::= { zoneServerMIBCompliances 11 }
 
 -- Units of Conformance
 
@@ -5490,7 +5717,7 @@ zoneConfigurationGroup7 OBJECT-GROUP
                         zoneZoneSetDistributeResult,
                         zoneZoneSetDistributeFailReason
                     }
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "A collection of objects for displaying and configuring
         Zone Membership and deleting the local zone server
@@ -5536,6 +5763,104 @@ zoneConfigGroupSup6 OBJECT-GROUP
         "A collection of objects to compact zones
         zones associated with zonesets."
     ::= { zoneServerMIBGroups 23 }
+
+zoneConfigurationGroup8 OBJECT-GROUP
+    OBJECTS         {
+                        zoneSetPropagationMode,
+                        zoneDefaultZoneBehaviour,
+                        zoneDefaultZoneReadOnly,
+                        zoneDefaultZoneQos,
+                        zoneDefaultZoneQosPriority,
+                        zoneDefaultZoneBroadcast,
+                        zoneSetNumber,
+                        zoneSetName,
+                        zoneSetZoneList,
+                        zoneSetLastChange,
+                        zoneSetRowStatus,
+                        zoneSetClone,
+                        zoneSetActivate,
+                        zoneSetActivateResult,
+                        zoneSetDeActivate,
+                        zoneSetActivateRowStatus,
+                        zoneSetFailCause,
+                        zoneSetFailDomId,
+                        zoneNumber,
+                        zoneName,
+                        zoneMemberList,
+                        zoneAliasList,
+                        zoneLastChange,
+                        zoneRowStatus,
+                        zoneReadOnly,
+                        zoneQos,
+                        zoneQosPriority,
+                        zoneBroadcast,
+                        zoneClone,
+                        zoneSmartZoning,
+                        zoneAliasNumber,
+                        zoneAliasName,
+                        zoneAliasMemberList,
+                        zoneAliasRowStatus,
+                        zoneAliasLastChange,
+                        zoneAliasClone,
+                        zoneMemberNumber,
+                        zoneMemberFormat,
+                        zoneMemberID,
+                        zoneMemberLunID,
+                        zoneMemberRowStatus,
+                        zoneMemberAttr,
+                        zoneEnforcedZoneSetNumber,
+                        zoneEnforcedZoneSetName,
+                        zoneEnforcedZoneSetZoneList,
+                        zoneEnforcedZoneSetActivateTime,
+                        zoneEnforcedZoneNumber,
+                        zoneEnforcedZoneName,
+                        zoneEnforcedZoneMemberList,
+                        zoneEnforcedZoneAliasList,
+                        zoneEnforcedZoneActivateTime,
+                        zoneEnforcedZoneReadOnly,
+                        zoneEnforcedZoneQos,
+                        zoneEnforcedZoneQosPriority,
+                        zoneEnforcedZoneBroadcast,
+                        zoneEnforcedZoneSmartZoning,
+                        zoneEnforcedZoneMemberNumber,
+                        zoneEnforcedZoneMemberFormat,
+                        zoneEnforcedZoneMemberID,
+                        zoneEnforcedZoneMemberLunID,
+                        zoneEnforcedZoneMemberAttr,
+                        zoneMergeFailRecoverSpinLock,
+                        zoneMergeFailRecoverInterface,
+                        zoneMergeFailRecoverVsan,
+                        zoneMergeFailRecoverOper,
+                        zoneMergeFailRecoverResult,
+                        zoneDbClearDb,
+                        zoneDbEnforcedEqualsLocal,
+                        zoneDbHardZoningEnabled,
+                        zoneCopyProto,
+                        zoneCopyDestFileType,
+                        zoneCopyServerAddrType,
+                        zoneCopyServerAddr,
+                        zoneCopyDestFileName,
+                        zoneCopyUserName,
+                        zoneCopyUserPassword,
+                        zoneCopyStartCopy,
+                        zoneCopyState,
+                        zoneCopyRowStatus,
+                        zoneZoneSetDistributeVsan,
+                        zoneZoneSetDistributeResult,
+                        zoneZoneSetDistributeFailReason,
+                        zoneEnforcedZoneSetActivateTimeInSec,
+                        zoneEnforcedZoneActivateTimeInSec,
+                        zoneAliasLastChangeInSec,
+                        zoneLastChangeInSec,
+                        zoneSetLastChangeInSec
+                    }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects for displaying and configuring
+        Zone Membership and deleting the local zone server
+        database."
+    ::= { zoneServerMIBGroups 24 }
+
 
 END
 
