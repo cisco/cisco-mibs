@@ -3,7 +3,7 @@
 --   
 -- Abhinand Chidu Velekkat
 --   
--- Copyright (c) 2016-2017 by cisco Systems Inc.
+-- Copyright (c) 2016-2017, 2025 by cisco Systems Inc.
 -- All rights reserved.
 -- *****************************************************************
 
@@ -26,7 +26,7 @@ IMPORTS
 
 
 ciscoSecyExtMIB MODULE-IDENTITY
-    LAST-UPDATED    "201612150000Z"
+    LAST-UPDATED    "202510130000Z"
     ORGANIZATION    "Cisco Systems, Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -41,6 +41,12 @@ ciscoSecyExtMIB MODULE-IDENTITY
             E-mail: cs-snmp@cisco.com"
     DESCRIPTION
         "A MIB module for extending IEEE8021-SECY-MIB."
+    REVISION        "202510130000Z"
+    DESCRIPTION
+        "Added total controlled packet counters for both RX and TX
+        interfaces:
+        - cseSecyIfRxControlledPkts
+        - cseSecyIfTxControlledPkts"
     REVISION        "201612150000Z"
     DESCRIPTION
         "Initial version of this MIB module."
@@ -200,7 +206,8 @@ CseSecyIfRxStatsEntry ::= SEQUENCE {
         cseSecyIfRxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfRxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfRxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfRxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfRxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfRxControlledPkts            Counter64
 }
 
 cseSecyIfRxUnicastUncontrolledPkts OBJECT-TYPE
@@ -349,7 +356,15 @@ cseSecyIfRxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second received via this
         interface." 
     ::= { cseSecyIfRxStatsEntry 16 }
- 
+
+cseSecyIfRxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets received via this
+        interface."
+    ::= { cseSecyIfRxStatsEntry 17 }
 
 
 cseSecyIfTxStatsTable OBJECT-TYPE
@@ -388,7 +403,8 @@ CseSecyIfTxStatsEntry ::= SEQUENCE {
         cseSecyIfTxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfTxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfTxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfTxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfTxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfTxControlledPkts            Counter64
 }
 
 cseSecyIfTxUnicastUncontrolledPkts OBJECT-TYPE
@@ -546,7 +562,15 @@ cseSecyIfTxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second transmitted via this
         interface." 
     ::= { cseSecyIfTxStatsEntry 17 }
- 
+
+cseSecyIfTxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets transmitted via this
+        interface."
+    ::= { cseSecyIfTxStatsEntry 18 }
 
 ciscoSecyExtMIBCompliances  OBJECT IDENTIFIER
     ::= { ciscoSecyExtMIBConform 1 }
@@ -627,7 +651,8 @@ cseSecyIfRxStatsGroup OBJECT-GROUP
                         cseSecyIfRxUncontrolledPktRate,
                         cseSecyIfRxUncontrolledOctetRate,
                         cseSecyIfRxControlledPktRate,
-                        cseSecyIfRxControlledOctetRate
+                        cseSecyIfRxControlledOctetRate,
+                        cseSecyIfRxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
@@ -653,7 +678,8 @@ cseSecyIfTxStatsGroup OBJECT-GROUP
                         cseSecyIfTxUncontrolledPktRate,
                         cseSecyIfTxUncontrolledOctetRate,
                         cseSecyIfTxControlledPktRate,
-                        cseSecyIfTxControlledOctetRate
+                        cseSecyIfTxControlledOctetRate,
+                        cseSecyIfTxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
