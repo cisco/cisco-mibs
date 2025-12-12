@@ -3,7 +3,7 @@
 --   
 -- September 2002, Srini Kode
 --   
--- Copyright (c) 2002-2024 by cisco Systems Inc.
+-- Copyright (c) 2002-2017, 2019, 2025 by Cisco Systems, Inc.
 -- All rights reserved.
 --   
 -- *******************************************************************
@@ -56,7 +56,7 @@ IMPORTS
 
 
 ciscoFcFeMIB MODULE-IDENTITY
-    LAST-UPDATED    "202401170000Z"
+    LAST-UPDATED    "202512100000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -90,21 +90,103 @@ ciscoFcFeMIB MODULE-IDENTITY
         Terminology 
                     ELP : Exchange Link parameters 
                     EPP : Exchange Peer Parameters."
-    REVISION        "202401170000Z"
+    REVISION        "202512100000Z"
     DESCRIPTION
-        "-Added the following objects to FcIfEntry:
-        fcIfTransceiverPower,
-        fcIfTransceiverPowerControl,
-        - Added the following object to cffFcFeConfig:
-        fcIfSysTransceiverPowerControlCapability,
-        fcIfSysTransceiverPowerControl,
-        - Added the following new groups:
-        fcIfGroupRev6
-        - Deprecated cffFcFeMIBComplianceRev17 compliance statement
-        - Added cffFcFeMIBComplianceRev18 compliance statement."
-    REVISION        "202102120000Z"
-    DESCRIPTION
-        "Added the twentyFiveGigSpeed and fortyGigSpeed to fcIfGigEAdminSpeed"
+        "-Added the following enums for FcIfOperStatusReason:
+        phyPortHotStandby,
+        wimaxModemUnattached,
+        wpanModemUnattached,
+        rbhModulo,
+        suspendedFpcMinlinksNotMet,
+        miscabling,
+        rcvSrpOnNonFcoeFex,
+        inactivePortAccessVlanOnBd,
+        suspendedDueToLacpMisConfig,
+        establishBfd,
+        fortyGMemberPort,
+        goldLbTest,
+        edpError,
+        vpcCompatFailed,
+        aclqosNoResource,
+        vpcShutdown,
+        notPcMember,
+        systemIntfShut,
+        speedGroupCfgReq,
+        systemIntfShutdown,
+        dot1qMisconfig,
+        mdMismatch,
+        suspendedByVpcForPlShut,
+        portNotAvailable,
+        eloSessionDown,
+        eloDiscoveryTimeout,
+        eloCapabilitiesConflict,
+        eloMiswired,
+        eloLinkFault,
+        eloDyingGasp,
+        eloCriticalEvent,
+        eloThresholdBreached,
+        hwResourceExhaustion,
+        hifPcinfoMismatch,
+        lanDown,
+        pmonFlap,
+        pmonErrDisable,
+        nveCoreLinkDown,
+        dportMisconfig,
+        mvrCfg,
+        qsaPresent,
+        pairPortSfpSpeedMismatch,
+        xcvrBreakoutUnsupported,
+        fecSpeedIncompatible,
+        notAvailable,
+        xconnectDown,
+        aafexFabricDown,
+        fipsFailure,
+        xcvrBreakoutMapUnsupported,
+        eightGArbffFillPatternRcvd,
+        mediaTypeUnsupported,
+        breakinMemberPort,
+        macMacsecConflict,
+        quadSpeedMismatch,
+        fecTtsNotConfigured,
+        duplicateSfp,
+        errdisableChasisMismatch,
+        mmodeBootEnabled,
+        serdesCoreFailureErrDisable,
+        fspfCostMultiplierMismatch,
+        hwDisabled,
+        unsupportedPlatformL3po,
+        poeErrorDisabled,
+        stormctrlErrDisabled,
+        qsaAdaptor,
+        aggrPortFlapsErrDisabled,
+        hwDisabledSpeedMismatchPortGrp,
+        mplsPlatformNotSupported,
+        mediaTypeErrDisabled,
+        hwDisabledByBkout,
+        hpoMaxLimitReached,
+        insertedHpoIncompatibleWithMacsecSessions,
+        epmLearnDisabled,
+        mcpLoopErrdisable,
+        fabricTrack,
+        diagErrorDisabled,
+        incompatibleFecmode,
+        linkNotConnected,
+        fspfCostMultiplierMismatchErrdisable,
+        transceiverIncompatible,
+        hpoXcvrUnsupported,
+        xcvrHighTemperature,
+        fkaTimeout,
+        unsupportedAutonegCfg,
+        unsupportedPhymediatypeCfg,
+        smaErrorDisable,
+        smaFlapPort,
+        olsInserted,
+        noDlbResource,
+        errdisableEsiUnsupported,
+        errorDisabledAclProgramFailure,
+        suspendedBySas,
+        errorDisabledPortConfigFailure,
+        prbsTest."
     REVISION        "201702170000Z"
     DESCRIPTION
         "-Added the following objects to FcIfEntry:
@@ -1225,7 +1307,101 @@ FcIfOperStatusReason ::= TEXTUAL-CONVENTION
          'pppPeerNotResponding' - ppp peer not responding.
          'pppAuthFailed' - ppp authentication failed.
          'xcvrAuthFailed' - Transceiver authentication failed.
-         'badFramesRcvdFromLink' - Excessive bad frames received from link."
+         'badFramesRcvdFromLink' - Excessive bad frames received from link.
+         'phyPortHotStandby' - Physical port in hot standby mode.
+         'wimaxModemUnattached' - WiMAX modem unattached.
+         'wpanModemUnattached' - WPAN modem unattached.
+         'rbhModulo' - RBH modulo.
+         'suspendedFpcMinlinksNotMet' - Suspended FPC min-links not met.
+         'miscabling' - Miscabling detected.
+         'rcvSrpOnNonFcoeFex' - Received SRP on non-FCOE FEX.
+         'inactivePortAccessVlanOnBd' - Inactive port access VLAN on BD.
+         'suspendedDueToLacpMisConfig' - Suspended due to LACP misconfiguration.
+         'establishBfd' - Establish BFD.
+         'fortyGMemberPort' - 40G member port (obsolete).
+         'goldLbTest' - GOLD loopback test.
+         'edpError' - EDP error.
+         'vpcCompatFailed' - VPC compatibility failed.
+         'aclqosNoResource' - ACLQOS no resource.
+         'vpcShutdown' - VPC shutdown.
+         'notPcMember' - Not a port-channel member.
+         'systemIntfShut' - System interface shut.
+         'speedGroupCfgReq' - Speed group configuration required.
+         'systemIntfShutdown' - System interface shutdown.
+         'dot1qMisconfig' - Dot1q misconfiguration.
+         'mdMismatch' - MD mismatch.
+         'suspendedByVpcForPlShut' - Suspended by VPC for peer-link shutdown.
+         'portNotAvailable' - Port not available.
+         'eloSessionDown' - ELO session down.
+         'eloDiscoveryTimeout' - ELO discovery timeout.
+         'eloCapabilitiesConflict' - ELO capabilities conflict.
+         'eloMiswired' - ELO miswired.
+         'eloLinkFault' - ELO link fault.
+         'eloDyingGasp' - ELO dying gasp.
+         'eloCriticalEvent' - ELO critical event.
+         'eloThresholdBreached' - ELO threshold breached.
+         'hwResourceExhaustion' - Hardware resource exhaustion.
+         'hifPcinfoMismatch' - HIF PC info mismatch.
+         'lanDown' - LAN down.
+         'pmonFlap' - PMON flap.
+         'pmonErrDisable' - PMON error disable.
+         'nveCoreLinkDown' - NVE core link down.
+         'dportMisconfig' - D-port misconfiguration.
+         'mvrCfg' - MVR configuration.
+         'qsaPresent' - QSA present.
+         'pairPortSfpSpeedMismatch' - Pair port SFP speed mismatch.
+         'xcvrBreakoutUnsupported' - Transceiver breakout unsupported.
+         'fecSpeedIncompatible' - FEC speed incompatible.
+         'notAvailable' - Not available.
+         'xconnectDown' - xconnect down.
+         'aafexFabricDown' - AA FEX fabric down.
+         'fipsFailure' - FIPS failure.
+         'xcvrBreakoutMapUnsupported' - Transceiver breakout map unsupported.
+         'eightGArbffFillPatternRcvd' - 8G ARBFF fill pattern received.
+         'mediaTypeUnsupported' - Media type unsupported.
+         'breakinMemberPort' - Break-in member port.
+         'macMacsecConflict' - MAC MACsec conflict.
+         'quadSpeedMismatch' - Quad speed mismatch.
+         'fecTtsNotConfigured' - FEC TTS not configured.
+         'duplicateSfp' - Duplicate SFP.
+         'errdisableChasisMismatch' - Error disable chassis mismatch.
+         'mmodeBootEnabled' - Maintenance mode boot enabled.
+         'serdesCoreFailureErrDisable' - SERDES core failure error disable.
+         'fspfCostMultiplierMismatch' - FSPF cost multiplier mismatch.
+         'hwDisabled' - Hardware disabled.
+         'unsupportedPlatformL3po' - Unsupported platform L3 port.
+         'poeErrorDisabled' - PoE error disabled.
+         'stormctrlErrDisabled' - Storm control error disabled.
+         'qsaAdaptor' - QSA adaptor.
+         'aggrPortFlapsErrDisabled' - Aggressive port flaps error disabled.
+         'hwDisabledSpeedMismatchPortGrp' - Hardware disabled speed mismatch in port group.
+         'mplsPlatformNotSupported' - MPLS platform not supported.
+         'mediaTypeErrDisabled' - Media type error disabled.
+         'hwDisabledByBkout' - Hardware disabled by breakout.
+         'hpoMaxLimitReached' - HPO max limit reached.
+         'insertedHpoIncompatibleWithMacsecSessions' - Inserted HPO incompatible with MACsec sessions.
+         'epmLearnDisabled' - EPM learn disabled.
+         'mcpLoopErrdisable' - MCP loop error disable.
+         'fabricTrack' - Fabric track.
+         'diagErrorDisabled' - Diagnostic error disabled.
+         'incompatibleFecmode' - Incompatible FEC mode.
+         'linkNotConnected' - Link not connected.
+         'fspfCostMultiplierMismatchErrdisable' - FSPF cost multiplier mismatch error disable.
+         'transceiverIncompatible' - Transceiver incompatible.
+         'hpoXcvrUnsupported' - HPO transceiver unsupported.
+         'xcvrHighTemperature' - Transceiver high temperature.
+         'fkaTimeout' - FKA timeout.
+         'unsupportedAutonegCfg' - Unsupported auto negotiation configuration.
+         'unsupportedPhymediatypeCfg' - Unsupported physical media type configuration.
+         'smaErrorDisable' - SMA error disable.
+         'smaFlapPort' - SMA flap port.
+         'olsInserted' - OLS inserted.
+         'noDlbResource' - No DLB resource.
+         'errdisableEsiUnsupported' - Error disable ESI unsupported.
+         'errorDisabledAclProgramFailure' - Error disabled ACL program failure.
+         'suspendedBySas' - Suspended by SAS.
+         'errorDisabledPortConfigFailure' - Error disabled port configuration failure.
+         'prbsTest' - PRBS test."
     SYNTAX          INTEGER  {
                         other(1),
                         none(2),
@@ -1512,7 +1688,101 @@ FcIfOperStatusReason ::= TEXTUAL-CONVENTION
                         pppPeerNotResponding(283),
                         pppAuthFailed(284),
                         xcvrAuthFailed(285),
-                        badFramesRcvdFromLink(286)
+                        badFramesRcvdFromLink(286),
+                        phyPortHotStandby(287),
+                        wimaxModemUnattached(288),
+                        wpanModemUnattached(289),
+                        rbhModulo(290),
+                        suspendedFpcMinlinksNotMet(291),
+                        miscabling(292),
+                        rcvSrpOnNonFcoeFex(293),
+                        inactivePortAccessVlanOnBd(294),
+                        suspendedDueToLacpMisConfig(295),
+                        establishBfd(296),
+                        fortyGMemberPort(300),
+                        goldLbTest(301),
+                        edpError(302),
+                        vpcCompatFailed(303),
+                        aclqosNoResource(304),
+                        vpcShutdown(305),
+                        notPcMember(306),
+                        systemIntfShut(307),
+                        speedGroupCfgReq(308),
+                        systemIntfShutdown(309),
+                        dot1qMisconfig(310),
+                        mdMismatch(311),
+                        suspendedByVpcForPlShut(312),
+                        portNotAvailable(313),
+                        eloSessionDown(314),
+                        eloDiscoveryTimeout(315),
+                        eloCapabilitiesConflict(316),
+                        eloMiswired(317),
+                        eloLinkFault(318),
+                        eloDyingGasp(319),
+                        eloCriticalEvent(320),
+                        eloThresholdBreached(321),
+                        hwResourceExhaustion(322),
+                        hifPcinfoMismatch(323),
+                        lanDown(324),
+                        pmonFlap(325),
+                        pmonErrDisable(326),
+                        nveCoreLinkDown(327),
+                        dportMisconfig(328),
+                        mvrCfg(329),
+                        qsaPresent(330),
+                        pairPortSfpSpeedMismatch(331),
+                        xcvrBreakoutUnsupported(332),
+                        fecSpeedIncompatible(333),
+                        notAvailable(334),
+                        xconnectDown(335),
+                        aafexFabricDown(336),
+                        fipsFailure(337),
+                        xcvrBreakoutMapUnsupported(338),
+                        eightGArbffFillPatternRcvd(339),
+                        mediaTypeUnsupported(340),
+                        breakinMemberPort(341),
+                        macMacsecConflict(342),
+                        quadSpeedMismatch(343),
+                        fecTtsNotConfigured(344),
+                        duplicateSfp(345),
+                        errdisableChasisMismatch(346),
+                        mmodeBootEnabled(347),
+                        serdesCoreFailureErrDisable(348),
+                        fspfCostMultiplierMismatch(349),
+                        hwDisabled(350),
+                        unsupportedPlatformL3po(351),
+                        poeErrorDisabled(352),
+                        stormctrlErrDisabled(353),
+                        qsaAdaptor(354),
+                        aggrPortFlapsErrDisabled(355),
+                        hwDisabledSpeedMismatchPortGrp(356),
+                        mplsPlatformNotSupported(357),
+                        mediaTypeErrDisabled(358),
+                        hwDisabledByBkout(359),
+                        hpoMaxLimitReached(360),
+                        insertedHpoIncompatibleWithMacsecSessions(361),
+                        epmLearnDisabled(362),
+                        mcpLoopErrdisable(363),
+                        fabricTrack(364),
+                        diagErrorDisabled(365),
+                        incompatibleFecmode(366),
+                        linkNotConnected(367),
+                        fspfCostMultiplierMismatchErrdisable(368),
+                        transceiverIncompatible(369),
+                        hpoXcvrUnsupported(370),
+                        xcvrHighTemperature(371),
+                        fkaTimeout(372),
+                        unsupportedAutonegCfg(373),
+                        unsupportedPhymediatypeCfg(374),
+                        smaErrorDisable(375),
+                        smaFlapPort(376),
+                        olsInserted(377),
+                        noDlbResource(378),
+                        errdisableEsiUnsupported(379),
+                        errorDisabledAclProgramFailure(380),
+                        suspendedBySas(381),
+                        errorDisabledPortConfigFailure(382),
+                        prbsTest(383)
                     }
 
 FcPerfBuffer ::= TEXTUAL-CONVENTION
@@ -1611,9 +1881,7 @@ FcIfEntry ::= SEQUENCE {
         fcIfAdminFECState           INTEGER,
         fcIfOperFECState            INTEGER,
         fcIfAdminFecTtsState        INTEGER,
-        fcIfOperFecTtsState         INTEGER,
-        fcIfTransceiverPower        INTEGER,
-        fcIfTransceiverPowerControl INTEGER
+        fcIfOperFecTtsState         INTEGER
 }
 
 fcIfWwn OBJECT-TYPE
@@ -2475,33 +2743,7 @@ fcIfOperFecTtsState OBJECT-TYPE
         should be configured as up."
     DEFVAL          { down } 
     ::= { fcIfEntry 44 }
-
-fcIfTransceiverPower OBJECT-TYPE
-    SYNTAX          INTEGER  {
-                        off(0),
-                        on(1),
-                        notApplicable(2)
-                    }
-    MAX-ACCESS      read-only
-    STATUS          current
-    DESCRIPTION
-        "The current transceiver power status for the interface."
-    DEFVAL          { on }
-    ::= { fcIfEntry 45 }
-
-fcIfTransceiverPowerControl OBJECT-TYPE
-    SYNTAX          INTEGER  {
-                        off(0),
-                        on(1),
-                        notSupported(2)
-                    }
-    MAX-ACCESS      read-only
-    STATUS          current
-    DESCRIPTION
-        "The transceiver power control setting for the interface."
-    DEFVAL          { on }
-    ::= { fcIfEntry 46 }
-
+ 
 
 -- fcTrunkIfTable.
 
@@ -4017,9 +4259,7 @@ fcIfGigEAdminSpeed OBJECT-TYPE
     SYNTAX          INTEGER  {
                         notApplicable(1),
                         oneGigSpeed(2),
-                        tenGigSpeed(3),
-                        twentyFiveGigSpeed(4),
-                        fortyGigspeed(5)
+                        tenGigSpeed(3)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -4029,10 +4269,7 @@ fcIfGigEAdminSpeed OBJECT-TYPE
         'notApplicable' - The read-only value 'notApplicable' indicates
                           that the speed change is not applicable.
         'oneGigSpeed' - The IPStorage port is configured as 1G.
-        'tenGigSpeed' - The IPStorage port is configured as 10G.
-        'twentyfiveGigSpeed' - The IPStorage port is configured as 25G.
-        'fortyGigSpeed' - The IPStorage port is configured as 40G."
-        
+        'tenGigSpeed' - The IPStorage port is configured as 10G."
     DEFVAL          { tenGigSpeed } 
     ::= { fcIfGigEEntry 5 }
 
@@ -4118,8 +4355,7 @@ fcIfModuleOverSubscriptionRatioConfig OBJECT-TYPE
 fcIfModuleBandwidthFairnessConfig OBJECT-TYPE
     SYNTAX          INTEGER  {
                         enable(1),
-                        disable(2),
-                        notApplicable(3)
+                        disable(2)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -4129,8 +4365,6 @@ fcIfModuleBandwidthFairnessConfig OBJECT-TYPE
 
         enable(1)  - Enables the bandwidth fairness
         disable(2) - Disables the bandwidth fairness 
-        notApplicable(3) - This value is read-only and is always returned for
-                           module which does not support this configuration
 
         By default, bandwidth fairness is enabled for a module. If the 
         user configures this object to disable (2), fair bandwidth 
@@ -4141,8 +4375,7 @@ fcIfModuleBandwidthFairnessConfig OBJECT-TYPE
 fcIfModuleBandwidthFairnessOper OBJECT-TYPE
     SYNTAX          INTEGER  {
                         enabled(1),
-                        disabled(2),
-                        notApplicable(3)
+                        disabled(2)
                     }
     MAX-ACCESS      read-only
     STATUS          current
@@ -4150,9 +4383,7 @@ fcIfModuleBandwidthFairnessOper OBJECT-TYPE
         "The operational status of bandwidth fairness on the module.
 
         enabled(1)  -  Bandwidth fairness is enabled on the module
-        disabled(2) -  Bandwidth fairness is disabled on the module
-        notApplicable(3) - This value is read-only and is always returned for
-                           module which does not support this configuration"
+        disabled(2) -  Bandwidth fairness is disabled on the module" 
     ::= { fcIfModuleEntry 3 }
 
 fcIfModuleXcvrFrequencyConfig OBJECT-TYPE
@@ -4418,35 +4649,6 @@ fcIffPortCongestionDropTimeout OBJECT-TYPE
         "This object specifies the congestion drop timeout
         value in milliseconds for F Ports." 
     ::= { cffFcFeConfig 22 }
-
-fcIfSysTransceiverPowerControlCapability OBJECT-TYPE
-    SYNTAX          INTEGER  {
-                        TRUE(1)
-                        FALSE(0)
-                    }
-    MAX-ACCESS      read-only
-    STATUS          current
-    DESCRIPTION
-        "The transceiver power control supported on the platform."
-    DEFVAL          { on }
-    ::= { cffFcFeConfig 23 }
-
-fcIfSysTransceiverPowerControl OBJECT-TYPE
-    SYNTAX          INTEGER  {
-                        off(0),
-                        on(1),
-                        notSupported(2)
-                    }
-    MAX-ACCESS      read-write
-    STATUS          current
-    DESCRIPTION
-        "The transceiver power control setting on the platform.
-        notsupported(2): Read-only transceiver power control,
-        indicates that requested transceiver power control state
-        is not supported for this platform."
-    DEFVAL          { on }
-    ::= { cffFcFeConfig 24 }
-
 -- fcIfErrorTable
 
 fcIfErrorTable OBJECT-TYPE
@@ -6680,7 +6882,7 @@ cffFcFeMIBComplianceRev16 MODULE-COMPLIANCE
     ::= { cffFcFeMIBCompliances 17 }
 
 cffFcFeMIBComplianceRev17 MODULE-COMPLIANCE
-    STATUS          deprecated
+    STATUS          current
     DESCRIPTION
         "The compliance statement for entities which
         implement the CISCO-FC-FE-MIB."
@@ -6861,200 +7063,6 @@ cffFcFeMIBComplianceRev17 MODULE-COMPLIANCE
     DESCRIPTION
         "Write access is not required."
     ::= { cffFcFeMIBCompliances 18 }
-
- cffFcFeMIBComplianceRev18 MODULE-COMPLIANCE
-    STATUS          current
-    DESCRIPTION
-        "The compliance statement for entities which
-        implement the CISCO-FC-FE-MIB."
-    MODULE          -- this module
-    MANDATORY-GROUPS {
-                        fcFeGroup,
-                        fcIfGroup,
-                        fcTrunkIfGroup,
-                        fcIfLoginGroup,
-                        fcIfElpGroup,
-                        fcIfErrorGroup,
-                        fcIfC2AccountingGroup,
-                        fcIfC3AccountingGroup,
-                        fcIfCfAccountingGroup,
-                        fcIfNotificationGroup,
-                        fcIfGroupRev1,
-                        fcIfCapGroupRev1,
-                        fcIfGroupRev2,
-                        fcIfStatGroup,
-                        fcIfErrorGroupRev1,
-                        fcIfGroupRev3,
-                        fcIfRNIDInfoGroup,
-                        fcIfInfoGroup,
-                        fcIfGigEinfoExtGroup,
-                        fcIfGigEinfoExtGroupRev1,
-                        fcIfBbScnGroup,
-                        fcIfCapableGroup,
-                        fcIfInfoPortGroup,
-                        fcIfModuleGroupRev1,
-                        fcIfGroupRev4
-                    }
-
-    GROUP           fcotInfoNotificationGroup
-    DESCRIPTION
-        "Implementation of this group is optional."
-
-    GROUP           fcIfGigEInfoGroup
-    DESCRIPTION
-        "Implementation of this group is optional."
-
-    GROUP           fcIfFlapCtrlConfigGroup
-    DESCRIPTION
-        "Implementation of this group is optional."
-
-    GROUP           fcIfErrorGroupRev2
-    DESCRIPTION
-        "Implementation of this group is mandatory only
-        for the devices which support errors of the ports
-        in this group."
-
-    GROUP           fcIfErrorGroupRev3
-    DESCRIPTION
-        "Implementation of this group is mandatory only
-        for the devices which support errors of the ports
-        in this group."
-
-    GROUP           fcIfErrorGroupRev4
-    DESCRIPTION
-        "Implementation of this group is mandatory only
-        for the devices which support errors of the ports
-        in this group."
-
-    GROUP           fcFeGroupRev1
-    DESCRIPTION
-        "Implementation of this group is mandatory only for the
-        devices which support monitor and drop timeout configuration."
-
-    GROUP           fcIfErrorGroupRev5
-    DESCRIPTION
-        "Implementation of this group is mandatory only for
-        the devices which support slowport event and operation delay."
-
-    GROUP           fcIfGigEinfoExtGroupRev2
-    DESCRIPTION
-        "Implementation of this group is mandatory
-        only for the devices which support GigE interfaces speed
-        configuration."
-
-    GROUP           fcIfGigEinfoExtGroupRev3
-    DESCRIPTION
-        "Implementation of this group is mandatory
-        only for the devices which support GigE interfaces operational
-        status cause."
-
-    GROUP           fcIfGigEinfoExtGroupRev4
-    DESCRIPTION
-        "Implementation of this group is mandatory
-        only for the linecards which supports service state for
-        GigE interfaces."
-
-    GROUP           fcIfErrorGroupRev6
-    DESCRIPTION
-        "Implementation of this group is mandatory only for
-        the devices which support state change counter."
-
-    GROUP           fcIfErrorGroupRev7
-    DESCRIPTION
-        "Implementation of this group is mandatory only for
-        the devices which support TX wait counter."
-
-    GROUP           fcIfGroupRev5
-    DESCRIPTION
-        "Implementation of this group is mandatory only for
-        the devices which support FEC TTS."
-
-    GROUP           fcIfGroupRev6
-    DESCRIPTION
-        "Implementation of this group is mandatory only for
-        the devices which support Transceiver Power."
-
-    OBJECT          cffFcFeElementName
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfPortRateMode
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfRxDataFieldSize
-    SYNTAX          FcRxDataFieldSize
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfAdminRxBbCredit
-    DESCRIPTION
-        "It is compliant to support a range which is
-        smaller than the range defined."
-
-    OBJECT          fcIfAdminRxBbCreditModeISL
-    DESCRIPTION
-        "It is compliant to support a range which is
-        smaller than the range defined."
-
-    OBJECT          fcIfAdminRxBbCreditModeFx
-    DESCRIPTION
-        "It is compliant to support a range which is
-        smaller than the range defined."
-
-    OBJECT          fcIfAdminFECState
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfGigEAdminSpeed
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfePortSlowportMonitorTimeout
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIffPortSlowportMonitorTimeout
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIffPortNoCreditDropTimeout
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfePortCongestionDropTimeout
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIffPortCongestionDropTimeout
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfGigEServiceState
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          fcIfAdminFecTtsState
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    OBJECT          TransceiverPowerControl
-    MIN-ACCESS      read-only
-    DESCRIPTION
-        "Write access is not required."
-
-    ::= { cffFcFeMIBCompliances 19 }
 
 -- Units of Conformance
 
@@ -7646,17 +7654,9 @@ fcIfGroupRev5 OBJECT-GROUP
         "A collection objects giving port information."
     ::= { cffFcFeMIBGroups 42 }
 
-fcIfGroupRev6 OBJECT-GROUP
-    OBJECTS         {
-        				fcIfTransceiverPower,
-        				fcIfTransceiverPowerControl,
-        				fcIfSysTransceiverPowerControlCapability,
-        				fcIfSysTransceiverPowerControl,
-                    }
-    STATUS          current
-    DESCRIPTION
-        "A collection objects giving port transceiver power information."
-    ::= { cffFcFeMIBGroups 43 }
 END
+
+
+-- %DNP%  MLC -Edit MLC
 
 
