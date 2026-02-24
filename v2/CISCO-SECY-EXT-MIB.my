@@ -12,8 +12,7 @@ CISCO-SECY-EXT-MIB DEFINITIONS ::= BEGIN
 IMPORTS
     MODULE-IDENTITY,
     OBJECT-TYPE,
-    Counter64,
-    Integer32
+    Counter64
         FROM SNMPv2-SMI
     MODULE-COMPLIANCE,
     OBJECT-GROUP
@@ -696,12 +695,12 @@ cseSecySessionEntry OBJECT-TYPE
     ::= { cseSecySessionTable 1 }
 
 CseSecySessionEntry ::= SEQUENCE {
-        cseSecySessionOperStatus    Integer32,
+        cseSecySessionOperStatus    INTEGER,
         cseSecySessionOperStatusStr DisplayString
 }
 
 cseSecySessionOperStatus OBJECT-TYPE
-    SYNTAX          Integer32 {
+    SYNTAX          INTEGER {
                         up(1),
                         down(2),
                         negotiating(3)
