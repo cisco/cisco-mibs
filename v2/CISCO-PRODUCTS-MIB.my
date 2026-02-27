@@ -3015,6 +3015,6 @@ cisco8712MODM                       OBJECT IDENTIFIER ::= { ciscoProducts 3453 }
 ciscoC9610RVirtualStack             OBJECT IDENTIFIER ::= { ciscoProducts 3455 } -- Virtual Stack of Cisco 9610
 ciscoNCS540L6Z6GSys                 OBJECT IDENTIFIER ::= { ciscoProducts 3463 } -- NCS540L Router - N540X-6Z6G-SYS
 ciscoNCS540L8Z12GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3511 } -- NCS540L Router - N540-8Z12G-SYS-D
-
+ciscoNCS10142                       OBJECT IDENTIFIER ::= { ciscoProducts 3519 } -- Network Convergence System 1014-2 chassis with timing support
+ciscoIR8340G2                       OBJECT IDENTIFIER ::= { ciscoProducts 3520 } -- Cisco Catalyst IR8340G2 Rugged Router System with 12 1G LAN ports and 2 10G SFP+ WAN ports
 END
-
