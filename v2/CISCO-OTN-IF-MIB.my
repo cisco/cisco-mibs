@@ -92,6 +92,11 @@ ciscoOtnIfMIB MODULE-IDENTITY
         OSNR :  Optical singal to noise ratio.
         OTU  :  Optical Channel Transport Unit.
         ODU  :  Optical Channel Data Unit."
+    REVISION        "202505140000Z"
+    DESCRIPTION
+        "Added FEC Modes to the existing coiIfControllerFECMode object:
+        enableEnhancedSD15(10), enableEnhancedSD27(11), enableSD15DE (12),
+        enableStaircaseDE(13), enableOFEC (14) and enableCFEC (15)."
     REVISION        "201605250000Z"
     DESCRIPTION
         "Added Objects in-
@@ -391,7 +396,13 @@ coiIfControllerFECMode OBJECT-TYPE
                         enableHighGain(6),
                         enableLongHaul(7),
                         enableEnhancedSD7(8),
-                        enableEnhancedSD20(9)
+                        enableEnhancedSD20(9),
+                        enableEnhancedSD15(10),
+                        enableEnhancedSD27(11),
+                        enableSD15DE(12),
+                        enableStaircaseDE(13),
+                        enableOFEC(14),
+                        enableCFEC(15)
                     }
     MAX-ACCESS      read-write
     STATUS          current
@@ -419,7 +430,13 @@ coiIfControllerFECMode OBJECT-TYPE
         'enableHighGain'    - enable proprietary high gain FEC on the
                               Interface
         'enableEnhancedSD7' - enable FEC Software Decision 7%
-        'enableEnhancedSD20'- enable FEC Software Decision 20%."
+        'enableEnhancedSD20'- enable FEC Software Decision 20%
+        'enableEnhancedSD15'- enable FEC Software Decision 15%
+        'enableEnhancedSD27'- enable FEC Software Decision 27%
+        'enableSD15DE'      - enable FEC Software Decision 15 DE
+        'enableStaircaseDE' - enable FEC Staircase DE
+        'enableOFEC'        - enable O_FEC
+        'enableCFEC'        - enable C_FEC."
     DEFVAL          { enableEnhanced } 
     ::= { coiIfControllerEntry 6 }
 
