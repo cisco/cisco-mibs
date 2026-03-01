@@ -3,7 +3,7 @@
 --   
 -- Abhinand Chidu Velekkat
 --   
--- Copyright (c) 2016-2017 by cisco Systems Inc.
+-- Copyright (c) 2016-2017, 2025-2026 by cisco Systems Inc.
 -- All rights reserved.
 -- *****************************************************************
 
@@ -17,7 +17,11 @@ IMPORTS
     MODULE-COMPLIANCE,
     OBJECT-GROUP
         FROM SNMPv2-CONF
-    secyIfInterfaceIndex
+    DisplayString
+        FROM SNMPv2-TC
+    secyIfInterfaceIndex,
+    secyRxSAEntry,
+    secyTxSAEntry
         FROM IEEE8021-SECY-MIB
     CounterBasedGauge64
         FROM HCNUM-TC
@@ -26,7 +30,7 @@ IMPORTS
 
 
 ciscoSecyExtMIB MODULE-IDENTITY
-    LAST-UPDATED    "201612150000Z"
+    LAST-UPDATED    "202602080000Z"
     ORGANIZATION    "Cisco Systems, Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -41,6 +45,20 @@ ciscoSecyExtMIB MODULE-IDENTITY
             E-mail: cs-snmp@cisco.com"
     DESCRIPTION
         "A MIB module for extending IEEE8021-SECY-MIB."
+    REVISION        "202602080000Z"
+    DESCRIPTION
+        "Added cseSecySessionTable for MACSEC session state monitoring.
+        Provides OIDs to monitor the operational status of MACSEC sessions
+        (up, down, negotiating)."
+    REVISION        "202510130000Z"
+    DESCRIPTION
+        "Added total controlled packet counters for both RX and TX
+        interfaces:
+        - cseSecyIfRxControlledPkts
+        - cseSecyIfTxControlledPkts"
+    REVISION        "201702150000Z"
+    DESCRIPTION
+        "Add cseSecyRxSAStatsGroup and cseSecyTxSAStatsGroup."
     REVISION        "201612150000Z"
     DESCRIPTION
         "Initial version of this MIB module."
@@ -200,7 +218,8 @@ CseSecyIfRxStatsEntry ::= SEQUENCE {
         cseSecyIfRxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfRxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfRxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfRxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfRxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfRxControlledPkts            Counter64
 }
 
 cseSecyIfRxUnicastUncontrolledPkts OBJECT-TYPE
@@ -349,6 +368,15 @@ cseSecyIfRxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second received via this
         interface." 
     ::= { cseSecyIfRxStatsEntry 16 }
+
+cseSecyIfRxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets received via this
+        interface." 
+    ::= { cseSecyIfRxStatsEntry 17 }
  
 
 
@@ -388,7 +416,8 @@ CseSecyIfTxStatsEntry ::= SEQUENCE {
         cseSecyIfTxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfTxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfTxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfTxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfTxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfTxControlledPkts            Counter64
 }
 
 cseSecyIfTxUnicastUncontrolledPkts OBJECT-TYPE
@@ -546,6 +575,163 @@ cseSecyIfTxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second transmitted via this
         interface." 
     ::= { cseSecyIfTxStatsEntry 17 }
+
+cseSecyIfTxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets transmitted via this
+        interface." 
+    ::= { cseSecyIfTxStatsEntry 18 }
+ 
+
+
+cseSecyRxSAStatsTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CseSecyRxSAStatsEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "The table containing the additional statistics information for
+        each receiving SA in MAC security entity."
+    ::= { ciscoSecyExtMIBStatsObjects 5 }
+
+cseSecyRxSAStatsEntry OBJECT-TYPE
+    SYNTAX          CseSecyRxSAStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry containing the additional statistics for
+        a receiving SA."
+    AUGMENTS           { secyRxSAEntry  } 
+    ::= { cseSecyRxSAStatsTable 1 }
+
+CseSecyRxSAStatsEntry ::= SEQUENCE {
+        cseSecyRxSAStatsOKPkts Counter64
+}
+
+cseSecyRxSAStatsOKPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the counter64 version of secyRxSAStatsOKPkts, the
+        number of validated packets for this SA." 
+    ::= { cseSecyRxSAStatsEntry 1 }
+ 
+
+
+cseSecyTxSAStatsTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CseSecyTxSAStatsEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "The table containing the additional statistics information for
+        each transmitting SA in MAC security entity."
+    ::= { ciscoSecyExtMIBStatsObjects 6 }
+
+cseSecyTxSAStatsEntry OBJECT-TYPE
+    SYNTAX          CseSecyTxSAStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry containing the additional statistics for
+        a transmitting SA."
+    AUGMENTS           { secyTxSAEntry  } 
+    ::= { cseSecyTxSAStatsTable 1 }
+
+CseSecyTxSAStatsEntry ::= SEQUENCE {
+        cseSecyTxSAStatsProtectedPkts Counter64,
+        cseSecyTxSAStatsEncryptedPkts Counter64
+}
+
+cseSecyTxSAStatsProtectedPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the Counter64 version of secyTxSAStatsProtectedPkts,
+        the number of integrity-protected but non-encrypted
+        packets for this transmitting SA." 
+    ::= { cseSecyTxSAStatsEntry 1 }
+
+cseSecyTxSAStatsEncryptedPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the Counter64 version of secyTxSAStatsEncryptedPkts,
+        the number of integrity-protected and encrypted packets
+        for this transmitting SA." 
+    ::= { cseSecyTxSAStatsEntry 2 }
+ 
+
+-- *****************************************************************
+-- cseSecySessionTable - MACSEC Session State Monitoring Table
+-- *****************************************************************
+
+cseSecySessionTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CseSecySessionEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "A table containing the operational status information for
+        MACSEC sessions on each MAC security capable interface.
+        This table provides OIDs to monitor the operational status
+        of MACSEC sessions (up, down, negotiating)."
+    ::= { ciscoSecyExtMIBStatsObjects 7 }
+
+cseSecySessionEntry OBJECT-TYPE
+    SYNTAX          CseSecySessionEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry containing the operational status of a MACSEC
+        session on a MAC security capable interface."
+    INDEX           { secyIfInterfaceIndex } 
+    ::= { cseSecySessionTable 1 }
+
+CseSecySessionEntry ::= SEQUENCE {
+        cseSecySessionOperStatus    INTEGER,
+        cseSecySessionOperStatusStr DisplayString
+}
+
+cseSecySessionOperStatus OBJECT-TYPE
+    SYNTAX          INTEGER {
+                        up(1),
+                        down(2),
+                        negotiating(3)
+                    }
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The operational status of the MACSEC session on this interface.
+        
+        up(1)          - MACSEC session is secured and operational.
+                         MKA has successfully negotiated keys and both
+                         TX and RX secure channels are active.
+        
+        down(2)        - MACSEC session is not operational.
+                         Either MACSEC is not enabled or MKA session
+                         has not been established.
+        
+        negotiating(3) - MACSEC session is in the process of being
+                         established. MKA has been secured but secure
+                         channels are not yet fully operational." 
+    ::= { cseSecySessionEntry 1 }
+
+cseSecySessionOperStatusStr OBJECT-TYPE
+    SYNTAX          DisplayString (SIZE (0..32))
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "A textual representation of the operational status of the
+        MACSEC session on this interface. Possible values are:
+        'up', 'down', or 'negotiating'." 
+    ::= { cseSecySessionEntry 2 }
  
 
 ciscoSecyExtMIBCompliances  OBJECT IDENTIFIER
@@ -584,6 +770,11 @@ cseSecyExtMIBCompliance MODULE-COMPLIANCE
         "This group is mandatory for devices which support
         the interface TX Statistics information defined
         in this group."
+
+    GROUP           cseSecySessionGroup
+    DESCRIPTION
+        "This group is mandatory for devices which support
+        MACSEC session state monitoring."
     ::= { ciscoSecyExtMIBCompliances 1 }
 
 -- Units of Conformance
@@ -627,7 +818,8 @@ cseSecyIfRxStatsGroup OBJECT-GROUP
                         cseSecyIfRxUncontrolledPktRate,
                         cseSecyIfRxUncontrolledOctetRate,
                         cseSecyIfRxControlledPktRate,
-                        cseSecyIfRxControlledOctetRate
+                        cseSecyIfRxControlledOctetRate,
+                        cseSecyIfRxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
@@ -653,7 +845,8 @@ cseSecyIfTxStatsGroup OBJECT-GROUP
                         cseSecyIfTxUncontrolledPktRate,
                         cseSecyIfTxUncontrolledOctetRate,
                         cseSecyIfTxControlledPktRate,
-                        cseSecyIfTxControlledOctetRate
+                        cseSecyIfTxControlledOctetRate,
+                        cseSecyIfTxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
@@ -661,6 +854,39 @@ cseSecyIfTxStatsGroup OBJECT-GROUP
         the MAC security capable interface."
     ::= { ciscoSecyExtMIBGroups 4 }
 
+cseSecyRxSAStatsGroup OBJECT-GROUP
+    OBJECTS         { cseSecyRxSAStatsOKPkts }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects providing additional statistics
+        informatio for a receiving SA."
+    ::= { ciscoSecyExtMIBGroups 5 }
+
+cseSecyTxSAStatsGroup OBJECT-GROUP
+    OBJECTS         {
+                        cseSecyTxSAStatsProtectedPkts,
+                        cseSecyTxSAStatsEncryptedPkts
+                    }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects providing additional statistics
+        information for a transmitting SA."
+    ::= { ciscoSecyExtMIBGroups 6 }
+
+cseSecySessionGroup OBJECT-GROUP
+    OBJECTS         {
+                        cseSecySessionOperStatus,
+                        cseSecySessionOperStatusStr
+                    }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects providing MACSEC session
+        operational status monitoring for MAC security
+        capable interfaces."
+    ::= { ciscoSecyExtMIBGroups 7 }
+
 END
 
+
+-- %DNP%  MLC -Compiled MLC
 
