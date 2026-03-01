@@ -3,7 +3,7 @@
 --   
 -- Abhinand Chidu Velekkat
 --   
--- Copyright (c) 2016-2017 by cisco Systems Inc.
+-- Copyright (c) 2016-2017, 2025 by cisco Systems Inc.
 -- All rights reserved.
 -- *****************************************************************
 
@@ -17,7 +17,9 @@ IMPORTS
     MODULE-COMPLIANCE,
     OBJECT-GROUP
         FROM SNMPv2-CONF
-    secyIfInterfaceIndex
+    secyIfInterfaceIndex,
+    secyRxSAEntry,
+    secyTxSAEntry
         FROM IEEE8021-SECY-MIB
     CounterBasedGauge64
         FROM HCNUM-TC
@@ -26,7 +28,7 @@ IMPORTS
 
 
 ciscoSecyExtMIB MODULE-IDENTITY
-    LAST-UPDATED    "201612150000Z"
+    LAST-UPDATED    "202510280000Z"
     ORGANIZATION    "Cisco Systems, Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -41,6 +43,15 @@ ciscoSecyExtMIB MODULE-IDENTITY
             E-mail: cs-snmp@cisco.com"
     DESCRIPTION
         "A MIB module for extending IEEE8021-SECY-MIB."
+    REVISION        "202510280000Z"
+    DESCRIPTION
+        "Added total controlled packet counters for both RX and TX
+        interfaces:
+        - cseSecyIfRxControlledPkts
+        - cseSecyIfTxControlledPkts"
+    REVISION        "201702150000Z"
+    DESCRIPTION
+        "Add cseSecyRxSAStatsGroup and cseSecyTxSAStatsGroup."
     REVISION        "201612150000Z"
     DESCRIPTION
         "Initial version of this MIB module."
@@ -200,7 +211,8 @@ CseSecyIfRxStatsEntry ::= SEQUENCE {
         cseSecyIfRxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfRxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfRxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfRxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfRxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfRxControlledPkts            Counter64
 }
 
 cseSecyIfRxUnicastUncontrolledPkts OBJECT-TYPE
@@ -349,6 +361,15 @@ cseSecyIfRxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second received via this
         interface." 
     ::= { cseSecyIfRxStatsEntry 16 }
+
+cseSecyIfRxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets received via this
+        interface." 
+    ::= { cseSecyIfRxStatsEntry 17 }
  
 
 
@@ -388,7 +409,8 @@ CseSecyIfTxStatsEntry ::= SEQUENCE {
         cseSecyIfTxUncontrolledPktRate       CounterBasedGauge64,
         cseSecyIfTxUncontrolledOctetRate     CounterBasedGauge64,
         cseSecyIfTxControlledPktRate         CounterBasedGauge64,
-        cseSecyIfTxControlledOctetRate       CounterBasedGauge64
+        cseSecyIfTxControlledOctetRate       CounterBasedGauge64,
+        cseSecyIfTxControlledPkts            Counter64
 }
 
 cseSecyIfTxUnicastUncontrolledPkts OBJECT-TYPE
@@ -546,6 +568,98 @@ cseSecyIfTxControlledOctetRate OBJECT-TYPE
         "The number of controlled byte per second transmitted via this
         interface." 
     ::= { cseSecyIfTxStatsEntry 17 }
+
+cseSecyIfTxControlledPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The total number of controlled packets transmitted via this
+        interface." 
+    ::= { cseSecyIfTxStatsEntry 18 }
+ 
+
+
+cseSecyRxSAStatsTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CseSecyRxSAStatsEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "The table containing the additional statistics information for
+        each receiving SA in MAC security entity."
+    ::= { ciscoSecyExtMIBStatsObjects 5 }
+
+cseSecyRxSAStatsEntry OBJECT-TYPE
+    SYNTAX          CseSecyRxSAStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry containing the additional statistics for 
+         a receiving SA."
+    AUGMENTS           { secyRxSAEntry  } 
+    ::= { cseSecyRxSAStatsTable 1 }
+
+CseSecyRxSAStatsEntry ::= SEQUENCE {
+        cseSecyRxSAStatsOKPkts Counter64
+}
+
+cseSecyRxSAStatsOKPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the counter64 version of secyRxSAStatsOKPkts, the
+        number of validated packets for this SA." 
+    ::= { cseSecyRxSAStatsEntry 1 }
+ 
+
+
+cseSecyTxSAStatsTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CseSecyTxSAStatsEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "The table containing the additional statistics information for
+        each transmitting SA in MAC security entity."
+    ::= { ciscoSecyExtMIBStatsObjects 6 }
+
+cseSecyTxSAStatsEntry OBJECT-TYPE
+    SYNTAX          CseSecyTxSAStatsEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry containing the additional statistics for 
+         a transmitting SA."
+    AUGMENTS           { secyTxSAEntry  } 
+    ::= { cseSecyTxSAStatsTable 1 }
+
+CseSecyTxSAStatsEntry ::= SEQUENCE {
+        cseSecyTxSAStatsProtectedPkts Counter64,
+        cseSecyTxSAStatsEncryptedPkts Counter64
+}
+
+cseSecyTxSAStatsProtectedPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the Counter64 version of secyTxSAStatsProtectedPkts,
+        the number of integrity-protected but non-encrypted
+        packets for this transmitting SA." 
+    ::= { cseSecyTxSAStatsEntry 1 }
+
+cseSecyTxSAStatsEncryptedPkts OBJECT-TYPE
+    SYNTAX          Counter64
+    UNITS           "Packets"
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "This is the Counter64 version of secyTxSAStatsEncryptedPkts,
+        the number of integrity-protected and encrypted packets
+        for this transmitting SA." 
+    ::= { cseSecyTxSAStatsEntry 2 }
  
 
 ciscoSecyExtMIBCompliances  OBJECT IDENTIFIER
@@ -627,7 +741,8 @@ cseSecyIfRxStatsGroup OBJECT-GROUP
                         cseSecyIfRxUncontrolledPktRate,
                         cseSecyIfRxUncontrolledOctetRate,
                         cseSecyIfRxControlledPktRate,
-                        cseSecyIfRxControlledOctetRate
+                        cseSecyIfRxControlledOctetRate,
+                        cseSecyIfRxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
@@ -653,7 +768,8 @@ cseSecyIfTxStatsGroup OBJECT-GROUP
                         cseSecyIfTxUncontrolledPktRate,
                         cseSecyIfTxUncontrolledOctetRate,
                         cseSecyIfTxControlledPktRate,
-                        cseSecyIfTxControlledOctetRate
+                        cseSecyIfTxControlledOctetRate,
+                        cseSecyIfTxControlledPkts
                     }
     STATUS          current
     DESCRIPTION
@@ -661,6 +777,24 @@ cseSecyIfTxStatsGroup OBJECT-GROUP
         the MAC security capable interface."
     ::= { ciscoSecyExtMIBGroups 4 }
 
-END
+cseSecyRxSAStatsGroup OBJECT-GROUP
+    OBJECTS         { cseSecyRxSAStatsOKPkts }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects providing additional statistics
+         informatio for a receiving SA."
+    ::= { ciscoSecyExtMIBGroups 5 }
 
+cseSecyTxSAStatsGroup OBJECT-GROUP
+    OBJECTS         {
+                        cseSecyTxSAStatsProtectedPkts,
+                        cseSecyTxSAStatsEncryptedPkts
+                    }
+    STATUS          current
+    DESCRIPTION
+        "A collection of objects providing additional statistics 
+         information for a transmitting SA."
+    ::= { ciscoSecyExtMIBGroups 6 }
+
+END
 
