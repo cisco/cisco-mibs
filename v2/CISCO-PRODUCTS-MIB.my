@@ -2787,6 +2787,8 @@ ciscoC1131X8PLTEPWB                 OBJECT IDENTIFIER ::= { ciscoProducts 3123 }
 ciscoC1131X8PLTEPWQ                 OBJECT IDENTIFIER ::= { ciscoProducts 3124 } -- Cisco C1131X-8PLTEPWQ 8 Ports GE LAN Router with 8GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -Q Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console 
 ciscoIE931026S2C                    OBJECT IDENTIFIER ::= { ciscoProducts 3129 } -- Cisco Catalyst IE9300 Series Switch with 22 Ports GE SFP and 2 Ports GE Combo Downlinks and 4 Ports GE SFP Uplinks
 ciscoIE9320stack                    OBJECT IDENTIFIER ::= { ciscoProducts 3130 } -- A stack of any Cisco Catalyst IE9320 stackable Ethernet switches with unified identity (as a single unified switch), control and management
+ciscoUCSB200M6                      OBJECT IDENTIFIER ::= { ciscoProducts 3133 } -- Cisco UCS B200 M6 Blade Server
+ciscoUCSX210CM6                     OBJECT IDENTIFIER ::= { ciscoProducts 3134 } -- Cisco UCS X210c M6 Compute Node
 ciscoIC30002C2FK9                   OBJECT IDENTIFIER ::= { ciscoProducts 3135 } -- Cisco IC3000 Industrial Compute Gateway with 2 GE, 2 SFP
 ciscoUCSIOM2208                     OBJECT IDENTIFIER ::= { ciscoProducts 3138 } -- Cisco UCS-IOM-2208 IOM
 ciscoUCSIOM2304                     OBJECT IDENTIFIER ::= { ciscoProducts 3139 } -- Cisco UCS-IOM-2304 IOM
@@ -2890,6 +2892,7 @@ ciscoC130024XS                      OBJECT IDENTIFIER ::= { ciscoProducts 3251 }
 ciscoC130016XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3252 } -- Catalyst 1300 Series Managed Switch, 8-port 10GE, 8-port SFP+ (C1300-16XTS)
 ciscoC130024XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3253 } -- Catalyst 1300 Series Managed Switch, 12-port 10GE, 12-port SFP+ (C1300-24XTS)
 ciscoNCS57D218DDSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3254 } -- NCS-57D2-18DD-SYS - Castleblack router 
+ciscoUCSX210CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3255 } -- Cisco UCS X210c M7 Compute Node
 ciscoUCSX410CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3256 } -- Cisco UCS X410c M7 Compute Node
 ciscoFpr1010Etd                     OBJECT IDENTIFIER ::= { ciscoProducts 3257 } -- Cisco Firepower 1010E Security Appliance
 cisco821248FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3261 } --  Cisco 8212 2RU System w/ 48x 400G QSFP56-DD w/ MACsec
@@ -2939,6 +2942,9 @@ ciscoC1131X8PLTEPWR                 OBJECT IDENTIFIER ::= { ciscoProducts 3351 }
 ciscoNCS1014                        OBJECT IDENTIFIER ::= { ciscoProducts 3366 } -- Network Convergence System 1014 chassis with timing support
 ciscoNCS1012                        OBJECT IDENTIFIER ::= { ciscoProducts 3367 } -- Cisco Network Convergence System 1012, Optical Line System
 ciscoNCS1020                        OBJECT IDENTIFIER ::= { ciscoProducts 3368 } -- Cisco Network Convergence System 1020, Optical Line System
+ciscoUCSX215CM8                     OBJECT IDENTIFIER ::= { ciscoProducts 3369 } -- Cisco UCS X215c M8 Compute Node
+ciscoUCSX210CM8                     OBJECT IDENTIFIER ::= { ciscoProducts 3370 } -- Cisco UCS X210c M8 Compute Node
+ciscoUCSX410CM8                     OBJECT IDENTIFIER ::= { ciscoProducts 3372 } -- Cisco UCS X410c M8 Compute Node
 ciscoC9610R                         OBJECT IDENTIFIER ::= { ciscoProducts 3383 } -- Cisco 9600 Series 10 Slot
 ciscoC11318PWS                      OBJECT IDENTIFIER ::= { ciscoProducts 3396 } -- Cisco C1131-8PWS 8 Ports GE LAN Router with 4GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC1131X8PWS                     OBJECT IDENTIFIER ::= { ciscoProducts 3397 } -- Cisco C1131X-8PWS 8 Ports GE LAN Router with 8GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
@@ -2957,6 +2963,7 @@ ciscoC1300X48NGU4X                  OBJECT IDENTIFIER ::= { ciscoProducts 3415 }
 ciscoC1300X48P4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3416 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28, PoE 
 ciscoC1300X48T4X                    OBJECT IDENTIFIER ::= { ciscoProducts 3417 } -- Catalyst 1300X Series Managed Switch, 48GE+4SFP28
 ciscoC9KVA100L                      OBJECT IDENTIFIER ::= { ciscoProducts 3427 } -- Catalyst 9000 Argon 8 port switch
+ciscoUCSXE1X0CM8                    OBJECT IDENTIFIER ::= { ciscoProducts 3454 } -- Cisco UCS XE-1X0C-M8 Compute Node
 
 END
 
