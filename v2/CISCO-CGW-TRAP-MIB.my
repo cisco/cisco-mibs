@@ -1,0 +1,435 @@
+CISCO-CGW-TRAP DEFINITIONS ::= BEGIN
+
+IMPORTS
+	MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE,
+	Integer32, Unsigned32, Counter32, Counter64,
+	Gauge32, IpAddress
+		FROM SNMPv2-SMI
+	TEXTUAL-CONVENTION, RowStatus, DateAndTime,
+	TruthValue
+		FROM SNMPv2-TC
+        ciscoMgmt
+        FROM CISCO-SMI
+;
+
+cgwTraps MODULE-IDENTITY
+    LAST-UPDATED "202603120000Z"
+    ORGANIZATION "Cisco Systems, Inc."
+    CONTACT-INFO "Cisco System
+             Customer Service
+
+             Postal: 170 W Tasman Drive
+             San Jose, CA  95134
+             USA
+
+             Tel: +1 800 553-NETS
+
+             E-mail: cs-3g@cisco.com
+                    cs-4g@cisco.com"
+    DESCRIPTION
+             "THIS MIB module to provide SNMP Trap entries"
+	REVISION "202603120000Z"
+	DESCRIPTION
+             "Initial revision of the CISCO-CGW-TRAP-MIB module.
+              Added support for SNMP trap notifications including:
+              - Cellular connection state change notifications
+              - Modem operational state transitions
+              - Network registration events
+              - Signal quality threshold alerts
+              - Firmware upgrade status notifications
+              - SIM card status change events
+              - Critical error and fault notifications"
+	::= { ciscoMgmt 1063 } 
+
+fields     OBJECT IDENTIFIER ::= { cgwTraps 1 }
+traps      OBJECT IDENTIFIER ::= { cgwTraps 2 }
+
+-- Notification type definitions
+NetconfNotificationSeverity ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Netconf notification severity level"
+    SYNTAX      INTEGER {critical(1),major(2),minor(3)}
+
+OperState ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Operational state"
+    SYNTAX      INTEGER {up(0),down(1)}
+
+AdminState ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Administrative state"
+    SYNTAX      INTEGER {up(0),down(1)}
+
+-- Notification field definitions
+eventTime OBJECT-TYPE
+    SYNTAX      DateAndTime
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 1 }
+
+netconfNotificationSeverity OBJECT-TYPE
+    SYNTAX      NetconfNotificationSeverity
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 2 }
+
+cgwIfName OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 3 }
+
+cgwNewOperState OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 4 }
+
+cgwNewAdminState OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 6 }
+
+cgwUpgradeStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 7 }
+
+cgwOldVersion OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 8 }
+
+cgwNewVersion OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 9 }
+
+cgwFwUpgradeStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 10 }
+
+cgwFwOldVersion OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 11 }
+
+cgwFwNewVersion OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 12 }
+
+cgwOldIpAddr OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 13 }
+
+cgwNewIpAddr OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 14 }
+
+cgwOldSubMask OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 15 }
+
+cgwNewSubMask OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 16 }
+
+cgwSimStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 17 }
+
+cgwSimOldSlot OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 18 }
+
+cgwSimNewSlot OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 19 }
+
+cgwModemStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 20 }
+
+cgwRATChange OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 21 }
+
+cgwRebootReasonType OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 22 }
+
+cgwLoginStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 23 }
+
+cgwSystemUserName OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 24 }
+
+cgwIfStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 25 }
+
+cgwIpAddr OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 26 }
+
+cgwActiveIf OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 27 }
+
+cgwStandByIf OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 28 }
+
+cgwIpsecStatus OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 29 }
+
+cgwIpsecTunnelName OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 30 }
+
+cgwIpsecSrcAddr OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 31 }
+
+cgwIpsecDstAddr OBJECT-TYPE
+    SYNTAX      OCTET STRING 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION ""
+    ::= { fields 32 }
+
+-- Notification definitions
+cgwInterfaceAdminStateChange NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwIfName,
+		cgwNewAdminState
+	}
+	STATUS current
+	DESCRIPTION "Interface state has changed"
+	::= { traps 1 }
+
+cgwInterfaceOperStateChange NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwIfName,
+		cgwNewOperState
+	}
+	STATUS current
+	DESCRIPTION "Interface state has changed"
+	::= { traps 2 }
+
+cgwImageUpgrade NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+                cgwUpgradeStatus,
+                cgwOldVersion,
+                cgwNewVersion
+	}
+	STATUS current
+	DESCRIPTION "Image upgraded"
+	::= { traps 3 }
+
+cgwModemFirmwareUpgrade NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwFwUpgradeStatus,
+		cgwFwOldVersion,
+                cgwFwNewVersion
+	}
+	STATUS current
+	DESCRIPTION "Modem Firmware upgraded"
+	::= { traps 4 }
+
+cgwInterfaceIpAddrChange NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwIfName,
+                cgwOldIpAddr,
+		cgwNewIpAddr,
+                cgwOldSubMask,
+                cgwNewSubMask
+	}
+	STATUS current
+	DESCRIPTION "Interface IP changed"
+	::= { traps 5 }
+
+cgwSimStatusSwitchOver NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwSimStatus,
+		cgwSimOldSlot,
+		cgwSimNewSlot
+	}
+	STATUS current
+	DESCRIPTION "Sim status switched over"
+	::= { traps 6 }
+
+cgwModemStatusChange NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwModemStatus
+	}
+	STATUS current
+	DESCRIPTION "Modem state has changed"
+	::= { traps 7 }
+
+cgwNetworkStatus NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwRATChange
+	}
+	STATUS current
+	DESCRIPTION "Network state has changed"
+	::= { traps 8 }
+
+cgwRebootReason NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwRebootReasonType
+	}
+	STATUS current
+	DESCRIPTION "Reboot reason type"
+	::= { traps 9 }
+
+cgwLoginNotify NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwLoginStatus,
+		cgwSystemUserName
+	}
+	STATUS current
+	DESCRIPTION "Login Notify"
+	::= { traps 10 }
+
+cgwWanSwitchOver NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+                cgwIfName,
+                cgwIfStatus,
+                cgwIpAddr,
+                cgwActiveIf,
+                cgwStandByIf 
+	}
+	STATUS current
+	DESCRIPTION "Wan SwitchOver"
+	::= { traps 11 }
+
+cgwIpsecStatusChange NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwIpsecStatus,
+		cgwIpsecTunnelName,
+		cgwIpsecSrcAddr,
+                cgwIpsecDstAddr
+	}
+	STATUS current
+	DESCRIPTION "IPsec status changed"
+	::= { traps 12 }
+
+cgwIpsecTunnelSwithOver NOTIFICATION-TYPE
+	OBJECTS {
+                eventTime,
+                netconfNotificationSeverity, 
+		cgwIpsecStatus,
+		cgwIpsecTunnelName,
+		cgwIpsecSrcAddr,
+                cgwIpsecDstAddr
+	}
+	STATUS current
+	DESCRIPTION "IPsec Tunnel Switchover"
+	::= { traps 13 }
+
+END

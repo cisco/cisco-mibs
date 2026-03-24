@@ -1,0 +1,2065 @@
+CISCO-CGW-CELL-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE,
+    Integer32, Unsigned32,
+    Counter32, Counter64, Gauge32, IpAddress
+        FROM SNMPv2-SMI
+    entPhysicalIndex  FROM ENTITY-MIB
+    Ipv6Address		    FROM  IPV6-TC
+    TEXTUAL-CONVENTION, RowStatus, DateAndTime,
+    TruthValue
+        FROM SNMPv2-TC
+    MODULE-COMPLIANCE, OBJECT-GROUP,
+    NOTIFICATION-GROUP      FROM SNMPv2-CONF
+    snmpTraps               FROM SNMPv2-MIB
+    ciscoMgmt
+        FROM CISCO-SMI;
+
+
+ciscoCgwCellMIB MODULE-IDENTITY
+    LAST-UPDATED "202603120000Z"
+    ORGANIZATION "Cisco Systems, Inc."
+    CONTACT-INFO "Cisco Systems
+             Customer Service
+ 
+             Postal: 170 W Tasman Drive
+             San Jose, CA  95134
+             USA
+ 
+             Tel: +1 800 553-NETS
+ 
+             E-mail: cs-3g@cisco.com
+                    cs-4g@cisco.com" 
+    DESCRIPTION 
+             "THIS MIB module to provide cellularModemTable, Radio, 3G Table entries" 
+    REVISION "202603120000Z"
+    DESCRIPTION
+             "Initial revision of the CISCO-CGW-CELL-MIB module.
+              Added support for cellular modem management including:
+              - Modem status and configuration
+              - Radio signal quality metrics
+              - Network registration and connectivity
+              - Firmware version and upgrade management
+              - Antenna information and signal strength
+              - SIM card status and profiles
+              - APN configuration and management"
+    ::= { ciscoMgmt 1059 }
+
+ciscoCgwCellModem  OBJECT IDENTIFIER
+    ::= { ciscoCgwCellMIB 1 }
+ 
+ciscoCgwCellFirmware OBJECT IDENTIFIER 
+    ::= { ciscoCgwCellMIB 6 }
+
+Byte ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:byte"
+    SYNTAX      Integer32 (-128 .. 127)
+
+Short ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "xs:short"
+    SYNTAX      Integer32 (-32768 .. 32767)
+
+String ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs:string"
+    SYNTAX      OCTET STRING
+
+CgwAuthType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Authentication Type"
+    SYNTAX      INTEGER  {none(0),pAP(1),cHAP(2),pAP-CHAP(3)}
+
+CgwPdpType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular PDP Type"
+    SYNTAX      INTEGER  {iPv4(0),iPv6(2),iPv46(3)}
+
+CgwActMode ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Firmware Activation Mode"
+    SYNTAX      INTEGER  {manual(0), auto(1)}
+
+CgwActivationEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Profile Activation Mode"
+    SYNTAX      INTEGER  {not-activated(0),activated(1)}
+
+CgwStatusEnum ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Firmware Status"
+    SYNTAX      INTEGER  {inactive(0),active(1)}
+
+IpVersion ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "IP Version"
+    SYNTAX      INTEGER  {ipv4(4),ipv6(6)}
+
+CgwQosState ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Qos Status"
+    SYNTAX      INTEGER  {activated(0), modified(1),deleted(2), suspended(3),enabled(4),disabled(5), rebind(6)}
+
+CgwFlowType ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Qos Flow Status"
+    SYNTAX      INTEGER  {ue-initiated(0), network-initiated(1)}
+
+Tx-xport-protocol ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Tx Xport protocol Type"
+    SYNTAX      INTEGER  {qos-proto-none(0), qos-proto-icmp(1), qos-proto-tcp(6), qos-proto-udp(17), qos-proto-esp(50), qos-proto-ah(51), qos-proto-icmpv6(58)}
+
+Rx-xport-protocol ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Cellular Tx Xport protocol Type"
+    SYNTAX      INTEGER  {qos-proto-none(0), qos-proto-icmp(1), qos-proto-tcp(6), qos-proto-udp(17), qos-proto-esp(50), qos-proto-ah(51), qos-proto-icmpv6(58)}
+
+CiscoWanCellExtRsrp ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d"
+    STATUS          current
+    DESCRIPTION
+        "Reference signal received power (RSRP) is
+        defined as the linear average over the power
+        contributions and measured in dBm. The reporting
+        range of RSRP is defined per LTE standard
+        with 1 dBm resolution."
+    SYNTAX          Integer32
+
+CiscoWanCellExtRsrq ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d-1"
+    STATUS          current
+    DESCRIPTION
+        "Reference Signal Received Quality (RSRQ) is
+        defined as the ratio NxRSRP over (E-UTRAN carrier RSSI)
+        and measured in dB. The reporting range of
+        RSRQ is defined per LTE standard with 0.5 dB
+        resolution."
+    SYNTAX          Integer32
+
+CiscoWanCellExtCqiIndex ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d"
+    STATUS          current
+    DESCRIPTION
+        "Channel Quality indicator reported to eNodeB
+        which directly translates to Modulation Coding
+        Scheme selected."
+    SYNTAX          Unsigned32
+
+CiscoWanCellExtSNR ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d-1"
+    STATUS          current
+    DESCRIPTION
+        "Signal-to-Noise power Ratio (SNR)
+        is defined as the ratio of signal
+        power to the noise power, measured
+        in dB. It determines the downlink
+        throughput for the UE."
+    SYNTAX          Integer32
+
+CiscoWanCellExtSINR ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT    "d-1"
+    STATUS          current
+    DESCRIPTION
+        "Signal to Interference plus Noise Ratio is
+        the power at the receiver due to the required
+        signal, divided by the power due to noise and
+        interference measured in dB. It is used as a
+        measure of signal quality."
+    SYNTAX          Integer32
+
+C3gServiceCapability ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "3G service capability:
+        oneXRtt(0)   - 1xRTT
+        evDoRel0(1)  - EVDO Revision 0
+        evDoRelA(2)  - EVDO Revision A
+        evDoRelB(3)  - EVDO Revision B
+        gprs(4)      - GPRS
+        edge(5)      - EDGE
+        umtsWcdma(6) - UMTS/WCDMA
+        hsdpa(7)     - HSDPA
+        hsupa(8)     - HSUPA
+        hspa(9)      - HSPA
+        hspaPlus(10) - HSPA Plus
+        lteTdd(11)   - LTE TDD
+        lteFdd (12)  - LTE FDD "
+    SYNTAX          BITS {
+                        oneXRtt(0),
+                        evDoRel0(1),
+                        evDoRelA(2),
+                        evDoRelB(3),
+                        gprs(4),
+                        edge(5),
+                        umtsWcdma(6),
+                        hsdpa(7),
+                        hsupa(8),
+                        hspa(9),
+                        hspaPlus(10),
+                        lteTdd(11),
+                        lteFdd(12)
+                    }
+
+C3gRssi ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "Generic RSSI range."
+    SYNTAX          Integer32 (-150..0)
+
+CgwRadioStatusEnum ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        " Radio Status"
+    SYNTAX      INTEGER  {online(0), offline(3), low-power(1)}
+
+CgwRATVal ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        " RAT Value"
+    SYNTAX      INTEGER  {unknown(0), 
+			  lte(1), 
+		          umts(2),
+		   	  nsa(3),
+			  sa(4)}
+
+CgwCAstatusEnum ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        " CA status "
+    SYNTAX      INTEGER  {disabled(0), 
+                          enabled(1)}
+
+C3gEcIo ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "Generic EcIo range."
+    SYNTAX          Integer32 (-150..0)
+
+ciscoCgwCellModemTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellModemEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular Modem  entries"
+    ::= { ciscoCgwCellModem 1 }
+
+ciscoCgwCellModemOdiTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellModemOdiEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular Modem Odi entries"
+    ::= { ciscoCgwCellModem 2 }
+
+ciscoCgwCellRadio OBJECT IDENTIFIER 
+    ::= { ciscoCgwCellMIB 2 }
+
+ciscoCgwCellRadioTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CiscoCgwCellRadioEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "Cellular 3G cellular and 4G/5G/LTE radio table."
+    ::= { ciscoCgwCellRadio 1 }
+
+ciscoCgwCell5GNRBandTable OBJECT-TYPE
+    SYNTAX          SEQUENCE OF CiscoCgwCell5GNRBandEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "Cellular 5G radio table."
+    ::= { ciscoCgwCellRadio 2 }
+
+ciscoCgwCellNetworkTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellNetworkEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular network entries"
+    ::= { ciscoCgwCellMIB 3 }
+
+ciscoCgwCellProfileTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellProfileEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular profile entries"
+    ::= { ciscoCgwCellMIB 4 }
+
+ciscoCgwCellSessionTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellSessionEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular Session entries"
+    ::= { ciscoCgwCellMIB 5 }
+
+ciscoCgwCellFirmwareActMode OBJECT-TYPE 
+    SYNTAX     CgwActMode 
+    MAX-ACCESS read-only 
+    STATUS     current 
+    DESCRIPTION
+               " Displays Firmware Act Mode"
+    ::= { ciscoCgwCellFirmware 1 }
+
+ciscoCgwCellFirmwareTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellFirmwareEntry
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular Firmware entries"
+    ::= { ciscoCgwCellFirmware 2 }
+
+ciscoCgwCellSimTable OBJECT-TYPE
+     SYNTAX          SEQUENCE OF CiscoCgwCellSimEntry
+     MAX-ACCESS      not-accessible
+     STATUS          current
+     DESCRIPTION
+         "Cellular Sim table."
+    ::= { ciscoCgwCellMIB 7 }
+
+ciscoCgwCellQosTable OBJECT-TYPE 
+    SYNTAX     SEQUENCE OF CiscoCgwCellQosEntry 
+    MAX-ACCESS not-accessible
+    STATUS     current
+    DESCRIPTION
+               " A list of cellular QOS entries"
+    ::= { ciscoCgwCellMIB 8 }
+
+ciscoCgwCellModemEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellModemEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular unit hardware information"
+    INDEX       { entPhysicalIndex }
+    ::= { ciscoCgwCellModemTable 1 }
+
+ciscoCgwCellModemOdiEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellModemOdiEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular Hardware Host information"
+    INDEX       { entPhysicalIndex }
+    ::= { ciscoCgwCellModemOdiTable 1 }
+
+ciscoCgwCellNetworkEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellNetworkEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular Network information"
+    INDEX       { entPhysicalIndex }
+    ::= { ciscoCgwCellNetworkTable 1 }
+
+ciscoCgwCellProfileEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellProfileEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular Profile information"
+    INDEX       { entPhysicalIndex, ciscoCgwCellProfileID}
+    ::= { ciscoCgwCellProfileTable 1 }
+
+ciscoCgwCellSessionEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellSessionEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular Session information"
+    INDEX       { entPhysicalIndex, ciscoCgwCellSessionID }
+    ::= { ciscoCgwCellSessionTable 1 }
+
+ciscoCgwCellFirmwareEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellFirmwareEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular Firmware information"
+    INDEX       { entPhysicalIndex, ciscoCgwCellFwIndex }
+    ::= { ciscoCgwCellFirmwareTable 1 }
+
+ciscoCgwCellQosEntry OBJECT-TYPE
+    SYNTAX      CiscoCgwCellQosEntry 
+    MAX-ACCESS  not-accessible
+    STATUS      current
+    DESCRIPTION "cellular QOS information"
+    INDEX       { entPhysicalIndex, ciscoCgwCellQosFlowNumber }
+    ::= { ciscoCgwCellQosTable 1 }
+
+ciscoCgwCellSimEntry OBJECT-TYPE
+    SYNTAX          CiscoCgwCellSimEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry (conceptual row) in the ciscoCgwCellSimTable."
+    INDEX      { entPhysicalIndex }
+    ::= { ciscoCgwCellSimTable 1 }
+
+ciscoCgwCellRadioEntry OBJECT-TYPE
+    SYNTAX          CiscoCgwCellRadioEntry
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry (conceptual row) in the ciscoCgwCellRadioTable."
+    INDEX           { entPhysicalIndex }
+    ::= { ciscoCgwCellRadioTable 1 }
+
+ciscoCgwCell5GNRBandEntry OBJECT-TYPE
+    SYNTAX          CiscoCgwCell5GNRBandEntry 
+    MAX-ACCESS      not-accessible
+    STATUS          current
+    DESCRIPTION
+        "An entry (conceptual row) in the ciscoCgwCell5GNRBandTable."
+    INDEX           { entPhysicalIndex, cgwCell5GNRBandCarrierIndex }
+    ::= { ciscoCgwCell5GNRBandTable 1 }
+
+CiscoCgwCellModemEntry ::=
+    SEQUENCE {
+        ciscoCgwCellFirmwareVersion 	    String,
+        ciscoCgwCellHostFirmwareVersion     String,
+        ciscoCgwCellModelID                 String,
+        ciscoCgwCellIMSI                    String,
+        ciscoCgwCellIMEI                    String,
+        ciscoCgwCellICCID                   String,
+        ciscoCgwCellMSISDN                  String,
+        ciscoCgwCellFSN                     String,
+        ciscoCgwCellModemTemperature        Byte,
+        ciscoCgwCellPRISKUID                String,
+        ciscoCgwCellPRIVersion              String,
+        ciscoCgwCellCarrier                 String,
+        ciscoCgwCellOEMPRIVersion           String,
+        ciscoCgwCellModemStatus             String
+    }
+
+
+ciscoCgwCellFirmwareVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Modem Firmware Version"
+    ::= { ciscoCgwCellModemEntry 1 }
+
+ciscoCgwCellHostFirmwareVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host Firmware Version"
+    ::= { ciscoCgwCellModemEntry 2 }
+
+ciscoCgwCellModelID OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Device Model ID"
+    ::= { ciscoCgwCellModemEntry 3 }
+
+ciscoCgwCellIMSI OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "International Mobile Subscriber Identity"
+    ::= { ciscoCgwCellModemEntry 4  }
+
+ciscoCgwCellIMEI OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "International Mobile Equipment Identity (IMEI)"
+    ::= { ciscoCgwCellModemEntry 5 }
+
+ciscoCgwCellICCID OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Integrated Circuit Card ID (ICCID)"
+    ::= { ciscoCgwCellModemEntry 6 }
+
+ciscoCgwCellMSISDN OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Mobile Subscriber ISD Number"
+    ::= { ciscoCgwCellModemEntry 7 }
+
+ciscoCgwCellFSN OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Factory Serial Number"
+    ::= { ciscoCgwCellModemEntry 8 }
+
+ciscoCgwCellModemTemperature OBJECT-TYPE
+    SYNTAX      Byte
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Current Modem Temperature"
+    ::= { ciscoCgwCellModemEntry 9 }
+
+ciscoCgwCellPRISKUID OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " PRI SKU ID"
+    ::= { ciscoCgwCellModemEntry 10 }
+
+ciscoCgwCellPRIVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "PRI Version"
+    ::= { ciscoCgwCellModemEntry 11 }
+
+ciscoCgwCellCarrier OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Carrier"
+    ::= { ciscoCgwCellModemEntry 12 }
+
+ciscoCgwCellOEMPRIVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "OEM PRI Version"
+    ::= { ciscoCgwCellModemEntry 13 }
+
+ciscoCgwCellModemStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Modem Status"
+    ::= { ciscoCgwCellModemEntry 14 }
+
+
+CiscoCgwCellModemOdiEntry ::=
+    SEQUENCE {
+        ciscoCgwCellHostManufacturer String,
+        ciscoCgwCellHostModel String,
+        ciscoCgwCellHostSoftwareVersion String,
+        ciscoCgwCellHostID String
+    }
+
+ciscoCgwCellHostManufacturer OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host Device Manufacturer"
+    ::= { ciscoCgwCellModemOdiEntry 1 }
+
+ciscoCgwCellHostModel OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host Device Model"
+    ::= { ciscoCgwCellModemOdiEntry 2 }
+
+ciscoCgwCellHostSoftwareVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host Device Software Version"
+    ::= { ciscoCgwCellModemOdiEntry 3 }
+
+ciscoCgwCellHostID OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Host Device ID"
+    ::= { ciscoCgwCellModemOdiEntry 4 }
+
+CiscoCgwCellNetworkEntry ::=
+    SEQUENCE {
+        ciscoCgwCellSystemTime 		     String,
+        ciscoCgwCellNetworkSelectionMode     String,
+        ciscoCgwCellCurrentService           String,
+        ciscoCgwCellCurrentServiceStatus     String,
+        ciscoCgwCellMCC                      Unsigned32,
+        ciscoCgwCellMNC                      Unsigned32,
+        ciscoCgwCellRoamingStatus            String,
+        ciscoCgwCellNetwork                  String,
+        ciscoCgwCellPSState                  String,
+        ciscoCgwCellEMMState                 String,
+        ciscoCgwCellEMMSubState              String,
+        ciscoCgwCellRRCConnectionState       String,
+        ciscoCgwCellTAC                      Unsigned32,
+        ciscoCgwCellID                       Unsigned32,
+        ciscoCgwCellMTU                      Unsigned32 
+    }
+
+ciscoCgwCellSystemTime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "System Time"
+    ::= { ciscoCgwCellNetworkEntry 1 }
+
+ciscoCgwCellNetworkSelectionMode OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Network selection mode "
+    ::= { ciscoCgwCellNetworkEntry 2 }
+
+ciscoCgwCellCurrentService OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "current service"
+    ::= { ciscoCgwCellNetworkEntry 3 }
+
+ciscoCgwCellCurrentServiceStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "current service status"
+    ::= { ciscoCgwCellNetworkEntry 4 }
+
+ciscoCgwCellMCC OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Mobile Country Code"
+    ::= { ciscoCgwCellNetworkEntry 5 }
+
+ciscoCgwCellMNC OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Mobile Network code"
+    ::= { ciscoCgwCellNetworkEntry 6 }
+
+ciscoCgwCellRoamingStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "roaming status" 
+    ::= { ciscoCgwCellNetworkEntry 7 }
+
+ciscoCgwCellNetwork OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Network name"
+    ::= { ciscoCgwCellNetworkEntry 8 }
+
+ciscoCgwCellPSState OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Packet switched state"
+    ::= { ciscoCgwCellNetworkEntry 9 }
+
+ciscoCgwCellEMMState OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "EMM state"
+    ::= { ciscoCgwCellNetworkEntry 10 }
+
+ciscoCgwCellEMMSubState OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "EMM sub state"
+    ::= { ciscoCgwCellNetworkEntry 11 }
+
+ciscoCgwCellRRCConnectionState OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "EMM connection state"
+    ::= { ciscoCgwCellNetworkEntry 12 }
+
+ciscoCgwCellTAC OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "TAC value"
+    ::= { ciscoCgwCellNetworkEntry 13 }
+
+ciscoCgwCellID OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cell ID"
+    ::= { ciscoCgwCellNetworkEntry 14 }
+
+ciscoCgwCellMTU OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "MTU"
+    ::= { ciscoCgwCellNetworkEntry 15 }
+
+CiscoCgwCellProfileEntry ::=
+    SEQUENCE {
+        ciscoCgwCellProfileID		Unsigned32,
+	ciscoCgwCellProfilePDPType  	CgwPdpType,	
+	ciscoCgwCellProfileAPNName	String,
+	ciscoCgwCellProfileState	CgwActivationEnum,	
+	ciscoCgwCellProfileAuthentication CgwAuthType,
+	ciscoCgwCellProfileUsername	String,
+	ciscoCgwCellProfilePassword	String
+    }
+
+ciscoCgwCellProfileID OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Profile ID"
+    ::= { ciscoCgwCellProfileEntry 1 }
+
+ciscoCgwCellProfilePDPType OBJECT-TYPE 
+    SYNTAX      CgwPdpType 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "PDP Type"
+    ::= { ciscoCgwCellProfileEntry 2 }
+
+ciscoCgwCellProfileAPNName OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "APN Name"
+    ::= { ciscoCgwCellProfileEntry 3 }
+
+ciscoCgwCellProfileState OBJECT-TYPE
+    SYNTAX      CgwActivationEnum 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Profile PDP state"
+    ::= { ciscoCgwCellProfileEntry 4}
+
+ciscoCgwCellProfileAuthentication OBJECT-TYPE
+    SYNTAX      CgwAuthType 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Profile Authentication"
+    ::= { ciscoCgwCellProfileEntry 5 }
+
+ciscoCgwCellProfileUsername OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Username"
+    ::= { ciscoCgwCellProfileEntry 6 }
+
+ciscoCgwCellProfilePassword OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Password"
+    ::= { ciscoCgwCellProfileEntry 7 }
+
+CiscoCgwCellSessionEntry ::=
+    SEQUENCE {
+        ciscoCgwCellSessionID           Unsigned32, 
+        ciscoCgwCellAPN			String,	
+	ciscoCgwCellSessionStatus       String,	
+ 	ciscoCgwCellIPv4Address		IpAddress,
+        ciscoCgwCellIPv6Prefix          Ipv6Address,   
+        ciscoCgwCellIPv6PrefixLen       Unsigned32,
+        ciscoCgwCellIPv4GwAddr          IpAddress,
+        ciscoCgwCellIPv6GwPrefix        Ipv6Address,
+        ciscoCgwCellIPv6GwPrefixLen     Unsigned32,
+        ciscoCgwCellPriDnsIPv4Addr      IpAddress,
+        ciscoCgwCellSecDnsIPv4Addr      IpAddress,
+        ciscoCgwCellPriDnsIPv6Addr      Ipv6Address,
+        ciscoCgwCellSecDnsIPv6Addr      Ipv6Address,
+        ciscoCgwCellTxPkts              Counter32,
+        ciscoCgwCellRxPkts              Counter32,
+        ciscoCgwCellTxBytes             Counter64,
+        ciscoCgwCellRxBytes             Counter64,
+        ciscoCgwCellTxErrors            Counter32,
+        ciscoCgwCellRxErrors            Counter32,
+        ciscoCgwCellTxDrops             Counter32,
+        ciscoCgwCellRxDrops             Counter32,
+        ciscoCgwCellTxofl               Counter32,
+        ciscoCgwCellRxofl               Counter32
+     }
+
+ciscoCgwCellSessionID OBJECT-TYPE
+    SYNTAX      Unsigned32 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Session ID"
+    ::= { ciscoCgwCellSessionEntry 1 }
+
+ciscoCgwCellAPN OBJECT-TYPE
+    SYNTAX      String 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Profile ID"
+    ::= { ciscoCgwCellSessionEntry 2 }
+
+ciscoCgwCellSessionStatus OBJECT-TYPE 
+    SYNTAX      String 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Session Status"
+    ::= { ciscoCgwCellSessionEntry 3 }
+
+ciscoCgwCellIPv4Address OBJECT-TYPE 
+    SYNTAX      IpAddress 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IPv4 Address"
+    ::= { ciscoCgwCellSessionEntry 4 }
+
+ciscoCgwCellIPv6Prefix OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " IPv6 Address"
+    ::= { ciscoCgwCellSessionEntry 5 }
+
+ciscoCgwCellIPv6PrefixLen OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IPv6 Prefix Length"
+    ::= { ciscoCgwCellSessionEntry 6 }
+
+ciscoCgwCellIPv4GwAddr OBJECT-TYPE
+    SYNTAX	IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " IPv4 Gateway Address"
+    ::= { ciscoCgwCellSessionEntry 7 }
+
+ciscoCgwCellIPv6GwPrefix OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IPv6 Gateway Address"
+    ::= { ciscoCgwCellSessionEntry 8 }
+
+ciscoCgwCellIPv6GwPrefixLen OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "IPv6 Gateway Prefix Length"
+    ::= { ciscoCgwCellSessionEntry 9 }
+
+ciscoCgwCellPriDnsIPv4Addr OBJECT-TYPE
+    SYNTAX	    IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " Primary DNS IPv4 Address"
+    ::= { ciscoCgwCellSessionEntry 10 }
+
+ciscoCgwCellSecDnsIPv4Addr OBJECT-TYPE
+    SYNTAX	    IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Secondary DNS IPv4Address"
+    ::= { ciscoCgwCellSessionEntry 11 }
+
+ciscoCgwCellPriDnsIPv6Addr OBJECT-TYPE
+    SYNTAX	Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Primary DNS IPv6 Address"
+    ::= { ciscoCgwCellSessionEntry 12 }
+
+ciscoCgwCellSecDnsIPv6Addr OBJECT-TYPE
+    SYNTAX	Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Secondary DNS IPv6 Address"
+    ::= { ciscoCgwCellSessionEntry 13 }
+
+ciscoCgwCellTxPkts OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Packets"
+    ::= { ciscoCgwCellSessionEntry 14 }
+
+ciscoCgwCellRxPkts OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Packets"
+    ::= { ciscoCgwCellSessionEntry 15 }
+
+ciscoCgwCellTxBytes OBJECT-TYPE
+    SYNTAX	    Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Bytes"
+    ::= { ciscoCgwCellSessionEntry 16 }
+
+ciscoCgwCellRxBytes OBJECT-TYPE
+    SYNTAX	    Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Bytes"
+    ::= { ciscoCgwCellSessionEntry 17 }
+
+ciscoCgwCellTxErrors OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " Tx Errors"
+    ::= { ciscoCgwCellSessionEntry 18 }
+
+ciscoCgwCellRxErrors OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Errors"
+    ::= { ciscoCgwCellSessionEntry 19 }
+
+ciscoCgwCellTxDrops OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Drops"
+    ::= { ciscoCgwCellSessionEntry 20 }
+
+ciscoCgwCellRxDrops OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Drops"
+    ::= { ciscoCgwCellSessionEntry 21 }
+
+ciscoCgwCellTxofl OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION " Txof1"
+    ::= { ciscoCgwCellSessionEntry 22 }
+
+ciscoCgwCellRxofl OBJECT-TYPE
+    SYNTAX	    Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rxofl"
+    ::= { ciscoCgwCellSessionEntry 23 }
+
+CiscoCgwCellFirmwareEntry ::=
+    SEQUENCE {
+        ciscoCgwCellFwIndex        Unsigned32,
+        ciscoCgwCellFwCarrier      String,
+        ciscoCgwCellFwVersion      String,
+        ciscoCgwCellFwPriVersion   String,
+        ciscoCgwCellFwStatus       CgwStatusEnum
+   } 
+
+ciscoCgwCellFwIndex OBJECT-TYPE
+    SYNTAX	Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Firmware Index"
+    ::= { ciscoCgwCellFirmwareEntry 1 }
+
+ciscoCgwCellFwCarrier OBJECT-TYPE
+    SYNTAX      String	
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Firmware Carrier"
+    ::= { ciscoCgwCellFirmwareEntry 2 }
+
+ciscoCgwCellFwVersion OBJECT-TYPE
+    SYNTAX      String	
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "FW version"
+    ::= { ciscoCgwCellFirmwareEntry 3 }
+
+ciscoCgwCellFwPriVersion OBJECT-TYPE
+    SYNTAX	String	
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Pri Version"
+    ::= { ciscoCgwCellFirmwareEntry 4 }
+
+ciscoCgwCellFwStatus OBJECT-TYPE
+    SYNTAX	CgwStatusEnum 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Firmware Status"
+    ::= { ciscoCgwCellFirmwareEntry 5 }
+
+CiscoCgwCellQosEntry ::=
+    SEQUENCE {
+        ciscoCgwCellQosFlowNumber      		  Unsigned32,
+        ciscoCgwCellQosID        		  Unsigned32,
+        ciscoCgwCellQosState       		  CgwQosState,
+        ciscoCgwCellQosFlowType  		  CgwFlowType,
+        ciscoCgwCellBearerID 			  Unsigned32,
+        ciscoCgwCellEventSeqNo 			  Unsigned32,
+        ciscoCgwCellTx5gQci 			  Unsigned32,
+        ciscoCgwCellRx5gQci 		   	  Unsigned32, 
+	ciscoCgwCellTxAvgWindow 		  Unsigned32,  
+	ciscoCgwCellRxAvgWindow        		  Unsigned32,
+ 	ciscoCgwCellTxIpFlowLteQci     		  Unsigned32,
+   	ciscoCgwCellTxIpFlowTrfCls     		  Unsigned32,
+	ciscoCgwCellTxDatarateMax		  Counter64,
+        ciscoCgwCellTxGuaranteedRate           	  Counter64,
+        ciscoCgwCellTxPeakRate         		  Unsigned32,  
+        ciscoCgwCellTxTokenRate        		  Unsigned32,
+	ciscoCgwCellTxBucketSize 	    	  Unsigned32,	
+	ciscoCgwCellTxIpFlowLatency    		  Unsigned32,
+  	ciscoCgwCellTxIpFlowJitter     		  Unsigned32,	
+	ciscoCgwCellTxIpFlowPktErrRateMultiplier   Unsigned32,	
+	ciscoCgwCellTxIpFlowPktErrRateExponent     Unsigned32, 
+	ciscoCgwCellTxIpFlowMinPolicedPktSize      Unsigned32,
+	ciscoCgwCellTxIpFlowMaxAllowedPktSize      Unsigned32,
+	ciscoCgwCellTxIpFlow3gppResBER             Unsigned32,
+	ciscoCgwCellTxIpFlow3gppTrafficHP          Unsigned32,
+	ciscoCgwCellTxIpFlow3gpp2ProfileID         Unsigned32,
+	ciscoCgwCellTxIpFlow3gpp2FlowPriority      Unsigned32,
+	ciscoCgwCellTxIpFlow3gppIMCNFlag           Unsigned32,
+	ciscoCgwCellTxIpFlow3gppSigInd             Unsigned32,
+	ciscoCgwCellRxIpFlowLteQci                 Unsigned32,
+	ciscoCgwCellRxIpFlowTrfCls                 Unsigned32,
+	ciscoCgwCellRxDatarateMax                  Counter64,
+	ciscoCgwCellRxGuaranteedRate               Counter64,
+	ciscoCgwCellRxPeakRate                     Unsigned32,
+	ciscoCgwCellRxTokenRate                    Unsigned32,
+	ciscoCgwCellRxBucketSize                   Unsigned32,
+	ciscoCgwCellRxIpFlowLatency                Unsigned32,
+	ciscoCgwCellRxIpFlowJitter                 Unsigned32,
+	ciscoCgwCellRxIpFlowPktErrRateMultiplier   Unsigned32,
+	ciscoCgwCellRxIpFlowPktErrRateExponent     Unsigned32,
+	ciscoCgwCellRxIpFlowMinPolicedPktSize      Unsigned32,
+	ciscoCgwCellRxIpFlowMaxAllowedPktSize      Unsigned32,
+  	ciscoCgwCellRxIpFlow3gppResBER             Unsigned32,
+	ciscoCgwCellRxIpFlow3gppTrafficHP          Unsigned32,
+	ciscoCgwCellRxIpFlow3gpp2ProfileID         Unsigned32,
+        ciscoCgwCellRxIpFlow3gpp2FlowPriority      Unsigned32,
+        ciscoCgwCellRxIpFlow3gppIMCNFlag           Unsigned32,
+        ciscoCgwCellRxIpFlow3gppSigInd             Unsigned32,
+        ciscoCgwCellTxIPVersion                    IpVersion,
+        ciscoCgwCellTxIPv4AddrSrc                  IpAddress,
+        ciscoCgwCellTxSubnetMaskSrc                IpAddress,
+        ciscoCgwCellTxIPv4AddrDest                 IpAddress,
+        ciscoCgwCellTxSubnetMaskDest  		   IpAddress,
+        ciscoCgwCellTxIPv4TosVal 		   Unsigned32,
+        ciscoCgwCellTxIPv4TosMask                  Unsigned32,
+        ciscoCgwCellTxIPv6AddrSrc                  Ipv6Address,
+	ciscoCgwCellTxIPv6PrefixLenSrc             Unsigned32,
+	ciscoCgwCellTxIPv6AddrDest                 Ipv6Address,
+	ciscoCgwCellTxIPv6PrefixLenDest            Unsigned32,
+	ciscoCgwCellTxIPv6TrfClsVal                Unsigned32,
+	ciscoCgwCellTxIPv6TrfClsMask               Unsigned32,
+	ciscoCgwCellTxFlowLabelIPv6                Unsigned32,
+	ciscoCgwCellTxXportProtocol                Tx-xport-protocol,
+        ciscoCgwCellTxXportPort1                   Unsigned32,
+        ciscoCgwCellTxXportRange1                  Unsigned32,
+        ciscoCgwCellTxXportPort2 		   Unsigned32,
+        ciscoCgwCellTxXportRange2                  Unsigned32,
+        ciscoCgwCellTxXportPort3 		   Unsigned32,
+	ciscoCgwCellTxXportRange3 		   Unsigned32,
+        ciscoCgwCellTxXportPort4 		   Unsigned32,
+        ciscoCgwCellTxXportRange4 		   Unsigned32,
+    	ciscoCgwCellTxTypeICMP 			   Unsigned32,
+        ciscoCgwCellTxCodeICMP 			   Unsigned32,
+   	ciscoCgwCellTxSpi1 			   Unsigned32,
+        ciscoCgwCellTxSpi2 			   Unsigned32,
+  	ciscoCgwCellTxFilterID 			   Unsigned32,
+ 	ciscoCgwCellRxIPVersion 		   IpVersion,
+	ciscoCgwCellRxIPv4AddrSrc 		   IpAddress,
+ 	ciscoCgwCellRxSubnetMaskSrc 	           IpAddress,
+   	ciscoCgwCellRxIPv4AddrDest 		   IpAddress,
+        ciscoCgwCellRxSubnetMaskDest 		   IpAddress,
+  	ciscoCgwCellRxIPv4TosVal                   Unsigned32,
+  	ciscoCgwCellRxIPv4TosMask                  Unsigned32,
+	ciscoCgwCellRxIPv6AddrSrc                  Ipv6Address,
+	ciscoCgwCellRxIPv6PrefixLenSrc             Unsigned32,
+	ciscoCgwCellRxIPv6AddrDest 		   Ipv6Address,
+	ciscoCgwCellRxIPv6PrefixLenDest            Unsigned32,
+	ciscoCgwCellRxIPv6TrfClsVal 	           Unsigned32,
+	ciscoCgwCellRxIPv6TrfClsMask 	           Unsigned32,
+	ciscoCgwCellRxFlowLabelIPv6 	           Unsigned32,
+	ciscoCgwCellRxXportProtocol 	           Rx-xport-protocol,
+	ciscoCgwCellRxXportPort1 		   Unsigned32,
+	ciscoCgwCellRxXportRange1 		   Unsigned32,
+	ciscoCgwCellRxXportPort2 		   Unsigned32,
+	ciscoCgwCellRxXportRange2 		   Unsigned32,
+	ciscoCgwCellRxXportPort3 		   Unsigned32,
+	ciscoCgwCellRxXportRange3 		   Unsigned32,
+	ciscoCgwCellRxXportPort4 		   Unsigned32,
+	ciscoCgwCellRxXportRange4 		   Unsigned32,
+	ciscoCgwCellRxTypeICMP 			   Unsigned32,
+	ciscoCgwCellRxCodeICMP 			   Unsigned32,
+	ciscoCgwCellRxSpi1 			   Unsigned32,
+	ciscoCgwCellRxSpi2 			   Unsigned32,
+  	ciscoCgwCellRxFilterID 			   Unsigned32
+    }
+
+ciscoCgwCellQosFlowNumber OBJECT-TYPE
+    SYNTAX       Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Qos Flow Number"
+    ::= { ciscoCgwCellQosEntry 1 }
+
+ciscoCgwCellQosID OBJECT-TYPE
+    SYNTAX       Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Qos ID"
+    ::= { ciscoCgwCellQosEntry 2 }
+ 
+ciscoCgwCellQosState OBJECT-TYPE
+    SYNTAX       CgwQosState
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Qos State"
+    ::= { ciscoCgwCellQosEntry 3 }
+ 
+ciscoCgwCellQosFlowType OBJECT-TYPE
+    SYNTAX      CgwFlowType
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "QoS Flow Type"
+    ::= { ciscoCgwCellQosEntry 4 } 
+  
+ciscoCgwCellBearerID OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Bearer Id"
+    ::= { ciscoCgwCellQosEntry 5 } 
+     
+ciscoCgwCellEventSeqNo OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "QoS Flow enable/disable event Sequence Number"
+    ::= { ciscoCgwCellQosEntry 6 } 
+   
+ciscoCgwCellTx5gQci OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "5G Tx QoS Class Identifier (QCI)"
+    ::= { ciscoCgwCellQosEntry 7 } 
+
+ciscoCgwCellRx5gQci OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "5G Rx QoS Class Identifier (QCI)"
+    ::= { ciscoCgwCellQosEntry 8 } 
+
+ciscoCgwCellTxAvgWindow OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Averaging window"
+    ::= { ciscoCgwCellQosEntry 9 } 
+
+ciscoCgwCellRxAvgWindow OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Averaging window"
+    ::= { ciscoCgwCellQosEntry 10 } 
+
+ciscoCgwCellTxIpFlowLteQci OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow Lte Qci"
+    ::= { ciscoCgwCellQosEntry 11 } 
+   
+ciscoCgwCellTxIpFlowTrfCls OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Qos Flow Requested traffic class"
+    ::= { ciscoCgwCellQosEntry 12 } 
+
+ciscoCgwCellTxDatarateMax OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx QoS Flow Data Rate Max"
+    ::= { ciscoCgwCellQosEntry 13 } 
+  
+ ciscoCgwCellTxGuaranteedRate OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx QoS Flow Minimum Data Rate Guaranteed"
+    ::= { ciscoCgwCellQosEntry 14 }         
+       
+  ciscoCgwCellTxPeakRate OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx QoS Flow Token bucket peak data rate"
+    ::= { ciscoCgwCellQosEntry 15 }
+
+ ciscoCgwCellTxTokenRate OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx QoS Flow Token bucket token rate"
+    ::= { ciscoCgwCellQosEntry 16 }      
+       
+ ciscoCgwCellTxBucketSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx QoS Flow Token bucket token bucket size"
+    ::= { ciscoCgwCellQosEntry 17 }
+
+         
+ ciscoCgwCellTxIpFlowLatency OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Maximum delay that can be tolerated by an IP packet during transfer"
+    ::= { ciscoCgwCellQosEntry 18 }
+
+ ciscoCgwCellTxIpFlowJitter OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Difference between the maximum and minimum latency (in milliseconds) that can be tolerated by an IP packet during transfer"
+    ::= { ciscoCgwCellQosEntry 19 }
+
+
+ ciscoCgwCellTxIpFlowPktErrRateMultiplier OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Packet error rate multiplier"
+    ::= { ciscoCgwCellQosEntry 20 }
+  
+ ciscoCgwCellTxIpFlowPktErrRateExponent OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Packet error rate exponent"
+    ::= { ciscoCgwCellQosEntry 21 }
+   
+ ciscoCgwCellTxIpFlowMinPolicedPktSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Minimum Policed Packet Size"
+    ::= { ciscoCgwCellQosEntry 22 }
+
+ ciscoCgwCellTxIpFlowMaxAllowedPktSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Maximum Allowed Packet Size"
+    ::= { ciscoCgwCellQosEntry 23 }
+
+ciscoCgwCellTxIpFlow3gppResBER OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "3GPP Res Residual Bit Error Rate"
+    ::= { ciscoCgwCellQosEntry 24 }
+ 
+ciscoCgwCellTxIpFlow3gppTrafficHP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow 3GPP Traffic Handler Priority"
+    ::= { ciscoCgwCellQosEntry 25 }
+
+ ciscoCgwCellTxIpFlow3gpp2ProfileID OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow Profile id for 3GPP2"
+    ::= { ciscoCgwCellQosEntry 26 }
+
+  ciscoCgwCellTxIpFlow3gpp2FlowPriority OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow Priority for 3GPP2"
+    ::= { ciscoCgwCellQosEntry 27 }
+ 
+  ciscoCgwCellTxIpFlow3gppIMCNFlag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow IM CN subsystem signaling flag"
+    ::= { ciscoCgwCellQosEntry 28 }
+     
+  ciscoCgwCellTxIpFlow3gppSigInd OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP Flow 3GPP SigInd"
+    ::= { ciscoCgwCellQosEntry 29 }
+
+ciscoCgwCellRxIpFlowLteQci OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Lte Qci"
+    ::= { ciscoCgwCellQosEntry 30 } 
+   
+ciscoCgwCellRxIpFlowTrfCls OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Qos Flow Requested traffic class"
+    ::= { ciscoCgwCellQosEntry 31 } 
+
+ciscoCgwCellRxDatarateMax OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx QoS Flow Data Rate Max"
+    ::= { ciscoCgwCellQosEntry 32 } 
+  
+ ciscoCgwCellRxGuaranteedRate OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx QoS Flow Minimum Data Rate Guaranteed"
+    ::= { ciscoCgwCellQosEntry 33 }         
+       
+  ciscoCgwCellRxPeakRate OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx QoS Flow Token bucket peak data rate"
+    ::= { ciscoCgwCellQosEntry 34 }
+
+ ciscoCgwCellRxTokenRate OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx QoS Flow Token bucket token rate"
+    ::= { ciscoCgwCellQosEntry 35 }      
+       
+ ciscoCgwCellRxBucketSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx QoS Flow Token bucket token bucket size"
+    ::= { ciscoCgwCellQosEntry 36 }
+
+         
+ ciscoCgwCellRxIpFlowLatency OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Maximum delay that can be tolerated by an IP packet during transfer"
+    ::= { ciscoCgwCellQosEntry 37 }
+
+ ciscoCgwCellRxIpFlowJitter OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Difference between the maximum and minimum latency (in milliseconds) that can be tolerated by an IP packet during transfer"
+    ::= { ciscoCgwCellQosEntry 38 }
+
+ ciscoCgwCellRxIpFlowPktErrRateMultiplier OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Packet error rate multiplier"
+    ::= { ciscoCgwCellQosEntry 39 }
+  
+ ciscoCgwCellRxIpFlowPktErrRateExponent OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Packet error rate exponent"
+    ::= { ciscoCgwCellQosEntry 40 }
+   
+ ciscoCgwCellRxIpFlowMinPolicedPktSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Minimum Policed Packet Size"
+    ::= { ciscoCgwCellQosEntry 41 }
+
+ ciscoCgwCellRxIpFlowMaxAllowedPktSize OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Maximum Allowed Packet Size"
+    ::= { ciscoCgwCellQosEntry 42 }
+
+ciscoCgwCellRxIpFlow3gppResBER OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow 3GPP Res Residual Bit Error Rate"
+    ::= { ciscoCgwCellQosEntry 43 }
+ 
+ciscoCgwCellRxIpFlow3gppTrafficHP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow 3GPP Traffic Handler Priority"
+    ::= { ciscoCgwCellQosEntry 44 }
+
+ ciscoCgwCellRxIpFlow3gpp2ProfileID OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Profile id for 3GPP2"
+    ::= { ciscoCgwCellQosEntry 45 }
+
+  ciscoCgwCellRxIpFlow3gpp2FlowPriority OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow Priority for 3GPP2"
+    ::= { ciscoCgwCellQosEntry 46 }
+ 
+  ciscoCgwCellRxIpFlow3gppIMCNFlag OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow IM CN subsystem signaling flag"
+    ::= { ciscoCgwCellQosEntry 47 }
+     
+  ciscoCgwCellRxIpFlow3gppSigInd OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP Flow 3GPP SigInd"
+    ::= { ciscoCgwCellQosEntry 48 }
+
+ ciscoCgwCellTxIPVersion OBJECT-TYPE
+    SYNTAX      IpVersion
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IP version"
+    ::= { ciscoCgwCellQosEntry 49 }
+
+ ciscoCgwCellTxIPv4AddrSrc OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv4 Source Address"
+    ::= { ciscoCgwCellQosEntry 50 }
+ 
+ciscoCgwCellTxSubnetMaskSrc OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv4 Source Address subnet mask"
+    ::= { ciscoCgwCellQosEntry 51 }
+  
+ ciscoCgwCellTxIPv4AddrDest OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv4 Destination Address"
+    ::= { ciscoCgwCellQosEntry 52 }
+
+ ciscoCgwCellTxSubnetMaskDest OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv4 Destination Address subnet mask"
+    ::= { ciscoCgwCellQosEntry 53 }
+  
+  ciscoCgwCellTxIPv4TosVal OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IPv4 Tos value"
+    ::= { ciscoCgwCellQosEntry 54 }
+   
+  ciscoCgwCellTxIPv4TosMask OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IPv4 Tos Mask"
+    ::= { ciscoCgwCellQosEntry 55 } 
+
+  ciscoCgwCellTxIPv6AddrSrc OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv6 Source Address"
+    ::= { ciscoCgwCellQosEntry 56 } 
+
+  ciscoCgwCellTxIPv6PrefixLenSrc OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Source IPv6 address prefix length"
+    ::= { ciscoCgwCellQosEntry 57 }      
+
+  ciscoCgwCellTxIPv6AddrDest OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv6 Dest Address"
+    ::= { ciscoCgwCellQosEntry 58 } 
+
+  ciscoCgwCellTxIPv6PrefixLenDest OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Dest IPv6 address prefix length"
+    ::= { ciscoCgwCellQosEntry 59 }       
+ 
+  ciscoCgwCellTxIPv6TrfClsVal OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IPv6 Traffic class value"
+    ::= { ciscoCgwCellQosEntry 60 }  
+
+  ciscoCgwCellTxIPv6TrfClsMask OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx IPv6 Traffic class mask"
+    ::= { ciscoCgwCellQosEntry 61 }       
+ 
+  ciscoCgwCellTxFlowLabelIPv6 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow IPv6 Label"
+    ::= { ciscoCgwCellQosEntry 62 }       
+    
+  ciscoCgwCellTxXportProtocol OBJECT-TYPE
+    SYNTAX      Tx-xport-protocol 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Transport Protocol"
+    ::= { ciscoCgwCellQosEntry 63 }    
+   
+  ciscoCgwCellTxXportPort1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Port1"
+    ::= { ciscoCgwCellQosEntry 64 }        
+
+  ciscoCgwCellTxXportRange1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Range1"
+    ::= { ciscoCgwCellQosEntry 65 }       
+
+  ciscoCgwCellTxXportPort2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Port2"
+    ::= { ciscoCgwCellQosEntry 66 }        
+
+  ciscoCgwCellTxXportRange2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Range2"
+    ::= { ciscoCgwCellQosEntry 67 }    
+ 
+  ciscoCgwCellTxXportPort3 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Port3"
+    ::= { ciscoCgwCellQosEntry 68 }        
+
+  ciscoCgwCellTxXportRange3 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Range3"
+    ::= { ciscoCgwCellQosEntry 69 } 
+      
+    ciscoCgwCellTxXportPort4 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Port4"
+    ::= { ciscoCgwCellQosEntry 70 }        
+
+  ciscoCgwCellTxXportRange4 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Range4"
+    ::= { ciscoCgwCellQosEntry 71 }  
+
+  ciscoCgwCellTxTypeICMP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx ICMP Type"
+    ::= { ciscoCgwCellQosEntry 72 }        
+
+  ciscoCgwCellTxCodeICMP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx ICMP Code"
+    ::= { ciscoCgwCellQosEntry 73 }
+
+  ciscoCgwCellTxSpi1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Flow Transport Port1Tx Security parameter index for IPSec"
+    ::= { ciscoCgwCellQosEntry 74 }        
+
+  ciscoCgwCellTxSpi2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Security parameter index for IPSec"
+    ::= { ciscoCgwCellQosEntry 75 }      
+
+  ciscoCgwCellTxFilterID OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Tx Unique identifier for each filter"
+    ::= { ciscoCgwCellQosEntry 76 }       
+  
+ciscoCgwCellRxIPVersion OBJECT-TYPE
+    SYNTAX      IpVersion
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IP version"
+    ::= { ciscoCgwCellQosEntry 77 }
+
+ ciscoCgwCellRxIPv4AddrSrc OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv4 Source Address"
+    ::= { ciscoCgwCellQosEntry 78 }
+ 
+ciscoCgwCellRxSubnetMaskSrc OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv4 Source Address subnet mask"
+    ::= { ciscoCgwCellQosEntry 79 }
+  
+ ciscoCgwCellRxIPv4AddrDest OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv4 Destination Address"
+    ::= { ciscoCgwCellQosEntry 80 }
+
+ ciscoCgwCellRxSubnetMaskDest OBJECT-TYPE
+    SYNTAX      IpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv4 Destination Address subnet mask"
+    ::= { ciscoCgwCellQosEntry 81 }
+  
+  ciscoCgwCellRxIPv4TosVal OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IPv4 Tos value"
+    ::= { ciscoCgwCellQosEntry 82 }
+   
+  ciscoCgwCellRxIPv4TosMask OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IPv4 Tos Mask"
+    ::= { ciscoCgwCellQosEntry 83 } 
+
+  ciscoCgwCellRxIPv6AddrSrc OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv6 Source Address"
+    ::= { ciscoCgwCellQosEntry 84 } 
+
+  ciscoCgwCellRxIPv6PrefixLenSrc OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Source IPv6 address prefix length"
+    ::= { ciscoCgwCellQosEntry 85 }      
+
+  ciscoCgwCellRxIPv6AddrDest OBJECT-TYPE
+    SYNTAX      Ipv6Address
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv6 Dest Address"
+    ::= { ciscoCgwCellQosEntry 86 } 
+
+  ciscoCgwCellRxIPv6PrefixLenDest OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Dest IPv6 address prefix length"
+    ::= { ciscoCgwCellQosEntry 87 }       
+ 
+  ciscoCgwCellRxIPv6TrfClsVal OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IPv6 Traffic class value"
+    ::= { ciscoCgwCellQosEntry 88 }  
+
+  ciscoCgwCellRxIPv6TrfClsMask OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx IPv6 Traffic class mask"
+    ::= { ciscoCgwCellQosEntry 89 }       
+ 
+  ciscoCgwCellRxFlowLabelIPv6 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow IPv6 Label"
+    ::= { ciscoCgwCellQosEntry 90 }       
+    
+  ciscoCgwCellRxXportProtocol OBJECT-TYPE
+    SYNTAX      Rx-xport-protocol 
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Transport Protocol"
+    ::= { ciscoCgwCellQosEntry 91 }    
+   
+  ciscoCgwCellRxXportPort1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Port1"
+    ::= { ciscoCgwCellQosEntry 92 }        
+
+  ciscoCgwCellRxXportRange1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Range1"
+    ::= { ciscoCgwCellQosEntry 93 }       
+
+  ciscoCgwCellRxXportPort2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Port2"
+    ::= { ciscoCgwCellQosEntry 94 }        
+
+  ciscoCgwCellRxXportRange2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Range2"
+    ::= { ciscoCgwCellQosEntry 95 }    
+ 
+  ciscoCgwCellRxXportPort3 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Port3"
+    ::= { ciscoCgwCellQosEntry 96 }        
+
+  ciscoCgwCellRxXportRange3 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Range3"
+    ::= { ciscoCgwCellQosEntry 97 } 
+      
+  ciscoCgwCellRxXportPort4 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Port4"
+    ::= { ciscoCgwCellQosEntry 98 }        
+
+  ciscoCgwCellRxXportRange4 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Flow Transport Range4"
+    ::= { ciscoCgwCellQosEntry 99 }  
+
+  ciscoCgwCellRxTypeICMP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx ICMP Type"
+    ::= { ciscoCgwCellQosEntry 100 }        
+
+  ciscoCgwCellRxCodeICMP OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx ICMP Code"
+    ::= { ciscoCgwCellQosEntry 101 }
+
+  ciscoCgwCellRxSpi1 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Security parameter index for IPSec"
+    ::= { ciscoCgwCellQosEntry 102 }        
+
+  ciscoCgwCellRxSpi2 OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Security parameter index for IPSec"
+    ::= { ciscoCgwCellQosEntry 103 }      
+
+  ciscoCgwCellRxFilterID OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Rx Unique identifier for each filter"
+    ::= { ciscoCgwCellQosEntry 104 }    
+     
+CiscoCgwCellSimEntry ::= 
+SEQUENCE {
+         ciscoCgwCellSimStatusSlot0           String,
+         ciscoCgwCellSimStatusSlot1           String,
+  	 ciscoCgwCellActiveSIM		      INTEGER 
+ }
+
+ciscoCgwCellSimStatusSlot0 OBJECT-TYPE
+     SYNTAX          String 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+        "Sim Status of SIM slot 0"
+     ::= { ciscoCgwCellSimEntry 1 }
+
+ciscoCgwCellSimStatusSlot1 OBJECT-TYPE
+     SYNTAX          String 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+        "Sim Status of SIM slot 1"
+     ::= { ciscoCgwCellSimEntry 2 }
+
+ ciscoCgwCellActiveSIM OBJECT-TYPE
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+         "Shows the active SIM slot number"
+     ::= { ciscoCgwCellSimEntry 3 }
+
+CiscoCgwCellRadioEntry ::= 
+SEQUENCE {
+        cgwCellRadioStatus		CgwRadioStatusEnum,
+        cgwCellRATSelected		CgwRATVal,
+        cgwCellCurrOperatingBand        INTEGER,
+        cgwCellCurrRssi        		INTEGER,
+        cgwCellCurrEcio		        INTEGER,
+        cgwCellChannelNumber       	INTEGER,	
+        cgwCellScramblingCode		INTEGER,
+	cgwCellLTETxChannelNumber	INTEGER,
+	cgwCellLTERxChannelNumber	INTEGER,
+	cgwCellLTEBandwidth		String,
+	cgwCellLTECurrRsrp		INTEGER,
+	cgwCellLTECurrRsrq	 	INTEGER,	
+	cgwCellLTECurrSnr	        String,
+	cgwCellLTEPhyCellId	        INTEGER, 	
+	cgwCellCAstatus			CgwCAstatusEnum,
+	cgwCell5GNRCurrRsrp		INTEGER,
+	cgwCell5GNRCurrRsrq		INTEGER,
+	cgwCell5GNRMeasuredSinr         String
+}
+
+cgwCellRadioStatus OBJECT-TYPE  
+     SYNTAX          CgwRadioStatusEnum 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Radio Status "
+     ::= { ciscoCgwCellRadioEntry 1 }
+
+cgwCellRATSelected OBJECT-TYPE  
+     SYNTAX          CgwRATVal 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "RAT selected "
+     ::= { ciscoCgwCellRadioEntry 2 }
+
+cgwCellCurrOperatingBand OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Operating Band "
+     ::= { ciscoCgwCellRadioEntry 3 }
+
+cgwCellCurrRssi OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Current RSSI "
+     ::= { ciscoCgwCellRadioEntry 4 }
+
+cgwCellCurrEcio OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Current ECIO "
+     ::= { ciscoCgwCellRadioEntry 5 }
+
+cgwCellChannelNumber OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Channel Number "
+     ::= { ciscoCgwCellRadioEntry 6 }
+
+cgwCellScramblingCode OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Scrambling Code " 
+     ::= { ciscoCgwCellRadioEntry 7 }
+
+cgwCellLTETxChannelNumber OBJECT-TYPE  
+     SYNTAX         INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Tx Channel Number " 
+     ::= { ciscoCgwCellRadioEntry 8 }
+
+cgwCellLTERxChannelNumber OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "RxChannelNumber "
+     ::= { ciscoCgwCellRadioEntry 9 }
+
+cgwCellLTEBandwidth OBJECT-TYPE  
+     SYNTAX          String
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Bandwidth " 
+     ::= { ciscoCgwCellRadioEntry 10 }
+
+cgwCellLTECurrRsrp OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Current RSRP "
+     ::= { ciscoCgwCellRadioEntry 11 }
+
+cgwCellLTECurrRsrq OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Current RSRQ "
+     ::= { ciscoCgwCellRadioEntry 12 }
+
+cgwCellLTECurrSnr OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "Current SNR "
+     ::= { ciscoCgwCellRadioEntry 13 }
+
+cgwCellLTEPhyCellId OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION " Phy CELL ID "
+     ::= { ciscoCgwCellRadioEntry 14 }
+
+cgwCellCAstatus OBJECT-TYPE  
+     SYNTAX          CgwCAstatusEnum
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "CA Status "
+     ::= { ciscoCgwCellRadioEntry 15 }
+
+cgwCell5GNRCurrRsrp OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5GNR Current RSRP "
+     ::= { ciscoCgwCellRadioEntry 16 }
+
+cgwCell5GNRCurrRsrq OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5GNR Current RSRQ "
+     ::= { ciscoCgwCellRadioEntry 17 }
+
+cgwCell5GNRMeasuredSinr OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5GNR Measured SNR "
+     ::= { ciscoCgwCellRadioEntry 18 }
+
+CiscoCgwCell5GNRBandEntry ::=
+SEQUENCE {
+        cgwCell5GNRBandCarrierIndex  Byte, 
+        cgwCell5GNRActiveBand      INTEGER,
+        cgwCell5GNRBandwidth	   String,
+        cgwCell5GNRActiveDLChannel INTEGER, 
+        cgwCell5GNRActiveULChannel INTEGER, 
+        cgwCell5GNRPhyCellId	   INTEGER, 
+        cgwCell5GNRCurrRSSI	   INTEGER 
+        }
+
+cgwCell5GNRBandCarrierIndex OBJECT-TYPE  
+     SYNTAX          Byte 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Band Table CarrierIndex "
+     ::= { ciscoCgwCell5GNRBandEntry 1 }
+
+cgwCell5GNRActiveBand OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Active Band "
+     ::= { ciscoCgwCell5GNRBandEntry 2 }
+        
+cgwCell5GNRBandwidth OBJECT-TYPE  
+     SYNTAX          String
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Bandwidth "
+     ::= { ciscoCgwCell5GNRBandEntry 3 }
+        
+cgwCell5GNRActiveDLChannel OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Active DL Channel "
+     ::= { ciscoCgwCell5GNRBandEntry 4 }
+
+cgwCell5GNRActiveULChannel OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Active UL Channel "
+     ::= { ciscoCgwCell5GNRBandEntry 5 }
+
+cgwCell5GNRPhyCellId OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION "5G Phy cell ID "
+     ::= { ciscoCgwCell5GNRBandEntry 6 }
+
+cgwCell5GNRCurrRSSI OBJECT-TYPE  
+     SYNTAX          INTEGER 
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION " 5G Current RSSI"
+     ::= { ciscoCgwCell5GNRBandEntry 7 }
+
+END
