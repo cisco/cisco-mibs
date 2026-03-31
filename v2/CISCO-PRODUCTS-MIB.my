@@ -4,7 +4,7 @@
 --
 -- January 1995, Jeffrey T. Johnson
 --
--- Copyright (c) 1995-2025 by cisco Systems, Inc.
+-- Copyright (c) 1995-2026 by cisco Systems, Inc.
 -- All rights reserved.
 -- 
 -- *****************************************************************
@@ -2903,14 +2903,19 @@ ciscoC130024XTS                     OBJECT IDENTIFIER ::= { ciscoProducts 3253 }
 ciscoNCS57D218DDSYS                 OBJECT IDENTIFIER ::= { ciscoProducts 3254 } -- NCS-57D2-18DD-SYS - Castleblack router 
 ciscoUCSX410CM7                     OBJECT IDENTIFIER ::= { ciscoProducts 3256 } -- Cisco UCS X410c M7 Compute Node
 ciscoFpr1010Etd                     OBJECT IDENTIFIER ::= { ciscoProducts 3257 } -- Cisco Firepower 1010E Security Appliance
+ciscoVG41024FXS                     OBJECT IDENTIFIER ::= { ciscoProducts 3258 } --  Cisco High-Density Voice Gateway series, VG410-24FXS Chassis
+ciscoVG41048FXS                     OBJECT IDENTIFIER ::= { ciscoProducts 3259 } --  Cisco High-Density Voice Gateway series, VG410-48FXS Chassis
+ciscoVG41024FXS4FXO                 OBJECT IDENTIFIER ::= { ciscoProducts 3260 } --  Cisco High-Density Voice Gateway series, VG410-24FXS/4FXO Chassis
 cisco821248FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3261 } --  Cisco 8212 2RU System w/ 48x 400G QSFP56-DD w/ MACsec
 ciscoC8570G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3268 } -- Cisco Aggregation Services Router 1000 Series, C8570-G2 Chassis
 ciscoC8550G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3269 } -- Cisco Aggregation Services Router 1000 Series, C8550-G2 Chassis
 ciscoSNS3715K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3270 } -- Cisco Secure Network Server platform SNS-3715 appliance
 ciscoSNS3755K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3271 } -- Cisco Secure Network Server platform SNS-3755 appliance
 ciscoSNS3795K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3272 } -- Cisco Secure Network Server platform SNS-3795 appliance
+ciscoC8351G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3273 } -- Cisco C8330-6TM4SX Chassis
 ciscoC8355G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3274 } -- Cisco C8330X-6TM4SX Chassis
 ciscoC8375EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3275 } -- Cisco C8375-E-G2 Chassis
+ciscoC8355EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3276 } -- Cisco C8355-E-G2 Chassis
 ciscoC8231EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3277 } -- Cisco C8231-E-G2 Chassis
 ciscoC8235EG2                       OBJECT IDENTIFIER ::= { ciscoProducts 3278 } -- Cisco C8235-E-G2 Chassis
 ciscoC8235G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3279 } -- Cisco C8230-8TM2S Chassis
@@ -2990,6 +2995,7 @@ ciscoC8151G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3376 }
 ciscoC8161G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3377 } -- Cisco C8161-G2 8 Ports GE LAN Router with 8GB memory, 2 RJ45/SFP combo GE WAN, PIM LTE, 4 POE/2 POE+, USB 3.0 and RJ45 console
 ciscoESS93008X16T                   OBJECT IDENTIFIER ::= { ciscoProducts 3378 } -- Catalyst ESS9300 Embedded VPX Series switch – with 8 10G ports and 10 1G copper ports, Fixed system, Network Advantage
 ciscoC9610R                         OBJECT IDENTIFIER ::= { ciscoProducts 3383 } -- Cisco 9600 Series 10 Slot
+cisco8712                           OBJECT IDENTIFIER ::= { ciscoProducts 3388 } -- Cisco 8712 4-Slot Centralized Chassis
 ciscoC11318PWS                      OBJECT IDENTIFIER ::= { ciscoProducts 3396 } -- Cisco C1131-8PWS 8 Ports GE LAN Router with 4GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC1131X8PWS                     OBJECT IDENTIFIER ::= { ciscoProducts 3397 } -- Cisco C1131X-8PWS 8 Ports GE LAN Router with 8GB memory, 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
 ciscoC11318PLTEPWS                  OBJECT IDENTIFIER ::= { ciscoProducts 3398 } -- Cisco C1131-8PLTEPWS 8 Ports GE LAN Router with 4GB memory, Pluggable LTE (Advanced Pro), 802.11ax WLAN -S Domain, 2 RJ45/SFP combo GE WAN, USB 2.0 and RJ45 console
