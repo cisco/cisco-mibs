@@ -29,7 +29,7 @@ IMPORTS
                 FROM CISCO-SMI;
 
 ciscoUnifiedComputingMIB MODULE-IDENTITY
-        LAST-UPDATED  "201001290000Z" 
+        LAST-UPDATED  "202506040000Z" 
         ORGANIZATION  "Cisco"
         CONTACT-INFO
             "Cisco Systems
@@ -73,7 +73,7 @@ ciscoUnifiedComputingMIB MODULE-IDENTITY
          power supply objects and fan objects are examples of
          automatically created MOs.
          "
-      REVISION "201001290000Z" 
+      REVISION "202506040000Z" 
       DESCRIPTION
          "Initial version of this MIB module."
   ::= { ciscoMgmt 719 }
@@ -1811,6 +1811,8 @@ CucsManagedObjectDn ::= TEXTUAL-CONVENTION
         -- fltStorageLocalDiskThermalIssueNonCritical
         -- fltStorageLocalDiskFailed
         -- fltStorageLocalDiskUnhealthy
+        -- fltStorageLocalDiskNotSupported
+        -- fltStorageLocalDiskPCIeSlotHwDisabled
         -- fsmStFailStorageLocalDiskUpdateLocalDisk:PollUpdateStatus
         -- fsmStFailStorageLocalDiskUpdateLocalDisk:PowerOffServers
         -- fsmStFailStorageLocalDiskUpdateLocalDisk:ServersPowerOffCompletion
@@ -5951,6 +5953,7 @@ CucsFaultCode ::= TEXTUAL-CONVENTION
     fltStorageLocalDiskThermalIssueCritical(1604),
     fltStorageLocalDiskThermalIssueNonRecoverable(1605),
     fltStorageLocalDiskNotSupported(1606),
+    fltStorageLocalDiskPCIeSlotHwDisabled(1607),
     fltFabricComputeMSlotEpMisplacedInChassisSlot(1616),
     fltFabricComputeMSlotEpServerIdentificationProblem(1617),
     fltFabricCartridgeSlotEpMisplacedInChassisSlot(1618),
