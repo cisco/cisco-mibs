@@ -2211,6 +2211,7 @@ cevChassisCsf1260                       OBJECT IDENTIFIER ::= { cevChassis 2586 
 cevChassisCW9800M                       OBJECT IDENTIFIER ::= { cevChassis 2593 } -- Cisco Catalyst CW9800M Chassis 
 cevChassisCW9800H1                      OBJECT IDENTIFIER ::= { cevChassis 2594 } -- Cisco Catalyst CW9800H1 Chassis 
 cevChassisCW9800H2                      OBJECT IDENTIFIER ::= { cevChassis 2595 } -- Cisco Catalyst CW9800H2 Chassis 
+cevChassis80114G24Y4HI                  OBJECT IDENTIFIER ::= { cevChassis 2596 } -- 8011 Router - 8011-4G24Y4H-I
 cevChassisNCS1012SA                     OBJECT IDENTIFIER ::= { cevChassis 2597 } -- NCS 1012 Shelf Assembly
 cevChassisNCS1020SA                     OBJECT IDENTIFIER ::= { cevChassis 2598 } -- NCS 1020 Shelf Assembly
 cevChassisC8231G2                       OBJECT IDENTIFIER ::= { cevChassis 2599 } -- Cisco C8231-G2 Chassis
@@ -10241,8 +10242,9 @@ cevModuleC9400LC24XY                    OBJECT IDENTIFIER ::= { cevModule94xxTyp
 cevModuleC9400XSUP3                     OBJECT IDENTIFIER ::= { cevModule94xxType 22 } -- Cisco Catalyst 9400 Series Supervisor 3 Module
 cevModuleC9400XSUP3XL                   OBJECT IDENTIFIER ::= { cevModule94xxType 23 } -- Cisco Catalyst 9400 Series Supervisor 3XL Module
 cevModuleC9400LC60YX                    OBJECT IDENTIFIER ::= { cevModule94xxType 24 } -- Catalyst 9400 Series 60-Port 10/25 Gigabit Ethernet (SFP+)
-cevModuleC9400LC12C                     OBJECT IDENTIFIER ::= { cevModule94xxType 25 } -- Catalyst 9400 Series 12-Port 100 Gigabit Ethernet (QSFP28)
+cevModuleC9400LC12C                     OBJECT IDENTIFIER ::= { cevModule94xxType 25 } -- Cisco Catalyst 9400 Series 12-Port 100 Gigabit Ethernet (QSFP28)
 cevModuleC9400LC48HM                    OBJECT IDENTIFIER ::= { cevModule94xxType 26 } -- Cisco Catalyst 9400 Series 48-Port 2.5Gig/mGig 90W BT (RJ-45)
+cevModuleC9400LC48YL                    OBJECT IDENTIFIER ::= { cevModule94xxType 27 } -- Cisco Catalyst 9400 Series 48-Port 10/25/50 Gigabit Ethernet (SFP+)
 
 cevModuleNCS1000Type                    OBJECT IDENTIFIER ::= { cevModule 129 } -- Modules for  NCS1K Platforms
 cevModuleNCS1000RP0                     OBJECT IDENTIFIER ::= { cevModuleNCS1000Type 1 } -- Route Processor 0 for NCS1K Platforms (NCS1001/NCS1002)
@@ -10731,6 +10733,9 @@ cevModule9350LType           OBJECT IDENTIFIER ::= { cevModule 158 } -- Module f
 cevModuleN91KType            OBJECT IDENTIFIER ::= { cevModule 159 } -- These cards are used for Nexus 9100 series
 cevN9164ENS4O                OBJECT IDENTIFIER ::= { cevModuleN91KType 1 } -- Cisco N9164ENS4O chassis with 64x800G OSFP, 2 power supplies and 4 Fan trays
 cevN9164ENS4OFixedModule     OBJECT IDENTIFIER ::= { cevModuleN91KType 2 } -- Nexus 9000 2RU TOR fixed module with 64x800G + 2x25G SFP ports
+
+
+cevModule9050LType           OBJECT IDENTIFIER ::= { cevModule 160 } -- These cards are used for 9050L Series Switch 
 
 
 cevPort   OBJECT IDENTIFIER ::= { cevMIBObjects 10 }
