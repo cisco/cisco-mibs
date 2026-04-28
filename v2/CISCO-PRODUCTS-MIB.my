@@ -3023,5 +3023,5 @@ ciscoNCS540L6Z6GSys                 OBJECT IDENTIFIER ::= { ciscoProducts 3463 }
 ciscoNCS540L8Z12GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3511 } -- NCS540L Router - N540-8Z12G-SYS-D
 ciscoNCS10142                       OBJECT IDENTIFIER ::= { ciscoProducts 3519 } -- Network Convergence System 1014-2 chassis with timing support
 ciscoIR8340G2                       OBJECT IDENTIFIER ::= { ciscoProducts 3520 } -- Cisco Catalyst IR8340G2 Rugged Router System with 12 1G LAN ports and 2 10G SFP+ WAN ports
-ciscoUCSXEECMCG1                    OBJECT IDENTIFIER ::= { ciscoProducts 3521 } -- Cisco UCSXE-ECMC-G1 Edge Chassis Management Controller (eCMC)
+ciscoUCSXEECMCG1                    OBJECT IDENTIFIER ::= { ciscoProducts 3540 } --  Cisco UCSXE-ECMC-G1 Edge Chassis Management Controller (eCMC)
 END
