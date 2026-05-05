@@ -7,7 +7,7 @@
 --
 -- August 1997, Ramanathan R. Kavasseri
 --
--- Copyright (c) 1997-2025 by cisco Systems, Inc.
+-- Copyright (c) 1997-2026 by cisco Systems, Inc.
 -- All rights reserved.
 -- *****************************************************************
 -- $Log$
@@ -7741,6 +7741,7 @@ cevDSX97483072k9        OBJECT IDENTIFIER ::= { cevModuleMDSType 92 }  -- DS-X97
 cevDSC9148VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 93 }  -- 48 port 8/16/32/64Gbps FC/Sup-4 
 cevDSC9124VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 94 }  -- 24 port 8/16/32/64 Gbps FC/Sup-4 switch
 cevDSC9396VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 95 }  -- Supervisor module for MDS-9396V 64G x 96 FC ports fabric switch
+cevDSX97SF4AK9          OBJECT IDENTIFIER ::= { cevModuleMDSType 96 }  -- DS-X97-SF4A-K9, Supervisor Module 4A for NextGen MDS Director switch
 
 
 cevModuleC3220Type		OBJECT IDENTIFIER ::= { cevModule 54 }			--  Represents the base class for all the modules used in c3220.
