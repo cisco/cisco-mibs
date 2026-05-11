@@ -3,7 +3,7 @@
 --   
 -- September 2002, Srini Kode
 --   
--- Copyright (c) 2002-2024 by cisco Systems Inc.
+-- Copyright (c) 2002-2026 by cisco Systems Inc.
 -- All rights reserved.
 --   
 -- *******************************************************************
@@ -56,7 +56,7 @@ IMPORTS
 
 
 ciscoFcFeMIB MODULE-IDENTITY
-    LAST-UPDATED    "202512100000Z"
+    LAST-UPDATED    "202604290000Z"
     ORGANIZATION    "Cisco Systems Inc."
     CONTACT-INFO
             "Cisco Systems
@@ -90,7 +90,21 @@ ciscoFcFeMIB MODULE-IDENTITY
         Terminology 
                     ELP : Exchange Link parameters 
                     EPP : Exchange Peer Parameters."
-REVISION        "202512100000Z"
+    REVISION        "202604290000Z"
+    DESCRIPTION
+        "-Added the following object to fcIfErrorEntry:
+        fcIfRxWaitCount
+        - Added the following new group:
+        fcIfErrorGroupRev8
+        - Deprecated cffFcFeMIBComplianceRev18 compliance statement
+        - Added cffFcFeMIBComplianceRev19 compliance statement."
+        "-Added the following object to FcIfEntry:
+        fcIfNbrWwn
+        - Added the following new group:
+        fcIfGroupRev7
+        - Deprecated cffFcFeMIBComplianceRev19 compliance statement
+        - Added cffFcFeMIBComplianceRev20 compliance statement."
+    REVISION        "202512100000Z"
     DESCRIPTION
         "-Added the following enums for FcIfOperStatusReason:
         phyPortHotStandby,
@@ -1898,7 +1912,8 @@ FcIfEntry ::= SEQUENCE {
         fcIfAdminFecTtsState        INTEGER,
         fcIfOperFecTtsState         INTEGER,
         fcIfTransceiverPower        INTEGER,
-        fcIfTransceiverPowerControl INTEGER
+        fcIfTransceiverPowerControl INTEGER,
+        fcIfNbrWwn                  FcNameId
 }
 
 fcIfWwn OBJECT-TYPE
@@ -2786,6 +2801,15 @@ fcIfTransceiverPowerControl OBJECT-TYPE
         "The transceiver power control setting for the interface."
     DEFVAL          { on }
     ::= { fcIfEntry 46 }
+
+fcIfNbrWwn OBJECT-TYPE
+    SYNTAX          FcNameId
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The World-Wide Name of the Peer FC-Port. It's a 64-bit
+        identifier and is unique worldwide."
+    ::= { fcIfEntry 47 }
 
 
 -- fcTrunkIfTable.
@@ -4804,7 +4828,8 @@ FcIfErrorEntry ::= SEQUENCE {
         fcIfSlowPortCount                   Counter64,
         fcIfSlowPortOperDelay               CiscoMilliSeconds,
         fcIfStateChangeCount                Counter64,
-        fcHCIfTxWaitCount                   Counter64
+        fcHCIfTxWaitCount                   Counter64,
+        fcIfRxWaitCount                     Counter64
 }
 
 fcIfLinkFailures OBJECT-TYPE
@@ -5269,7 +5294,15 @@ fcHCIfTxWaitCount OBJECT-TYPE
         transmit credits. This object is a 64-bit version
         of fcIfTxWaitCount." 
     ::= { fcIfErrorEntry 47 }
- 
+
+fcIfRxWaitCount OBJECT-TYPE
+    SYNTAX          Counter64
+    MAX-ACCESS      read-only
+    STATUS          current
+    DESCRIPTION
+        "The number of times the FC-port waited due to lack of
+        receive credits."
+    ::= { fcIfErrorEntry 48 }
 
 -- fcIfC2AccountingTable .
 
@@ -7148,7 +7181,7 @@ cffFcFeMIBComplianceRev17 MODULE-COMPLIANCE
     ::= { cffFcFeMIBCompliances 18 }
 
  cffFcFeMIBComplianceRev18 MODULE-COMPLIANCE
-    STATUS          current
+    STATUS          deprecated
     DESCRIPTION
         "The compliance statement for entities which
         implement the CISCO-FC-FE-MIB."
@@ -7340,6 +7373,408 @@ cffFcFeMIBComplianceRev17 MODULE-COMPLIANCE
         "Write access is not required."
 
     ::= { cffFcFeMIBCompliances 19 }
+
+ cffFcFeMIBComplianceRev19 MODULE-COMPLIANCE
+    STATUS          deprecated
+    DESCRIPTION
+        "The compliance statement for entities which
+        implement the CISCO-FC-FE-MIB."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        fcFeGroup,
+                        fcIfGroup,
+                        fcTrunkIfGroup,
+                        fcIfLoginGroup,
+                        fcIfElpGroup,
+                        fcIfErrorGroup,
+                        fcIfC2AccountingGroup,
+                        fcIfC3AccountingGroup,
+                        fcIfCfAccountingGroup,
+                        fcIfNotificationGroup,
+                        fcIfGroupRev1,
+                        fcIfCapGroupRev1,
+                        fcIfGroupRev2,
+                        fcIfStatGroup,
+                        fcIfErrorGroupRev1,
+                        fcIfGroupRev3,
+                        fcIfRNIDInfoGroup,
+                        fcIfInfoGroup,
+                        fcIfGigEinfoExtGroup,
+                        fcIfGigEinfoExtGroupRev1,
+                        fcIfBbScnGroup,
+                        fcIfCapableGroup,
+                        fcIfInfoPortGroup,
+                        fcIfModuleGroupRev1,
+                        fcIfGroupRev4
+                    }
+
+    GROUP           fcotInfoNotificationGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfGigEInfoGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfFlapCtrlConfigGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfErrorGroupRev2
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcIfErrorGroupRev3
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcIfErrorGroupRev4
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcFeGroupRev1
+    DESCRIPTION
+        "Implementation of this group is mandatory only for the
+        devices which support monitor and drop timeout configuration."
+
+    GROUP           fcIfErrorGroupRev5
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support slowport event and operation delay."
+
+    GROUP           fcIfGigEinfoExtGroupRev2
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the devices which support GigE interfaces speed
+        configuration."
+
+    GROUP           fcIfGigEinfoExtGroupRev3
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the devices which support GigE interfaces operational
+        status cause."
+
+    GROUP           fcIfGigEinfoExtGroupRev4
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the linecards which supports service state for
+        GigE interfaces."
+
+    GROUP           fcIfErrorGroupRev6
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support state change counter."
+
+    GROUP           fcIfErrorGroupRev7
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support TX wait counter."
+
+    GROUP           fcIfErrorGroupRev8
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support RX wait counter."
+
+    GROUP           fcIfGroupRev5
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support FEC TTS."
+
+    GROUP           fcIfGroupRev6
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support Transceiver Power."
+
+    OBJECT          cffFcFeElementName
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfPortRateMode
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfRxDataFieldSize
+    SYNTAX          FcRxDataFieldSize
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfAdminRxBbCredit
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminRxBbCreditModeISL
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminRxBbCreditModeFx
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminFECState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfGigEAdminSpeed
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfePortSlowportMonitorTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortSlowportMonitorTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortNoCreditDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfePortCongestionDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortCongestionDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfGigEServiceState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfAdminFecTtsState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          TransceiverPowerControl
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    ::= { cffFcFeMIBCompliances 20 }
+
+cffFcFeMIBComplianceRev20 MODULE-COMPLIANCE
+    STATUS          current
+    DESCRIPTION
+        "The compliance statement for entities which
+        implement the CISCO-FC-FE-MIB."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        fcFeGroup,
+                        fcIfGroup,
+                        fcTrunkIfGroup,
+                        fcIfLoginGroup,
+                        fcIfElpGroup,
+                        fcIfErrorGroup,
+                        fcIfC2AccountingGroup,
+                        fcIfC3AccountingGroup,
+                        fcIfCfAccountingGroup,
+                        fcIfNotificationGroup,
+                        fcIfGroupRev1,
+                        fcIfCapGroupRev1,
+                        fcIfGroupRev2,
+                        fcIfStatGroup,
+                        fcIfErrorGroupRev1,
+                        fcIfGroupRev3,
+                        fcIfRNIDInfoGroup,
+                        fcIfInfoGroup,
+                        fcIfGigEinfoExtGroup,
+                        fcIfGigEinfoExtGroupRev1,
+                        fcIfBbScnGroup,
+                        fcIfCapableGroup,
+                        fcIfInfoPortGroup,
+                        fcIfModuleGroupRev1,
+                        fcIfGroupRev4
+                    }
+
+    GROUP           fcotInfoNotificationGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfGigEInfoGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfFlapCtrlConfigGroup
+    DESCRIPTION
+        "Implementation of this group is optional."
+
+    GROUP           fcIfErrorGroupRev2
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcIfErrorGroupRev3
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcIfErrorGroupRev4
+    DESCRIPTION
+        "Implementation of this group is mandatory only
+        for the devices which support errors of the ports
+        in this group."
+
+    GROUP           fcFeGroupRev1
+    DESCRIPTION
+        "Implementation of this group is mandatory only for the
+        devices which support monitor and drop timeout configuration."
+
+    GROUP           fcIfErrorGroupRev5
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support slowport event and operation delay."
+
+    GROUP           fcIfGigEinfoExtGroupRev2
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the devices which support GigE interfaces speed
+        configuration."
+
+    GROUP           fcIfGigEinfoExtGroupRev3
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the devices which support GigE interfaces operational
+        status cause."
+
+    GROUP           fcIfGigEinfoExtGroupRev4
+    DESCRIPTION
+        "Implementation of this group is mandatory
+        only for the linecards which supports service state for
+        GigE interfaces."
+
+    GROUP           fcIfErrorGroupRev6
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support state change counter."
+
+    GROUP           fcIfErrorGroupRev7
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support TX wait counter."
+
+    GROUP           fcIfErrorGroupRev8
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support RX wait counter."
+
+    GROUP           fcIfGroupRev5
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support FEC TTS."
+
+    GROUP           fcIfGroupRev6
+    DESCRIPTION
+        "Implementation of this group is mandatory only for
+        the devices which support Transceiver Power."
+
+    GROUP           fcIfGroupRev7
+    DESCRIPTION
+        "The port world wide name of the peer Interconnect_Port."
+
+    OBJECT          cffFcFeElementName
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfPortRateMode
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfRxDataFieldSize
+    SYNTAX          FcRxDataFieldSize
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfAdminRxBbCredit
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminRxBbCreditModeISL
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminRxBbCreditModeFx
+    DESCRIPTION
+        "It is compliant to support a range which is
+        smaller than the range defined."
+
+    OBJECT          fcIfAdminFECState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfGigEAdminSpeed
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfePortSlowportMonitorTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortSlowportMonitorTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortNoCreditDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfePortCongestionDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIffPortCongestionDropTimeout
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfGigEServiceState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          fcIfAdminFecTtsState
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    OBJECT          TransceiverPowerControl
+    MIN-ACCESS      read-only
+    DESCRIPTION
+        "Write access is not required."
+
+    ::= { cffFcFeMIBCompliances 21 }
 
 -- Units of Conformance
 
@@ -7942,4 +8377,19 @@ fcIfGroupRev6 OBJECT-GROUP
     DESCRIPTION
         "A collection objects giving port transceiver power information."
     ::= { cffFcFeMIBGroups 43 }
+
+fcIfErrorGroupRev8 OBJECT-GROUP
+    OBJECTS         { fcIfRxWaitCount }
+    STATUS          current
+    DESCRIPTION
+        "Group providing information about 64-bit
+        Receive wait count."
+    ::= { cffFcFeMIBGroups 44 }
+
+fcIfGroupRev7 OBJECT-GROUP
+    OBJECTS         { fcIfNbrWwn }
+    STATUS          current
+    DESCRIPTION
+        "Group providing information of peer worldwide name."
+    ::= { cffFcFeMIBGroups 45 }
 END
