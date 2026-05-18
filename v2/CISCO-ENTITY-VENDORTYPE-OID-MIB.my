@@ -2759,6 +2759,8 @@ cevContainerC9610RPSlot                 OBJECT IDENTIFIER ::= { cevContainer 449
 cevContainerC9610FanTrayBay             OBJECT IDENTIFIER ::= { cevContainer 450 } -- Cisco 9600 Series Fan Tray Bay Module Container
 cevContainerNCS1K14BLANK                OBJECT IDENTIFIER ::= { cevContainer 451 } -- Network Convergence System 1014 Filler
 cevContainerNCS1K14BLANK2               OBJECT IDENTIFIER ::= { cevContainer 458 } -- NCS 1014 Dual width Blank for NCS 1014-2 chassis
+cevContainerIR8340K9POEBay              OBJECT IDENTIFIER ::= { cevContainer 459 } -- IR18340-K9 Series Power Over Ethernet Bay   
+cevContainerIR8340G2POEBay              OBJECT IDENTIFIER ::= { cevContainer 460 } -- IR18340-G2 Series Power Over Ethernet Bay
 
 cevPowerSupply		OBJECT IDENTIFIER ::= { cevMIBObjects 6 }
 cevPowerSupplyAC1360W		OBJECT IDENTIFIER ::= { cevPowerSupply 1 }
@@ -3904,6 +3906,7 @@ cevFanC8530L8S8X4YFanTray       OBJECT IDENTIFIER ::= { cevFan 479 } -- Cisco C8
 cevFanC8530L8S2X2YFanTray       OBJECT IDENTIFIER ::= { cevFan 480 } -- Cisco C8530L-8S2X2Y Fan Tray
 cevFanNCS1010                   OBJECT IDENTIFIER ::= { cevFan 481 } -- NCS1010 Fan Module
 cevFanUCSFAN6664                OBJECT IDENTIFIER ::= { cevFan 489 } -- Cisco UCS 6664 Fan Module
+cevFanUCSFAN6652                OBJECT IDENTIFIER ::= { cevFan 490 } -- Cisco UCS 6652 Fan Module
 cevFanNCS1K4FANP                OBJECT IDENTIFIER ::= { cevFan 491 } -- Network Convergence System 1014 Programmable FAN
 cevFan8700PE                    OBJECT IDENTIFIER ::= { cevFan 492 } -- Cisco 8000 Fan Tray 2RU Chassis Port-S Exhaust / Back-to-front
 cevFanNC57C3FAN1HX              OBJECT IDENTIFIER ::= { cevFan 494 } -- NCS 57C3 Environmentally Hardened Fan Tray (40mm) Chassis Port-S Intake
@@ -4789,6 +4792,7 @@ cevModule822364EFMO                     OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleN9364ESP2RO                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 884 } -- Cisco P200 64x800G OSFP 3RU RP Card NX PID
 cevModule822364EM                       OBJECT IDENTIFIER ::= { cevModuleCommonCards 885 } -- Cisco P200 64x800G QSFP 3RU
 cevModule822364EMO                      OBJECT IDENTIFIER ::= { cevModuleCommonCards 886 } -- Cisco P200 64x800G QSFP 3RU
+cevModuleIRSSDNVME100G                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 888 } -- 100GB NVME SSD Module
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -9643,6 +9647,8 @@ cevModuleC8235G2NIM         OBJECT IDENTIFIER ::= { cevModuleISRType 344 } -- Ci
 cevModuleC8231G2NIM         OBJECT IDENTIFIER ::= { cevModuleISRType 345 } -- Cisco C8231-G2 Chassis Series Built-In Network Interface
 cevModuleCNIMWAN4S          OBJECT IDENTIFIER ::= { cevModuleISRType 352 } -- Network interface module with 4 x 1G SFP ports
 cevModuleCNIMWAN2X          OBJECT IDENTIFIER ::= { cevModuleISRType 353 } -- Network interface module with 2 x 1G/10G SFP ports
+cevModuleC8100VADSLAnnexA   OBJECT IDENTIFIER ::= { cevModuleISRType 360 }  -- Cisco C8100 G2 Series DSL module that supports VDSL/ADSL Annex A 
+cevModuleC8100VADSLAnnexB   OBJECT IDENTIFIER ::= { cevModuleISRType 361 }  -- Cisco C8100 G2 Series DSL module that supports VDSL/ADSL Annex B/J 
 cevModuleP5GS6RCGL          OBJECT IDENTIFIER ::= { cevModuleISRType 386 } -- 5G Sub-6 RedCap / NR Light pluggable interface module (PIM)
 
 
