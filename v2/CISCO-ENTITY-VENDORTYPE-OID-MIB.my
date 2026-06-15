@@ -3938,7 +3938,6 @@ cevFan9808FANB                  OBJECT IDENTIFIER ::= { cevFan 508 } -- Cisco 98
 cevFanFAN1RUPIV3                OBJECT IDENTIFIER ::= { cevFan 509 } -- Cisco 8000 Series 1RU Fan with Port-side Air Intake Ver 3
 cevFanNCS1K14FAN2               OBJECT IDENTIFIER ::= { cevFan 510 } -- Network Convergence System 1014 Programmable FAN
 
-
 cevSensor			OBJECT IDENTIFIER ::= { cevMIBObjects 8 }
 cevSensorMGX8800Temp			OBJECT IDENTIFIER ::= { cevSensor 11 }		-- Cabinet Temperature sensor device in MGX8800 Universal Chassis
 cevSensorMGX8800PSVoltage		OBJECT IDENTIFIER ::= { cevSensor 12 }		-- Power Supply Voltage Monitoring device in MGX8800 Universal Chassis
