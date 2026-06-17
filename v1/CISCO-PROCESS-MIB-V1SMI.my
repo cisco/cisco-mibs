@@ -610,7 +610,7 @@ CpmCoreEntry ::= SEQUENCE {
     }
 
 cpmCoreIndex OBJECT-TYPE
-    SYNTAX Gauge(1..4294967295)
+    SYNTAX Gauge(0..4294967295)
     ACCESS not-accessible
     STATUS mandatory
     DESCRIPTION
