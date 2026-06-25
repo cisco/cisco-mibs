@@ -865,8 +865,5 @@ CLApNtpStatus ::= TEXTUAL-CONVENTION
 
 END
 
-END
-
-
 -- %DNP%  MLC -Compiled MLC
 
