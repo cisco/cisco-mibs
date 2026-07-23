@@ -3512,6 +3512,8 @@ cevPowerSupplyNCS1K14ACPSU3             OBJECT IDENTIFIER ::= { cevPowerSupply 8
 cevPowerSupplyPSU650WACR                OBJECT IDENTIFIER ::= { cevPowerSupply 892 } -- Cisco 8000 Series 650W AC Power Supply Reverse Airflow
 cevPowerSupplyPSU400DC                  OBJECT IDENTIFIER ::= { cevPowerSupply 895 } -- Cisco 400W DC PSU
 cevPowerSupplyPSU8011AC                 OBJECT IDENTIFIER ::= { cevPowerSupply 896 } -- Cisco 8011 Fixed AC PSU
+cevPowerSupplyPSU400AC                  OBJECT IDENTIFIER ::= { cevPowerSupply 898 } -- Cisco 400W AC PSU
+cevPowerSupplyPSU8011DC                 OBJECT IDENTIFIER ::= { cevPowerSupply 899 } -- Cisco 8011 Fixed DC PSU
 
 cevFan			OBJECT IDENTIFIER ::= { cevMIBObjects 7 }
 cevFanC6260FanTray		OBJECT IDENTIFIER ::= { cevFan 3 }		-- Cisco 6260 Fan Tray
@@ -4811,6 +4813,7 @@ cevModuleC955064CXL                     OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModuleC955048L4CD                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 872 } -- Module for Cisco 9550 with 48 Ports of 1G/10G/25G/50G + 4 Ports of 40G/100G or 2 Ports of 400G
 cevModuleC955024L4CD                    OBJECT IDENTIFIER ::= { cevModuleCommonCards 873 } -- Module for Cisco 9550 with 24 Ports of 1G/10G/25G/50G + 4 Ports of 40G/100G or 2 Ports of 400G
 cevModuleC955032C                       OBJECT IDENTIFIER ::= { cevModuleCommonCards 874 } -- Module for Cisco 9550 with 96 Ports of 32 Ports of 40G/100G
+cevModule8818FC1                        OBJECT IDENTIFIER ::= { cevModuleCommonCards 879 } -- Cisco 8818 Fabric Card for 28.8T Line Cards 
 cevModuleNCS1K14OXP2K9                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 880 } -- NCS 1014 12.8T Line Card
 cevModuleNCS1K14OXP2LK9                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 881 } -- NCS 1014 12.8T Licensed card
 cevModule822364EFM                      OBJECT IDENTIFIER ::= { cevModuleCommonCards 882 } -- Cisco P200 64x800G OSFP 3RU RP Card
@@ -4819,6 +4822,10 @@ cevModuleN9364ESP2RO                    OBJECT IDENTIFIER ::= { cevModuleCommonC
 cevModule822364EM                       OBJECT IDENTIFIER ::= { cevModuleCommonCards 885 } -- Cisco P200 64x800G QSFP 3RU
 cevModule822364EMO                      OBJECT IDENTIFIER ::= { cevModuleCommonCards 886 } -- Cisco P200 64x800G QSFP 3RU
 cevModuleIRSSDNVME100G                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 888 } -- 100GB NVME SSD Module
+cevModule80114G24Y4HI                   OBJECT IDENTIFIER ::= { cevModuleCommonCards 889 } -- 8011-4G24Y4H-I Route Processor
+cevModule801112G12X4YA                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 890 } -- 8011-12G12X4Y-A Route Processor
+cevModule801112G12X4YD                  OBJECT IDENTIFIER ::= { cevModuleCommonCards 891 } -- 8011-12G12X4Y-D Route Processor
+cevModule801132Y8L2H2FH                 OBJECT IDENTIFIER ::= { cevModuleCommonCards 892 } -- 8011-32Y8L2H2FH Route Processor
 
 --cevModuleC36xxType cards are slot-cards specific to the c36xx platforms
 cevModuleC36xxType	OBJECT IDENTIFIER ::= { cevModule 3 }
@@ -7772,7 +7779,7 @@ cevDSC9148VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 93 }  -- 48 por
 cevDSC9124VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 94 }  -- 24 port 8/16/32/64 Gbps FC/Sup-4 switch
 cevDSC9396VK9SUP        OBJECT IDENTIFIER ::= { cevModuleMDSType 95 }  -- Supervisor module for MDS-9396V 64G x 96 FC ports fabric switch
 cevDSX97SF4AK9          OBJECT IDENTIFIER ::= { cevModuleMDSType 96 }  -- DS-X97-SF4A-K9, Supervisor Module 4A for NextGen MDS Director switch
-
+cevDS9148VQK9           OBJECT IDENTIFIER ::= { cevModuleMDSType 97 }  -- Cisco MDS 9148V 64-Gbps 48-Port Quantum Safe Fixed Fibre Channel Switch
 
 cevModuleC3220Type		OBJECT IDENTIFIER ::= { cevModule 54 }			--  Represents the base class for all the modules used in c3220.
 cevC3220Smic			OBJECT IDENTIFIER ::= { cevModuleC3220Type 1 }		-- Serial Mobile Interface Card(SMIC) for the C3220 Mobile Access Router with 2 Serial Interfaces.
@@ -9677,7 +9684,6 @@ cevModuleC8100VADSLAnnexA   OBJECT IDENTIFIER ::= { cevModuleISRType 360 }  -- C
 cevModuleC8100VADSLAnnexB   OBJECT IDENTIFIER ::= { cevModuleISRType 361 }  -- Cisco C8100 G2 Series DSL module that supports VDSL/ADSL Annex B/J 
 cevModuleP5GS6RCGL          OBJECT IDENTIFIER ::= { cevModuleISRType 386 } -- 5G Sub-6 RedCap / NR Light pluggable interface module (PIM)
 
-
 cevModuleN77Type             OBJECT IDENTIFIER ::= { cevModule 97 }       -- Group for the Nexus7700 type of cards 
 cevN77c7718Fab2              OBJECT IDENTIFIER ::= { cevModuleN77Type 1 } -- Fabric for Nexus7700 18-slot chassis 
 cevN77c7710Fab2              OBJECT IDENTIFIER ::= { cevModuleN77Type 2 } -- Fabric for Nexus7700 10-slot chassis 
@@ -10518,9 +10524,9 @@ cevDP08QSDDZRBA1             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 158 } -- 80
 cevDP08QSDDZRBA2             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 159 } -- 800Gbps QSFP-DD ZR+ C-band
 cevDP08QSDDLRBA1             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 160 } -- 800Gbps QSFP-DD ZR+ L-band
 cevDP08QSDDLRBA2             OBJECT IDENTIFIER ::= { cevModuleQSFPDD 161 } -- 800Gbps QSFP-DD ZR+ L-band
-cevDP04QSDDE30440            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 162 } --  400G OpenZR+ QSFP-DD Coherent Transceiver
-cevDP04QSDDE30441            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 163 } --  400G OpenZR+ QSFP-DD Coherent Transceiver
-
+cevDP04QSDDE30440            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 162 } -- 400G OpenZR+ QSFP-DD Coherent Transceiver
+cevDP04QSDDE30441            OBJECT IDENTIFIER ::= { cevModuleQSFPDD 163 } -- 400G OpenZR+ QSFP-DD Coherent Transceiver
+cevDP04QSDDE36               OBJECT IDENTIFIER ::= { cevModuleQSFPDD 164 } -- 400G OpenZR+ QSFP-DD Coherent Transceiver
 
 
 cevModuleNCS540LType        OBJECT IDENTIFIER ::= { cevModule 140  } --  NCS540L series
@@ -11158,5 +11164,8 @@ cevTCAMType                  OBJECT IDENTIFIER ::= { cevMIBObjects 13 } -- TCAM 
 
 cevModuleNCS1014             OBJECT IDENTIFIER ::= { cevMIBObjects 14 } -- Module for NCS1014 series
 cevModuleNCS1K14CNTLRK9      OBJECT IDENTIFIER ::= { cevModuleNCS1014 1 } -- Network Convergence System 1014 Controller
+
+cevStorage                   OBJECT IDENTIFIER ::= { cevMIBObjects 15 }
+cevStorageNCS1K14SSD         OBJECT IDENTIFIER ::= { cevStorage 1 } -- Network Convergence System 1014 SSD
 
 END
