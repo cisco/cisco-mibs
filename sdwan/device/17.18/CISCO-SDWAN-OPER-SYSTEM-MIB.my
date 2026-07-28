@@ -1,0 +1,797 @@
+
+-- *****************************************************************
+-- CISCO-SDWAN-OPER-SYSTEM-MIB.my:
+-- OID assignments for Cisco oper system
+
+
+-- July 2021, Richard Fu
+
+-- Copyright (c) 2020-2024 by Cisco Systems, Inc.
+-- All rights reserved.
+-- *****************************************************************
+
+CISCO-SDWAN-OPER-SYSTEM-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY,
+    OBJECT-TYPE,
+    NOTIFICATION-TYPE,
+    Unsigned32,
+    Counter64
+        FROM SNMPv2-SMI
+    MODULE-COMPLIANCE,
+    OBJECT-GROUP,
+    NOTIFICATION-GROUP
+        FROM SNMPv2-CONF
+    TEXTUAL-CONVENTION,
+    TruthValue
+        FROM SNMPv2-TC
+    ciscoMgmt
+        FROM CISCO-SMI
+    systemStatusModel
+        FROM CISCO-SDWAN-MODELS-MIB;
+
+ciscoSdwanOperSystemMIB MODULE-IDENTITY
+    LAST-UPDATED "202101260000Z"
+    ORGANIZATION    "Cisco Systems, Inc. "
+    CONTACT-INFO
+            "       Cisco Systems
+                    Customer Service
+
+            Postal: 170 W Tasman Drive
+                    San Jose, CA  95134
+                    USA
+
+               Tel: +1 800 553-NETS
+
+            E-mail: cs-snmp@cisco.com"
+    DESCRIPTION "This module defines
+                 the data model for system operation"
+    REVISION "202101260000Z"
+    DESCRIPTION "Cisco SDWAN oper system Revision 0"
+    ::= { ciscoMgmt 1004 }
+
+String ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS      current
+    DESCRIPTION "xs:string"
+    SYNTAX      OCTET STRING
+
+-- Notification type definitions
+NotificationSeverity ::= TEXTUAL-CONVENTION
+    STATUS      current
+    DESCRIPTION "Netconf notification severity level"
+    SYNTAX      INTEGER {critical(1),
+                         major(2),
+                         minor(3)}
+
+DomainId ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "<1..4294967295>"
+    SYNTAX      Unsigned32 (0 .. 4294967295)
+
+SiteId ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS      current
+    DESCRIPTION "<1..4294967295>"
+    SYNTAX      Unsigned32 (0 .. 4294967295)
+
+CiscoSdwanIpAddress ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "1t"
+    STATUS       current
+    DESCRIPTION  "IPv4/IPv6 address"
+    SYNTAX       OCTET STRING
+
+-- MIB Objects, Notification Objects, Notification and Conform
+ciscoSdwanSystemMIBNotifs OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIB 0 }
+
+ciscoSdwanOperSystemMIBObjects OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIB 1 }
+
+ciscoSdwanSystemMIBNotifObjects  OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIB 2 }
+
+ciscoSdwanOperSystemMIBConform  OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIB 3 }
+
+-- Display system status information
+-- tagpath /system-status
+systemStatus OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIBObjects 1 }
+
+-- tagpath /system-status/personality
+systemStatusPersonality OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Device type"
+    ::= { systemStatus 1 }
+
+-- tagpath /system-status/version
+systemStatusVersion OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Version"
+    ::= { systemStatus 2 }
+
+-- tagpath /system-status/disk_status
+systemStatusDiskStatus OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk status"
+    ::= { systemStatus 5 }
+
+-- tagpath /system-status/reboot_reason
+systemStatusRebootReason OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Reboot reason"
+    ::= { systemStatus 6 }
+
+-- tagpath /system-status/uptime
+systemStatusUptime OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "System up time"
+    ::= { systemStatus 8 }
+
+-- tagpath /system-status/min1_avg
+systemStatusMin1Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "1 minute average"
+    ::= { systemStatus 9 }
+
+-- tagpath /system-status/min5_avg
+systemStatusMin5Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "5 minute average"
+    ::= { systemStatus 10 }
+
+-- tagpath /system-status/min15_avg
+systemStatusMin15Avg OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "15 minute average"
+    ::= { systemStatus 11 }
+
+-- tagpath /system-status/cpu_user
+systemStatusCpuUser OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cpu in user space"
+    ::= { systemStatus 14 }
+
+-- tagpath /system-status/cpu_system
+systemStatusCpuSystem OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cpu in system"
+    ::= { systemStatus 15 }
+
+-- tagpath /system-status/cpu_idle
+systemStatusCpuIdle OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cpu Idle"
+    ::= { systemStatus 16 }
+
+-- tagpath /system-status/mem_total
+systemStatusMemTotal OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Total memory"
+    ::= { systemStatus 17 }
+
+-- tagpath /system-status/mem_used
+systemStatusMemUsed OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Used memory"
+    ::= { systemStatus 18 }
+
+-- tagpath /system-status/mem_free
+systemStatusMemFree OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Free memory"
+    ::= { systemStatus 19 }
+
+-- tagpath /system-status/mem_buffers
+systemStatusMemBuffers OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Memory used for buffers"
+    ::= { systemStatus 20 }
+
+-- tagpath /system-status/mem_cached
+systemStatusMemCached OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Cached memory"
+    ::= { systemStatus 21 }
+
+-- tagpath /system-status/disk_fs
+systemStatusDiskFs OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk fs"
+    ::= { systemStatus 22 }
+
+-- tagpath /system-status/disk_size
+systemStatusDiskSize OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk size"
+    ::= { systemStatus 23 }
+
+-- tagpath /system-status/disk_used
+systemStatusDiskUsed OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk used"
+    ::= { systemStatus 24 }
+
+-- tagpath /system-status/disk_avail
+systemStatusDiskAvail OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Available disk"
+    ::= { systemStatus 25 }
+
+-- tagpath /system-status/disk_use
+systemStatusDiskUse OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk use"
+    ::= { systemStatus 26 }
+
+-- tagpath /system-status/disk_total_bytes
+systemStatusDiskTotalBytes OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Total disk bytes"
+    ::= { systemStatus 27 }
+
+-- tagpath /system-status/disk_used_bytes
+systemStatusDiskUsedBytes OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Used disk bytes"
+    ::= { systemStatus 28 }
+
+-- tagpath /system-status/disk_avail_bytes
+systemStatusDiskAvailBytes OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Available disk bytes"
+    ::= { systemStatus 29 }
+
+-- tagpath /system-status/disk_mount
+systemStatusDiskMount OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk mount"
+    ::= { systemStatus 30 }
+
+-- tagpath /system-status/services
+systemStatusServices OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Services"
+    ::= { systemStatus 31 }
+
+-- tagpath /system-status/procs
+systemStatusProcs OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of processes"
+    ::= { systemStatus 100 }
+
+-- tagpath /system-status/disk_bsize
+systemStatusDiskBsize OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Disk block size"
+    ::= { systemStatus 101 }
+
+-- tagpath /system-status/disk_blocks
+systemStatusDiskBlocks OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Number of disk blocks"
+    ::= { systemStatus 102 }
+
+-- tagpath /system-status/disk_bused
+systemStatusDiskBused OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Used disk blocks"
+    ::= { systemStatus 103 }
+
+-- tagpath /system-status/disk_bavail
+systemStatusDiskBavail OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Available disk blocks"
+    ::= { systemStatus 104 }
+
+-- tagpath /system-status/vmanaged
+systemStatusVmanaged OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Device is managed by the vmanage"
+    ::= { systemStatus 36 }
+
+-- tagpath /system-status/pseudo-confirm-commit
+systemStatusPseudoConfirmCommit OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Only valid for vmanage .. is always hidden"
+    ::= { systemStatus 37 }
+
+-- tagpath /system-status/config-template-name
+systemStatusConfigTemplateName OBJECT-TYPE
+    SYNTAX      String (SIZE (1 .. 128))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Configuration template assigned by the vManage"
+    ::= { systemStatus 38 }
+
+-- tagpath /system-status/reboot_type
+systemStatusRebootType OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "System reboot type"
+    ::= { systemStatus 48 }
+
+-- tagpath /system-status/total_cpu_count
+systemStatusTotalCpuCount OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Total CPU count"
+    ::= { systemStatus 49 }
+
+-- tagpath /system-status/fp_cpu_count
+systemStatusFpCpuCount OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "FP cpu count"
+    ::= { systemStatus 50 }
+
+-- tagpath /system-status/linux_cpu_count
+systemStatusLinuxCpuCount OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Linux CPU count"
+    ::= { systemStatus 51 }
+
+-- tagpath /system-status/state
+systemStatusState OBJECT-TYPE
+    SYNTAX      INTEGER {blkng-green(0),
+                         green(1),
+			 yellow(2),
+			 red(3)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State"
+    ::= { systemStatus 54 }
+
+-- tagpath /system-status/state_description
+systemStatusSystemStateDescription OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "State description"
+    ::= { systemStatus 55 }
+
+-- tagpath /system-status/fips_mode
+systemStatusSystemFipsMode OBJECT-TYPE
+    SYNTAX      INTEGER {unavailable(0),
+                         disabled(1),
+			 enabled(2)}
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Fips mode"
+    ::= { systemStatus 58 }
+
+-- tagpath /system-status/ctrl_compatibility
+systemStatusSystemCtrlCompatibility OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Control compatibility"
+    ::= { systemStatus 60 }
+
+-- tagpath /system-status/timezone
+systemStatusSystemTimezone OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Time zone"
+    ::= { systemStatus 61 }
+
+-- tagpath /system-status/li_license_enabled
+systemStatusSystemLiLicenseEnabled OBJECT-TYPE
+    SYNTAX      Unsigned32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Li license enabled"
+    ::= { systemStatus 63 }
+
+-- tagpath /system-status/chassis_serial_number
+systemStatusSystemChassisSerialNumber OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Chassis serial number"
+    ::= { systemStatus 64 }
+
+-- tagpath /system-status/installer_disk_fs
+systemStatusInstallerDiskFs OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Installer disk fs"
+    ::= { systemStatus 65 }
+
+-- tagpath /system-status/installer_disk_size
+systemStatusInstallerDiskSize OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Installer disk size"
+    ::= { systemStatus 66 }
+
+-- tagpath /system-status/installer_disk_used
+systemStatusInstallerDiskUsed OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Used installer disk"
+    ::= { systemStatus 67 }
+
+-- tagpath /system-status/installer_disk_avail
+systemStatusInstallerDiskAvail OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Available installer disk"
+    ::= { systemStatus 68 }
+
+-- tagpath /system-status/installer_disk_use
+systemStatusInstallerDiskUse OBJECT-TYPE
+    SYNTAX      Counter64
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Installer disk use"
+    ::= { systemStatus 69 }
+
+-- tagpath /system-status/installer_disk_mount
+systemStatusInstallerDiskMount OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Installer disk mount"
+    ::= { systemStatus 70 }
+
+-- tagpath /system-status/product_id
+systemStatusProductId OBJECT-TYPE
+    SYNTAX      String
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Product id"
+    ::= { systemStatus 71 }
+
+ -- ********************************************************************
+ -- *  Notification System Objects
+ -- ********************************************************************
+
+--eventTime OBJECT-TYPE
+--    SYNTAX      DateAndTime
+--    MAX-ACCESS  read-only
+--    STATUS      current
+--    DESCRIPTION "Time event happens"
+--    ::= { ciscoSdwanSystemMIBNotifObjects 1 }
+
+netconfNotificationSeverity OBJECT-TYPE
+    SYNTAX      NotificationSeverity
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Netconf notification severity level"
+    ::= { ciscoSdwanSystemMIBNotifObjects 2 }
+
+ciscoSdwanSystemOldDomainId OBJECT-TYPE
+    SYNTAX      DomainId
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Old system domain ID"
+    ::= { ciscoSdwanSystemMIBNotifObjects 3 }
+
+ciscoSdwanSystemNewDomainId OBJECT-TYPE
+    SYNTAX      DomainId
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "New system domain ID"
+    ::= { ciscoSdwanSystemMIBNotifObjects 4 }
+
+ciscoSdwanSystemOldOrganizationName OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Old system organization name"
+    ::= { ciscoSdwanSystemMIBNotifObjects 5 }
+
+ciscoSdwanSystemNewOrganizationName OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "New system organization name"
+    ::= { ciscoSdwanSystemMIBNotifObjects 6 }
+
+ciscoSdwanSystemStatusStr OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "System status"
+    ::= { ciscoSdwanSystemMIBNotifObjects 7 }
+
+ciscoSdwanSystemOldSiteId OBJECT-TYPE
+    SYNTAX      SiteId
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Old site ID"
+    ::= { ciscoSdwanSystemMIBNotifObjects 8 }
+
+ciscoSdwanSystemNewSiteId OBJECT-TYPE
+    SYNTAX      SiteId
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "New site ID"
+    ::= { ciscoSdwanSystemMIBNotifObjects 9 }
+
+ciscoSdwanSystemUserName OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "User name"
+    ::= { ciscoSdwanSystemMIBNotifObjects 10 }
+
+ciscoSdwanSystemOldSystemIp OBJECT-TYPE
+    SYNTAX      CiscoSdwanIpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "Old system IP address"
+    ::= { ciscoSdwanSystemMIBNotifObjects 11 }
+
+ciscoSdwanSystemNewSystemIp OBJECT-TYPE
+    SYNTAX      CiscoSdwanIpAddress
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION "New system IP address"
+    ::= { ciscoSdwanSystemMIBNotifObjects 12 }
+
+ -- ********************************************************************
+ -- *  Notifications
+ -- ********************************************************************
+
+ciscoSdwanSystemDomainIdChange NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemOldDomainId,
+                ciscoSdwanSystemNewDomainId
+        }
+        STATUS current
+        DESCRIPTION "System domain ID change trap"
+        ::= { ciscoSdwanSystemMIBNotifs 1 }
+
+ciscoSdwanSystemOrgNameChange NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemOldOrganizationName,
+                ciscoSdwanSystemNewOrganizationName
+        }
+        STATUS current
+        DESCRIPTION "System organization name change trap"
+        ::= { ciscoSdwanSystemMIBNotifs 2 }
+
+ciscoSdwanSystemPseudoCommitStatus NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemStatusStr
+        }
+        STATUS current
+        DESCRIPTION "Pseudo Commit status trap"
+        ::= { ciscoSdwanSystemMIBNotifs 3 }
+
+ciscoSdwanSystemSiteIdChange NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemOldSiteId,
+                ciscoSdwanSystemNewSiteId
+        }
+        STATUS current
+        DESCRIPTION "System site ID change trap"
+        ::= { ciscoSdwanSystemMIBNotifs 4 }
+
+ciscoSdwanSystemSystemCommit NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemUserName
+        }
+        STATUS current
+        DESCRIPTION "System commit trap"
+        ::= { ciscoSdwanSystemMIBNotifs 5 }
+
+ciscoSdwanSystemSystemIpChange NOTIFICATION-TYPE
+        OBJECTS {
+                netconfNotificationSeverity,
+                ciscoSdwanSystemOldSystemIp,
+                ciscoSdwanSystemNewSystemIp
+        }
+        STATUS current
+        DESCRIPTION "System IP address change trap"
+        ::= { ciscoSdwanSystemMIBNotifs 6 }
+
+-- *******************************************************************
+-- *    Compliance statements
+-- *******************************************************************
+
+ciscoSdwanOperSystemMIBCompliances  OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIBConform 1 }
+
+ciscoSdwanOperSystemMIBGroups  OBJECT IDENTIFIER
+    ::= { ciscoSdwanOperSystemMIBConform 2 }
+
+ciscoSdwanOperSystemMIBCompliance MODULE-COMPLIANCE
+    STATUS         current
+    DESCRIPTION
+        "The compliance statement for the SNMP entities
+         that implement the ciscoSdwanOperSystemMIB module."
+    MODULE          -- this module
+    MANDATORY-GROUPS {
+                        cSdwanOperSystemGroup,
+			cSdwanOperSystemNotifObjsGroup,
+                        cSdwanOperSystemNotifsGroup
+                    }
+    ::= { ciscoSdwanOperSystemMIBCompliances 1 }
+
+-- *******************************************************************
+-- *    Units of conformance
+-- *******************************************************************
+
+cSdwanOperSystemGroup OBJECT-GROUP
+    OBJECTS         {
+                       systemStatusPersonality,
+                       systemStatusVersion,
+                       systemStatusDiskStatus,
+                       systemStatusRebootReason,
+                       systemStatusUptime,
+                       systemStatusMin1Avg,
+                       systemStatusMin5Avg,
+                       systemStatusMin15Avg,
+                       systemStatusCpuUser,
+                       systemStatusCpuSystem,
+                       systemStatusCpuIdle,
+                       systemStatusMemTotal,
+                       systemStatusMemUsed,
+                       systemStatusMemFree,
+                       systemStatusMemBuffers,
+                       systemStatusMemCached,
+                       systemStatusDiskFs,
+                       systemStatusDiskSize,
+                       systemStatusDiskUsed,
+                       systemStatusDiskAvail,
+                       systemStatusDiskUse,
+                       systemStatusDiskTotalBytes,
+                       systemStatusDiskUsedBytes,
+                       systemStatusDiskAvailBytes,
+                       systemStatusDiskMount,
+                       systemStatusServices,
+                       systemStatusProcs,
+                       systemStatusDiskBsize,
+                       systemStatusDiskBlocks,
+                       systemStatusDiskBused,
+                       systemStatusDiskBavail,
+                       systemStatusVmanaged,
+                       systemStatusPseudoConfirmCommit,
+                       systemStatusConfigTemplateName,
+                       systemStatusModel,
+                       systemStatusRebootType,
+                       systemStatusTotalCpuCount,
+                       systemStatusFpCpuCount,
+                       systemStatusLinuxCpuCount,
+                       systemStatusState,
+                       systemStatusSystemStateDescription,
+                       systemStatusSystemFipsMode,
+                       systemStatusSystemCtrlCompatibility,
+                       systemStatusSystemTimezone,
+                       systemStatusSystemLiLicenseEnabled,
+                       systemStatusSystemChassisSerialNumber,
+                       systemStatusInstallerDiskFs,
+                       systemStatusInstallerDiskSize,
+                       systemStatusInstallerDiskUsed,
+                       systemStatusInstallerDiskAvail,
+                       systemStatusInstallerDiskUse,
+                       systemStatusInstallerDiskMount,
+                       systemStatusProductId
+                    }
+    STATUS          current
+    DESCRIPTION
+        "This is a collection of objects of oper system. "
+    ::= { ciscoSdwanOperSystemMIBGroups 1 }
+
+cSdwanOperSystemNotifObjsGroup OBJECT-GROUP
+    OBJECTS {
+               netconfNotificationSeverity,
+	       ciscoSdwanSystemOldDomainId,
+	       ciscoSdwanSystemNewDomainId,
+	       ciscoSdwanSystemOldOrganizationName,
+	       ciscoSdwanSystemNewOrganizationName,
+	       ciscoSdwanSystemStatusStr,
+	       ciscoSdwanSystemOldSiteId,
+	       ciscoSdwanSystemNewSiteId,
+	       ciscoSdwanSystemUserName,
+	       ciscoSdwanSystemOldSystemIp,
+	       ciscoSdwanSystemNewSystemIp
+            }
+    STATUS          current
+    DESCRIPTION
+        "This is a collection of objects of
+                             system notification objects."
+    ::= { ciscoSdwanOperSystemMIBGroups 2 }
+
+cSdwanOperSystemNotifsGroup NOTIFICATION-GROUP
+   NOTIFICATIONS {
+                    ciscoSdwanSystemDomainIdChange,
+		    ciscoSdwanSystemOrgNameChange,
+		    ciscoSdwanSystemPseudoCommitStatus,
+		    ciscoSdwanSystemSiteIdChange,
+		    ciscoSdwanSystemSystemCommit,
+		    ciscoSdwanSystemSystemIpChange
+                 }
+    STATUS          current
+    DESCRIPTION
+        "This is a collection of system notifications."
+    ::= { ciscoSdwanOperSystemMIBGroups 3 }
+
+
+END
