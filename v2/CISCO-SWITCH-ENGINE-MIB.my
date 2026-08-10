@@ -4722,10 +4722,14 @@ cseTcamResourceType OBJECT-TYPE
                         IngressAnalyticsMAC(323),
                         EgressAnalyticsL3V4(324),
                         EgressAnalyticsL3V6(325),
-                        ingressSvcRedirP1v4(326),
-                        ingressSvcRedirP1v6(327),
-                        ingressSvcRedirP2v4(328),
-                        ingressSvcRedirP2v6(329)
+                        ingressSvcRedirL3P1v4(326),
+                        ingressSvcRedirL3P1v6(327),
+                        ingressSvcRedirL3P2v4(328),
+                        ingressSvcRedirL3P2v6(329),
+                        ingressSvcRedirL2P1v4(330),
+                        ingressSvcRedirL2P1v6(331),
+                        ingressSvcRedirL2P2v4(332),
+                        ingressSvcRedirL2P2v6(333)
                     }
     MAX-ACCESS      not-accessible
     STATUS          current
