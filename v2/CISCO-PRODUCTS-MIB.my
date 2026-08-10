@@ -3029,11 +3029,17 @@ ciscoC9KVA100L                      OBJECT IDENTIFIER ::= { ciscoProducts 3427 }
 ciscoSNS3815K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3437 } -- SNS3815 Hardware appliance support for ISE on M8
 ciscoSNS3855K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3438 } -- SNS3855 Hardware appliance support for ISE on M8
 ciscoSNS3895K9                      OBJECT IDENTIFIER ::= { ciscoProducts 3439 } -- SNS3895 Hardware appliance support for ISE on M8
+ciscoC8130VAIG2                     OBJECT IDENTIFIER ::= { ciscoProducts 3440 } -- Cisco C8130-VAI-G2 4 Ports GE LAN Router with 4GB memory, 1 RJ45/SFP combo GE, 1 XGSPON/10G(SFP+) WAN, DSL Annex B/J, USB 3.0 and RJ45 console
+ciscoC8130VAPG2                     OBJECT IDENTIFIER ::= { ciscoProducts 3441 } -- Cisco C8130-VAP-G2 4 Ports GE LAN Router with 4GB memory, 1 RJ45/SFP combo GE, 1 XGSPON/10G(SFP+) WAN, DSL Annex A, USB 3.0 and RJ45 console
+ciscoC8151CVAIG2                    OBJECT IDENTIFIER ::= { ciscoProducts 3442 } -- Cisco C8151-CVAI-G2 8 Ports GE LAN Router with 8GB memory, 1 RJ45/SFP combo GE, 1 XGSPON/10G(SFP+) WAN, DSL Annex B/J, built-in 5G LTE, USB 3.0 and RJ45 console
+ciscoC8151CVAPG2                    OBJECT IDENTIFIER ::= { ciscoProducts 3443 } -- Cisco C8151-CVAP-G2 8 Ports GE LAN Router with 8GB memory, 1 RJ45/SFP combo GE, 1 XGSPON/10G(SFP+) WAN, DSL Annex A, built-in 5G LTE, USB 3.0 and RJ45 console
 cisco871148ZM                       OBJECT IDENTIFIER ::= { ciscoProducts 3452 } -- Cisco 8711 1RU chassis with 48x 50G + 4x 200G + 6x 400G port
 cisco8712MODM                       OBJECT IDENTIFIER ::= { ciscoProducts 3453 } -- Cisco 8712 6.4T System
 ciscoUCSXE1X0CM8                    OBJECT IDENTIFIER ::= { ciscoProducts 3454 } -- Cisco UCS XE1X0 M8 Compute Node
 ciscoC9610RVirtualStack             OBJECT IDENTIFIER ::= { ciscoProducts 3455 } -- Virtual Stack of Cisco 9610
+ciscoC8131G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3456 } -- Cisco C8131-G2 4 Ports GE LAN Router with 8GB memory, 1 RJ45 + 1 RJ45/SFP combo GE WAN, USB 3.0 and RJ45 console
 ciscoNCS540L6Z6GSys                 OBJECT IDENTIFIER ::= { ciscoProducts 3463 } -- NCS540L Router - N540X-6Z6G-SYS
+ciscoC8151HCG2                      OBJECT IDENTIFIER ::= { ciscoProducts 3467 } -- Cisco C8151H-C-G2 8 Ports GE LAN Router with 8GB memory, 1 RJ45/SFP combo GE, 1 10G-CU WAN, built-in 5G LTE, USB 3.0 and RJ45 console
 ciscoNCS540L8Z12GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3511 } -- NCS540L Router - N540-8Z12G-SYS-D
 ciscoC955096L4DVirtualStack         OBJECT IDENTIFIER ::= { ciscoProducts 3512 } -- Virtual Stack of Cisco C955096L4D
 ciscoC955064CXLVirtualStack         OBJECT IDENTIFIER ::= { ciscoProducts 3513 } -- Virtual Stack of Cisco C955064CX
@@ -3045,5 +3051,4 @@ ciscoIR8340G2                       OBJECT IDENTIFIER ::= { ciscoProducts 3520 }
 ciscoUCSXEECMCG1                    OBJECT IDENTIFIER ::= { ciscoProducts 3540 } --  Cisco UCSXE-ECMC-G1 Edge Chassis Management Controller (eCMC)
 ciscoC8455G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3541 } -- Cisco 8400 Series Secure Routers , C8455-G2 Chassis
 ciscoC8475G2                        OBJECT IDENTIFIER ::= { ciscoProducts 3542 } -- Cisco 8400 Series Secure Routers , C8475-G2 Chassis
-
 END
