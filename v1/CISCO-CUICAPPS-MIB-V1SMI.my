@@ -33,7 +33,6 @@ IMPORTS
     ciscoMgmt
         FROM CISCO-SMI;
 
-
 ciscoCuicappsMIB MODULE-IDENTITY
     LAST-UPDATED    "201001230000Z"
     ORGANIZATION    "Cisco Systems, Inc."
@@ -59,7 +58,6 @@ ciscoCuicappsMIB MODULE-IDENTITY
         The CISCO-CUICAPPS-MIB defines objects that describe
         instrumentation implemented by the components comprising CUIC.
 
-
         DEFINITION OF TERMS AND ACRONYMS
 
         CUIC            Cisco Unified Intelligence Center
@@ -83,8 +81,6 @@ ciscoCuicappsMIB MODULE-IDENTITY
     DESCRIPTION
         "Initial version of this MIB module."
     ::= { ciscoMgmt 718 }
-
-
 
 CuicServiceStatus ::= TEXTUAL-CONVENTION
     STATUS          current
@@ -157,16 +153,16 @@ cuicGeneralInfoEntry OBJECT-TYPE
     ::= { cuicGeneralInfoTable 1 }
 
 CuicGeneralInfoEntry ::= SEQUENCE {
-        cuicGeneralInfoIndex               CuicSubsystemId,
-        cuicGeneralInfoServerName          SnmpAdminString,
-        cuicGeneralInfoServerDescription   SnmpAdminString,
-        cuicGeneralInfoVersion             SnmpAdminString,
-        cuicGeneralInfoStartTime           DateAndTime,
-        cuicGeneralInfoTimeZoneName        SnmpAdminString,
-        cuicGeneralInfoSystemStatus        CuicServiceStatus,
-        cuicGeneralInfoOpsConsoleURL       CiscoURLString,
-        cuicGeneralInfoEnableNotifications TruthValue
-}
+    cuicGeneralInfoIndex CuicSubsystemId,
+    cuicGeneralInfoServerName SnmpAdminString,
+    cuicGeneralInfoServerDescription SnmpAdminString,
+    cuicGeneralInfoVersion SnmpAdminString,
+    cuicGeneralInfoStartTime DateAndTime,
+    cuicGeneralInfoTimeZoneName SnmpAdminString,
+    cuicGeneralInfoSystemStatus CuicServiceStatus,
+    cuicGeneralInfoOpsConsoleURL CiscoURLString,
+    cuicGeneralInfoEnableNotifications TruthValue
+    }
 
 cuicGeneralInfoIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -266,8 +262,6 @@ cuicGeneralInfoEnableNotifications OBJECT-TYPE
     DEFVAL          { true }
     ::= { cuicGeneralInfoEntry 9 }
 
-
-
 cuicLicenseInfoTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicLicenseInfoEntry
     MAX-ACCESS      not-accessible
@@ -293,12 +287,12 @@ cuicLicenseInfoEntry OBJECT-TYPE
     ::= { cuicLicenseInfoTable 1 }
 
 CuicLicenseInfoEntry ::= SEQUENCE {
-        cuicLicenseInfoIndex          CuicSubsystemId,
-        cuicLicenseInfoType           INTEGER,
-        cuicLicenseInfoStartTime      DateAndTime,
-        cuicLicenseInfoExpirationTime DateAndTime,
-        cuicLicenseInfoHost           SnmpAdminString
-}
+    cuicLicenseInfoIndex CuicSubsystemId,
+    cuicLicenseInfoType INTEGER,
+    cuicLicenseInfoStartTime DateAndTime,
+    cuicLicenseInfoExpirationTime DateAndTime,
+    cuicLicenseInfoHost SnmpAdminString
+    }
 
 cuicLicenseInfoIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -353,8 +347,6 @@ cuicLicenseInfoHost OBJECT-TYPE
         cluster."
     ::= { cuicLicenseInfoEntry 5 }
 
-
-
 cuicReportingTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicReportingEntry
     MAX-ACCESS      not-accessible
@@ -382,30 +374,30 @@ cuicReportingEntry OBJECT-TYPE
     ::= { cuicReportingTable 1 }
 
 CuicReportingEntry ::= SEQUENCE {
-        cuicReportingIndex                           			CuicSubsystemId,
-        cuicReportingDataSourceCount                 			Gauge32,
-        cuicReportingEngineStatus                    			CuicServiceStatus,
-        cuicReportingHistoricalReportDefinitionCount 			Gauge32,
-        cuicReportingRealTimeReportDefinitionCount   			Gauge32,
-        cuicReportingHistoricalReportRunning         			Gauge32,
-        cuicReportingHistoricalReportWaiting         			Gauge32,
-        cuicReportingTotalKickedOffHistoricalReports 			Counter32,
-        cuicReportingRealTimeReportRunning           			Gauge32,
-        cuicReportingTotalKickedOffRealTimeReports   			Counter32,
-        cuicReportingRealTimeReportWaiting           			Gauge32,
-        cuicReportingHistoricalHTMLPermalinkDataSetRead			Gauge32,
-        cuicReportingHistoricalEXCELPermalinkDataSetRead		Gauge32,
-        cuicReportingHistoricalXMLPermalinkDataSetRead			Gauge32,
-        cuicReportingHistoricalHTMLPermalinkDataSetCreated		Gauge32,
-        cuicReportingHistoricalEXCELPermalinkDataSetCreated		Gauge32,
-        cuicReportingHistoricalXMLPermalinkDataSetCreated		Gauge32,
-        cuicReportingRealtimeHTMLPermalinkDataSetRead			Gauge32,
-        cuicReportingRealtimeEXCELPermalinkDataSetRead			Gauge32,
-        cuicReportingRealtimeXMLPermalinkDataSetRead			Gauge32,
-        cuicReportingRealtimeHTMLPermalinkDataSetCreated		Gauge32,
-        cuicReportingRealtimeEXCELPermalinkDataSetCreated		Gauge32,
-        cuicReportingRealtimeXMLPermalinkDataSetCreated			Gauge32
-}
+    cuicReportingIndex CuicSubsystemId,
+    cuicReportingDataSourceCount Gauge32,
+    cuicReportingEngineStatus CuicServiceStatus,
+    cuicReportingHistoricalReportDefinitionCount Gauge32,
+    cuicReportingRealTimeReportDefinitionCount Gauge32,
+    cuicReportingHistoricalReportRunning Gauge32,
+    cuicReportingHistoricalReportWaiting Gauge32,
+    cuicReportingTotalKickedOffHistoricalReports Counter32,
+    cuicReportingRealTimeReportRunning Gauge32,
+    cuicReportingTotalKickedOffRealTimeReports Counter32,
+    cuicReportingRealTimeReportWaiting Gauge32,
+    cuicReportingHistoricalHTMLPermalinkDataSetRead Gauge32,
+    cuicReportingHistoricalEXCELPermalinkDataSetRead Gauge32,
+    cuicReportingHistoricalXMLPermalinkDataSetRead Gauge32,
+    cuicReportingHistoricalHTMLPermalinkDataSetCreated Gauge32,
+    cuicReportingHistoricalEXCELPermalinkDataSetCreated Gauge32,
+    cuicReportingHistoricalXMLPermalinkDataSetCreated Gauge32,
+    cuicReportingRealtimeHTMLPermalinkDataSetRead Gauge32,
+    cuicReportingRealtimeEXCELPermalinkDataSetRead Gauge32,
+    cuicReportingRealtimeXMLPermalinkDataSetRead Gauge32,
+    cuicReportingRealtimeHTMLPermalinkDataSetCreated Gauge32,
+    cuicReportingRealtimeEXCELPermalinkDataSetCreated Gauge32,
+    cuicReportingRealtimeXMLPermalinkDataSetCreated Gauge32
+    }
 
 cuicReportingIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -533,7 +525,6 @@ cuicReportingRealTimeReportWaiting OBJECT-TYPE
         "This object indicates the number of real time reports that
         are currently waiting to be executed."
     ::= { cuicReportingEntry 11 }
-
 
 cuicReportingHistoricalHTMLPermalinkDataSetRead OBJECT-TYPE
     SYNTAX          Gauge32
@@ -683,13 +674,13 @@ cuicSchedulerEntry OBJECT-TYPE
     ::= { cuicSchedulerTable 1 }
 
 CuicSchedulerEntry ::= SEQUENCE {
-        cuicSchedulerIndex              CuicSubsystemId,
-        cuicSchedulerStatus             CuicServiceStatus,
-        cuicSchedulerEmailServerStatus  CuicServiceStatus,
-        cuicSchedulerJobsCompletedCount Counter32,
-        cuicSchedulerJobsRunningCount   Gauge32,
-        cuicSchedulerJobsFailedCount    Counter32
-}
+    cuicSchedulerIndex CuicSubsystemId,
+    cuicSchedulerStatus CuicServiceStatus,
+    cuicSchedulerEmailServerStatus CuicServiceStatus,
+    cuicSchedulerJobsCompletedCount Counter32,
+    cuicSchedulerJobsRunningCount Gauge32,
+    cuicSchedulerJobsFailedCount Counter32
+    }
 
 cuicSchedulerIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -751,8 +742,6 @@ cuicSchedulerJobsFailedCount OBJECT-TYPE
         service has failed to complete successfully."
     ::= { cuicSchedulerEntry 6 }
 
-
-
 cuicDbInfoTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicDbInfoEntry
     MAX-ACCESS      not-accessible
@@ -779,12 +768,12 @@ cuicDbInfoEntry OBJECT-TYPE
     ::= { cuicDbInfoTable 1 }
 
 CuicDbInfoEntry ::= SEQUENCE {
-        cuicDbInfoIndex             CuicSubsystemId,
-        cuicDbInfoStatus            CuicServiceStatus,
-        cuicDbInfoReplicationStatus CuicServiceStatus,
-        cuicDbInfoTmpSpaceUsed      Gauge32,
-        cuicDbInfoSpaceUsed         Gauge32
-}
+    cuicDbInfoIndex CuicSubsystemId,
+    cuicDbInfoStatus CuicServiceStatus,
+    cuicDbInfoReplicationStatus CuicServiceStatus,
+    cuicDbInfoTmpSpaceUsed Gauge32,
+    cuicDbInfoSpaceUsed Gauge32
+    }
 
 cuicDbInfoIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -832,8 +821,6 @@ cuicDbInfoSpaceUsed OBJECT-TYPE
         "This object indicates the percentage database disk space."
     ::= { cuicDbInfoEntry 5 }
 
-
-
 cuicClusterTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicClusterEntry
     MAX-ACCESS      not-accessible
@@ -854,11 +841,11 @@ cuicClusterEntry OBJECT-TYPE
     ::= { cuicClusterTable 1 }
 
 CuicClusterEntry ::= SEQUENCE {
-        cuicClusterIndex         CuicSubsystemId,
-        cuicClusterName          SnmpAdminString,
-        cuicClusterServerCount   Gauge32,
-        cuicClusterFirstNodeName SnmpAdminString
-}
+    cuicClusterIndex CuicSubsystemId,
+    cuicClusterName SnmpAdminString,
+    cuicClusterServerCount Gauge32,
+    cuicClusterFirstNodeName SnmpAdminString
+    }
 
 cuicClusterIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -898,8 +885,6 @@ cuicClusterFirstNodeName OBJECT-TYPE
         (Publisher node)."
     ::= { cuicClusterEntry 4 }
 
-
-
 cuicDatasourceTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicDatasourceEntry
     MAX-ACCESS      not-accessible
@@ -929,12 +914,12 @@ cuicDatasourceEntry OBJECT-TYPE
     ::= { cuicDatasourceTable 1 }
 
 CuicDatasourceEntry ::= SEQUENCE {
-        cuicDatasourceIndex  Unsigned32,
-        cuicDatasourceName   SnmpAdminString,
-        cuicDatasourceStatus INTEGER,
-        cuicDatasourceHost   SnmpAdminString,
-        cuicDatasourceType   INTEGER
-}
+    cuicDatasourceIndex Unsigned32,
+    cuicDatasourceName SnmpAdminString,
+    cuicDatasourceStatus INTEGER,
+    cuicDatasourceHost SnmpAdminString,
+    cuicDatasourceType INTEGER
+    }
 
 cuicDatasourceIndex OBJECT-TYPE
     SYNTAX          Unsigned32 (1..1000)
@@ -995,8 +980,6 @@ cuicDatasourceType OBJECT-TYPE
         different vendor data sources like MSSQL,IBM Informix etc."
     ::= { cuicDatasourceEntry 5 }
 
-
-
 cuicSecurityTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF CuicSecurityEntry
     MAX-ACCESS      not-accessible
@@ -1025,12 +1008,12 @@ cuicSecurityEntry OBJECT-TYPE
     ::= { cuicSecurityTable 1 }
 
 CuicSecurityEntry ::= SEQUENCE {
-        cuicSecurityIndex               CuicSubsystemId,
-        cuicSecurityUsersConfigured     Gauge32,
-        cuicSecurityUsersLoggedIn       Gauge32,
-        cuicSecurityLoginFailedAttempts Counter32,
-        cuicSecurityGroupsConfigured    Gauge32
-}
+    cuicSecurityIndex CuicSubsystemId,
+    cuicSecurityUsersConfigured Gauge32,
+    cuicSecurityUsersLoggedIn Gauge32,
+    cuicSecurityLoginFailedAttempts Counter32,
+    cuicSecurityGroupsConfigured Gauge32
+    }
 
 cuicSecurityIndex OBJECT-TYPE
     SYNTAX          CuicSubsystemId
@@ -1083,7 +1066,6 @@ cuicSecurityGroupsConfigured OBJECT-TYPE
         like Reports, Report Definition etc."
     ::= { cuicSecurityEntry 5 }
 
-
 cuicThreadPoolInfo  OBJECT IDENTIFIER
     ::= { ciscoCuicappsMIBObjects 9 }
 
@@ -1092,7 +1074,6 @@ cuicEnvInfo  OBJECT IDENTIFIER
 
 cuicNotificationInfo  OBJECT IDENTIFIER
     ::= { ciscoCuicappsMIBObjects 11 }
-
 
 cuicThreadsMaxAvailable OBJECT-TYPE
     SYNTAX          Gauge32
@@ -1421,7 +1402,6 @@ ciscoCuicappsMIBEvent NOTIFICATION-TYPE
 ciscoCuicappsMIBCompliances  OBJECT IDENTIFIER
     ::= { ciscoCuicappsMIBConform 1 }
 
-
 -- ******************************************************************
 -- Compliance
 -- ******************************************************************
@@ -1449,7 +1429,6 @@ ciscoCuicAppsMIBCompliance MODULE-COMPLIANCE
     ::= { ciscoCuicappsMIBCompliances 1 }
 ciscoCuicappsMIBGroups  OBJECT IDENTIFIER
     ::= { ciscoCuicappsMIBConform 2 }
-
 
 cuicGeneralInfoTableGroup OBJECT-GROUP
     OBJECTS         {
