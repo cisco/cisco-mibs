@@ -2819,6 +2819,7 @@ cisco820232FHM                      OBJECT IDENTIFIER ::= { ciscoProducts 3150 }
 cisco820232FHMO                     OBJECT IDENTIFIER ::= { ciscoProducts 3151 } -- Cisco 8200 2 RU Chassis with 32x400G QSFP56-DD with Open Software, HBM and MACsec
 ciscoNCS1010                        OBJECT IDENTIFIER ::= { ciscoProducts 3153 } -- Cisco Network Convergence System 1010, Optical Line System
 ciscoNCS57C148Q6Sys                 OBJECT IDENTIFIER ::= { ciscoProducts 3154 } -- NCS5700 Router - NCS-57C1-48Q6-SYS
+ciscoCat9500XVirtualStack           OBJECT IDENTIFIER ::= { ciscoProducts 3155 } -- Virtual Stack of Cisco Catalyst 9500X
 cisco820124H8FH                     OBJECT IDENTIFIER ::= { ciscoProducts 3157 } -- Cisco 8000 Series 24x100 and 8x400G QSFPDD 1RU Fixed System w/HBM
 ciscoNCS55A124Q6HS                  OBJECT IDENTIFIER ::= { ciscoProducts 3158 } -- Network Convergence Services NCS55A1 24Q6H_S 1RU Chassis
 ciscoNCS540L6Z14GSysD               OBJECT IDENTIFIER ::= { ciscoProducts 3163 } -- NCS540L Router - N540-6Z14G-SYS-D 
